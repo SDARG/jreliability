@@ -18,7 +18,7 @@ import de.cs12.bdd.BDDProvider;
  *            the type of the variables
  */
 public class JBDDProvider<T> implements BDDProvider<T> {
-	private static int variableOffset = 0;
+	private int variableOffset = 0;
 
 	BDDFactory bddFactory;
 
@@ -33,7 +33,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 			factoryInit = true;
 			bddFactory = JFactory.init(1000000, 200000);
 			bddFactory.setVarNum(vars);
-			// bddFactory.autoReorder(BDDFactory.REORDER_SIFT);
+			bddFactory.autoReorder(BDDFactory.REORDER_SIFT);
 		}
 
 	}
