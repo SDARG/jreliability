@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<project name="reliability" default="compile">
+
+	<property name="version" value="1.0" />
+	<property name="lib.dir" value="lib" />
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="utils.dir" value="utils" />
+	
+	<property name="guice.jar" value="guice-1.0.jar" />
+	<property name="javabdd.jar" value="javabdd-1.0b2.jar" />
+	
+	<tstamp>
+		<format property="date" pattern="MM/dd/yyyy"  />
+	</tstamp>
+
+	<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${utils.dir}/jarjar-1.0rc7.jar" />
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}" includes="*.jar" />
+	</path>
+	
+	<target name="all" depends="clean,init,jar,dist,javadoc" description="Compile Java source." />
+
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}/src" />
+		<mkdir dir="${build.dir}/javadoc" />
+		<mkdir dir="${build.dir}/classes" />
+		<mkdir dir="${build.dir}/jar" />
+		<mkdir dir="${build.dir}/dist/reliability-${version}" />
+		
+		<copy toDir="${build.dir}/src">
+			<fileset dir="${src.dir}" excludes=".svn,.svn/**/*,**/.svn" />
+		</copy>
+		<replace dir="${build.dir}/src" token="@VERSION" value="${version}" includes="**/*" />
+		<replace dir="${build.dir}/src" token="@DATE" value="${date}" includes="**/*" />
+	</target>
+
+	<target name="compile" depends="init" description="Compile Java source.">
+		<javac srcdir="${build.dir}/src" debug="on" destdir="${build.dir}/classes" source="1.5" target="1.5">
+			<classpath refid="compile.classpath" />
+			<compilerarg value="-Xlint" />
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile" description="Build jar.">
+		<jarjar jarfile="${build.dir}/jar/reliability-${version}.jar">
+			<fileset dir="${build.dir}/classes" />
+			<zipfileset src="${lib.dir}/${guice.jar}" excludes="META-INF/**" />
+			<zipfileset src="${lib.dir}/${javabdd.jar}" excludes="META-INF/**" />
+			<manifest />
+		</jarjar>
+	</target>
+
+	<target name="dist" depends="jar" description="Build distribution.">
+		<property name="zip.dir" value="${build.dir}/dist/reliability-${version}" />
+		<copy toDir="${zip.dir}">
+			<fileset dir="${build.dir}/jar" includes="*.jar" />
+		</copy>
+
+		<replace dir="${zip.dir}" token="@VERSION" value="${version}" includes="**/*" />
+
+		<zip destfile="${build.dir}/reliability-${version}.zip" basedir="${build.dir}/dist" />
+		<tar destfile="${build.dir}/reliability-${version}.tar" basedir="${build.dir}/dist" />
+		<gzip src="${build.dir}/reliability-${version}.tar" destfile="${build.dir}/reliability-${version}.tar.gz" />
+	</target>
+
+	<target name="javadoc" depends="init" description="Generate Javadocs.">
+		<javadoc sourcepath="${build.dir}/src" packagenames="*" destdir="${build.dir}/javadoc" author="false" protected="true" windowtitle="Opt4J ${version} API" overview="${build.dir}/src/overview.html">
+			<classpath refid="compile.classpath" />
+			<link href="http://java.sun.com/javase/6/docs/api" />
+		</javadoc>
+	</target>
+
+	<target name="clean" description="Remove generated files.">
+		<delete dir="${build.dir}" />
+	</target>
+
+</project>
