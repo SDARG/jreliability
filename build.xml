@@ -2,18 +2,7 @@
 
 <project name="reliability" default="compile">
 
-	<property name="version" value="1.0" />
-	<property name="lib.dir" value="lib" />
-	<property name="src.dir" value="src" />
-	<property name="build.dir" value="build" />
-	<property name="utils.dir" value="utils" />
-	
-	<property name="guice.jar" value="guice-1.0.jar" />
-	<property name="javabdd.jar" value="javabdd-1.0b2.jar" />
-	
-	<tstamp>
-		<format property="date" pattern="MM/dd/yyyy"  />
-	</tstamp>
+	<property file="utils/build.properties" />
 
 	<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${utils.dir}/jarjar-1.0rc7.jar" />
 
@@ -33,8 +22,6 @@
 		<copy toDir="${build.dir}/src">
 			<fileset dir="${src.dir}" excludes=".svn,.svn/**/*,**/.svn" />
 		</copy>
-		<replace dir="${build.dir}/src" token="@VERSION" value="${version}" includes="**/*" />
-		<replace dir="${build.dir}/src" token="@DATE" value="${date}" includes="**/*" />
 	</target>
 
 	<target name="compile" depends="init" description="Compile Java source.">
@@ -47,9 +34,7 @@
 	<target name="jar" depends="compile" description="Build jar.">
 		<jarjar jarfile="${build.dir}/jar/reliability-${version}.jar">
 			<fileset dir="${build.dir}/classes" />
-			<zipfileset src="${lib.dir}/${guice.jar}" excludes="META-INF/**" />
 			<zipfileset src="${lib.dir}/${javabdd.jar}" excludes="META-INF/**" />
-			<manifest />
 		</jarjar>
 	</target>
 
@@ -58,8 +43,6 @@
 		<copy toDir="${zip.dir}">
 			<fileset dir="${build.dir}/jar" includes="*.jar" />
 		</copy>
-
-		<replace dir="${zip.dir}" token="@VERSION" value="${version}" includes="**/*" />
 
 		<zip destfile="${build.dir}/reliability-${version}.zip" basedir="${build.dir}/dist" />
 		<tar destfile="${build.dir}/reliability-${version}.tar" basedir="${build.dir}/dist" />
