@@ -1,6 +1,6 @@
 package de.cs12.reliability.distribution;
 
-import de.cs12.bdd.reliability.Distribution;
+import de.cs12.reliability.Distribution;
 
 /**
  * The {@code WeibullDistribution} represents the Weibull distribution with

@@ -1,4 +1,4 @@
-package de.cs12.bdd.reliability;
+package de.cs12.reliability;
 
 import java.util.Map;
 import java.util.SortedMap;
