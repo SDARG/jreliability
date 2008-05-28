@@ -1,4 +1,4 @@
-package de.cs12.bdd.reliability.distribution;
+package de.cs12.reliability.distribution;
 
 import de.cs12.bdd.reliability.Distribution;
 
