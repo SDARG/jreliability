@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.cs12.bdd.javabdd;
+package de.cs12.reliability.javabdd;
 
 import de.cs12.reliability.bdd.BDDProvider;
 import de.cs12.reliability.bdd.BDDProviderFactory;

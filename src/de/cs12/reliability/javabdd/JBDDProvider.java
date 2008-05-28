@@ -1,4 +1,4 @@
-package de.cs12.bdd.javabdd;
+package de.cs12.reliability.javabdd;
 
 import java.util.Arrays;
 import java.util.HashMap;

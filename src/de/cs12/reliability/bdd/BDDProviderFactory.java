@@ -2,7 +2,7 @@ package de.cs12.reliability.bdd;
 
 import com.google.inject.ImplementedBy;
 
-import de.cs12.bdd.javabdd.JBDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory;
 
 /**
  * The {@code BDDProviderFactory} creates {@code BDDProviders}.
