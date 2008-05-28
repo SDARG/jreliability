@@ -99,6 +99,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#and(org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> and(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.and(((JBDD<T>) that).bdd));
 	}
@@ -108,6 +109,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#andWith(org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public void andWith(BDD<T> that) {
 		bdd.andWith(((JBDD<T>) that).bdd);
 	}
@@ -128,6 +130,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#exist(java.util.Set)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> exist(T variable) {
 		return new JBDD<T>(provider, bdd.exist(((JBDD<T>) provider
 				.get(variable)).bdd));
@@ -138,6 +141,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#forAll(java.util.Set)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> forAll(T variable) {
 		return new JBDD<T>(provider, bdd.forAll(((JBDD<T>) provider
 				.get(variable)).bdd));
@@ -175,6 +179,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#ite(org.opt4.bdd.BDD, org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
 		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
 				((JBDD<T>) elseBDD).bdd));
@@ -212,6 +217,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#or(org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> or(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.or(((JBDD<T>) that).bdd));
 	}
@@ -221,6 +227,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#orWith(org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public void orWith(BDD<T> that) {
 		bdd.orWith(((JBDD<T>) that).bdd);
 	}
@@ -230,6 +237,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#replace(java.util.Map)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> replace(T variable1, T variable2) {
 		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
 				.get(variable1)).bdd.var(),
@@ -242,6 +250,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#replaceWith(java.util.Map)
 	 */
+	@SuppressWarnings("unchecked")
 	public void replaceWith(T variable1, T variable2) {
 		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
 				.get(variable1)).bdd.var(),
@@ -272,6 +281,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#xor(org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> xor(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.xor(((JBDD<T>) that).bdd));
 	}
@@ -281,6 +291,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4.bdd.BDD#xorWith(org.opt4.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public void xorWith(BDD<T> that) {
 		bdd.xorWith(((JBDD<T>) that).bdd);
 	}
@@ -290,6 +301,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#imp(org.opt4j.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public BDD<T> imp(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.imp(((JBDD<T>) that).bdd));
 	}
@@ -299,6 +311,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#impWith(org.opt4j.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public void impWith(BDD<T> that) {
 		bdd.impWith(((JBDD<T>) that).bdd);
 	}
@@ -328,6 +341,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#andWith(java.util.Set)
 	 */
+	@SuppressWarnings("unchecked")
 	public void andWith(Collection<T> that) {
 		for (T variable : that) {
 			bdd.andWith(((JBDD<T>) provider.get(variable)).bdd);
@@ -339,6 +353,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#andWith(java.lang.Object)
 	 */
+	@SuppressWarnings("unchecked")
 	public void andWith(T that) {
 		bdd.andWith(((JBDD<T>) provider.get(that)).bdd);
 	}
@@ -348,6 +363,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#orWith(java.util.Set)
 	 */
+	@SuppressWarnings("unchecked")
 	public void orWith(Collection<T> that) {
 		for (T variable : that) {
 			bdd.orWith(((JBDD<T>) provider.get(variable)).bdd);
@@ -359,6 +375,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#orWith(java.lang.Object)
 	 */
+	@SuppressWarnings("unchecked")
 	public void orWith(T that) {
 		bdd.orWith(((JBDD<T>) provider.get(that)).bdd);
 	}
@@ -368,6 +385,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#impWith(java.lang.Object)
 	 */
+	@SuppressWarnings("unchecked")
 	public void impWith(T that) {
 		bdd.impWith(((JBDD<T>) provider.get(that)).bdd);
 	}
@@ -377,6 +395,7 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.opt4j.bdd.BDD#xorWith(java.lang.Object)
 	 */
+	@SuppressWarnings("unchecked")
 	public void xorWith(T that) {
 		bdd.xorWith(((JBDD<T>) provider.get(that)).bdd);
 	}
