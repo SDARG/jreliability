@@ -1,4 +1,4 @@
-package de.cs12.bdd;
+package de.cs12.reliability.bdd;
 
 import java.util.Collection;
 import java.util.Iterator;

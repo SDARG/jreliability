@@ -2,7 +2,7 @@ package de.cs12.bdd.reliability;
 
 import java.util.Map;
 
-import de.cs12.bdd.BDD;
+import de.cs12.reliability.bdd.BDD;
 
 /**
  * The {@code InverseEvaluator} calculates the inverse function of the

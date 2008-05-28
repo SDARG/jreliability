@@ -7,8 +7,8 @@ import java.util.Map;
 
 import net.sf.javabdd.BDDFactory;
 import net.sf.javabdd.JFactory;
-import de.cs12.bdd.BDD;
-import de.cs12.bdd.BDDProvider;
+import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.bdd.BDDProvider;
 
 /**
  * The {@code JBDDProvider} Bidde nedd zweimol instandziihren!!

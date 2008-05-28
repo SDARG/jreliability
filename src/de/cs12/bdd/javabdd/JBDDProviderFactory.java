@@ -3,8 +3,8 @@
  */
 package de.cs12.bdd.javabdd;
 
-import de.cs12.bdd.BDDProvider;
-import de.cs12.bdd.BDDProviderFactory;
+import de.cs12.reliability.bdd.BDDProvider;
+import de.cs12.reliability.bdd.BDDProviderFactory;
 
 /**
  * The {@code JBDDProviderFactory} is a {@code BDDProviderFactory} for the
@@ -18,7 +18,7 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.bdd.BDDProviderFactory#getProvider(int)
+	 * @see de.cs12.reliability.bdd.BDDProviderFactory#getProvider(int)
 	 */
 	public <T> BDDProvider<T> getProvider(int vars) {
 		return new JBDDProvider<T>(vars);

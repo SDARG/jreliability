@@ -3,7 +3,7 @@ package de.cs12.bdd.reliability;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.cs12.bdd.BDD;
+import de.cs12.reliability.bdd.BDD;
 
 /**
  * The {@code IntegralEvaluator} performs an integration of the {@code BDDs} top

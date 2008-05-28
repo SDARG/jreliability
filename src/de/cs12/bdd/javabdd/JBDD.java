@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import net.sf.javabdd.BDDPairing;
 
-import de.cs12.bdd.BDD;
+import de.cs12.reliability.bdd.BDD;
 
 /**
  * The {@code JBDD}

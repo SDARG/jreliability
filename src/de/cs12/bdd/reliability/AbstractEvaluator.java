@@ -3,7 +3,7 @@ package de.cs12.bdd.reliability;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.cs12.bdd.BDD;
+import de.cs12.reliability.bdd.BDD;
 
 /**
  * The {@code AbstractEvaluator} is the abstract base class for all evaluators

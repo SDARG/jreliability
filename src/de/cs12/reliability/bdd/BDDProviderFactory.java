@@ -1,4 +1,4 @@
-package de.cs12.bdd;
+package de.cs12.reliability.bdd;
 
 import com.google.inject.ImplementedBy;
 

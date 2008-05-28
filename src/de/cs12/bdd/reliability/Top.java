@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import de.cs12.bdd.BDD;
+import de.cs12.reliability.bdd.BDD;
 
 /**
  * The {@code Top} calculates the probability of the root node (top event) of a

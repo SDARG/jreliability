@@ -33,7 +33,7 @@ public class WeibullDistribution implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.bdd.reliability.Distribution#getY(double)
 	 */
 	public double getY(double x) {
 		return Math.exp(-(alpha * Math.pow(x, beta)));
