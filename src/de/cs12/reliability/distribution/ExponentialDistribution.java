@@ -3,7 +3,7 @@ package de.cs12.reliability.distribution;
 import de.cs12.reliability.Distribution;
 
 /**
- * The {@code ExponentialDistribution} represents the exponential distribution
+ * The {@code ExponentialDistribution} represents the exponential distribution.
  * <p>
  * {@code f(x) = e^-(alpha * x)}.
  * 
