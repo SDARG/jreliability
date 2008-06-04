@@ -1,10 +1,11 @@
-package de.cs12.reliability;
+package de.cs12.reliability.evaluator;
 
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.distribution.Distribution;
 
 /**
  * The {@code SamplingEvaluator} creates samples of the function
@@ -28,7 +29,7 @@ public class SamplingEvaluator<T> extends AbstractEvaluator<T> {
 	}
 
 	/**
-	 * Returs the samples of the {@code BDD} from {@code low} to {@code high}
+	 * Returns the samples of the {@code BDD} from {@code low} to {@code high}
 	 * using the given {@code step} width.
 	 * 
 	 * @param distributions

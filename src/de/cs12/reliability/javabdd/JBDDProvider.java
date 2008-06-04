@@ -11,7 +11,8 @@ import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
 
 /**
- * The {@code JBDDProvider} Bidde nedd zweimol instandziihren!!
+ * The {@code JBDDProvider} used to get {@code JBDDs}. Note: Never instantiate
+ * this object more than once!
  * 
  * @author glass, reimann
  * @param <T>
@@ -28,6 +29,12 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 
 	private boolean factoryInit = false;
 
+	/**
+	 * Constructs a {@code JBDDProvider} with a given number of variables.
+	 * 
+	 * @param vars
+	 *            the number of variables
+	 */
 	public JBDDProvider(int vars) {
 		if (!factoryInit) {
 			factoryInit = true;
@@ -38,6 +45,11 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.bdd.BDDProvider#add(java.util.List)
+	 */
 	public void add(List<T> variables) {
 		for (T variable : variables) {
 			variableToInt.put(variable, variableOffset);
@@ -46,6 +58,11 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.bdd.BDDProvider#add(T[])
+	 */
 	public void add(T... variables) {
 		add(Arrays.asList(variables));
 	}
@@ -53,7 +70,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDDProvider#zero()
+	 * @see de.cs12.reliability.bdd.BDDProvider#zero()
 	 */
 	public JBDD<T> zero() {
 		return new JBDD<T>(this, bddFactory.zero());
@@ -62,7 +79,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDDProvider#one()
+	 * @see de.cs12.reliability.bdd.BDDProvider#one()
 	 */
 	public JBDD<T> one() {
 		return new JBDD<T>(this, bddFactory.one());
@@ -71,7 +88,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDDProvider#get(java.lang.Object)
+	 * @see de.cs12.reliability.bdd.BDDProvider#get(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> get(T variable) {
@@ -84,7 +101,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDDProvider#get(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDDProvider#get(de.cs12.reliability.bdd.BDD)
 	 */
 	public T get(BDD<T> bdd) {
 		return intToVariable.get(((JBDD<T>) bdd).bdd.var());

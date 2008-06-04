@@ -8,7 +8,8 @@ import net.sf.javabdd.BDDPairing;
 import de.cs12.reliability.bdd.BDD;
 
 /**
- * The {@code JBDD}
+ * The {@code JBDD} is a {@code BDD} based on the {@code JavaBDD}
+ * implementation.
  * 
  * @author glass, reimann
  * @param <T>
@@ -20,7 +21,7 @@ public class JBDD<T> implements BDD<T> {
 	net.sf.javabdd.BDD bdd;
 
 	/**
-	 * The {@code BDDIterator} is the shit that comes out of a koala ass.
+	 * The {@code BDDIterator} is used as the {@code Iterator}.
 	 * 
 	 * @author glass, reimann
 	 * 
@@ -70,7 +71,8 @@ public class JBDD<T> implements BDD<T> {
 
 	/**
 	 * Constructs a {@code JBDD} with a {@code JBDDProvider} and the BDD
-	 * implementation used in the {@code JBBFactory} of the javabdd library.
+	 * implementation used in the {@code JBBFactory} of the {@code JavaBDD}
+	 * library.
 	 * 
 	 * @param provider
 	 *            the used JBDDProvider
@@ -87,7 +89,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#allsat()
+	 * @see de.cs12.reliability.bdd.BDD#allsat()
 	 */
 	@SuppressWarnings("unchecked")
 	public BDDIterator allsat() {
@@ -97,7 +99,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#and(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#and(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> and(BDD<T> that) {
@@ -107,7 +109,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#andWith(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#andWith(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public void andWith(BDD<T> that) {
@@ -117,7 +119,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#equals(org.opt4.bdd.BDD)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -128,7 +130,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#exist(java.util.Set)
+	 * @see de.cs12.reliability.bdd.BDD#exist(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> exist(T variable) {
@@ -139,7 +141,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#forAll(java.util.Set)
+	 * @see de.cs12.reliability.bdd.BDD#forAll(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> forAll(T variable) {
@@ -150,7 +152,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#high()
+	 * @see de.cs12.reliability.bdd.BDD#high()
 	 */
 	public BDD<T> high() {
 		return new JBDD<T>(provider, bdd.high());
@@ -159,7 +161,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#isOne()
+	 * @see de.cs12.reliability.bdd.BDD#isOne()
 	 */
 	public boolean isOne() {
 		return bdd.isOne();
@@ -168,7 +170,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#isZero()
+	 * @see de.cs12.reliability.bdd.BDD#isZero()
 	 */
 	public boolean isZero() {
 		return bdd.isZero();
@@ -177,7 +179,8 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#ite(org.opt4.bdd.BDD, org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
+	 *      de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
@@ -188,7 +191,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#level()
+	 * @see de.cs12.reliability.bdd.BDD#level()
 	 */
 	public int level() {
 		return bdd.level();
@@ -197,7 +200,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#low()
+	 * @see de.cs12.reliability.bdd.BDD#low()
 	 */
 	public BDD<T> low() {
 		return new JBDD<T>(provider, bdd.low());
@@ -206,7 +209,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#not()
+	 * @see de.cs12.reliability.bdd.BDD#not()
 	 */
 	public BDD<T> not() {
 		return new JBDD<T>(provider, bdd.not());
@@ -215,7 +218,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#or(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#or(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> or(BDD<T> that) {
@@ -225,7 +228,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#orWith(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#orWith(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public void orWith(BDD<T> that) {
@@ -235,7 +238,8 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#replace(java.util.Map)
+	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
+	 *      java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> replace(T variable1, T variable2) {
@@ -248,7 +252,8 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#replaceWith(java.util.Map)
+	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
+	 *      java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public void replaceWith(T variable1, T variable2) {
@@ -261,7 +266,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#sat()
+	 * @see de.cs12.reliability.bdd.BDD#sat()
 	 */
 	public BDD<T> sat() {
 		return new JBDD<T>(provider, bdd.satOne());
@@ -270,7 +275,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#var()
+	 * @see de.cs12.reliability.bdd.BDD#var()
 	 */
 	public T var() {
 		return provider.get(this);
@@ -279,7 +284,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#xor(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#xor(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> xor(BDD<T> that) {
@@ -289,7 +294,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4.bdd.BDD#xorWith(org.opt4.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#xorWith(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public void xorWith(BDD<T> that) {
@@ -299,7 +304,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#imp(org.opt4j.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#imp(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public BDD<T> imp(BDD<T> that) {
@@ -309,7 +314,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#impWith(org.opt4j.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#impWith(de.cs12.reliability.bdd.BDD)
 	 */
 	@SuppressWarnings("unchecked")
 	public void impWith(BDD<T> that) {
@@ -339,7 +344,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#andWith(java.util.Set)
+	 * @see de.cs12.reliability.bdd.BDD#andWith(java.util.Collection)
 	 */
 	@SuppressWarnings("unchecked")
 	public void andWith(Collection<T> that) {
@@ -351,7 +356,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#andWith(java.lang.Object)
+	 * @see de.cs12.reliability.bdd.BDD#andWith(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public void andWith(T that) {
@@ -361,7 +366,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#orWith(java.util.Set)
+	 * @see de.cs12.reliability.bdd.BDD#orWith(java.util.Collection)
 	 */
 	@SuppressWarnings("unchecked")
 	public void orWith(Collection<T> that) {
@@ -373,7 +378,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#orWith(java.lang.Object)
+	 * @see de.cs12.reliability.bdd.BDD#orWith(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public void orWith(T that) {
@@ -383,7 +388,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#impWith(java.lang.Object)
+	 * @see de.cs12.reliability.bdd.BDD#impWith(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public void impWith(T that) {
@@ -393,7 +398,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.opt4j.bdd.BDD#xorWith(java.lang.Object)
+	 * @see de.cs12.reliability.bdd.BDD#xorWith(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public void xorWith(T that) {

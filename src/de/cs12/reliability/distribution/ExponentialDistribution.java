@@ -1,7 +1,5 @@
 package de.cs12.reliability.distribution;
 
-import de.cs12.reliability.Distribution;
-
 /**
  * The {@code ExponentialDistribution} represents the exponential distribution.
  * <p>
@@ -12,6 +10,9 @@ import de.cs12.reliability.Distribution;
  */
 public class ExponentialDistribution implements Distribution {
 
+	/**
+	 * The used failure-rate {@code lambda}.
+	 */
 	protected final double alpha;
 
 	/**
@@ -27,7 +28,7 @@ public class ExponentialDistribution implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
 	 */
 	public double getY(double x) {
 		return Math.exp(-(alpha * x));

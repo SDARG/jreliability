@@ -1,9 +1,11 @@
-package de.cs12.reliability;
+package de.cs12.reliability.evaluator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.bdd.Top;
+import de.cs12.reliability.distribution.Distribution;
 
 /**
  * The {@code AbstractEvaluator} is the abstract base class for all evaluators

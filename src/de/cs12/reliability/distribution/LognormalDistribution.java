@@ -1,7 +1,5 @@
 package de.cs12.reliability.distribution;
 
-import de.cs12.reliability.Distribution;
-
 /**
  * The {@code LognormalDistribution} represents the lognormal distribution
  * <p>
@@ -12,7 +10,15 @@ import de.cs12.reliability.Distribution;
  */
 public class LognormalDistribution implements Distribution {
 
+	/**
+	 * The used mean of the natural logarithms of the times-to-failure.
+	 */
 	protected final double mu;
+
+	/**
+	 * The used standard deviation of the natural logarithms of the
+	 * times-to-failure.
+	 */
 	protected final double rho;
 
 	/**
@@ -32,7 +38,7 @@ public class LognormalDistribution implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
 	 */
 	public double getY(double x) {
 		double preTerm = 1 / (rho * Math.sqrt(2 * Math.PI));

@@ -18,7 +18,7 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.BDDProviderFactory#getProvider(int)
+	 * @see de.cs12.reliability.evaluator.bdd.BDDProviderFactory#getProvider(int)
 	 */
 	public <T> BDDProvider<T> getProvider(int vars) {
 		return new JBDDProvider<T>(vars);

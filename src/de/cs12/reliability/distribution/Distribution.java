@@ -1,4 +1,4 @@
-package de.cs12.reliability;
+package de.cs12.reliability.distribution;
 
 /**
  * The {@code Distribution} is an interface to represent functions

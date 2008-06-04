@@ -1,8 +1,9 @@
-package de.cs12.reliability;
+package de.cs12.reliability.evaluator;
 
 import java.util.Map;
 
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.distribution.Distribution;
 
 /**
  * The {@code InverseEvaluator} calculates the inverse function of the
@@ -15,6 +16,10 @@ import de.cs12.reliability.bdd.BDD;
  */
 public class InverseEvaluator<T> extends AbstractEvaluator<T> {
 
+	/**
+	 * The allowed {@code epsilon} for the bisection approach used to derive the
+	 * inverse.
+	 */
 	protected final double epsilon;
 
 	/**

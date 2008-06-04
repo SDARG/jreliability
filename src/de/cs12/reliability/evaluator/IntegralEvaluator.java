@@ -1,9 +1,10 @@
-package de.cs12.reliability;
+package de.cs12.reliability.evaluator;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.distribution.Distribution;
 
 /**
  * The {@code IntegralEvaluator} performs an integration of the {@code BDDs} top
@@ -17,6 +18,9 @@ import de.cs12.reliability.bdd.BDD;
  */
 public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 
+	/**
+	 * The allowed {@code epsilon} for Rombergs integration.
+	 */
 	protected final double epsilon;
 
 	/**

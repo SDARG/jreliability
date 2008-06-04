@@ -1,7 +1,5 @@
 package de.cs12.reliability.distribution;
 
-import de.cs12.reliability.Distribution;
-
 /**
  * The {@code WeibullDistribution} represents the Weibull distribution with
  * <p>
@@ -12,8 +10,14 @@ import de.cs12.reliability.Distribution;
  */
 public class WeibullDistribution implements Distribution {
 
+	/**
+	 * The used failure-rate {@code lambda}.
+	 */
 	protected final double alpha;
 
+	/**
+	 * The used shape of the {@code WeibullDistribution}.
+	 */
 	protected final double beta;
 
 	/**
@@ -33,7 +37,7 @@ public class WeibullDistribution implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
 	 */
 	public double getY(double x) {
 		return Math.exp(-(alpha * Math.pow(x, beta)));
