@@ -219,6 +219,27 @@ public interface BDD<T> extends Cloneable {
 	public void replaceWith(T variable1, T variable2);
 
 	/**
+	 * Returns a BDD where the variables of {@code that} BDD are set to constant
+	 * values in {@code this} BDD. Note: Both BDDs remain unchanged after this
+	 * or-operation.
+	 * 
+	 * @param that
+	 *            the BDD to or with this BDD
+	 * @return the logical or of the two BDDs
+	 */
+	public BDD<T> restrict(BDD<T> that);
+
+	/**
+	 * Restricts the variables of {@code that} to constant values in
+	 * {@code this} BDD. Note: {@code That} BDD is consumed(!) within this
+	 * operation and invalid afterwards.
+	 * 
+	 * @param that
+	 *            the BDD to or with this BDD
+	 */
+	public void restrictWith(BDD<T> that);
+
+	/**
 	 * Returns the variable labeling the {@code BDD}.
 	 * 
 	 * @return the variable labeling the BDD

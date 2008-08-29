@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import net.sf.javabdd.BDDPairing;
-
 import de.cs12.reliability.bdd.BDD;
 
 /**
@@ -261,6 +260,26 @@ public class JBDD<T> implements BDD<T> {
 				.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		bdd.replaceWith(pair);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.bdd.BDD#restrict(de.cs12.reliability.bdd.BDD)
+	 */
+	@SuppressWarnings("unchecked")
+	public BDD<T> restrict(BDD<T> that) {
+		return new JBDD<T>(provider, bdd.restrict(((JBDD<T>) that).bdd));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 */
+	@SuppressWarnings("unchecked")
+	public void restrictWith(BDD<T> that) {
+		bdd.restrictWith(((JBDD<T>) that).bdd);
 	}
 
 	/*
