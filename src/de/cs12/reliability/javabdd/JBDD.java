@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import net.sf.javabdd.BDDPairing;
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.bdd.BDDProvider;
 
 /**
  * The {@code JBDD} is a {@code BDD} based on the {@code JavaBDD}
@@ -100,7 +101,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#and(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> and(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.and(((JBDD<T>) that).bdd));
 	}
@@ -110,7 +110,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#andWith(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public void andWith(BDD<T> that) {
 		bdd.andWith(((JBDD<T>) that).bdd);
 	}
@@ -131,7 +130,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#exist(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> exist(T variable) {
 		return new JBDD<T>(provider, bdd.exist(((JBDD<T>) provider
 				.get(variable)).bdd));
@@ -142,10 +140,19 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#forAll(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> forAll(T variable) {
 		return new JBDD<T>(provider, bdd.forAll(((JBDD<T>) provider
 				.get(variable)).bdd));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.bdd.BDD#getProvider()
+	 */
+	@Override
+	public BDDProvider<T> getProvider() {
+		return provider;
 	}
 
 	/*
@@ -179,9 +186,8 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
-	 *      de.cs12.reliability.bdd.BDD)
+	 * de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
 		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
 				((JBDD<T>) elseBDD).bdd));
@@ -217,9 +223,17 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see de.cs12.reliability.bdd.BDD#nodeCount()
+	 */
+	public int nodeCount() {
+		return bdd.nodeCount();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.cs12.reliability.bdd.BDD#or(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> or(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.or(((JBDD<T>) that).bdd));
 	}
@@ -229,7 +243,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#orWith(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public void orWith(BDD<T> that) {
 		bdd.orWith(((JBDD<T>) that).bdd);
 	}
@@ -238,9 +251,8 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> replace(T variable1, T variable2) {
 		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
 				.get(variable1)).bdd.var(),
@@ -252,9 +264,8 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public void replaceWith(T variable1, T variable2) {
 		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
 				.get(variable1)).bdd.var(),
@@ -267,7 +278,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#restrict(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> restrict(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.restrict(((JBDD<T>) that).bdd));
 	}
@@ -275,9 +285,9 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 * @see
+	 * de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public void restrictWith(BDD<T> that) {
 		bdd.restrictWith(((JBDD<T>) that).bdd);
 	}
@@ -305,7 +315,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#xor(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> xor(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.xor(((JBDD<T>) that).bdd));
 	}
@@ -315,7 +324,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#xorWith(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public void xorWith(BDD<T> that) {
 		bdd.xorWith(((JBDD<T>) that).bdd);
 	}
@@ -325,7 +333,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#imp(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<T> imp(BDD<T> that) {
 		return new JBDD<T>(provider, bdd.imp(((JBDD<T>) that).bdd));
 	}
@@ -335,7 +342,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#impWith(de.cs12.reliability.bdd.BDD)
 	 */
-	@SuppressWarnings("unchecked")
 	public void impWith(BDD<T> that) {
 		bdd.impWith(((JBDD<T>) that).bdd);
 	}
@@ -365,7 +371,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#andWith(java.util.Collection)
 	 */
-	@SuppressWarnings("unchecked")
 	public void andWith(Collection<T> that) {
 		for (T variable : that) {
 			bdd.andWith(((JBDD<T>) provider.get(variable)).bdd);
@@ -377,7 +382,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#andWith(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public void andWith(T that) {
 		bdd.andWith(((JBDD<T>) provider.get(that)).bdd);
 	}
@@ -387,7 +391,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#orWith(java.util.Collection)
 	 */
-	@SuppressWarnings("unchecked")
 	public void orWith(Collection<T> that) {
 		for (T variable : that) {
 			bdd.orWith(((JBDD<T>) provider.get(variable)).bdd);
@@ -399,7 +402,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#orWith(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public void orWith(T that) {
 		bdd.orWith(((JBDD<T>) provider.get(that)).bdd);
 	}
@@ -409,7 +411,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#impWith(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public void impWith(T that) {
 		bdd.impWith(((JBDD<T>) provider.get(that)).bdd);
 	}
@@ -419,8 +420,25 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#xorWith(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	public void xorWith(T that) {
 		bdd.xorWith(((JBDD<T>) provider.get(that)).bdd);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	public Object clone() {
+		Object myClone = null;
+		try {
+			myClone = super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		net.sf.javabdd.BDD cloneBDD = bdd.and(provider.one().bdd);
+		myClone = new JBDD<T>(provider, cloneBDD);
+		return myClone;
 	}
 }

@@ -16,6 +16,6 @@ public interface Distribution {
 	 *            the x value
 	 * @return the y for y = f(x)
 	 */
-	double getY(double x);
+	public double getY(double x);
 
 }

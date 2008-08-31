@@ -109,6 +109,13 @@ public interface BDD<T> extends Cloneable {
 	public BDD<T> high();
 
 	/**
+	 * Returns the used {@code BDDProvider}.
+	 * 
+	 * @return the used bdd provider
+	 */
+	public BDDProvider<T> getProvider();
+
+	/**
 	 * Returns {@code true} if {@code this} BDD is the {@code one} BDD.
 	 * 
 	 * @return true if this BDD is the one BDD
@@ -155,6 +162,13 @@ public interface BDD<T> extends Cloneable {
 	 * @return a BDD the is the negation of this BDD
 	 */
 	public BDD<T> not();
+
+	/**
+	 * Returns the number of node in {@code this} BDD.
+	 * 
+	 * @return the number of nodes in this bdd
+	 */
+	public int nodeCount();
 
 	/**
 	 * Returns the logical {code or} of two BDDs. Note: Both BDDs remain
@@ -208,8 +222,8 @@ public interface BDD<T> extends Cloneable {
 	public BDD<T> replace(T variable1, T variable2);
 
 	/**
-	 * Replaces the variable for {@code variable1} with the variable of
-	 * {@code variable2} in {@code this} {@code BDD}.
+	 * Replaces the variable for {@code variable1} with the variable of {@code
+	 * variable2} in {@code this} {@code BDD}.
 	 * 
 	 * @param variable1
 	 *            the first variable
@@ -230,9 +244,9 @@ public interface BDD<T> extends Cloneable {
 	public BDD<T> restrict(BDD<T> that);
 
 	/**
-	 * Restricts the variables of {@code that} to constant values in
-	 * {@code this} BDD. Note: {@code That} BDD is consumed(!) within this
-	 * operation and invalid afterwards.
+	 * Restricts the variables of {@code that} to constant values in {@code
+	 * this} BDD. Note: {@code That} BDD is consumed(!) within this operation
+	 * and invalid afterwards.
 	 * 
 	 * @param that
 	 *            the BDD to or with this BDD
@@ -302,4 +316,11 @@ public interface BDD<T> extends Cloneable {
 	 *            the variable to implicate with this BDD
 	 */
 	public void impWith(T that);
+
+	/**
+	 * Returns a copy of this object.
+	 * 
+	 * @return a copy of this object
+	 */
+	public Object clone();
 }

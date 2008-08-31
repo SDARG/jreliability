@@ -8,7 +8,7 @@ package de.cs12.reliability.distribution;
  * @author glass
  * 
  */
-public class WeibullDistribution implements Distribution {
+public class WeibullDistribution implements Inverse {
 
 	/**
 	 * The used failure-rate {@code lambda}.
@@ -37,9 +37,22 @@ public class WeibullDistribution implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
+	 * @see
+	 * de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
 	 */
 	public double getY(double x) {
 		return Math.exp(-(alpha * Math.pow(x, beta)));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.distribution.Inverse#getX(double)
+	 */
+	@Override
+	public double getX(double y) {
+		double exponential = -(Math.log(y) / alpha);
+		double x = Math.pow(exponential, (1 / beta));
+		return x;
 	}
 }
