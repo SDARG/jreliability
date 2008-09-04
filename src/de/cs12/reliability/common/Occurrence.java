@@ -2,32 +2,29 @@ package de.cs12.reliability.common;
 
 /**
  * The {@code Occurrence} represents an occurrence or event, e.g., the failure
- * or repair of an event and an information.
+ * or repair of an object at a given time.
  * 
  * @author glass
  * 
  * @param <T>
- *            the object that is effected by the occurrrence
- * @param <I>
- *            the information needed for the occurrence
+ *            the object that is effected by the occurrence
  */
-public abstract class Occurrence<T, I> {
+public abstract class Occurrence<T> implements Comparable<Occurrence<T>> {
 
 	protected final T t;
-	protected final I i;
+	protected final Double time;
 
 	/**
-	 * Constructs an {@code Occurrence} with a given object and the information
-	 * needed.
+	 * Constructs an {@code Occurrence} with a given object and the time.
 	 * 
 	 * @param t
 	 *            the object
-	 * @param i
-	 *            the information
+	 * @param time
+	 *            the time
 	 */
-	public Occurrence(T t, I i) {
+	public Occurrence(T t, double time) {
 		this.t = t;
-		this.i = i;
+		this.time = time;
 	}
 
 	/**
@@ -40,12 +37,21 @@ public abstract class Occurrence<T, I> {
 	}
 
 	/**
-	 * Returns the information.
+	 * Returns the time.
 	 * 
-	 * @return the information
+	 * @return the time
 	 */
-	public I getInformation() {
-		return i;
+	public double getTime() {
+		return time;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(Occurrence<T> other) {
+		return time.compareTo(other.time);
 	}
 
 }

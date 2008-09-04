@@ -20,21 +20,17 @@ import de.cs12.reliability.bdd.BDD;
 public abstract class AbstractSimulativeEvaluator<T> extends
 		AbstractEvaluator<T> {
 
-	protected final double epsilon;
-	protected final Random random = new Random(System.currentTimeMillis()); 
+	protected final Random random = new Random(System.currentTimeMillis());
 
 	/**
 	 * Constructs an {@code AbstractSimulativeEvaluator} with a given {@code
-	 * BDD} and a bound epsilon.
+	 * BDD}.
 	 * 
 	 * @param bdd
 	 *            the bdd
-	 * @param epsilon
-	 *            the bound
 	 */
-	public AbstractSimulativeEvaluator(BDD<T> bdd, double epsilon) {
+	public AbstractSimulativeEvaluator(BDD<T> bdd) {
 		super(bdd);
-		this.epsilon = epsilon;
 	}
 
 }
