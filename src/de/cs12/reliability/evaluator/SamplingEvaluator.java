@@ -1,15 +1,15 @@
 package de.cs12.reliability.evaluator;
 
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.common.Sample;
+import de.cs12.reliability.common.Samples;
 import de.cs12.reliability.distribution.Distribution;
 
 /**
- * The {@code SamplingEvaluator} creates samples of the function
- * {@code y = f(x)} as pairs of {@code x} and {@code f(x) = y}.
+ * The {@code SamplingEvaluator} creates samples of the function {@code y =
+ * f(x)} as pairs of {@code x} and {@code f(x) = y}.
  * 
  * @author glass
  * @param <T>
@@ -42,16 +42,37 @@ public class SamplingEvaluator<T> extends AbstractEvaluator<T> {
 	 *            the step width
 	 * @return the samples
 	 */
-	public SortedMap<Double, Double> getValues(
-			Map<T, Distribution> distributions, double low, double high,
-			double step) {
-		SortedMap<Double, Double> values = new TreeMap<Double, Double>();
-		for (double i = low; i < high; i += step) {
-			values.put(i, calculateTop(distributions, i));
+	public Samples getValues(Map<T, Distribution> distributions, double low,
+			double high, double step) {
+		Samples samples = new Samples();
+		double deltaT = 1.0 / 10000.0;
+		for (double time = low; time < high; time += step) {
+			double r = calculateTop(distributions, time);
+			double nextR = calculateTop(distributions, time + deltaT);
+			double f = (r - nextR) / deltaT;
+			double lambda = f / r;
+			Sample sample = new Sample(time, r, f, lambda);
+			samples.add(sample);
 		}
-		values.put(high, calculateTop(distributions, high));
-		return values;
+		return samples;
 
+	}
+
+	/**
+	 * Returns {@code number} samples of the {@code BDD} from {@code 0} to an
+	 * auto-calculated upper bound.
+	 * 
+	 * @param distributions
+	 *            the distribution of each variable
+	 * @param number
+	 *            the number of samples
+	 * @return the samples
+	 */
+	public Samples getValues(Map<T, Distribution> distributions, double number) {
+		IntegralEvaluator<T> evaluator = new IntegralEvaluator<T>(bdd);
+		double high = evaluator.getUpperBound(distributions);
+		double step = high / (double) number;
+		return getValues(distributions, 0.0, high, step);
 	}
 
 }

@@ -234,7 +234,7 @@ public interface BDD<T> extends Cloneable {
 
 	/**
 	 * Returns a BDD where the variables of {@code that} BDD are set to constant
-	 * values in {@code this} BDD. Note: Both BDDs remain unchanged after this
+	 * samples in {@code this} BDD. Note: Both BDDs remain unchanged after this
 	 * or-operation.
 	 * 
 	 * @param that
@@ -244,7 +244,7 @@ public interface BDD<T> extends Cloneable {
 	public BDD<T> restrict(BDD<T> that);
 
 	/**
-	 * Restricts the variables of {@code that} to constant values in {@code
+	 * Restricts the variables of {@code that} to constant samples in {@code
 	 * this} BDD. Note: {@code That} BDD is consumed(!) within this operation
 	 * and invalid afterwards.
 	 * 

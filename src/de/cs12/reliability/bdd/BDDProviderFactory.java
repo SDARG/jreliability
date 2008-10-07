@@ -1,16 +1,11 @@
 package de.cs12.reliability.bdd;
 
-import com.google.inject.ImplementedBy;
-
-import de.cs12.reliability.javabdd.JBDDProviderFactory;
-
 /**
  * The {@code BDDProviderFactory} creates {@code BDDProviders}.
  * 
  * @author reimann
  * 
  */
-@ImplementedBy(JBDDProviderFactory.class)
 public interface BDDProviderFactory {
 
 	/**

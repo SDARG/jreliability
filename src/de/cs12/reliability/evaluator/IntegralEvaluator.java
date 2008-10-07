@@ -75,6 +75,27 @@ public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 	}
 
 	/**
+	 * Returns the calculated upper bound that will be used in the integration
+	 * process.
+	 * 
+	 * @param distributions
+	 *            the distribution of each variable
+	 * @return the calculated upper bound that will be used in the integration
+	 *         process
+	 */
+	public double getUpperBound(Map<T, Distribution> distributions) {
+		double upperBound = 1.0;
+		double diff = calculateTop(distributions, upperBound);
+		while (diff > 0.01) {
+			upperBound *= 2;
+			diff = calculateTop(distributions, upperBound);
+		}
+
+		return upperBound;
+
+	}
+
+	/**
 	 * Calculates the integral between low and high using Rombergs integration.
 	 * 
 	 * @param distributions
@@ -115,7 +136,7 @@ public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 			}
 			rTable.get(j).add(0, (gap / (2 * div)) * (borderVal + 2 * sum));
 
-			// the rest of the values with Neville-Aitken
+			// the rest of the samples with Neville-Aitken
 			for (int k = 1; k <= j; k++) {
 				double fourPow = Math.pow(2, (2 * k));
 
