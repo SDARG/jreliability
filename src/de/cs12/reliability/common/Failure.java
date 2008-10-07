@@ -1,12 +1,13 @@
 package de.cs12.reliability.common;
 
 /**
- * The {@code Failure} represents the occurrence of a failure of an object
- * and delivers the time of the failure as the information.
+ * The {@code Failure} represents the occurrence of a failure of an object and
+ * delivers the time of the failure as the information.
  * 
  * @author glass
  * 
  * @param <T>
+ *            the type of the variables
  */
 public class Failure<T> extends Occurrence<T> {
 

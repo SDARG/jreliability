@@ -13,4 +13,11 @@ public class Samples extends TreeSet<Sample> {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructs a {@code Samples}.
+	 */
+	public Samples() {
+		super();
+	}
+
 }

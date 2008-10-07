@@ -3,7 +3,7 @@ package de.cs12.reliability.bdd;
 import java.util.List;
 
 /**
- * The {@code BDDProvider}
+ * The {@code BDDProvider} provides the actual {@code BDDs} for each element.
  * 
  * @author glass, reimann
  * @param <T>

@@ -68,7 +68,7 @@ public class SamplingEvaluator<T> extends AbstractEvaluator<T> {
 	 *            the number of samples
 	 * @return the samples
 	 */
-	public Samples getValues(Map<T, Distribution> distributions, double number) {
+	public Samples getValues(Map<T, Distribution> distributions, int number) {
 		IntegralEvaluator<T> evaluator = new IntegralEvaluator<T>(bdd);
 		double high = evaluator.getUpperBound(distributions);
 		double step = high / (double) number;

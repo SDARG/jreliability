@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.cs12.reliability.gui;
 
 import java.util.SortedMap;
@@ -49,7 +46,9 @@ public class Aspect {
 	 * {@code Samples}.
 	 * 
 	 * @param aspect
+	 *            the current aspect
 	 * @param samples
+	 *            the samples
 	 */
 	public Aspect(Aspects aspect, Samples samples) {
 		this.aspect = aspect;
@@ -75,12 +74,19 @@ public class Aspect {
 	}
 
 	/**
+	 * Returns the {@code Samples}.
+	 * 
 	 * @return the samples
 	 */
 	public Samples getSamples() {
 		return samples;
 	}
 
+	/**
+	 * Returns the values that are plotted for the current {@code Aspect}.
+	 * 
+	 * @return the values that are plotted for the current aspect
+	 */
 	public SortedMap<Double, Double> getValues() {
 		SortedMap<Double, Double> values = new TreeMap<Double, Double>();
 		for (Sample sample : samples) {
@@ -106,21 +112,27 @@ public class Aspect {
 	}
 
 	/**
-	 * @return the name
+	 * Returns the name of the {@code Aspect}.
+	 * 
+	 * @return the name of the aspect
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return the x
+	 * Returns the label for the {@code x-axis}.
+	 * 
+	 * @return the label for the x-axis
 	 */
 	public String getX() {
 		return x;
 	}
 
 	/**
-	 * @return the y
+	 * Returns the label for the {@code x-axis}.
+	 * 
+	 * @return the label for the y-axis
 	 */
 	public String getY() {
 		return y;

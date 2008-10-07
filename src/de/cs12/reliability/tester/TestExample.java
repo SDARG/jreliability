@@ -15,6 +15,11 @@ import de.cs12.reliability.distribution.WeibullDistribution;
 import de.cs12.reliability.javabdd.JBDDProviderFactory;
 
 /**
+ * The {@code TestExample} is a play example. It describes a water heating
+ * system that consists of a heater and two pumps. To allow a correct
+ * functionality, the system needs a working heater and at least one working
+ * pump.
+ * 
  * @author glass
  * 
  */
@@ -24,10 +29,18 @@ public class TestExample {
 	protected final String pump1 = "Pump 1";
 	protected final String pump2 = "Pump 2";
 
+	/**
+	 * Constructs a {@code TextExample}.
+	 */
 	public TestExample() {
 		super();
 	}
 
+	/**
+	 * Returns a {@code BDD} representation of the system structure.
+	 * 
+	 * @return a bdd representing the system structure
+	 */
 	public BDD<String> get() {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider(3);
@@ -48,6 +61,11 @@ public class TestExample {
 
 	}
 
+	/**
+	 * Returns the {@code Distribution} of each component of the system.
+	 * 
+	 * @return the distribution of each component of the system
+	 */
 	public Map<String, Distribution> getDistributions() {
 		Map<String, Distribution> distributions = new HashMap<String, Distribution>();
 		Distribution heaterDistribution = new ExponentialDistribution(0.1);

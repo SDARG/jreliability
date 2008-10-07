@@ -34,7 +34,7 @@ public class Top<T> {
 	/**
 	 * Calculates the top event with the given samples of each variable.
 	 * 
-	 * @param samples
+	 * @param values
 	 *            the value of each variable
 	 * @return the top event of the bdd
 	 */
@@ -72,8 +72,8 @@ public class Top<T> {
 	/**
 	 * Evaluates the BDD to determine the top event.
 	 * 
-	 * @param samples
-	 *            the samples for each variable
+	 * @param values
+	 *            the value for each variable
 	 * @return the top event
 	 */
 	private double evaluate(Map<T, Double> values) {

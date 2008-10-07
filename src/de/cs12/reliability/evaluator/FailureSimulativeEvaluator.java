@@ -96,6 +96,15 @@ public class FailureSimulativeEvaluator<T> extends
 		return time;
 	}
 
+	/**
+	 * Returns a set of {@code Failures} for given elements {@code T} and their
+	 * corresponding {@code Distributions}.
+	 * 
+	 * @param distributions
+	 *            elements T and their corresponding distributions
+	 * @return a set of failures for given elements T and their corresponding
+	 *         distributions
+	 */
 	protected Set<Failure<T>> getFailures(Map<T, Distribution> distributions) {
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		for (Entry<T, Distribution> entry : distributions.entrySet()) {

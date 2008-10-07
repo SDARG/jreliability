@@ -10,7 +10,7 @@
 		<fileset dir="${lib.dir}" includes="*.jar" />
 	</path>
 	
-	<target name="all" depends="clean,init,jar,dist,javadoc" description="Compile Java source." />
+	<target name="all" depends="clean,init,jar,light,dist,javadoc" description="Compile Java source." />
 
 	<target name="init" depends="clean">
 		<mkdir dir="${build.dir}/src" />
@@ -35,8 +35,15 @@
 		<jarjar jarfile="${build.dir}/jar/reliability-${version}.jar">
 			<fileset dir="${build.dir}/classes" />
 			<zipfileset src="${lib.dir}/${javabdd.jar}" excludes="META-INF/**" />
+			<zipfileset src="${lib.dir}/${plot.jar}" excludes="META-INF/**" />
 		</jarjar>
 	</target>
+	
+	<target name="light" depends="compile" description="Build jar.">
+			<jarjar jarfile="${build.dir}/jar/reliability-${version}-light.jar">
+				<fileset dir="${build.dir}/classes" />
+			</jarjar>
+		</target>
 
 	<target name="dist" depends="jar" description="Build distribution.">
 		<property name="zip.dir" value="${build.dir}/dist/reliability-${version}" />

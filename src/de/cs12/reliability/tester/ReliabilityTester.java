@@ -8,8 +8,27 @@ import de.cs12.reliability.distribution.Distribution;
 import de.cs12.reliability.evaluator.SamplingEvaluator;
 import de.cs12.reliability.gui.ReliabilityViewer;
 
+/**
+ * The {@code ReliabilityTester} is a basic tester that uses the {@code
+ * TestExample} to launch the {@code ReliabilityViewer}.
+ * 
+ * @author glass
+ * 
+ */
 public class ReliabilityTester {
+	
+	/**
+	 * Constructs a {@code ReliabilityTester}.
+	 */
+	public ReliabilityTester() {
+		super();
+	}
 
+	/**
+	 * Main.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		TestExample example = new TestExample();
 

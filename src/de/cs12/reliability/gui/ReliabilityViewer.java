@@ -9,6 +9,9 @@ import javax.swing.UIManager;
 import de.cs12.reliability.common.Samples;
 
 /**
+ * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
+ * ReliabilityPanel}.
+ * 
  * @author glass
  * 
  */
@@ -20,6 +23,15 @@ public class ReliabilityViewer extends JFrame {
 
 	protected ReliabilityPanel reliabilityPanel;
 
+	/**
+	 * Constructs a {@code ReliabilityViewer} with a given title and {@code
+	 * Samples}.
+	 * 
+	 * @param title
+	 *            the title
+	 * @param samples
+	 *            the samples
+	 */
 	public ReliabilityViewer(String title, Samples samples) {
 		this.title = title;
 
@@ -34,6 +46,9 @@ public class ReliabilityViewer extends JFrame {
 		init();
 	}
 
+	/**
+	 * Initializes the frame.
+	 */
 	protected final void init() {
 		setTitle(title);
 		setLayout(new BorderLayout());
