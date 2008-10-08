@@ -16,7 +16,6 @@ import de.cs12.reliability.common.Samples;
 public class Aspect {
 
 	protected final Aspects aspect;
-	Samples samples;
 	protected final String name, y;
 	protected final String x = "time t";
 
@@ -42,17 +41,13 @@ public class Aspect {
 	}
 
 	/**
-	 * Constructs an {@code Aspect} with a a certain {@code Aspects} and the
-	 * {@code Samples}.
+	 * Constructs an {@code Aspect} with a a certain {@code Aspects}.
 	 * 
 	 * @param aspect
 	 *            the current aspect
-	 * @param samples
-	 *            the samples
 	 */
-	public Aspect(Aspects aspect, Samples samples) {
+	public Aspect(Aspects aspect) {
 		this.aspect = aspect;
-		this.samples = samples;
 		switch (this.aspect) {
 		case DISTRIBUTION:
 			this.name = "Distribution";
@@ -74,20 +69,14 @@ public class Aspect {
 	}
 
 	/**
-	 * Returns the {@code Samples}.
+	 * Returns the values for the samples that are plotted for the current
+	 * {@code Aspect}.
 	 * 
-	 * @return the samples
-	 */
-	public Samples getSamples() {
-		return samples;
-	}
-
-	/**
-	 * Returns the values that are plotted for the current {@code Aspect}.
-	 * 
+	 * @param samples
+	 *            the samples
 	 * @return the values that are plotted for the current aspect
 	 */
-	public SortedMap<Double, Double> getValues() {
+	public SortedMap<Double, Double> getValues(Samples samples) {
 		SortedMap<Double, Double> values = new TreeMap<Double, Double>();
 		for (Sample sample : samples) {
 			double time = sample.getTime();

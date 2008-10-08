@@ -62,15 +62,35 @@ public class TestExample {
 	}
 
 	/**
-	 * Returns the {@code Distribution} of each component of the system.
+	 * Returns the {@code Distribution} of each component of the system as
+	 * exponential distributions.
 	 * 
-	 * @return the distribution of each component of the system
+	 * @return the exponential distribution of each component of the system
 	 */
-	public Map<String, Distribution> getDistributions() {
+	public Map<String, Distribution> getExponentialDistributions() {
 		Map<String, Distribution> distributions = new HashMap<String, Distribution>();
-		Distribution heaterDistribution = new ExponentialDistribution(0.1);
-		Distribution pump1Distribution = new WeibullDistribution(3, 5);
-		Distribution pump2Distribution = new WeibullDistribution(1, 3);
+		Distribution heaterDistribution = new ExponentialDistribution(0.5);
+		Distribution pump1Distribution = new ExponentialDistribution(1);
+		Distribution pump2Distribution = new ExponentialDistribution(1);
+
+		distributions.put(heater, heaterDistribution);
+		distributions.put(pump1, pump1Distribution);
+		distributions.put(pump2, pump2Distribution);
+
+		return distributions;
+	}
+
+	/**
+	 * Returns the {@code Distribution} of each component of the system as
+	 * Weibull distributions.
+	 * 
+	 * @return the Weibull distribution of each component of the system
+	 */
+	public Map<String, Distribution> getWeibullDistributions() {
+		Map<String, Distribution> distributions = new HashMap<String, Distribution>();
+		Distribution heaterDistribution = new WeibullDistribution(0.1, 2);
+		Distribution pump1Distribution = new WeibullDistribution(1, 3);
+		Distribution pump2Distribution = new WeibullDistribution(1.2, 3);
 
 		distributions.put(heater, heaterDistribution);
 		distributions.put(pump1, pump1Distribution);

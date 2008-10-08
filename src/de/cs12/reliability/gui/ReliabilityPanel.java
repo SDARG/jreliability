@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.swing.JComboBox;
@@ -40,7 +41,7 @@ public class ReliabilityPanel extends JPanel {
 
 	protected JPanel panel = new JPanel();
 
-	protected final Samples samples;
+	protected SortedMap<String, Samples> samples;
 
 	/**
 	 * The {@code AspectPicker} is used to choose between the different {@code
@@ -169,42 +170,56 @@ public class ReliabilityPanel extends JPanel {
 		 * 
 		 * @return the values to be plotted
 		 */
-		public SortedMap<Double, Double> getValues() {
-			return currentAspect.getValues();
+		public SortedMap<String, SortedMap<Double, Double>> getValues() {
+			SortedMap<String, SortedMap<Double, Double>> values = new TreeMap<String, SortedMap<Double, Double>>();
+			for (Entry<String, Samples> entry : panel.getSamples().entrySet()) {
+				String title = entry.getKey();
+				Samples samples = entry.getValue();
+				SortedMap<Double, Double> value = currentAspect
+						.getValues(samples);
+				values.put(title, value);
+			}
+			return values;
 		}
 
 	}
 
 	/**
-	 * Constructs a {@code ReliabilityPanel} with given {@code Samples}.
-	 * 
-	 * @param samples
-	 *            the samples
+	 * Constructs a {@code ReliabilityPanel}.
 	 */
-	public ReliabilityPanel(Samples samples) {
-		this.samples = samples;
-		init();
-
+	public ReliabilityPanel() {
+		super();
 	}
 
 	/**
-	 * Initializes the {@code Panel}.
+	 * Returns the {@code JPanel} for a given map of {@code Samples}.
+	 * 
+	 * @param samples
+	 *            the samples
+	 * @return the panel
 	 */
-	protected void init() {
+	protected JPanel get(SortedMap<String, Samples> samples) {
+		this.samples = samples;
+
 		plot = new Plot();
 
-		Aspect distribution = new Aspect(Aspects.DISTRIBUTION, samples);
+		Aspect distribution = new Aspect(Aspects.DISTRIBUTION);
 		aspects.add(distribution);
-		Aspect density = new Aspect(Aspects.DENSITY, samples);
+		Aspect density = new Aspect(Aspects.DENSITY);
 		aspects.add(density);
-		Aspect lambda = new Aspect(Aspects.LAMBDA, samples);
+		Aspect lambda = new Aspect(Aspects.LAMBDA);
 		aspects.add(lambda);
 
 		picker = new AspectPicker(ReliabilityPanel.this);
 
-		Color[] colors = new Color[1];
-		colors[0] = Color.BLACK;
+		Color[] colors = { Color.BLACK, Color.RED, Color.BLUE, Color.YELLOW,
+				Color.GREEN, Color.ORANGE };
 		plot.setColors(colors);
+		int i = 0;
+		for (Entry<String, Samples> entry : samples.entrySet()) {
+			plot.addLegend(i, entry.getKey());
+			i++;
+		}
 
 		panel.setLayout(new BorderLayout());
 		panel.add(picker, BorderLayout.NORTH);
@@ -217,6 +232,8 @@ public class ReliabilityPanel extends JPanel {
 
 		panel.revalidate();
 		panel.repaint();
+
+		return panel;
 	}
 
 	/**
@@ -233,20 +250,26 @@ public class ReliabilityPanel extends JPanel {
 	}
 
 	/**
-	 * Repaints the diagram.
+	 * Repaints the diagram with a given map of values.
+	 * 
+	 * @param values
+	 *            the value to plot
 	 */
-	protected void paint(SortedMap<Double, Double> values) {
+	protected void paint(SortedMap<String, SortedMap<Double, Double>> values) {
 		plot.clear(false);
 		double min = 0.0;
 		double max = 0.0;
-		for (Entry<Double, Double> entry : values.entrySet()) {
-			double x = entry.getKey();
-			double y = entry.getValue();
-			if (y > max) {
-				max = y;
+		int i = 0;
+		for (Entry<String, SortedMap<Double, Double>> entry : values.entrySet()) {
+			for (Entry<Double, Double> valueEntry : entry.getValue().entrySet()) {
+				double x = valueEntry.getKey();
+				double y = valueEntry.getValue();
+				if (y > max) {
+					max = y;
+				}
+				plot.addPoint(i, x, y, true);
 			}
-			plot.addPoint(0, x, y, true);
-
+			i++;
 		}
 		max = max + (0.1 * max);
 		plot.setYRange(min, max);
@@ -254,13 +277,13 @@ public class ReliabilityPanel extends JPanel {
 		plot.repaint();
 	}
 
-
 	/**
-	 * Returns the {@code JPanel}.
+	 * Returns the map of {@code Samples}.
 	 * 
-	 * @return the panel
+	 * @return the samples
 	 */
-	public JPanel getPanel() {
-		return panel;
+	public SortedMap<String, Samples> getSamples() {
+		return samples;
 	}
+
 }

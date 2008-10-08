@@ -2,6 +2,7 @@ package de.cs12.reliability.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.SortedMap;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -32,10 +33,10 @@ public class ReliabilityViewer extends JFrame {
 	 * @param samples
 	 *            the samples
 	 */
-	public ReliabilityViewer(String title, Samples samples) {
+	public ReliabilityViewer(String title, SortedMap<String, Samples> samples) {
 		this.title = title;
 
-		reliabilityPanel = new ReliabilityPanel(samples);
+		reliabilityPanel = new ReliabilityPanel();
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -43,13 +44,16 @@ public class ReliabilityViewer extends JFrame {
 			e.printStackTrace();
 		}
 
-		init();
+		init(samples);
 	}
 
 	/**
-	 * Initializes the frame.
+	 * Initializes the frame with a given map of {@code Samples}.
+	 * 
+	 * @param samples
+	 *            the samples
 	 */
-	protected final void init() {
+	protected final void init(SortedMap<String, Samples> samples) {
 		setTitle(title);
 		setLayout(new BorderLayout());
 
@@ -57,7 +61,7 @@ public class ReliabilityViewer extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		getContentPane().add(reliabilityPanel.getPanel());
+		getContentPane().add(reliabilityPanel.get(samples));
 
 		pack();
 		setVisible(true);

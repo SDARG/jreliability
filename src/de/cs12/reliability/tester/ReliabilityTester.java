@@ -1,6 +1,8 @@
 package de.cs12.reliability.tester;
 
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.common.Samples;
@@ -16,7 +18,7 @@ import de.cs12.reliability.gui.ReliabilityViewer;
  * 
  */
 public class ReliabilityTester {
-	
+
 	/**
 	 * Constructs a {@code ReliabilityTester}.
 	 */
@@ -32,11 +34,21 @@ public class ReliabilityTester {
 	public static void main(String[] args) {
 		TestExample example = new TestExample();
 
-		Map<String, Distribution> distributions = example.getDistributions();
-		BDD<String> bdd = example.get();
+		Map<String, Distribution> exponentialDistributions = example
+				.getExponentialDistributions();
+		Map<String, Distribution> weibullDistributions = example
+				.getWeibullDistributions();
 
+		BDD<String> bdd = example.get();
 		SamplingEvaluator<String> evaluator = new SamplingEvaluator<String>(bdd);
-		Samples samples = evaluator.getValues(distributions, 300);
+
+		Samples exponentialSamples = evaluator.getValues(
+				exponentialDistributions, 300);
+		Samples weibullSamples = evaluator.getValues(weibullDistributions, 300);
+
+		SortedMap<String, Samples> samples = new TreeMap<String, Samples>();
+		samples.put("Exponential", exponentialSamples);
+		samples.put("Weibull", weibullSamples);
 
 		new ReliabilityViewer("Reliability Viewer", samples);
 
