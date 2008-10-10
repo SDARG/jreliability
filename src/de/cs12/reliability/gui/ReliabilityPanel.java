@@ -41,6 +41,12 @@ public class ReliabilityPanel extends JPanel {
 	protected Plot plot;
 
 	/**
+	 * The used sampler to determine the {@code Samples} of a {@code Function}
+	 * under a given {@code Aspect}.
+	 */
+	protected Sampler sampler;
+
+	/**
 	 * The list of aspects that can be chosen.
 	 */
 	protected final List<Aspect> aspects;
@@ -193,6 +199,7 @@ public class ReliabilityPanel extends JPanel {
 		this.functions = functions;
 
 		plot = new Plot();
+		sampler = new Sampler();
 
 		picker = new AspectPicker(ReliabilityPanel.this, aspects);
 		Aspect currentAspect = picker.get();
@@ -245,10 +252,11 @@ public class ReliabilityPanel extends JPanel {
 		double min = 0.0;
 		double max = 0.0;
 		int i = 0;
-		for (Entry<String, Function> entry : functions.entrySet()) {
-			Function function = entry.getValue();
-			Samples samples = aspect.getSamples(function);
-			for (Entry<Double, Double> value : samples.entrySet()) {
+		SortedMap<String, Samples> samples = sampler.getSamples(functions,
+				aspect, 500);
+		for (Entry<String, Samples> entry : samples.entrySet()) {
+			Samples sample = entry.getValue();
+			for (Entry<Double, Double> value : sample.entrySet()) {
 				double x = value.getKey();
 				double y = value.getValue();
 				if (y > max) {

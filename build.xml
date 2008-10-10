@@ -20,7 +20,7 @@
 		<mkdir dir="${build.dir}/dist/reliability-${version}" />
 		
 		<copy toDir="${build.dir}/src">
-			<fileset dir="${src.dir}" excludes=".svn,.svn/**/*,**/.svn" />
+			<fileset dir="${src.dir}" excludes=".svn,.svn/**/*,**/.svn, de/cs12/reliability/test/**" />
 		</copy>
 	</target>
 

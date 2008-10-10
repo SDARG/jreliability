@@ -7,6 +7,7 @@ import java.util.Set;
 import net.sf.javabdd.BDDPairing;
 import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
+import de.cs12.reliability.bdd.BDDs;
 
 /**
  * The {@code JDD} is a {@code BDD} based on the {@code JavaBDD} implementation.
@@ -186,7 +187,7 @@ public class CUDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
-	 * de.cs12.reliability.bdd.BDD)
+	 *      de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
 		return new CUDD<T>(provider, bdd.ite(((CUDD<T>) thenBDD).bdd,
@@ -251,7 +252,7 @@ public class CUDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
 		BDDPairing pair = CUDDProvider.bddFactory.makePair(((CUDD<T>) provider
@@ -264,7 +265,7 @@ public class CUDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
 		BDDPairing pair = CUDDProvider.bddFactory.makePair(((CUDD<T>) provider
@@ -285,8 +286,7 @@ public class CUDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void restrictWith(BDD<T> that) {
 		bdd.restrictWith(((CUDD<T>) that).bdd);
@@ -436,13 +436,14 @@ public class CUDD<T> implements BDD<T> {
 		return myCopy;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.cs12.reliability.bdd.BDD#getVariables()
 	 */
 	@Override
 	public Set<T> getVariables() {
-		// TODO Auto-generated method stub
-		return null;
+		return BDDs.getVariables(this);
 	}
 
 }

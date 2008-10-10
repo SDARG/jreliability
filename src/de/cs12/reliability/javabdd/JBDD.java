@@ -7,6 +7,7 @@ import java.util.Set;
 import net.sf.javabdd.BDDPairing;
 import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
+import de.cs12.reliability.bdd.BDDs;
 
 /**
  * The {@code JBDD} is a {@code BDD} based on the {@code JavaBDD} standard java
@@ -424,7 +425,6 @@ public class JBDD<T> implements BDD<T> {
 		bdd.xorWith(((JBDD<T>) provider.get(that)).bdd);
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -438,12 +438,13 @@ public class JBDD<T> implements BDD<T> {
 		return myCopy;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.cs12.reliability.bdd.BDD#getVariables()
 	 */
 	@Override
 	public Set<T> getVariables() {
-		// TODO Auto-generated method stub
-		return null;
+		return BDDs.getVariables(this);
 	}
 }

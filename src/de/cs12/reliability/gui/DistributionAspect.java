@@ -1,7 +1,6 @@
 package de.cs12.reliability.gui;
 
-import de.cs12.reliability.common.Samples;
-import de.cs12.reliability.evaluator.SamplingEvaluator;
+import de.cs12.reliability.evaluator.IntegralEvaluator;
 import de.cs12.reliability.function.Function;
 
 /**
@@ -24,28 +23,23 @@ public class DistributionAspect extends AbstractAspect {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.gui.Aspect#getSamples(de.cs12.reliability.function.Function)
+	 * @see de.cs12.reliability.gui.Aspect#getUpper(de.cs12.reliability.function.Function)
 	 */
 	@Override
-	public Samples getSamples(Function function) {
-		SamplingEvaluator evaluator = new SamplingEvaluator();
-		Samples samples = evaluator.evaluate(function, numberOfSamples);
-		return samples;
-
+	public double getUpper(Function function) {
+		IntegralEvaluator evaluator = new IntegralEvaluator();
+		return evaluator.getUpperBound(function);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.gui.Aspect#getSamples(de.cs12.reliability.function.Function,
-	 *      double, double, double)
+	 * @see de.cs12.reliability.gui.Aspect#getY(double,
+	 *      de.cs12.reliability.function.Function)
 	 */
 	@Override
-	public Samples getSamples(Function function, double low, double high,
-			double step) {
-		SamplingEvaluator evaluator = new SamplingEvaluator();
-		Samples samples = evaluator.evaluate(function, low, high, step);
-		return samples;
+	public double getY(double x, Function function) {
+		return function.getY(x);
 	}
 
 }

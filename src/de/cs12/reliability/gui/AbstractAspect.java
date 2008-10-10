@@ -1,5 +1,7 @@
 package de.cs12.reliability.gui;
 
+import de.cs12.reliability.function.Function;
+
 /**
  * The {@code AbstractAspect} is the basic class for all {@code Aspects}.
  * 
@@ -24,9 +26,9 @@ public abstract class AbstractAspect implements Aspect {
 	protected final String yAxis;
 
 	/**
-	 * The number of functions that are created when automatic sampling is used.
+	 * The standard lower bound is {@code 0}.
 	 */
-	protected final int numberOfSamples = 500;
+	protected double lower = 0;
 
 	/**
 	 * Constructs an {@code AbstractAspect} with a given name and labels for the
@@ -74,6 +76,16 @@ public abstract class AbstractAspect implements Aspect {
 	@Override
 	public String getYAxis() {
 		return yAxis;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cs12.reliability.gui.Aspect#getLower(de.cs12.reliability.function.Function)
+	 */
+	@Override
+	public double getLower(Function function) {
+		return lower;
 	}
 
 }

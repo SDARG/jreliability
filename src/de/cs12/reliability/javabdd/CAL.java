@@ -7,10 +7,10 @@ import java.util.Set;
 import net.sf.javabdd.BDDPairing;
 import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
+import de.cs12.reliability.bdd.BDDs;
 
 /**
- * The {@code CAL} is a {@code BDD} from the native {@code CAL}
- * library.
+ * The {@code CAL} is a {@code BDD} from the native {@code CAL} library.
  * 
  * @author glass, reimann, lukasiewycz
  * @param <T>
@@ -132,8 +132,8 @@ public class CAL<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#exist(java.lang.Object)
 	 */
 	public BDD<T> exist(T variable) {
-		return new CAL<T>(provider, bdd.exist(((CAL<T>) provider
-				.get(variable)).bdd));
+		return new CAL<T>(provider, bdd
+				.exist(((CAL<T>) provider.get(variable)).bdd));
 	}
 
 	/*
@@ -142,8 +142,8 @@ public class CAL<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#forAll(java.lang.Object)
 	 */
 	public BDD<T> forAll(T variable) {
-		return new CAL<T>(provider, bdd.forAll(((CAL<T>) provider
-				.get(variable)).bdd));
+		return new CAL<T>(provider, bdd
+				.forAll(((CAL<T>) provider.get(variable)).bdd));
 	}
 
 	/*
@@ -187,7 +187,7 @@ public class CAL<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
-	 * de.cs12.reliability.bdd.BDD)
+	 *      de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
 		return new CAL<T>(provider, bdd.ite(((CAL<T>) thenBDD).bdd,
@@ -252,7 +252,7 @@ public class CAL<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
 		BDDPairing pair = CALProvider.bddFactory.makePair(((CAL<T>) provider
@@ -265,7 +265,7 @@ public class CAL<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
 		BDDPairing pair = CALProvider.bddFactory.makePair(((CAL<T>) provider
@@ -286,8 +286,7 @@ public class CAL<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void restrictWith(BDD<T> that) {
 		bdd.restrictWith(((CAL<T>) that).bdd);
@@ -437,12 +436,13 @@ public class CAL<T> implements BDD<T> {
 		return myCopy;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.cs12.reliability.bdd.BDD#getVariables()
 	 */
 	@Override
 	public Set<T> getVariables() {
-		// TODO Auto-generated method stub
-		return null;
+		return BDDs.getVariables(this);
 	}
 }

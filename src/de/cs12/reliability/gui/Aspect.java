@@ -1,11 +1,10 @@
 package de.cs12.reliability.gui;
 
-import de.cs12.reliability.common.Samples;
 import de.cs12.reliability.function.Function;
 
 /**
- * The {@code Aspect} allows to determine the {@code Samples} of a
- * {@code Function} under the current {@code Aspect}.
+ * The {@code Aspect} allows to determine the {@code y-value} for the
+ * {@code Function} {@code y = f(x)} under the current {@code Aspect}.
  * 
  * @author glass
  * 
@@ -13,33 +12,18 @@ import de.cs12.reliability.function.Function;
 public interface Aspect {
 
 	/**
-	 * Returns {@code 500} functions in an auto-generated interval for the
-	 * {@code Function} under the current {@code Aspect}.
+	 * Returns the {@code y-value} for the {@code Function} {@code y = f(x)}
+	 * under the current {@code Aspect}.
+	 * 
+	 * @param x
+	 *            the x-value
 	 * 
 	 * @param function
 	 *            the function
 	 * 
-	 * @return the functions for the current aspect
+	 * @return the y-value for the function y = f(x) under the current aspect
 	 */
-	public Samples getSamples(Function function);
-
-	/**
-	 * Returns the functions in an interval from {@code low} to {@code high} with
-	 * of distance {@code step} for the {@code Function} under the current
-	 * {@code Aspect}.
-	 * 
-	 * @param function
-	 *            the function
-	 * @param low
-	 *            the lower bound of the interval
-	 * @param high
-	 *            the upper bound of the interval
-	 * @param step
-	 *            the distance between two sampled points
-	 * @return the functions for the current aspect
-	 */
-	public Samples getSamples(Function function, double low, double high,
-			double step);
+	public double getY(double x, Function function);
 
 	/**
 	 * Returns the name of the {@code Aspect}.
@@ -61,4 +45,24 @@ public interface Aspect {
 	 * @return the label for the y-axis
 	 */
 	public String getYAxis();
+
+	/**
+	 * Returns the lower bound of the {@code Function} under the current
+	 * {@code Aspect}.
+	 * 
+	 * @param function
+	 *            the function
+	 * @return the lower bound of the function
+	 */
+	public double getLower(Function function);
+
+	/**
+	 * Returns the upper bound of the {@code Function} under the current
+	 * {@code Aspect}.
+	 * 
+	 * @param function
+	 *            the function
+	 * @return the upper bound of the function
+	 */
+	public double getUpper(Function function);
 }
