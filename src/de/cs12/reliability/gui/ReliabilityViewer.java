@@ -42,7 +42,7 @@ public class ReliabilityViewer extends JFrame {
 	 *            the title
 	 * @param functions
 	 *            the functions
-	 * @param aspect
+	 * @param aspects
 	 *            the aspects
 	 */
 	public ReliabilityViewer(String title,
