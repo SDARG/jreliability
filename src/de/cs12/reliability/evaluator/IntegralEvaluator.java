@@ -1,76 +1,61 @@
 package de.cs12.reliability.evaluator;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import de.cs12.reliability.bdd.BDD;
-import de.cs12.reliability.distribution.Distribution;
+import de.cs12.reliability.function.Function;
 
 /**
- * The {@code IntegralEvaluator} performs an integration of the {@code BDDs} top
- * event from {@code 0} to {@code infinity} using Rombergs integration. This is
+ * The {@code IntegralEvaluator} performs an integration of the {@code Function}
+ * from {@code 0} to {@code infinity} using Rombergs integration. This is
  * commonly used to derived measures like, e.g., Mean Time To Failure (MTTF).
  * 
  * @author glass
- * @param <T>
- *            the type of the variables
  * 
  */
-public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
+public class IntegralEvaluator implements Evaluator {
 
 	/**
-	 * The allowed {@code epsilon} for Rombergs integration.
+	 * The allowed error / {@code epsilon} for Rombergs integration.
 	 */
 	protected final double epsilon;
 
 	/**
-	 * Constructs a {@code IntegralEvaluator} with a {@code BDD} and a maximum
-	 * error of {@code 0.01}.
+	 * Constructs an {@code IntegralEvaluator} with a maximum error /
+	 * {@code epsilon} of {@code 0.01}.
 	 * 
-	 * @param bdd
-	 *            the bdd
 	 */
-	public IntegralEvaluator(BDD<T> bdd) {
-		this(bdd, 0.01);
+	public IntegralEvaluator() {
+		this(0.01);
 	}
 
 	/**
-	 * Constructs a {@code IntegralEvaluator} with a {@code BDD} and a maximum
-	 * error {@code epsilon}.
+	 * Constructs an {@code IntegralEvaluator} with a maximum error
+	 * {@code epsilon}.
 	 * 
-	 * @param bdd
-	 *            the bdd
 	 * @param epsilon
 	 *            the maximum error
 	 */
-	public IntegralEvaluator(BDD<T> bdd, double epsilon) {
-		super(bdd);
+	public IntegralEvaluator(double epsilon) {
+		super();
 		this.epsilon = epsilon;
 	}
 
 	/**
-	 * Returns the value derived from an integration of the given {@code BDD}.
+	 * Returns the value derived from an integration of the {@code Function}.
 	 * 
-	 * @param distributions
-	 *            the distribution of each variable
-	 * @return the value derived from an integration of the given BDD
+	 * @param function
+	 *            the function
+	 * @return the value derived from the integration of the function
 	 */
-	public double getValue(Map<T, Distribution> distributions) {
-		if (bdd.isOne()) {
-			return 1.0;
-		}
-		if (bdd.isZero()) {
-			return 0.0;
-		}
-
+	public double evaluate(Function function) {
 		double upperBound = 1.0;
-		double diff = calculateTop(distributions, upperBound);
+		double diff = function.getY(upperBound);
 		while (diff > 0.1) {
 			upperBound *= 2;
-			diff = calculateTop(distributions, upperBound);
+			diff = function.getY(upperBound);
 		}
 
-		return integrate(distributions, 0, upperBound);
+		return integrate(function, 0, upperBound);
 
 	}
 
@@ -78,19 +63,18 @@ public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 	 * Returns the calculated upper bound that will be used in the integration
 	 * process.
 	 * 
-	 * @param distributions
-	 *            the distribution of each variable
+	 * @param function
+	 *            the function
 	 * @return the calculated upper bound that will be used in the integration
 	 *         process
 	 */
-	public double getUpperBound(Map<T, Distribution> distributions) {
+	public double getUpperBound(Function function) {
 		double upperBound = 1.0;
-		double diff = calculateTop(distributions, upperBound);
+		double diff = function.getY(upperBound);
 		while (diff > 0.01) {
 			upperBound *= 2;
-			diff = calculateTop(distributions, upperBound);
+			diff = function.getY(upperBound);
 		}
-
 		return upperBound;
 
 	}
@@ -98,16 +82,15 @@ public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 	/**
 	 * Calculates the integral between low and high using Rombergs integration.
 	 * 
-	 * @param distributions
-	 *            the distribution of each variable
+	 * @param function
+	 *            the function
 	 * @param low
 	 *            the lower bound
 	 * @param high
 	 *            the upper bound
 	 * @return the value of the integral between low and high
 	 */
-	private double integrate(Map<T, Distribution> distributions, double low,
-			double high) {
+	protected double integrate(Function function, double low, double high) {
 
 		double error;
 		ArrayList<ArrayList<Double>> rTable = new ArrayList<ArrayList<Double>>();
@@ -115,8 +98,7 @@ public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 
 		rTable.add(line);
 
-		double borderVal = calculateTop(distributions, low)
-				+ calculateTop(distributions, high);
+		double borderVal = function.getY(low) + function.getY(high);
 		double gap = high - low;
 
 		int j = 1;
@@ -132,11 +114,11 @@ public class IntegralEvaluator<T> extends AbstractEvaluator<T> {
 			// Calculate 1st value of the line with the trapezium rule
 			double sum = 0.0;
 			for (int i = 1; i < div; i++) {
-				sum += calculateTop(distributions, low + (i * gap) / div);
+				sum += function.getY(low + (i * gap) / div);
 			}
 			rTable.get(j).add(0, (gap / (2 * div)) * (borderVal + 2 * sum));
 
-			// the rest of the samples with Neville-Aitken
+			// the rest of the functions with Neville-Aitken
 			for (int k = 1; k <= j; k++) {
 				double fourPow = Math.pow(2, (2 * k));
 

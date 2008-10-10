@@ -1,4 +1,4 @@
-package de.cs12.reliability.distribution;
+package de.cs12.reliability.function;
 
 /**
  * The {@code LognormalDistribution} represents the lognormal distribution
@@ -8,7 +8,7 @@ package de.cs12.reliability.distribution;
  * @author glass
  * 
  */
-public class LognormalDistribution implements Distribution {
+public class LognormalDistribution extends AbstractDistribution {
 
 	/**
 	 * The used mean of the natural logarithms of the times-to-failure.
@@ -38,7 +38,7 @@ public class LognormalDistribution implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.function.Function#getY(double)
 	 */
 	public double getY(double x) {
 		double preTerm = 1 / (rho * Math.sqrt(2 * Math.PI));

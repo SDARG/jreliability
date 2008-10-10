@@ -1,78 +1,65 @@
 package de.cs12.reliability.evaluator;
 
-import java.util.Map;
-
-import de.cs12.reliability.bdd.BDD;
-import de.cs12.reliability.common.Sample;
 import de.cs12.reliability.common.Samples;
-import de.cs12.reliability.distribution.Distribution;
+import de.cs12.reliability.function.Function;
 
 /**
- * The {@code SamplingEvaluator} creates samples of the function {@code y =
+ * The {@code SamplingEvaluator} creates functions of the function {@code y =
  * f(x)} as pairs of {@code x} and {@code f(x) = y}.
  * 
  * @author glass
- * @param <T>
- *            the type of the variables
  * 
  */
-public class SamplingEvaluator<T> extends AbstractEvaluator<T> {
+public class SamplingEvaluator implements Evaluator {
 
 	/**
-	 * Constructs a {@code SamplingEvaluator} with a {@code BDD}.
+	 * Constructs a {@code SamplingEvaluator}.
 	 * 
-	 * @param bdd
-	 *            the bdd
 	 */
-	public SamplingEvaluator(BDD<T> bdd) {
-		super(bdd);
+	public SamplingEvaluator() {
+		super();
 	}
 
 	/**
-	 * Returns the samples of the {@code BDD} from {@code low} to {@code high}
-	 * using the given {@code step} width.
+	 * Returns the functions of the {@code Function} from {@code low} to
+	 * {@code high} using the given {@code step} width.
 	 * 
-	 * @param distributions
-	 *            the distribution of each variable
+	 * @param function
+	 *            the function
 	 * @param low
 	 *            the low value
 	 * @param high
 	 *            the high value
 	 * @param step
 	 *            the step width
-	 * @return the samples
+	 * @return the functions
 	 */
-	public Samples getValues(Map<T, Distribution> distributions, double low,
-			double high, double step) {
+	public Samples evaluate(Function function, double low, double high,
+			double step) {
 		Samples samples = new Samples();
-		double deltaT = 1.0 / 10000.0;
 		for (double time = low; time < high; time += step) {
-			double r = calculateTop(distributions, time);
-			double nextR = calculateTop(distributions, time + deltaT);
-			double f = (r - nextR) / deltaT;
-			double lambda = f / r;
-			Sample sample = new Sample(time, r, f, lambda);
-			samples.add(sample);
+			double r = function.getY(time);
+			samples.put(time, r);
 		}
 		return samples;
 
 	}
 
 	/**
-	 * Returns {@code number} samples of the {@code BDD} from {@code 0} to an
-	 * auto-calculated upper bound.
+	 * Returns {@code number} functions of the {@code Function} from {@code 0} to
+	 * an auto-calculated upper bound.
 	 * 
-	 * @param distributions
-	 *            the distribution of each variable
+	 * @param function
+	 *            the function
 	 * @param number
-	 *            the number of samples
-	 * @return the samples
+	 *            the number of functions
+	 * @return the functions
 	 */
-	public Samples getValues(Map<T, Distribution> distributions, int number) {
-		IntegralEvaluator<T> evaluator = new IntegralEvaluator<T>(bdd);
-		double high = evaluator.getUpperBound(distributions);
+	public Samples evaluate(Function function, int number) {
+		IntegralEvaluator evaluator = new IntegralEvaluator();
+		double high = evaluator.getUpperBound(function);
 		double step = high / (double) number;
-		return getValues(distributions, 0.0, high, step);
+		return evaluate(function, 0.0, high, step);
 	}
 
 }

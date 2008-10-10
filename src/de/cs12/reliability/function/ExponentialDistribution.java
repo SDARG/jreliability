@@ -1,4 +1,4 @@
-package de.cs12.reliability.distribution;
+package de.cs12.reliability.function;
 
 /**
  * The {@code ExponentialDistribution} represents the exponential distribution.
@@ -8,7 +8,7 @@ package de.cs12.reliability.distribution;
  * @author glass
  * 
  */
-public class ExponentialDistribution implements Inverse {
+public class ExponentialDistribution extends AbstractDistribution {
 
 	/**
 	 * The used failure-rate {@code lambda}.
@@ -28,9 +28,9 @@ public class ExponentialDistribution implements Inverse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.function.Function#getY(double)
 	 */
+	@Override
 	public double getY(double x) {
 		return Math.exp(-(alpha * x));
 	}
@@ -38,7 +38,7 @@ public class ExponentialDistribution implements Inverse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.distribution.Inverse#getX(double)
+	 * @see de.cs12.reliability.function.Distribution#getX(double)
 	 */
 	@Override
 	public double getX(double y) {

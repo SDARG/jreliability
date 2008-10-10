@@ -1,13 +1,18 @@
 package de.cs12.reliability.tester;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import de.cs12.reliability.bdd.BDD;
-import de.cs12.reliability.common.Samples;
-import de.cs12.reliability.distribution.Distribution;
-import de.cs12.reliability.evaluator.SamplingEvaluator;
+import de.cs12.reliability.function.BDDDistribution;
+import de.cs12.reliability.function.Function;
+import de.cs12.reliability.function.FunctionTransformer;
+import de.cs12.reliability.gui.Aspect;
+import de.cs12.reliability.gui.DensityAspect;
+import de.cs12.reliability.gui.DistributionAspect;
+import de.cs12.reliability.gui.FailureRateAspect;
 import de.cs12.reliability.gui.ReliabilityViewer;
 
 /**
@@ -32,25 +37,27 @@ public class ReliabilityTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		List<Aspect> aspects = new ArrayList<Aspect>();
+		aspects.add(new DistributionAspect());
+		aspects.add(new DensityAspect());
+		aspects.add(new FailureRateAspect());
+
 		TestExample example = new TestExample();
-
-		Map<String, Distribution> exponentialDistributions = example
-				.getExponentialDistributions();
-		Map<String, Distribution> weibullDistributions = example
-				.getWeibullDistributions();
-
 		BDD<String> bdd = example.get();
-		SamplingEvaluator<String> evaluator = new SamplingEvaluator<String>(bdd);
 
-		Samples exponentialSamples = evaluator.getValues(
-				exponentialDistributions, 300);
-		Samples weibullSamples = evaluator.getValues(weibullDistributions, 300);
+		FunctionTransformer<String> exponentialTransformer = new TestExponentialTransformer();
+		FunctionTransformer<String> weibullTransformer = new TestWeibullTransformer();
 
-		SortedMap<String, Samples> samples = new TreeMap<String, Samples>();
-		samples.put("Exponential", exponentialSamples);
-		samples.put("Weibull", weibullSamples);
+		BDDDistribution<String> exponentialDistribution = new BDDDistribution<String>(
+				bdd, exponentialTransformer);
+		BDDDistribution<String> weibullDistribution = new BDDDistribution<String>(
+				bdd, weibullTransformer);
 
-		new ReliabilityViewer("Reliability Viewer", samples);
+		SortedMap<String, Function> functions = new TreeMap<String, Function>();
+		functions.put("Exponential", exponentialDistribution);
+		functions.put("Weibull", weibullDistribution);
+
+		new ReliabilityViewer("Reliability Viewer", functions, aspects);
 
 	}
 

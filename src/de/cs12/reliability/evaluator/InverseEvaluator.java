@@ -1,93 +1,36 @@
 package de.cs12.reliability.evaluator;
 
-import java.util.Map;
-
-import de.cs12.reliability.bdd.BDD;
-import de.cs12.reliability.distribution.Distribution;
+import de.cs12.reliability.function.Distribution;
 
 /**
  * The {@code InverseEvaluator} calculates the inverse function of the
- * {@code BDD}, i.e., f^(-1)(y) = x. This is typically used to derive measures
- * like, e.g., the Mission Time (MT).
+ * {@code Distribution}, i.e., f^(-1)(y) = x. This is typically used to derive
+ * measures like, e.g., the Mission Time (MT).
  * 
  * @author glass
- * @param <T>
- *            the type of the variables
  */
-public class InverseEvaluator<T> extends AbstractEvaluator<T> {
+public class InverseEvaluator implements Evaluator {
 
 	/**
-	 * The allowed {@code epsilon} for the bisection approach used to derive the
-	 * inverse.
-	 */
-	protected final double epsilon;
-
-	/**
-	 * Constructs a {@code InverseEvaluator} with a {@code BDD} and a maximum
-	 * error {@code 0.01}.
+	 * Constructs an {@code InverseEvaluator}.
 	 * 
-	 * @param bdd
-	 *            the bdd
 	 */
-	public InverseEvaluator(BDD<T> bdd) {
-		this(bdd, 0.01);
+	public InverseEvaluator() {
+		super();
 	}
 
 	/**
-	 * Constructs a {@code InverseEvaluator} with a {@code BDD} and a maximum
-	 * error {@code epsilon}.
+	 * Returns the {@code x} value for a {@code y} value in {@code y = f(x)} for
+	 * a given {@code Distribution}.
 	 * 
-	 * @param bdd
-	 *            the bdd
-	 * @param epsilon
-	 *            the maximum error
-	 */
-	public InverseEvaluator(BDD<T> bdd, double epsilon) {
-		super(bdd);
-		this.epsilon = epsilon;
-	}
-
-	/**
-	 * Returns the {@code x} value of the inverse function {@code f^(-1)(y) = x}
-	 * for the {@code BDD} and the given {@code y} value.
-	 * 
-	 * @param distributions
-	 *            the distribution of each variable
+	 * @param distribution
+	 *            the distribution
 	 * @param y
 	 *            the y value
-	 * @return the x value
+	 * @return the x value for a y value and a given distribution
 	 */
-	public double getValue(Map<T, Distribution> distributions, double y) {
-		return bisection(distributions, y, 0, 1);
-	}
-
-	/**
-	 * Calculates the x value using bisection with a maximum error epsilon.
-	 * 
-	 * @param distributions
-	 *            the distribution of each variable
-	 * @param y
-	 *            the y value
-	 * @param low
-	 *            the lower end of the interval
-	 * @param high
-	 *            the upper end of the interval
-	 * @return the x value
-	 */
-	protected double bisection(Map<T, Distribution> distributions, double y,
-			double low, double high) {
-
-		double x = high - ((high - low) / 2);
-		double tmpY = calculateTop(distributions, x);
-
-		if (tmpY < (y - epsilon)) {
-			return bisection(distributions, y, low, x);
-		} else if (tmpY > (y + epsilon)) {
-			return bisection(distributions, y, x, high);
-		} else {
-			return x;
-		}
-
+	public double evaluate(Distribution distribution, double y) {
+		return distribution.getX(y);
 	}
 
 }

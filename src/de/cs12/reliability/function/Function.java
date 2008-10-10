@@ -1,13 +1,12 @@
-package de.cs12.reliability.distribution;
+package de.cs12.reliability.function;
 
 /**
- * The {@code Distribution} is an interface to represent functions
- * {@code y = f(x)} for each variable used in the BDD.
+ * The {@code Function} represents an arbitrary mathematical function.
  * 
  * @author glass
  * 
  */
-public interface Distribution {
+public interface Function {
 
 	/**
 	 * Returns the {@code y} value for {@code y = f(x)}.

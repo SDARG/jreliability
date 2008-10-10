@@ -1,4 +1,4 @@
-package de.cs12.reliability.distribution;
+package de.cs12.reliability.function;
 
 /**
  * The {@code Constant} represents a constant value with
@@ -8,7 +8,7 @@ package de.cs12.reliability.distribution;
  * @author glass
  * 
  */
-public class Constant implements Distribution {
+public class Constant implements Function {
 
 	/**
 	 * The used constant value.
@@ -28,7 +28,7 @@ public class Constant implements Distribution {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.evaluator.bdd.reliability.Distribution#getY(double)
+	 * @see de.cs12.reliability.function.Function#getY(double)
 	 */
 	public double getY(double x) {
 		return c;

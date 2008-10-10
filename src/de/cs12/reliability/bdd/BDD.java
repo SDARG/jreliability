@@ -2,6 +2,7 @@ package de.cs12.reliability.bdd;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * The {@code BDD} is an interface containing the very basic functionality of a
@@ -234,7 +235,7 @@ public interface BDD<T> extends Cloneable {
 
 	/**
 	 * Returns a BDD where the variables of {@code that} BDD are set to constant
-	 * samples in {@code this} BDD. Note: Both BDDs remain unchanged after this
+	 * functions in {@code this} BDD. Note: Both BDDs remain unchanged after this
 	 * or-operation.
 	 * 
 	 * @param that
@@ -244,7 +245,7 @@ public interface BDD<T> extends Cloneable {
 	public BDD<T> restrict(BDD<T> that);
 
 	/**
-	 * Restricts the variables of {@code that} to constant samples in {@code
+	 * Restricts the variables of {@code that} to constant functions in {@code
 	 * this} BDD. Note: {@code That} BDD is consumed(!) within this operation
 	 * and invalid afterwards.
 	 * 
@@ -322,5 +323,12 @@ public interface BDD<T> extends Cloneable {
 	 * 
 	 * @return a copy of this object
 	 */
-	public Object clone();
+	public BDD<T> clone();
+
+	/**
+	 * Returns the set of variables that are used in this {@code BDD}.
+	 * 
+	 * @return the set of variables that are used in this bdd
+	 */
+	public Set<T> getVariables();
 }

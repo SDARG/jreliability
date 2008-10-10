@@ -2,6 +2,7 @@ package de.cs12.reliability.javabdd;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 import net.sf.javabdd.BDDPairing;
 import de.cs12.reliability.bdd.BDD;
@@ -186,7 +187,7 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
-	 * de.cs12.reliability.bdd.BDD)
+	 *      de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
 		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
@@ -251,7 +252,7 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
 		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
@@ -264,7 +265,7 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
 		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
@@ -285,8 +286,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void restrictWith(BDD<T> that) {
 		bdd.restrictWith(((JBDD<T>) that).bdd);
@@ -429,16 +429,23 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see java.lang.Object#clone()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object clone() {
-		Object myClone = null;
+	public BDD<T> clone() {
+		BDD<T> myClone = null;
 		try {
-			myClone = super.clone();
+			myClone = (BDD<T>) super.clone();
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 		net.sf.javabdd.BDD cloneBDD = bdd.and(provider.one().bdd);
 		myClone = new JBDD<T>(provider, cloneBDD);
 		return myClone;
+	}
+
+	@Override
+	public Set<T> getVariables() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
