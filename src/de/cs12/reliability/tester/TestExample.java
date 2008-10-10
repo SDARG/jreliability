@@ -37,7 +37,7 @@ public class TestExample {
 	 */
 	public BDD<String> get() {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<String> bddProvider = bddProviderFactory.getProvider(3);
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 
 		BDD<String> heaterBDD = bddProvider.get(heater);
 		BDD<String> pump1BDD = bddProvider.get(pump1);

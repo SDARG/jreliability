@@ -6,44 +6,44 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.javabdd.BDDFactory;
-import net.sf.javabdd.JFactory;
+import net.sf.javabdd.CALFactory;
 import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
 
 /**
- * The {@code JBDDProvider} used to get {@code JBDD} BDDs. 
+ * The {@code CALProvider} used to get {@code CAL} BDDs.
  * 
  * @author glass, reimann
  * @param <T>
  *            the type of the variables
  */
-public class JBDDProvider<T> implements BDDProvider<T> {
-	private int variableOffset = 0;
+public class CALProvider<T> implements BDDProvider<T> {
+	protected static int variableOffset = 0;
 
-	BDDFactory bddFactory;
+	protected static BDDFactory bddFactory;
+	protected static boolean factoryInit = false;
+	protected static int vars;
 
-	Map<T, Integer> variableToInt = new HashMap<T, Integer>();
-	Map<Integer, T> intToVariable = new HashMap<Integer, T>();
-	int vars;
-
-	private boolean factoryInit = false;
+	protected static Map<Object, Integer> variableToInt = new HashMap<Object, Integer>();
+	protected static Map<Integer, Object> intToVariable = new HashMap<Integer, Object>();
 
 	/**
-	 * Constructs a {@code JDDProvider} with a given number of variables.
+	 * Constructs a {@code CALProvider} with a given number of variables.
 	 * 
 	 * @param vars
 	 *            the number of variables
 	 */
-	public JBDDProvider(int vars) {
+	public CALProvider(int vars) {
 		if (!factoryInit) {
 			factoryInit = true;
-			bddFactory = JFactory.init(1000000, 200000);
+			bddFactory = CALFactory.init(100000, 1000000);
 			bddFactory.setVarNum(vars);
-			this.vars = vars;
-			bddFactory.autoReorder(BDDFactory.REORDER_SIFT);
+			CALProvider.vars = vars;
+			//bddFactory.autoReorder(BDDFactory.REORDER_SIFT);
 		}
 
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -72,8 +72,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDDProvider#zero()
 	 */
-	public JBDD<T> zero() {
-		return new JBDD<T>(this, bddFactory.zero());
+	public CAL<T> zero() {
+		return new CAL<T>(this, bddFactory.zero());
 	}
 
 	/*
@@ -81,8 +81,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDDProvider#one()
 	 */
-	public JBDD<T> one() {
-		return new JBDD<T>(this, bddFactory.one());
+	public CAL<T> one() {
+		return new CAL<T>(this, bddFactory.one());
 	}
 
 	/*
@@ -101,7 +101,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 			bddFactory.setVarNum(vars);
 		}
 		
-		return new JBDD<T>(this, bddFactory.ithVar(variableToInt.get(variable)));
+		return new CAL<T>(this, bddFactory.ithVar(variableToInt.get(variable)));
 	}
 
 	/*
@@ -109,7 +109,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDDProvider#get(de.cs12.reliability.bdd.BDD)
 	 */
+	@SuppressWarnings("unchecked")
 	public T get(BDD<T> bdd) {
-		return intToVariable.get(((JBDD<T>) bdd).bdd.var());
+		return (T)intToVariable.get(((CAL<T>) bdd).bdd.var());
 	}
 }

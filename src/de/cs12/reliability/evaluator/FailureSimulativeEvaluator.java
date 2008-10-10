@@ -90,7 +90,7 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 		double time = 0;
 		BDD<T> bdd = distribution.getBdd();
 		BDDProvider<T> provider = bdd.getProvider();
-		BDD<T> myBDD = bdd.clone();
+		BDD<T> myBDD = bdd.copy();
 		Set<Failure<T>> failures = getFailures(distribution);
 
 		for (Failure<T> failure : failures) {

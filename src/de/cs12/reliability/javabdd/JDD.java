@@ -9,15 +9,14 @@ import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
 
 /**
- * The {@code JBDD} is a {@code BDD} based on the {@code JavaBDD} standard java
- * implementation.
+ * The {@code JDD} is a {@code BDD} based on the java {@code JDD} library.
  * 
  * @author glass, reimann
  * @param <T>
  *            the type of the variables
  */
-public class JBDD<T> implements BDD<T> {
-	JBDDProvider<T> provider;
+public class JDD<T> implements BDD<T> {
+	JDDProvider<T> provider;
 
 	net.sf.javabdd.BDD bdd;
 
@@ -56,7 +55,7 @@ public class JBDD<T> implements BDD<T> {
 		 * @see java.util.Iterator#next()
 		 */
 		public BDD<T> next() {
-			return new JBDD<T>(provider, iterator.next());
+			return new JDD<T>(provider, iterator.next());
 		}
 
 		/*
@@ -82,7 +81,7 @@ public class JBDD<T> implements BDD<T> {
 	 *            the BDD implementation used in the JBBFactory of the javabdd
 	 *            library
 	 */
-	JBDD(JBDDProvider<T> provider, net.sf.javabdd.BDD bdd) {
+	JDD(JDDProvider<T> provider, net.sf.javabdd.BDD bdd) {
 		this.provider = provider;
 		this.bdd = bdd;
 	}
@@ -103,7 +102,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#and(de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> and(BDD<T> that) {
-		return new JBDD<T>(provider, bdd.and(((JBDD<T>) that).bdd));
+		return new JDD<T>(provider, bdd.and(((JDD<T>) that).bdd));
 	}
 
 	/*
@@ -112,7 +111,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#andWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void andWith(BDD<T> that) {
-		bdd.andWith(((JBDD<T>) that).bdd);
+		bdd.andWith(((JDD<T>) that).bdd);
 	}
 
 	/*
@@ -123,7 +122,7 @@ public class JBDD<T> implements BDD<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object that) {
-		return bdd.equals(((JBDD<T>) that).bdd);
+		return bdd.equals(((JDD<T>) that).bdd);
 	}
 
 	/*
@@ -132,8 +131,8 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#exist(java.lang.Object)
 	 */
 	public BDD<T> exist(T variable) {
-		return new JBDD<T>(provider, bdd.exist(((JBDD<T>) provider
-				.get(variable)).bdd));
+		return new JDD<T>(provider, bdd
+				.exist(((JDD<T>) provider.get(variable)).bdd));
 	}
 
 	/*
@@ -142,8 +141,8 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#forAll(java.lang.Object)
 	 */
 	public BDD<T> forAll(T variable) {
-		return new JBDD<T>(provider, bdd.forAll(((JBDD<T>) provider
-				.get(variable)).bdd));
+		return new JDD<T>(provider, bdd
+				.forAll(((JDD<T>) provider.get(variable)).bdd));
 	}
 
 	/*
@@ -162,7 +161,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#high()
 	 */
 	public BDD<T> high() {
-		return new JBDD<T>(provider, bdd.high());
+		return new JDD<T>(provider, bdd.high());
 	}
 
 	/*
@@ -187,11 +186,11 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
-	 *      de.cs12.reliability.bdd.BDD)
+	 * de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
-		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
-				((JBDD<T>) elseBDD).bdd));
+		return new JDD<T>(provider, bdd.ite(((JDD<T>) thenBDD).bdd,
+				((JDD<T>) elseBDD).bdd));
 	}
 
 	/*
@@ -209,7 +208,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#low()
 	 */
 	public BDD<T> low() {
-		return new JBDD<T>(provider, bdd.low());
+		return new JDD<T>(provider, bdd.low());
 	}
 
 	/*
@@ -218,7 +217,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#not()
 	 */
 	public BDD<T> not() {
-		return new JBDD<T>(provider, bdd.not());
+		return new JDD<T>(provider, bdd.not());
 	}
 
 	/*
@@ -236,7 +235,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#or(de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> or(BDD<T> that) {
-		return new JBDD<T>(provider, bdd.or(((JBDD<T>) that).bdd));
+		return new JDD<T>(provider, bdd.or(((JDD<T>) that).bdd));
 	}
 
 	/*
@@ -245,32 +244,32 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#orWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void orWith(BDD<T> that) {
-		bdd.orWith(((JBDD<T>) that).bdd);
+		bdd.orWith(((JDD<T>) that).bdd);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
-		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
+		BDDPairing pair = provider.bddFactory.makePair(((JDD<T>) provider
 				.get(variable1)).bdd.var(),
-				((JBDD<T>) provider.get(variable2)).bdd.var());
-		return new JBDD<T>(provider, bdd.replace(pair));
+				((JDD<T>) provider.get(variable2)).bdd.var());
+		return new JDD<T>(provider, bdd.replace(pair));
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
-		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
+		BDDPairing pair = provider.bddFactory.makePair(((JDD<T>) provider
 				.get(variable1)).bdd.var(),
-				((JBDD<T>) provider.get(variable2)).bdd.var());
+				((JDD<T>) provider.get(variable2)).bdd.var());
 		bdd.replaceWith(pair);
 	}
 
@@ -280,16 +279,17 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#restrict(de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> restrict(BDD<T> that) {
-		return new JBDD<T>(provider, bdd.restrict(((JBDD<T>) that).bdd));
+		return new JDD<T>(provider, bdd.restrict(((JDD<T>) that).bdd));
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 * @see
+	 * de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void restrictWith(BDD<T> that) {
-		bdd.restrictWith(((JBDD<T>) that).bdd);
+		bdd.restrictWith(((JDD<T>) that).bdd);
 	}
 
 	/*
@@ -298,7 +298,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#sat()
 	 */
 	public BDD<T> sat() {
-		return new JBDD<T>(provider, bdd.satOne());
+		return new JDD<T>(provider, bdd.satOne());
 	}
 
 	/*
@@ -316,7 +316,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#xor(de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> xor(BDD<T> that) {
-		return new JBDD<T>(provider, bdd.xor(((JBDD<T>) that).bdd));
+		return new JDD<T>(provider, bdd.xor(((JDD<T>) that).bdd));
 	}
 
 	/*
@@ -325,7 +325,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#xorWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void xorWith(BDD<T> that) {
-		bdd.xorWith(((JBDD<T>) that).bdd);
+		bdd.xorWith(((JDD<T>) that).bdd);
 	}
 
 	/*
@@ -334,7 +334,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#imp(de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> imp(BDD<T> that) {
-		return new JBDD<T>(provider, bdd.imp(((JBDD<T>) that).bdd));
+		return new JDD<T>(provider, bdd.imp(((JDD<T>) that).bdd));
 	}
 
 	/*
@@ -343,7 +343,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#impWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void impWith(BDD<T> that) {
-		bdd.impWith(((JBDD<T>) that).bdd);
+		bdd.impWith(((JDD<T>) that).bdd);
 	}
 
 	/*
@@ -373,7 +373,7 @@ public class JBDD<T> implements BDD<T> {
 	 */
 	public void andWith(Collection<T> that) {
 		for (T variable : that) {
-			bdd.andWith(((JBDD<T>) provider.get(variable)).bdd);
+			bdd.andWith(((JDD<T>) provider.get(variable)).bdd);
 		}
 	}
 
@@ -383,7 +383,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#andWith(java.lang.Object)
 	 */
 	public void andWith(T that) {
-		bdd.andWith(((JBDD<T>) provider.get(that)).bdd);
+		bdd.andWith(((JDD<T>) provider.get(that)).bdd);
 	}
 
 	/*
@@ -393,7 +393,7 @@ public class JBDD<T> implements BDD<T> {
 	 */
 	public void orWith(Collection<T> that) {
 		for (T variable : that) {
-			bdd.orWith(((JBDD<T>) provider.get(variable)).bdd);
+			bdd.orWith(((JDD<T>) provider.get(variable)).bdd);
 		}
 	}
 
@@ -403,7 +403,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#orWith(java.lang.Object)
 	 */
 	public void orWith(T that) {
-		bdd.orWith(((JBDD<T>) provider.get(that)).bdd);
+		bdd.orWith(((JDD<T>) provider.get(that)).bdd);
 	}
 
 	/*
@@ -412,7 +412,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#impWith(java.lang.Object)
 	 */
 	public void impWith(T that) {
-		bdd.impWith(((JBDD<T>) provider.get(that)).bdd);
+		bdd.impWith(((JDD<T>) provider.get(that)).bdd);
 	}
 
 	/*
@@ -421,9 +421,8 @@ public class JBDD<T> implements BDD<T> {
 	 * @see de.cs12.reliability.bdd.BDD#xorWith(java.lang.Object)
 	 */
 	public void xorWith(T that) {
-		bdd.xorWith(((JBDD<T>) provider.get(that)).bdd);
+		bdd.xorWith(((JDD<T>) provider.get(that)).bdd);
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -432,9 +431,8 @@ public class JBDD<T> implements BDD<T> {
 	 */
 	@Override
 	public BDD<T> copy() {
-		JBDD<T> myCopy = null;
 		net.sf.javabdd.BDD copyBDD = bdd.and(provider.one().bdd);
-		myCopy = new JBDD<T>(provider, copyBDD);
+		JDD<T> myCopy = new JDD<T>(provider, copyBDD);
 		return myCopy;
 	}
 

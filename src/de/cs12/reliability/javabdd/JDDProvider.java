@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.javabdd.BDDFactory;
-import net.sf.javabdd.JFactory;
+import net.sf.javabdd.JDDFactory;
 import de.cs12.reliability.bdd.BDD;
 import de.cs12.reliability.bdd.BDDProvider;
 
 /**
- * The {@code JBDDProvider} used to get {@code JBDD} BDDs. 
+ * The {@code JDDProvider} used to get {@code JDD} BDDs.
  * 
  * @author glass, reimann
  * @param <T>
  *            the type of the variables
  */
-public class JBDDProvider<T> implements BDDProvider<T> {
+public class JDDProvider<T> implements BDDProvider<T> {
 	private int variableOffset = 0;
 
 	BDDFactory bddFactory;
@@ -34,13 +34,13 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * @param vars
 	 *            the number of variables
 	 */
-	public JBDDProvider(int vars) {
+	public JDDProvider(int vars) {
 		if (!factoryInit) {
 			factoryInit = true;
-			bddFactory = JFactory.init(1000000, 200000);
+			bddFactory = JDDFactory.init(1000000, 200000);
 			bddFactory.setVarNum(vars);
 			this.vars = vars;
-			bddFactory.autoReorder(BDDFactory.REORDER_SIFT);
+			// bddFactory.autoReorder(BDDFactory.REORDER_SIFT);
 		}
 
 	}
@@ -72,8 +72,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDDProvider#zero()
 	 */
-	public JBDD<T> zero() {
-		return new JBDD<T>(this, bddFactory.zero());
+	public JDD<T> zero() {
+		return new JDD<T>(this, bddFactory.zero());
 	}
 
 	/*
@@ -81,8 +81,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDDProvider#one()
 	 */
-	public JBDD<T> one() {
-		return new JBDD<T>(this, bddFactory.one());
+	public JDD<T> one() {
+		return new JDD<T>(this, bddFactory.one());
 	}
 
 	/*
@@ -95,13 +95,12 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 		if (!variableToInt.containsKey(variable)) {
 			add(variable);
 		}
-		
-		if(vars < variableToInt.size()){
+		if (vars < variableToInt.size()) {
 			vars *= 2;
 			bddFactory.setVarNum(vars);
 		}
-		
-		return new JBDD<T>(this, bddFactory.ithVar(variableToInt.get(variable)));
+
+		return new JDD<T>(this, bddFactory.ithVar(variableToInt.get(variable)));
 	}
 
 	/*
@@ -110,6 +109,6 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * @see de.cs12.reliability.bdd.BDDProvider#get(de.cs12.reliability.bdd.BDD)
 	 */
 	public T get(BDD<T> bdd) {
-		return intToVariable.get(((JBDD<T>) bdd).bdd.var());
+		return intToVariable.get(((JDD<T>) bdd).bdd.var());
 	}
 }

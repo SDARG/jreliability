@@ -3,20 +3,18 @@ package de.cs12.reliability.bdd;
 /**
  * The {@code BDDProviderFactory} creates {@code BDDProviders}.
  * 
- * @author reimann
+ * @author reimann, lukasiewycz
  * 
  */
 public interface BDDProviderFactory {
 
 	/**
-	 * Returns a {@code BDDProvider} with a given number of variables to
-	 * allocate.
+	 * Returns a {@code BDDProvider}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
-	 * @param vars
-	 *            the number of variables to allocate
 	 * @return a BDDProvider
 	 */
-	public <T> BDDProvider<T> getProvider(int vars);
+	public <T> BDDProvider<T> getProvider();
+
 }

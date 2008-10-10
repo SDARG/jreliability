@@ -14,7 +14,7 @@ import java.util.Set;
  * @param <T>
  *            the type of the variables
  */
-public interface BDD<T> extends Cloneable {
+public interface BDD<T> {
 
 	/**
 	 * Returns a {@code BDDAllSatIterator} containing all satisfying variable
@@ -323,7 +323,7 @@ public interface BDD<T> extends Cloneable {
 	 * 
 	 * @return a copy of this object
 	 */
-	public BDD<T> clone();
+	public BDD<T> copy();
 
 	/**
 	 * Returns the set of variables that are used in this {@code BDD}.

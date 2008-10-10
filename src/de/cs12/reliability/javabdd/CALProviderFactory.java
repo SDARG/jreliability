@@ -7,20 +7,20 @@ import de.cs12.reliability.bdd.BDDProvider;
 import de.cs12.reliability.bdd.BDDProviderFactory;
 
 /**
- * The {@code JDDProviderFactory} is a {@code BDDProviderFactory} for the
- * JavaBDD library.
+ * The {@code CALProviderFactory} is a {@code BDDProviderFactory} for the
+ * CAL library.
  * 
  * @author reimann, lukasiewycz
  * 
  */
-public class JBDDProviderFactory implements BDDProviderFactory {
+public class CALProviderFactory implements BDDProviderFactory {
 
-	protected static int INITIAL_VARIABLES = 10;
+	protected static int INITIAL_VARIABLES = 100;
 
 	/**
 	 * Constructs a {@code JDDProviderFactory}.
 	 */
-	public JBDDProviderFactory() {
+	public CALProviderFactory() {
 		super();
 	}
 
@@ -35,7 +35,7 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 			throw new IllegalArgumentException(
 					"The initial number of variables has to be minimal 1");
 		}
-		return new JBDDProvider<T>(vars);
+		return new CALProvider<T>(vars);
 	}
 
 	/*
