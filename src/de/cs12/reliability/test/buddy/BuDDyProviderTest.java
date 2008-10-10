@@ -1,6 +1,8 @@
-package de.cs12.reliability.test;
+package de.cs12.reliability.test.buddy;
 
-import de.cs12.reliability.javabdd.BuDDyProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
+import de.cs12.reliability.test.AbstractBDDProviderTest;
 
 /**
  * The {@code BuDDyProviderTest} is the {@code AbstractBDDProviderTest} for the {@link BuDDy}.
@@ -16,7 +18,7 @@ public class BuDDyProviderTest extends AbstractBDDProviderTest {
 	 * @see de.cs12.reliability.test.AbstractBDDProviderTest#init()
 	 */
 	public void init() {
-		this.factory = new BuDDyProviderFactory();
+		this.factory = new JBDDProviderFactory(Type.BUDDY);
 	}
 
 }

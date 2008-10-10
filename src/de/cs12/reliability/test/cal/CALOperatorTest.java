@@ -1,7 +1,8 @@
-package de.cs12.reliability.test;
+package de.cs12.reliability.test.cal;
 
-import de.cs12.reliability.javabdd.CAL;
-import de.cs12.reliability.javabdd.CALProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
+import de.cs12.reliability.test.AbstractBDDOperatorTest;
 
 /**
  * The {@code CALOperatorTest} is a unit test operator class for the {@link CAL}
@@ -19,7 +20,7 @@ public class CALOperatorTest extends AbstractBDDOperatorTest {
 	 * @see de.cs12.reliability.test.AbstractBDDTest#init()
 	 */
 	public void init() {
-		this.factory = new CALProviderFactory();
+		this.factory = new JBDDProviderFactory(Type.CAL);
 	}
 
 }

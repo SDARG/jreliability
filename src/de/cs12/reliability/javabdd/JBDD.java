@@ -256,7 +256,7 @@ public class JBDD<T> implements BDD<T> {
 	 *      java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
-		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
+		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider
 				.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		return new JBDD<T>(provider, bdd.replace(pair));
@@ -269,7 +269,7 @@ public class JBDD<T> implements BDD<T> {
 	 *      java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
-		BDDPairing pair = provider.bddFactory.makePair(((JBDD<T>) provider
+		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider
 				.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		bdd.replaceWith(pair);
@@ -433,7 +433,8 @@ public class JBDD<T> implements BDD<T> {
 	@Override
 	public BDD<T> copy() {
 		JBDD<T> myCopy = null;
-		net.sf.javabdd.BDD copyBDD = bdd.and(provider.one().bdd);
+		JBDD<T> one = (JBDD<T>)provider.one();
+		net.sf.javabdd.BDD copyBDD = bdd.and(one.bdd);
 		myCopy = new JBDD<T>(provider, copyBDD);
 		return myCopy;
 	}

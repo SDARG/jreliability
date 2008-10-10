@@ -1,7 +1,9 @@
-package de.cs12.reliability.test;
+package de.cs12.reliability.test.jbdd;
 
 import de.cs12.reliability.javabdd.JBDD;
 import de.cs12.reliability.javabdd.JBDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
+import de.cs12.reliability.test.AbstractBDDProviderTest;
 
 /**
  * 
@@ -19,7 +21,7 @@ public class JBDDProviderTest extends AbstractBDDProviderTest {
 	 * @see de.cs12.reliability.test.AbstractBDDProviderTest#init()
 	 */
 	public void init() {
-		this.factory = new JBDDProviderFactory();
+		this.factory = new JBDDProviderFactory(Type.JAVABDD);
 	}
 
 }

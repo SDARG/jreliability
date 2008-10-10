@@ -10,6 +10,7 @@ import java.util.List;
  *            the type of the variables
  */
 public interface BDDProvider<T> {
+	
 	/**
 	 * Register variables in the specified order.
 	 * 
@@ -55,4 +56,5 @@ public interface BDDProvider<T> {
 	 * @return the variable represented by the BDD
 	 */
 	public T get(BDD<T> bdd);
+	
 }

@@ -3,6 +3,9 @@
  */
 package de.cs12.reliability.javabdd;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.cs12.reliability.bdd.BDDProvider;
 import de.cs12.reliability.bdd.BDDProviderFactory;
 
@@ -15,27 +18,31 @@ import de.cs12.reliability.bdd.BDDProviderFactory;
  */
 public class JBDDProviderFactory implements BDDProviderFactory {
 
+	public enum Type {
+		JAVABDD, JDD, BUDDY, CUDD, CAL;
+	}
+
+	protected final Type type;
+
 	protected static int INITIAL_VARIABLES = 10;
+	protected static Map<Type, JBDDProvider<?>> staticProviders = new HashMap<Type, JBDDProvider<?>>();
 
 	/**
 	 * Constructs a {@code JDDProviderFactory}.
 	 */
 	public JBDDProviderFactory() {
-		super();
+		this(Type.JAVABDD);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Constructs a {@code JDDProviderFactory}.
 	 * 
-	 * @see
-	 * de.cs12.reliability.evaluator.bdd.BDDProviderFactory#getProvider(int)
+	 * @param type
+	 *            the type of bdd library
 	 */
-	public <T> BDDProvider<T> getProvider(int vars) {
-		if (vars <= 0) {
-			throw new IllegalArgumentException(
-					"The initial number of variables has to be minimal 1");
-		}
-		return new JBDDProvider<T>(vars);
+	public JBDDProviderFactory(Type type) {
+		super();
+		this.type = type;
 	}
 
 	/*
@@ -43,9 +50,35 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	 * 
 	 * @see de.cs12.reliability.bdd.BDDProviderFactory#getProvider()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> BDDProvider<T> getProvider() {
-		return getProvider(INITIAL_VARIABLES);
+		final boolean useNative;
+
+		switch (type) {
+		case BUDDY:
+		case CUDD:
+		case CAL:
+			useNative = true;
+			break;
+		default:
+			useNative = false;
+		}
+
+		final JBDDProvider<T> provider;
+
+		if (useNative) {
+			if (!staticProviders.containsKey(type)) {
+				provider = new JBDDProvider<T>(type, INITIAL_VARIABLES);
+				staticProviders.put(type, provider);
+			} else {
+				provider = (JBDDProvider<T>) staticProviders.get(type);
+			}
+		} else {
+			provider = new JBDDProvider<T>(type, INITIAL_VARIABLES);
+		}
+
+		return provider;
 	}
 
 }

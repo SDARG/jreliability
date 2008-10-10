@@ -36,7 +36,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	public void testAndBig() {
 		BDD<String> and = provider.one();
 
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 2000; i++) {
 			String var = "v" + i;
 			and.andWith(provider.get(var));
 		}

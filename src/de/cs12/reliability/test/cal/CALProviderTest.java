@@ -1,7 +1,8 @@
-package de.cs12.reliability.test;
+package de.cs12.reliability.test.cal;
 
-import de.cs12.reliability.javabdd.CAL;
-import de.cs12.reliability.javabdd.CALProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
+import de.cs12.reliability.test.AbstractBDDProviderTest;
 
 /**
  * 
@@ -19,7 +20,7 @@ public class CALProviderTest extends AbstractBDDProviderTest {
 	 * @see de.cs12.reliability.test.AbstractBDDProviderTest#init()
 	 */
 	public void init() {
-		this.factory = new CALProviderFactory();
+		this.factory = new JBDDProviderFactory(Type.CAL);
 	}
 
 }

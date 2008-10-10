@@ -1,7 +1,8 @@
-package de.cs12.reliability.test;
+package de.cs12.reliability.test.cudd;
 
-import de.cs12.reliability.javabdd.CUDD;
-import de.cs12.reliability.javabdd.CUDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory;
+import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
+import de.cs12.reliability.test.AbstractBDDProviderTest;
 
 /**
  * 
@@ -19,7 +20,7 @@ public class CUDDProviderTest extends AbstractBDDProviderTest {
 	 * @see de.cs12.reliability.test.AbstractBDDProviderTest#init()
 	 */
 	public void init() {
-		this.factory = new CUDDProviderFactory();
+		this.factory = new JBDDProviderFactory(Type.CUDD);
 	}
 
 }
