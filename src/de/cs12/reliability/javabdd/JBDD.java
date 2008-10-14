@@ -1,3 +1,17 @@
+/**
+ * JReliability is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ */
 package de.cs12.reliability.javabdd;
 
 import java.util.Collection;
@@ -188,7 +202,7 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#ite(de.cs12.reliability.bdd.BDD,
-	 *      de.cs12.reliability.bdd.BDD)
+	 * de.cs12.reliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
 		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
@@ -253,11 +267,11 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replace(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
-		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider
-				.get(variable1)).bdd.var(),
+		BDDPairing pair = provider.getFactory().makePair(
+				((JBDD<T>) provider.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		return new JBDD<T>(provider, bdd.replace(pair));
 	}
@@ -266,11 +280,11 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see de.cs12.reliability.bdd.BDD#replaceWith(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
-		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider
-				.get(variable1)).bdd.var(),
+		BDDPairing pair = provider.getFactory().makePair(
+				((JBDD<T>) provider.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		bdd.replaceWith(pair);
 	}
@@ -287,7 +301,8 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
+	 * @see
+	 * de.cs12.reliability.bdd.BDD#restrictWith(de.cs12.reliability.bdd.BDD)
 	 */
 	public void restrictWith(BDD<T> that) {
 		bdd.restrictWith(((JBDD<T>) that).bdd);
@@ -433,7 +448,7 @@ public class JBDD<T> implements BDD<T> {
 	@Override
 	public BDD<T> copy() {
 		JBDD<T> myCopy = null;
-		JBDD<T> one = (JBDD<T>)provider.one();
+		JBDD<T> one = (JBDD<T>) provider.one();
 		net.sf.javabdd.BDD copyBDD = bdd.and(one.bdd);
 		myCopy = new JBDD<T>(provider, copyBDD);
 		return myCopy;
