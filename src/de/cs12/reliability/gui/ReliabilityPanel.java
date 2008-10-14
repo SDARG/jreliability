@@ -82,12 +82,21 @@ public class ReliabilityPanel extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * The different {@code Aspects}.
+		 */
 		protected final List<Aspect> aspects;
-
+		/**
+		 * The box for the different {@code Aspects}.
+		 */
 		protected JComboBox comboBox = new JComboBox();
-
+		/**
+		 * The currently shown {@code Aspect}.
+		 */
 		protected Aspect currentAspect;
-
+		/**
+		 * The reliabilty panel.
+		 */
 		protected ReliabilityPanel panel;
 
 		/**
@@ -140,7 +149,9 @@ public class ReliabilityPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 * @see
+		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
+		 * )
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {

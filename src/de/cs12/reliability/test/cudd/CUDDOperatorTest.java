@@ -5,8 +5,8 @@ import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
 import de.cs12.reliability.test.AbstractBDDOperatorTest;
 
 /**
- * The {@code CUDDOperatorTest} is a unit test operator class for the
- * {@link CUDDO} class.
+ * The {@code CUDDOperatorTest} is a unit test operator class for the {@code
+ * CUDDO} class.
  * 
  * 
  * @author lukasiewycz

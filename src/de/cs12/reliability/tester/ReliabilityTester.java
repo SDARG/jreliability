@@ -6,6 +6,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import de.cs12.reliability.bdd.BDD;
+import de.cs12.reliability.bdd.BDDs;
 import de.cs12.reliability.function.BDDDistribution;
 import de.cs12.reliability.function.Function;
 import de.cs12.reliability.function.FunctionTransformer;
@@ -44,6 +45,7 @@ public class ReliabilityTester {
 
 		TestExample example = new TestExample();
 		BDD<String> bdd = example.get();
+		System.out.println(BDDs.toDot(bdd));
 		
 		FunctionTransformer<String> exponentialTransformer = new TestExponentialTransformer();
 		FunctionTransformer<String> weibullTransformer = new TestWeibullTransformer();

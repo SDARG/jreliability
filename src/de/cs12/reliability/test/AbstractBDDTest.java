@@ -12,6 +12,9 @@ import de.cs12.reliability.bdd.BDDProviderFactory;
  */
 public abstract class AbstractBDDTest {
 
+	/**
+	 * The used {@code BDDProvider}.
+	 */
 	protected BDDProviderFactory factory;
 
 	/**
@@ -19,5 +22,5 @@ public abstract class AbstractBDDTest {
 	 */
 	@Before
 	public abstract void init();
-	
+
 }

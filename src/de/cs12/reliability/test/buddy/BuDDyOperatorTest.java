@@ -5,7 +5,8 @@ import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
 import de.cs12.reliability.test.AbstractBDDOperatorTest;
 
 /**
- * The {@code BuDDyOperatorTest} is a unit test operator class for the {@link BuDDy} class.
+ * The {@code BuDDyOperatorTest} is a unit test operator class for the {@code
+ * BuDDy} class.
  * 
  * 
  * @author lukasiewycz
@@ -13,13 +14,13 @@ import de.cs12.reliability.test.AbstractBDDOperatorTest;
  */
 public class BuDDyOperatorTest extends AbstractBDDOperatorTest {
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.cs12.reliability.test.AbstractBDDTest#init()
 	 */
 	public void init() {
 		this.factory = new JBDDProviderFactory(Type.BUDDY);
 	}
-
 
 }

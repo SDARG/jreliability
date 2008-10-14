@@ -19,8 +19,17 @@ import de.cs12.reliability.javabdd.JBDDProviderFactory;
  */
 public class TestExample {
 
+	/**
+	 * The heater.
+	 */
 	protected final String heater = "Heater";
+	/**
+	 * The first pump.
+	 */
 	protected final String pump1 = "Pump 1";
+	/**
+	 * The second pump.
+	 */
 	protected final String pump2 = "Pump 2";
 
 	/**
@@ -50,6 +59,15 @@ public class TestExample {
 		BDD<String> system = bddProvider.one();
 		system.andWith(heaterBDD);
 		system.andWith(pumpSystem);
+
+		/*
+		 * This little change can be used to show the BDDs.toDot() method.
+		 * 
+		 * BDD<String> a = heaterBDD.and(pump1BDD); BDD<String> aNot =
+		 * heaterBDD.not().and(pump2BDD);
+		 * 
+		 * BDD<String> system = a.or(aNot);
+		 */
 
 		return system;
 

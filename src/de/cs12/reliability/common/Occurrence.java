@@ -11,7 +11,13 @@ package de.cs12.reliability.common;
  */
 public abstract class Occurrence<T> implements Comparable<Occurrence<T>> {
 
+	/**
+	 * The element {@code T}.
+	 */
 	protected final T t;
+	/**
+	 * The time of the occurrence.
+	 */
 	protected final Double time;
 
 	/**

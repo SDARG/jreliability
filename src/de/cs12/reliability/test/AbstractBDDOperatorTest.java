@@ -17,6 +17,9 @@ import de.cs12.reliability.bdd.BDDProvider;
  */
 public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
+	/**
+	 * The used {@code BDDProvider}.
+	 */
 	protected BDDProvider<String> provider;
 
 	/**

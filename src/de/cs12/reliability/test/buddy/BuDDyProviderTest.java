@@ -5,7 +5,8 @@ import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
 import de.cs12.reliability.test.AbstractBDDProviderTest;
 
 /**
- * The {@code BuDDyProviderTest} is the {@code AbstractBDDProviderTest} for the {@link BuDDy}.
+ * The {@code BuDDyProviderTest} is the {@code AbstractBDDProviderTest} for the
+ * {@code BuDDy}.
  * 
  * @author lukasiewycz
  * 

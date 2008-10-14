@@ -24,19 +24,46 @@ import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
  *            the type of the variables
  */
 public class JBDDProvider<T> implements BDDProvider<T> {
+	/**
+	 * The offset of the variables.
+	 */
 	protected int variableOffset = 0;
-
+	/**
+	 * The used {@code Type} of real {@code BDD} implementation.
+	 */
 	protected Type type;
-
+	/**
+	 * The used {@code BDDFactory}.
+	 */
 	protected BDDFactory factory;
 
+	/**
+	 * A translation of the variable to an {@code Integer} for the real {@code
+	 * BDD}.
+	 */
 	protected Map<T, Integer> variableToInt = new HashMap<T, Integer>();
+	/**
+	 * A translation of the {@code Integer} in the real {@code BDD} to the
+	 * variable.
+	 */
 	protected Map<Integer, T> intToVariable = new HashMap<Integer, T>();
+	/**
+	 * The number of variables.
+	 */
 	protected int vars;
 
 	/**
-	 * Constructs a {@code JDDProvider} with a given number of variables.
 	 * 
+	 * 
+	 * @param vars
+	 *            the number of variables
+	 */
+	/**
+	 * Constructs a {@code JDDProvider} with the {@code Type} of real {@code
+	 * BDDs} and a given number of variables.
+	 * 
+	 * @param type
+	 *            the type of the real bdd implementation
 	 * @param vars
 	 *            the number of variables
 	 */
@@ -161,10 +188,10 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 		return intToVariable.get(((JBDD<T>) bdd).bdd.var());
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Returns the used {@code BDDFactory}.
 	 * 
-	 * @see de.cs12.reliability.javabdd.JBDDProvider#getFactory()
+	 * @return the used bdd factory
 	 */
 	public BDDFactory getFactory() {
 		return factory;

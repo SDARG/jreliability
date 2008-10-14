@@ -9,20 +9,42 @@ import de.cs12.reliability.function.FunctionTransformer;
 import de.cs12.reliability.function.WeibullDistribution;
 
 /**
- * The {@code TestWeibullTransformer}
+ * The {@code TestWeibullTransformer} is a {@code Transformer} for the {@code
+ * TestExample} that uses {@code WeibullDistributions} as {@code Functions}.
  * 
  * @author glass
  * 
  */
 public class TestWeibullTransformer implements FunctionTransformer<String> {
 
+	/**
+	 * The heater.
+	 */
 	protected final String heater = "Heater";
+	/**
+	 * The first pump.
+	 */
 	protected final String pump1 = "Pump 1";
+	/**
+	 * The second pump.
+	 */
 	protected final String pump2 = "Pump 2";
 
+	/**
+	 * Maps each element to its {@code Function}.
+	 */
 	protected Map<String, Function> functions = new HashMap<String, Function>();
+	/**
+	 * The {@code Distribution} of the heater.
+	 */
 	Distribution heaterDistribution = new WeibullDistribution(0.1, 2);
+	/**
+	 * The {@code Distribution} of the first pump.
+	 */
 	Distribution pump1Distribution = new WeibullDistribution(1, 3);
+	/**
+	 * The {@code Distribution} of the second pump.
+	 */
 	Distribution pump2Distribution = new WeibullDistribution(1.2, 3);
 
 	/**

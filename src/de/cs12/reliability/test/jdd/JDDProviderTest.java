@@ -7,7 +7,7 @@ import de.cs12.reliability.test.AbstractBDDProviderTest;
 /**
  * 
  * The {@code JDDProviderTest} is the {@code AbstractBDDProviderTest} for the
- * {@link JDD}.
+ * {@code JDD}.
  * 
  * @author lukasiewycz
  * 

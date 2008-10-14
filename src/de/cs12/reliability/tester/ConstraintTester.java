@@ -40,5 +40,6 @@ public class ConstraintTester {
 		BDD<Integer> bdd = BDDs.getConstraintBDD(constraint);
 		System.out.println(bdd.toString());
 		System.out.println(bdd.nodeCount());
+		System.out.println(BDDs.toDot(bdd));
 	}
 }

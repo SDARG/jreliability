@@ -18,13 +18,47 @@ import de.cs12.reliability.bdd.BDDProviderFactory;
  */
 public class JBDDProviderFactory implements BDDProviderFactory {
 
+	/**
+	 * The {@code Type} of real {@code BDD} implementation.
+	 * 
+	 * @author lukasiewycz
+	 * 
+	 */
 	public enum Type {
-		JAVABDD, JDD, BUDDY, CUDD, CAL;
+		/**
+		 * Use JavaBDD.
+		 */
+		JAVABDD,
+		/**
+		 * Use JDD.
+		 */
+		JDD,
+		/**
+		 * Use BuDDy.
+		 */
+		BUDDY,
+		/**
+		 * Use CUDD.
+		 */
+		CUDD,
+		/**
+		 * Use CAL.
+		 */
+		CAL;
 	}
 
+	/**
+	 * The used {@code Type} of real {@code BDD} implementation.
+	 */
 	protected final Type type;
-
+	/**
+	 * The number of initially allocated variables.
+	 */
 	protected static int INITIAL_VARIABLES = 10;
+	/**
+	 * A map that provides each requested {@code Type} of real {@code BDD}
+	 * implementation with its specific {@code JBDDProvider}.
+	 */
 	protected static Map<Type, JBDDProvider<?>> staticProviders = new HashMap<Type, JBDDProvider<?>>();
 
 	/**

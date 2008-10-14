@@ -7,7 +7,7 @@ import de.cs12.reliability.test.AbstractBDDProviderTest;
 /**
  * 
  * The {@code CUDDProviderTest} is the {@code AbstractBDDProviderTest} for the
- * {@link CUDD}.
+ * {@code CUDD}.
  * 
  * @author lukasiewycz
  * 

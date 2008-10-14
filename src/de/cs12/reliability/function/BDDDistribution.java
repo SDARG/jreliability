@@ -3,10 +3,13 @@ package de.cs12.reliability.function;
 import de.cs12.reliability.bdd.BDD;
 
 /**
- * The {@code BDDDistribution}
+ * The {@code BDDDistribution} represents the {@code Distribution} that is
+ * inherently included in a {@code BDD}.
  * 
  * @author glass
  * 
+ * @param <T>
+ *            the type of variable
  */
 public class BDDDistribution<T> extends AbstractDistribution {
 
@@ -22,8 +25,8 @@ public class BDDDistribution<T> extends AbstractDistribution {
 	protected final FunctionTransformer<T> transformer;
 
 	/**
-	 * Constructs a {@code BDDDistribution} with a given {@code BDD} and
-	 * {@code FunctionTransformer}.
+	 * Constructs a {@code BDDDistribution} with a given {@code BDD} and {@code
+	 * FunctionTransformer}.
 	 * 
 	 * @param bdd
 	 *            the bdd representing the distribution

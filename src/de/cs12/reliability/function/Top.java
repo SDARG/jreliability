@@ -31,14 +31,11 @@ class Top<T> {
 	 * Calculates the top event of the {@code BDD} based on the {@code Function}
 	 * of each variable {@code T} at the given {@code x} value.
 	 * 
-	 * @param bdd
-	 *            the bdd
-	 * 
-	 * @param function
-	 *            the function of each element
-	 * @param x
-	 *            the x value
-	 * @return the top event of the BDD
+	 * @param <T> the type of variable
+	 * @param bdd the bdd
+	 * @param transformer the transformer
+	 * @param x the x value
+	 * @return the top event of the bdd
 	 */
 	public static <T> double calculateTop(BDD<T> bdd,
 			FunctionTransformer<T> transformer, double x) {

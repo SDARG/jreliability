@@ -7,7 +7,7 @@ import de.cs12.reliability.test.AbstractBDDProviderTest;
 /**
  * 
  * The {@code CALProviderTest} is the {@code AbstractBDDProviderTest} for the
- * {@link CAL}.
+ * {@code CAL}.
  * 
  * @author lukasiewycz
  * 

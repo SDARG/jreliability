@@ -5,7 +5,7 @@ import de.cs12.reliability.javabdd.JBDDProviderFactory.Type;
 import de.cs12.reliability.test.AbstractBDDOperatorTest;
 
 /**
- * The {@code CALOperatorTest} is a unit test operator class for the {@link CAL}
+ * The {@code CALOperatorTest} is a unit test operator class for the {@code CAL}
  * class.
  * 
  * 
