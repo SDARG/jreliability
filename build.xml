@@ -1,15 +1,29 @@
 <?xml version="1.0"?>
 
-<project name="reliability" default="compile">
+<project name="jreliability" default="compile">
 
 	<property file="utils/build.properties" />
+
+	<tstamp>
+		<format property="date" pattern="MM/dd/yyyy" />
+		<format property="date-flat" pattern="MMddyyyy" />
+	</tstamp>
+
+	<!-- VERSIONING -->
+	<property name="version" value="snapshot-${date-flat}" />
+	<!-- <property name="version" value="1.5" /> -->
 
 	<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${utils.dir}/jarjar-1.0rc7.jar" />
 
 	<path id="compile.classpath">
 		<fileset dir="${lib.dir}" includes="*.jar" />
 	</path>
-	
+
+	<filterset id="defaultFilter">
+		<filter token="VERSION" value="${version}" />
+		<filter token="DATE" value="${date}" />
+	</filterset>
+
 	<target name="all" depends="clean,init,jar,light,dist,javadoc" description="Compile Java source." />
 
 	<target name="init" depends="clean">
@@ -17,10 +31,12 @@
 		<mkdir dir="${build.dir}/javadoc" />
 		<mkdir dir="${build.dir}/classes" />
 		<mkdir dir="${build.dir}/jar" />
-		<mkdir dir="${build.dir}/dist/reliability-${version}" />
-		
+		<mkdir dir="${build.dir}/dist/jreliability-${version}" />
+
 		<copy toDir="${build.dir}/src">
-			<fileset dir="${src.dir}" excludes=".svn,.svn/**/*,**/.svn, de/cs12/reliability/test/**" />
+			<fileset dir="${resource.dir}" excludes=".svn,.svn/**/*,**/.svn" />
+			<fileset dir="${src.dir}" excludes=".svn,.svn/**/*,**/.svn, org/jreliability/test/**" />
+			<filterset refid="defaultFilter" />
 		</copy>
 	</target>
 
@@ -29,35 +45,38 @@
 			<classpath refid="compile.classpath" />
 			<compilerarg value="-Xlint" />
 		</javac>
+		<copy toDir="${build.dir}/classes">
+			<fileset dir="${resource.dir}" excludes=".svn,.svn/**/*,**/.svn,**/*.java" />
+		</copy>
 	</target>
 
 	<target name="jar" depends="compile" description="Build jar.">
-		<jarjar jarfile="${build.dir}/jar/reliability-${version}.jar">
+		<jarjar jarfile="${build.dir}/jar/jreliability-${version}.jar">
 			<fileset dir="${build.dir}/classes" />
 			<zipfileset src="${lib.dir}/${javabdd.jar}" excludes="META-INF/**" />
 			<zipfileset src="${lib.dir}/${plot.jar}" excludes="META-INF/**" />
 		</jarjar>
 	</target>
-	
+
 	<target name="light" depends="compile" description="Build jar.">
-			<jarjar jarfile="${build.dir}/jar/reliability-${version}-light.jar">
-				<fileset dir="${build.dir}/classes" />
-			</jarjar>
-		</target>
+		<jarjar jarfile="${build.dir}/jar/jreliability-${version}-light.jar">
+			<fileset dir="${build.dir}/classes" />
+		</jarjar>
+	</target>
 
 	<target name="dist" depends="jar" description="Build distribution.">
-		<property name="zip.dir" value="${build.dir}/dist/reliability-${version}" />
+		<property name="zip.dir" value="${build.dir}/dist/jreliability-${version}" />
 		<copy toDir="${zip.dir}">
 			<fileset dir="${build.dir}/jar" includes="*.jar" />
 		</copy>
 
-		<zip destfile="${build.dir}/reliability-${version}.zip" basedir="${build.dir}/dist" />
-		<tar destfile="${build.dir}/reliability-${version}.tar" basedir="${build.dir}/dist" />
-		<gzip src="${build.dir}/reliability-${version}.tar" destfile="${build.dir}/reliability-${version}.tar.gz" />
+		<zip destfile="${build.dir}/jreliability-${version}.zip" basedir="${build.dir}/dist" />
+		<tar destfile="${build.dir}/jreliability-${version}.tar" basedir="${build.dir}/dist" />
+		<gzip src="${build.dir}/jreliability-${version}.tar" destfile="${build.dir}/jreliability-${version}.tar.gz" />
 	</target>
 
 	<target name="javadoc" depends="init" description="Generate Javadocs.">
-		<javadoc sourcepath="${build.dir}/src" packagenames="*" destdir="${build.dir}/javadoc" author="false" protected="true" windowtitle="Reliability ${version} API" overview="${build.dir}/src/overview.html">
+		<javadoc sourcepath="${build.dir}/src" packagenames="*" destdir="${build.dir}/javadoc" author="false" protected="true" windowtitle="JReliability ${version} API" overview="${build.dir}/src/overview.html">
 			<classpath refid="compile.classpath" />
 			<link href="http://java.sun.com/javase/6/docs/api" />
 		</javadoc>
