@@ -164,9 +164,7 @@ public class ReliabilityPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
-		 * )
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -180,7 +178,6 @@ public class ReliabilityPanel extends JPanel {
 			if (changed) {
 				panel.paint(currentAspect);
 			}
-
 		}
 
 		/**
@@ -293,9 +290,9 @@ public class ReliabilityPanel extends JPanel {
 			i++;
 		}
 		max = max + (0.1 * max);
+		setLabels(aspect.getXAxis(), aspect.getYAxis());
 		plot.setYRange(min, max);
 		plot.revalidate();
 		plot.repaint();
 	}
-
 }
