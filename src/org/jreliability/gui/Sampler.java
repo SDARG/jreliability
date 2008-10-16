@@ -19,12 +19,11 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.jreliability.common.Samples;
-import org.jreliability.function.Function;
-
+import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code Sampler} is used to generate the {@code Samples} of a set of
- * {@code Functions} under a given {@code Aspect}.
+ * {@code ReliabilityFunction} under a given {@code Aspect}.
  * 
  * @author glass
  * 
@@ -41,24 +40,26 @@ public class Sampler {
 
 	/**
 	 * Returns the {@code Samples} (with a {@code number} of points each) of a
-	 * set of {@code Functions} under a given {@code Aspect}
+	 * set of {@code ReliabilityFunction} under a given {@code Aspect}
 	 * 
-	 * @param functions
-	 *            the functions
+	 * @param reliabilityFunctions
+	 *            the reliabilityFunctions
 	 * @param aspect
 	 *            the aspect
 	 * @param number
 	 *            the number of points per samples
-	 * @return the samples of a set of functions under a given aspect
+	 * @return the samples of a set of reliabilityFunctions under a given aspect
 	 */
 	public SortedMap<String, Samples> getSamples(
-			SortedMap<String, Function> functions, Aspect aspect, int number) {
+			SortedMap<String, ReliabilityFunction> reliabilityFunctions,
+			Aspect aspect, int number) {
 		Double lower = null;
 		Double upper = null;
-		for (Entry<String, Function> entry : functions.entrySet()) {
-			Function function = entry.getValue();
-			double tmpLow = aspect.getLower(function);
-			double tmpUp = aspect.getUpper(function);
+		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
+				.entrySet()) {
+			ReliabilityFunction reliabilityFunction = entry.getValue();
+			double tmpLow = aspect.getLower(reliabilityFunction);
+			double tmpUp = aspect.getUpper(reliabilityFunction);
 			if (lower == null || lower > tmpLow) {
 				lower = tmpLow;
 			}
@@ -68,9 +69,11 @@ public class Sampler {
 		}
 
 		SortedMap<String, Samples> samples = new TreeMap<String, Samples>();
-		for (Entry<String, Function> entry : functions.entrySet()) {
-			Function function = entry.getValue();
-			Samples sample = getSamples(function, aspect, lower, upper, number);
+		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
+				.entrySet()) {
+			ReliabilityFunction reliabilityFunction = entry.getValue();
+			Samples sample = getSamples(reliabilityFunction, aspect, lower,
+					upper, number);
 			samples.put(entry.getKey(), sample);
 		}
 
@@ -78,12 +81,12 @@ public class Sampler {
 	}
 
 	/**
-	 * Returns {@code number} {@code Samples} of a {@code Function} under a
-	 * given {@code Aspect}, ranging from the {@code lower} to the {@code upper}
-	 * bound.
+	 * Returns {@code number} {@code Samples} of a {@code ReliabilityFunction}
+	 * under a given {@code Aspect}, ranging from the {@code lower} to the
+	 * {@code upper} bound.
 	 * 
-	 * @param function
-	 *            the function
+	 * @param reliabilityFunction
+	 *            the reliabilityFunction
 	 * @param aspect
 	 *            the aspect
 	 * @param lower
@@ -92,16 +95,19 @@ public class Sampler {
 	 *            the upper bound
 	 * @param number
 	 *            the number of points per samples
-	 * @return the samples of a function under an aspect ranging from lower to
-	 *         upper
+	 * @return the samples of a reliabilityFunction under an aspect ranging from
+	 *         lower to upper
 	 */
-	protected Samples getSamples(Function function, Aspect aspect,
-			double lower, double upper, int number) {
+	protected Samples getSamples(ReliabilityFunction reliabilityFunction,
+			Aspect aspect, double lower, double upper, int number) {
 		Samples samples = new Samples();
 
 		double step = (upper - lower) / number;
 		for (double x = lower; x < upper; x = x + step) {
-			double y = aspect.getY(x, function);
+			Double y = aspect.getY(x, reliabilityFunction);
+			if (y == null) {
+				break;
+			}
 			samples.put(x, y);
 		}
 

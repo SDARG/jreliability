@@ -12,17 +12,24 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
+
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code LognormalDistribution} represents the lognormal distribution
+ * The {@code LognormalReliabilityFunction} represents the {@code
+ * ReliabilityFunction} of the {@code Lognormal reliabilityFunction}
  * <p>
- * {@code f(x) = (1 / (rho * sqrt(2 * pi))) * e^(-0.5 * ((ln(T) - mu) / rho)^2)}.
+ * {@code R(x) = 1 - F(x) = (1 / (rho * sqrt(2 * pi))) * e^(-0.5 * ((ln(T) - mu)
+ * / rho)^2)}.
+ * <p>
+ * The {@code rho} and {@code mu} parameter represent the standard deviation and
+ * mean of the variable's natural logarithm.
  * 
  * @author glass
  * 
  */
-public class LognormalDistribution extends AbstractDistribution {
+public class LognormalReliabilityFunction implements ReliabilityFunction {
 
 	/**
 	 * The used mean of the natural logarithms of the times-to-failure.
@@ -36,15 +43,15 @@ public class LognormalDistribution extends AbstractDistribution {
 	protected final double rho;
 
 	/**
-	 * Constructs a {@code LognormalDistribution} with a given {@code mu} and
-	 * {@code rho}.
+	 * Constructs a {@code LognormalReliabilityFunction} with a given {@code mu}
+	 * and {@code rho}.
 	 * 
 	 * @param mu
-	 *            the mu value
+	 *            the mean of the variable's natural logarithm
 	 * @param rho
-	 *            the rho value
+	 *            the standard deviation of the variable's natural logarithm
 	 */
-	public LognormalDistribution(double mu, double rho) {
+	public LognormalReliabilityFunction(double mu, double rho) {
 		this.mu = mu;
 		this.rho = rho;
 	}

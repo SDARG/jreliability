@@ -15,7 +15,7 @@
 package org.jreliability.function;
 
 /**
- * The {@code Function} represents an arbitrary mathematical function.
+ * The {@code Function} represents a mathematical reliabilityFunction.
  * 
  * @author glass
  * 

@@ -18,13 +18,14 @@ import org.jreliability.common.Transformer;
 
 /**
  * The {@code FunctionTransformer} transforms an object {@code T} into a {@code
- * Function}.
+ * ReliabilityFunction}.
  * 
  * @author glass
  * 
  * @param <T>
  *            the object t
  */
-public interface FunctionTransformer<T> extends Transformer<T, Function> {
+public interface FunctionTransformer<T> extends
+		Transformer<T, ReliabilityFunction> {
 
 }

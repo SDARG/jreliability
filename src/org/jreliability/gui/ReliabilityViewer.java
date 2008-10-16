@@ -24,8 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import org.jreliability.function.Function;
-
+import org.jreliability.function.ReliabilityFunction;
 /**
  * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
  * ReliabilityPanel}.
@@ -57,17 +56,18 @@ public class ReliabilityViewer extends JFrame {
 
 	/**
 	 * Constructs a {@code ReliabilityViewer} with a given title, a list of
-	 * {@code Functions}, and the {@code Aspects}.
+	 * {@code ReliabilityFunctions}, and the {@code Aspects}.
 	 * 
 	 * @param title
 	 *            the title
-	 * @param functions
-	 *            the functions
+	 * @param reliabilityFunctions
+	 *            the reliabilityFunctions
 	 * @param aspects
 	 *            the aspects
 	 */
 	public ReliabilityViewer(String title,
-			SortedMap<String, Function> functions, List<Aspect> aspects) {
+			SortedMap<String, ReliabilityFunction> reliabilityFunctions,
+			List<Aspect> aspects) {
 		this.title = title;
 
 		reliabilityPanel = new ReliabilityPanel(aspects);
@@ -78,16 +78,17 @@ public class ReliabilityViewer extends JFrame {
 			e.printStackTrace();
 		}
 
-		init(functions);
+		init(reliabilityFunctions);
 	}
 
 	/**
-	 * Initializes the frame with a given set of {@code Functions}.
+	 * Initializes the frame with a given set of {@code ReliabilityFunctions}.
 	 * 
-	 * @param functions
-	 *            the functions
+	 * @param reliabilityFunctions
+	 *            the reliabilityFunctions
 	 */
-	protected final void init(SortedMap<String, Function> functions) {
+	protected final void init(
+			SortedMap<String, ReliabilityFunction> reliabilityFunctions) {
 		setTitle(title);
 
 		loadImageIcon();
@@ -98,7 +99,7 @@ public class ReliabilityViewer extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		getContentPane().add(reliabilityPanel.get(functions));
+		getContentPane().add(reliabilityPanel.get(reliabilityFunctions));
 
 		pack();
 		setVisible(true);

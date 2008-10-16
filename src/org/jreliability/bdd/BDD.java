@@ -249,7 +249,7 @@ public interface BDD<T> {
 
 	/**
 	 * Returns a BDD where the variables of {@code that} BDD are set to constant
-	 * functions in {@code this} BDD. Note: Both BDDs remain unchanged after
+	 * reliabilityFunctions in {@code this} BDD. Note: Both BDDs remain unchanged after
 	 * this or-operation.
 	 * 
 	 * @param that
@@ -259,7 +259,7 @@ public interface BDD<T> {
 	public BDD<T> restrict(BDD<T> that);
 
 	/**
-	 * Restricts the variables of {@code that} to constant functions in {@code
+	 * Restricts the variables of {@code that} to constant reliabilityFunctions in {@code
 	 * this} BDD. Note: {@code That} BDD is consumed(!) within this operation
 	 * and invalid afterwards.
 	 * 

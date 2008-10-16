@@ -15,23 +15,22 @@
 package org.jreliability.gui;
 
 import org.jreliability.evaluator.MomentEvaluator;
-import org.jreliability.function.FailureRate;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code FailureRateAspect} represents the {@code FailureRate} of a given
- * {@code ReliabilityFunction}.
+ * The {@code ReliabilityFunctionAspect}
  * 
  * @author glass
  * 
  */
-public class FailureRateAspect extends AbstractAspect {
+public class ReliabilityFunctionAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@code FailureRateAspect}.
+	 * Constructs a {@code DistributionAspect}.
+	 * 
 	 */
-	public FailureRateAspect() {
-		super("Failure Rate", "time t", "failure rate lambda(t)");
+	public ReliabilityFunctionAspect() {
+		super("Reliability Function", "time t", "reliability function R(t)");
 	}
 
 	/*
@@ -52,9 +51,9 @@ public class FailureRateAspect extends AbstractAspect {
 	 * @see org.jreliability.gui.Aspect#getY(double,
 	 * org.jreliability.function.Function)
 	 */
+	@Override
 	public Double getY(double x, ReliabilityFunction reliabilityFunction) {
-		FailureRate lambda = new FailureRate(reliabilityFunction);
-		Double y = lambda.getY(x);
+		Double y = reliabilityFunction.getY(x);
 		if (y.isNaN()) {
 			return null;
 		} else {

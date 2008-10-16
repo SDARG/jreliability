@@ -17,16 +17,14 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.function.Distribution;
-import org.jreliability.function.ExponentialDistribution;
-import org.jreliability.function.Function;
 import org.jreliability.function.FunctionTransformer;
-
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.ExponentialReliabilityFunction;
 
 /**
  * The {@code TestExponentialTransformer} is a {@code Transformer} for the
- * {@code TestExample} that uses {@code ExponentialDistributions} as {@code
- * Functions}.
+ * {@code TestExample} that uses {@code ExponentialReliabilityFunction} as
+ * {@code ReliabilityFunctions}.
  * 
  * @author glass
  * 
@@ -47,30 +45,33 @@ public class TestExponentialTransformer implements FunctionTransformer<String> {
 	protected final String pump2 = "Pump 2";
 
 	/**
-	 * Maps each element to its {@code Function}.
+	 * Maps each element to its {@code ReliabilityFunction}.
 	 */
-	protected Map<String, Function> functions = new HashMap<String, Function>();
+	protected Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
 	/**
-	 * The {@code Distribution} of the heater.
+	 * The {@code ReliabilityFunction} of the heater.
 	 */
-	protected Distribution heaterDistribution = new ExponentialDistribution(0.5);
+	protected ReliabilityFunction heaterReliabilityFunction = new ExponentialReliabilityFunction(
+			0.5);
 	/**
-	 * The {@code Distribution} of the first pump.
+	 * The {@code ReliabilityFunction} of the first pump.
 	 */
-	protected Distribution pump1Distribution = new ExponentialDistribution(1);
+	protected ReliabilityFunction pump1ReliabilityFunction = new ExponentialReliabilityFunction(
+			1);
 	/**
-	 * The {@code Distribution} of the second pump.
+	 * The {@code ReliabilityFunction} of the second pump.
 	 */
-	protected Distribution pump2Distribution = new ExponentialDistribution(1);
+	protected ReliabilityFunction pump2ReliabilityFunction = new ExponentialReliabilityFunction(
+			1);
 
 	/**
 	 * Constructs a {@code TestExponentialTransformer}.
 	 * 
 	 */
 	public TestExponentialTransformer() {
-		functions.put(heater, heaterDistribution);
-		functions.put(pump1, pump1Distribution);
-		functions.put(pump2, pump2Distribution);
+		reliabilityFunction.put(heater, heaterReliabilityFunction);
+		reliabilityFunction.put(pump1, pump1ReliabilityFunction);
+		reliabilityFunction.put(pump2, pump2ReliabilityFunction);
 	}
 
 	/*
@@ -79,8 +80,8 @@ public class TestExponentialTransformer implements FunctionTransformer<String> {
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
 	@Override
-	public Function transform(String a) {
-		return functions.get(a);
+	public ReliabilityFunction transform(String a) {
+		return reliabilityFunction.get(a);
 	}
 
 }

@@ -14,11 +14,11 @@
  */
 package org.jreliability.gui;
 
-import org.jreliability.function.Function;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code Aspect} allows to determine the {@code y-value} for the {@code
- * Function} {@code y = f(x)} under the current {@code Aspect}.
+ * ReliabilityFunction} {@code y = R(x)} under the current {@code Aspect}.
  * 
  * @author glass
  * 
@@ -26,18 +26,19 @@ import org.jreliability.function.Function;
 public interface Aspect {
 
 	/**
-	 * Returns the {@code y-value} for the {@code Function} {@code y = f(x)}
-	 * under the current {@code Aspect}.
+	 * Returns the {@code y-value} for the {@code ReliabilityFunction} {@code y
+	 * = R(x)} under the current {@code Aspect}.
 	 * 
 	 * @param x
 	 *            the x-value
 	 * 
-	 * @param function
-	 *            the function
+	 * @param reliabilityFunction
+	 *            the reliabilityFunction
 	 * 
-	 * @return the y-value for the function y = f(x) under the current aspect
+	 * @return the y-value for the reliabilityFunction y = R(x) under the
+	 *         current aspect
 	 */
-	public double getY(double x, Function function);
+	public Double getY(double x, ReliabilityFunction reliabilityFunction);
 
 	/**
 	 * Returns the name of the {@code Aspect}.
@@ -61,22 +62,22 @@ public interface Aspect {
 	public String getYAxis();
 
 	/**
-	 * Returns the lower bound of the {@code Function} under the current {@code
-	 * Aspect}.
+	 * Returns the lower bound of the {@code ReliabilityFunction} under the
+	 * current {@code Aspect}.
 	 * 
-	 * @param function
-	 *            the function
-	 * @return the lower bound of the function
+	 * @param reliabilityFunction
+	 *            the reliabilityFunction
+	 * @return the lower bound of the reliability Function
 	 */
-	public double getLower(Function function);
+	public double getLower(ReliabilityFunction reliabilityFunction);
 
 	/**
-	 * Returns the upper bound of the {@code Function} under the current {@code
-	 * Aspect}.
+	 * Returns the upper bound of the {@code ReliabilityFunction} under the
+	 * current {@code Aspect}.
 	 * 
-	 * @param function
-	 *            the function
-	 * @return the upper bound of the function
+	 * @param reliabilityFunction
+	 *            the reliabilityFunction
+	 * @return the upper bound of the reliabilityFunction
 	 */
-	public double getUpper(Function function);
+	public double getUpper(ReliabilityFunction reliabilityFunction);
 }

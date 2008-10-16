@@ -15,43 +15,44 @@
 package org.jreliability.function;
 
 /**
- * The {@code Distribution} determines the {@code Distribution} {@code F(x)} of
- * a given {@code ReliabilityFunction} {@code R(x)} as
- * <p>
- * {@code F(x) = 1 - R(x)}.
+ * The {@code DensityFunction} determines the density {@code f(x)} of a {@code
+ * ReliabilityFunction} {@code R(x)}.
  * 
  * @author glass
  * 
  */
-public class Distribution implements Function {
+public class DensityFunction {
 
 	/**
-	 * The {@code ReliabilityFunction} for which the {@code Distribution} is to
-	 * determine.
+	 * The {@code ReliabilityFunction} for which the {@code DensityFunction} is
+	 * to determine.
 	 */
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * Constructs a {@code Distribution} with a given {@code
+	 * Constructs a {@code DensityFunction} with a given {@code
 	 * ReliabilityFunction}.
 	 * 
 	 * @param reliabilityFunction
-	 *            the reliability reliabilityFunction
+	 *            the reliabilityFunction
 	 */
-	public Distribution(ReliabilityFunction reliabilityFunction) {
+	public DensityFunction(ReliabilityFunction reliabilityFunction) {
 		this.reliabilityFunction = reliabilityFunction;
 	}
 
 	/**
-	 * Returns the {@code y} value for {@code y = F(x) = 1 - R(x)}.
+	 * Returns the {@code y} value for {@code y = f(x)}.
 	 * 
 	 * @param x
 	 *            the x value
-	 * @return the y for y = F(x)
+	 * @return the y for y = f(x)
 	 */
 	public double getY(double x) {
-		double y = 1 - reliabilityFunction.getY(x);
-		return y;
+		double deltaT = 0.00000001;
+		double y = reliabilityFunction.getY(x);
+		double yPrime = reliabilityFunction.getY(x + deltaT);
+		double density = (y - yPrime) / deltaT;
+		return density;
 	}
 
 }

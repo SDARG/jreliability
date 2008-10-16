@@ -15,37 +15,16 @@
 package org.jreliability.function;
 
 /**
- * The {@code Constant} represents a constant value with
+ * The {@code ReliabilityFunction} represents a {@code Reliability} reliabilityFunction
+ * {@code R(x)} that is commonly defined as
  * <p>
- * {@code f(x) = c}.
+ * {@code R(x) = 1 - F(x)},
+ * <p>
+ * with {@code F(x)} being a {@code Distribution} {@code F(x)}.
  * 
  * @author glass
  * 
  */
-public class Constant implements Function {
-
-	/**
-	 * The used constant value.
-	 */
-	protected final double c;
-
-	/**
-	 * Constructs a {@code Constant} with a constant value {@code c}.
-	 * 
-	 * @param c
-	 *            the constant value
-	 */
-	public Constant(double c) {
-		this.c = c;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.Function#getY(double)
-	 */
-	public double getY(double x) {
-		return c;
-	}
+public interface ReliabilityFunction extends Function {
 
 }

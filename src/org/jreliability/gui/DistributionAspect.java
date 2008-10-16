@@ -14,13 +14,13 @@
  */
 package org.jreliability.gui;
 
-import org.jreliability.evaluator.IntegralEvaluator;
-import org.jreliability.function.Function;
-
+import org.jreliability.evaluator.MomentEvaluator;
+import org.jreliability.function.Distribution;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code DistributionAspect} represents the distribution of a {@code
- * Function}.
+ * The {@code DistributionAspect} represents the {@code Distribution} of a
+ * {@code ReliabilityFunction}.
  * 
  * @author glass
  * 
@@ -32,20 +32,19 @@ public class DistributionAspect extends AbstractAspect {
 	 * 
 	 */
 	public DistributionAspect() {
-		super("Distribution", "time t", "distribution function R(t)");
+		super("Distribution", "time t", "distribution function F(t)");
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.jreliability.gui.Aspect#getUpper(org.jreliability.function.
+	 * @see org.jreliability.gui.Aspect#getUpper(org.jreliability.function.
 	 * Function)
 	 */
 	@Override
-	public double getUpper(Function function) {
-		IntegralEvaluator evaluator = new IntegralEvaluator();
-		return evaluator.getUpperBound(function);
+	public double getUpper(ReliabilityFunction reliabilityFunction) {
+		MomentEvaluator evaluator = new MomentEvaluator(1);
+		return evaluator.getUpperBound(reliabilityFunction);
 	}
 
 	/*
@@ -55,8 +54,14 @@ public class DistributionAspect extends AbstractAspect {
 	 * org.jreliability.function.Function)
 	 */
 	@Override
-	public double getY(double x, Function function) {
-		return function.getY(x);
+	public Double getY(double x, ReliabilityFunction reliabilityFunction) {
+		Distribution distribution = new Distribution(reliabilityFunction);
+		Double y = distribution.getY(x);
+		if (y.isNaN()) {
+			return null;
+		} else {
+			return y;
+		}
 	}
 
 }

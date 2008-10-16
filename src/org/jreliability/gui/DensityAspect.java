@@ -14,12 +14,13 @@
  */
 package org.jreliability.gui;
 
-import org.jreliability.evaluator.IntegralEvaluator;
-import org.jreliability.function.Function;
-
+import org.jreliability.evaluator.MomentEvaluator;
+import org.jreliability.function.DensityFunction;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code DensityAspect} represents the density of a {@code Function}.
+ * The {@code DensityAspect} represents the density of a {@code
+ * ReliabilityFunction}.
  * 
  * @author glass
  * 
@@ -30,35 +31,35 @@ public class DensityAspect extends AbstractAspect {
 	 * Constructs a {@code DensityAspect}.
 	 */
 	public DensityAspect() {
-		super("Density", "time t", "density function f(t)");
+		super("DensityFunction", "time t", "density reliabilityFunction f(t)");
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.jreliability.gui.Aspect#getUpper(org.jreliability.function.
-	 * Function)
+	 * @seeorg.jreliability.gui.Aspect#getUpper(org.jreliability.function.
+	 * ReliabilityFunction)
 	 */
 	@Override
-	public double getUpper(Function function) {
-		IntegralEvaluator evaluator = new IntegralEvaluator();
-		return evaluator.getUpperBound(function);
+	public double getUpper(ReliabilityFunction reliabilityFunction) {
+		MomentEvaluator evaluator = new MomentEvaluator(1);
+		return evaluator.getUpperBound(reliabilityFunction);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.gui.Aspect#getY(double,
-	 * org.jreliability.function.Function)
+	 * org.jreliability.function.ReliabilityFunction)
 	 */
-	@Override
-	public double getY(double x, Function function) {
-		double deltaT = 0.00000001;
-		double y = function.getY(x);
-		double yPrime = function.getY(x + deltaT);
-		double density = (y - yPrime) / deltaT;
-		return density;
+	public Double getY(double x, ReliabilityFunction reliabilityFunction) {
+		DensityFunction density = new DensityFunction(reliabilityFunction);
+		Double y = density.getY(x);
+		if (y.isNaN()) {
+			return null;
+		} else {
+			return y;
+		}
 	}
 
 }

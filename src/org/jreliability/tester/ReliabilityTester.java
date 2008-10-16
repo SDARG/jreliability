@@ -20,16 +20,15 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.BDDs;
-import org.jreliability.function.BDDDistribution;
-import org.jreliability.function.Function;
 import org.jreliability.function.FunctionTransformer;
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.BDDReliabilityFunction;
 import org.jreliability.gui.Aspect;
 import org.jreliability.gui.DensityAspect;
 import org.jreliability.gui.DistributionAspect;
 import org.jreliability.gui.FailureRateAspect;
+import org.jreliability.gui.ReliabilityFunctionAspect;
 import org.jreliability.gui.ReliabilityViewer;
-
 
 /**
  * The {@code ReliabilityTester} is a basic tester that uses the {@code
@@ -54,27 +53,29 @@ public class ReliabilityTester {
 	 */
 	public static void main(String[] args) {
 		List<Aspect> aspects = new ArrayList<Aspect>();
+		aspects.add(new ReliabilityFunctionAspect());
 		aspects.add(new DistributionAspect());
 		aspects.add(new DensityAspect());
 		aspects.add(new FailureRateAspect());
 
 		TestExample example = new TestExample();
 		BDD<String> bdd = example.get();
-		System.out.println(BDDs.toDot(bdd));
+		// System.out.println(BDDs.toDot(bdd));
 
 		FunctionTransformer<String> exponentialTransformer = new TestExponentialTransformer();
 		FunctionTransformer<String> weibullTransformer = new TestWeibullTransformer();
 
-		BDDDistribution<String> exponentialDistribution = new BDDDistribution<String>(
+		BDDReliabilityFunction<String> exponentialDistribution = new BDDReliabilityFunction<String>(
 				bdd, exponentialTransformer);
-		BDDDistribution<String> weibullDistribution = new BDDDistribution<String>(
+		BDDReliabilityFunction<String> weibullDistribution = new BDDReliabilityFunction<String>(
 				bdd, weibullTransformer);
 
-		SortedMap<String, Function> functions = new TreeMap<String, Function>();
-		functions.put("Exponential", exponentialDistribution);
-		functions.put("Weibull", weibullDistribution);
+		SortedMap<String, ReliabilityFunction> reliabilityFunction = new TreeMap<String, ReliabilityFunction>();
+		reliabilityFunction.put("Exponential", exponentialDistribution);
+		reliabilityFunction.put("Weibull", weibullDistribution);
 
-		new ReliabilityViewer("Reliability Viewer", functions, aspects);
+		new ReliabilityViewer("Reliability Viewer", reliabilityFunction,
+				aspects);
 
 	}
 

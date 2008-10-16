@@ -14,12 +14,13 @@
  */
 package org.jreliability.evaluator;
 
-import org.jreliability.function.Distribution;
+import org.jreliability.function.InverseFunction;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code InverseEvaluator} calculates the inverse function of the {@code
- * Distribution}, i.e., f^(-1)(y) = x. This is typically used to derive measures
- * like, e.g., the Mission Time (MT).
+ * The {@code InverseEvaluator} calculates the {@code x} value in {@code y =
+ * R(x)} for a given {@code y} of the {@code ReliabilityFunction} {@code R(t)}.
+ * This is typically used to derive measures like, e.g., the Mission Time (MT).
  * 
  * @author glass
  */
@@ -34,17 +35,19 @@ public class InverseEvaluator implements Evaluator {
 	}
 
 	/**
-	 * Returns the {@code x} value for a {@code y} value in {@code y = f(x)} for
-	 * a given {@code Distribution}.
+	 * Returns the {@code x} value for a given {@code y} value in {@code y =
+	 * R(x)} of a given {@code ReliabilityFunction}.
 	 * 
-	 * @param distribution
-	 *            the distribution
+	 * @param reliabilityFunction
+	 *            the reliabilityFunction
 	 * @param y
 	 *            the y value
-	 * @return the x value for a y value and a given distribution
+	 * @return the x value for a y value and a given reliabilityFunction
 	 */
-	public double evaluate(Distribution distribution, double y) {
-		return distribution.getX(y);
+	public double evaluate(ReliabilityFunction reliabilityFunction, double y) {
+		InverseFunction inverse = new InverseFunction(reliabilityFunction);
+		double x = inverse.getX(y);
+		return x;
 	}
 
 }

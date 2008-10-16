@@ -32,7 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import org.jreliability.common.Samples;
-import org.jreliability.function.Function;
+import org.jreliability.function.ReliabilityFunction;
 
 import ptolemy.plot.Plot;
 
@@ -56,8 +56,8 @@ public class ReliabilityPanel extends JPanel {
 	protected Plot plot;
 
 	/**
-	 * The used sampler to determine the {@code Samples} of a {@code Function}
-	 * under a given {@code Aspect}.
+	 * The used sampler to determine the {@code Samples} of a {@code
+	 * ReliabilityFunction} under a given {@code Aspect}.
 	 */
 	protected Sampler sampler;
 
@@ -77,9 +77,9 @@ public class ReliabilityPanel extends JPanel {
 	protected JPanel panel = new JPanel();
 
 	/**
-	 * The list of functions that shall be plotted.
+	 * The list of reliabilityFunctions that shall be plotted.
 	 */
-	protected SortedMap<String, Function> functions;
+	protected SortedMap<String, ReliabilityFunction> reliabilityFunctions;
 
 	/**
 	 * The map keeps track of the aspect and its index in the picker.
@@ -212,14 +212,16 @@ public class ReliabilityPanel extends JPanel {
 	}
 
 	/**
-	 * Returns the {@code JPanel} for a given set of {@code Functions}.
+	 * Returns the {@code JPanel} for a given set of {@code
+	 * ReliabilityFunctions}.
 	 * 
-	 * @param functions
-	 *            the functions
+	 * @param reliabilityFunctions
+	 *            the reliabilityFunctions
 	 * @return the panel
 	 */
-	protected JPanel get(SortedMap<String, Function> functions) {
-		this.functions = functions;
+	protected JPanel get(
+			SortedMap<String, ReliabilityFunction> reliabilityFunctions) {
+		this.reliabilityFunctions = reliabilityFunctions;
 
 		plot = new Plot();
 		sampler = new Sampler();
@@ -231,7 +233,8 @@ public class ReliabilityPanel extends JPanel {
 				Color.GREEN, Color.ORANGE };
 		plot.setColors(colors);
 		int i = 0;
-		for (Entry<String, Function> entry : functions.entrySet()) {
+		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
+				.entrySet()) {
 			plot.addLegend(i, entry.getKey());
 			i++;
 		}
@@ -275,8 +278,9 @@ public class ReliabilityPanel extends JPanel {
 		double min = 0.0;
 		double max = 0.0;
 		int i = 0;
-		SortedMap<String, Samples> samples = sampler.getSamples(functions,
-				aspect, 500);
+		setLabels(aspect.getXAxis(), aspect.getYAxis());
+		SortedMap<String, Samples> samples = sampler.getSamples(
+				reliabilityFunctions, aspect, 500);
 		for (Entry<String, Samples> entry : samples.entrySet()) {
 			Samples sample = entry.getValue();
 			for (Entry<Double, Double> value : sample.entrySet()) {

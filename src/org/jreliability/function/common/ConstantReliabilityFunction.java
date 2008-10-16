@@ -12,31 +12,34 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
+
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code ExponentialDistribution} represents the exponential distribution.
+ * The {@code ConstantReliabilityFunction} represents a {@code ReliabilityFunction} with a constant
+ * value of
  * <p>
- * {@code f(x) = e^-(alpha * x)}.
+ * {@code R(x) = c}.
  * 
  * @author glass
  * 
  */
-public class ExponentialDistribution extends AbstractDistribution {
+public class ConstantReliabilityFunction implements ReliabilityFunction {
 
 	/**
-	 * The used failure-rate {@code lambda}.
+	 * The used constant value.
 	 */
-	protected final double alpha;
+	protected final double c;
 
 	/**
-	 * Constructs a {@code ExponentialDistribution} with a given {@code alpha}
+	 * Constructs a {@code ConstantReliabilityFunction} with a constant value {@code c}.
 	 * 
-	 * @param alpha
-	 *            the alpha value
+	 * @param c
+	 *            the constant value
 	 */
-	public ExponentialDistribution(double alpha) {
-		this.alpha = alpha;
+	public ConstantReliabilityFunction(double c) {
+		this.c = c;
 	}
 
 	/*
@@ -44,20 +47,8 @@ public class ExponentialDistribution extends AbstractDistribution {
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
-	@Override
 	public double getY(double x) {
-		return Math.exp(-(alpha * x));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.Distribution#getX(double)
-	 */
-	@Override
-	public double getX(double y) {
-		double x = -(Math.log(y) / alpha);
-		return x;
+		return c;
 	}
 
 }

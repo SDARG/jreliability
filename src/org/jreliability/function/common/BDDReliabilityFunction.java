@@ -12,20 +12,23 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
 
 import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDs;
+import org.jreliability.function.FunctionTransformer;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code BDDDistribution} represents the {@code Distribution} that is
- * inherently included in a {@code BDD}.
+ * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction} that
+ * is inherently included in a {@code BDD}.
  * 
  * @author glass
  * 
  * @param <T>
  *            the type of variable
  */
-public class BDDDistribution<T> extends AbstractDistribution {
+public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 
 	/**
 	 * The BDD representing the {@code Distribution}.
@@ -39,16 +42,16 @@ public class BDDDistribution<T> extends AbstractDistribution {
 	protected final FunctionTransformer<T> transformer;
 
 	/**
-	 * Constructs a {@code BDDDistribution} with a given {@code BDD} and {@code
+	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and {@code
 	 * FunctionTransformer}.
 	 * 
 	 * @param bdd
-	 *            the bdd representing the distribution
+	 *            the bdd representing the reliabilityFunction
 	 * 
 	 * @param transformer
-	 *            the transformer to transform bdd elements to function
+	 *            the transformer to transform bdd elements to reliabilityFunction
 	 */
-	public BDDDistribution(BDD<T> bdd, FunctionTransformer<T> transformer) {
+	public BDDReliabilityFunction(BDD<T> bdd, FunctionTransformer<T> transformer) {
 		super();
 		this.bdd = bdd;
 		this.transformer = transformer;
@@ -61,7 +64,7 @@ public class BDDDistribution<T> extends AbstractDistribution {
 	 */
 	@Override
 	public double getY(double x) {
-		return Top.calculateTop(bdd, transformer, x);
+		return BDDs.calculateTop(bdd, transformer, x);
 	}
 
 	/**

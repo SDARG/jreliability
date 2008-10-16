@@ -15,42 +15,55 @@
 package org.jreliability.function;
 
 /**
- * The {@code Distribution} determines the {@code Distribution} {@code F(x)} of
- * a given {@code ReliabilityFunction} {@code R(x)} as
+ * The {@code FailureRate} determines the failure rate {@code lambda} of a given
+ * {@code ReliabilityFunction} and is defined as
  * <p>
- * {@code F(x) = 1 - R(x)}.
+ * {@code lambda(x) = f(x) / R(x)}.
  * 
  * @author glass
  * 
  */
-public class Distribution implements Function {
+public class FailureRate {
 
 	/**
-	 * The {@code ReliabilityFunction} for which the {@code Distribution} is to
+	 * The {@code ReliabilityFunction} for which the {@code FailureRate} is to
 	 * determine.
 	 */
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * Constructs a {@code Distribution} with a given {@code
-	 * ReliabilityFunction}.
+	 * The used {@code DensityFunction} to determine {@code f(x)}.
+	 */
+	protected final DensityFunction densityFunction;
+
+	/**
+	 * Constructs a {@code FailureRate} with a given {@code ReliabilityFunction}
+	 * .
 	 * 
 	 * @param reliabilityFunction
-	 *            the reliability reliabilityFunction
+	 *            the reliabilityFunction
 	 */
-	public Distribution(ReliabilityFunction reliabilityFunction) {
+	public FailureRate(ReliabilityFunction reliabilityFunction) {
 		this.reliabilityFunction = reliabilityFunction;
+		this.densityFunction = new DensityFunction(reliabilityFunction);
 	}
 
 	/**
-	 * Returns the {@code y} value for {@code y = F(x) = 1 - R(x)}.
+	 * Returns the failure rate {@code lambda} {@code lambda(x) = f(x) / R(x)}
+	 * of the {@code ReliabilityFunction} at the {@code x}-value.
 	 * 
 	 * @param x
 	 *            the x value
-	 * @return the y for y = F(x)
+	 * @return the failure rate at value x
 	 */
 	public double getY(double x) {
-		double y = 1 - reliabilityFunction.getY(x);
+		double density = densityFunction.getY(x);
+		double reliability = reliabilityFunction.getY(x);
+		double y = density / reliability;
+		if (density == 0 && reliability != 1) {
+			return Double.NaN;
+		}
+
 		return y;
 	}
 

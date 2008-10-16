@@ -14,7 +14,7 @@
  */
 package org.jreliability.gui;
 
-import org.jreliability.function.Function;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code AbstractAspect} is the basic class for all {@code Aspects}.
@@ -95,12 +95,11 @@ public abstract class AbstractAspect implements Aspect {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.jreliability.gui.Aspect#getLower(org.jreliability.function.
+	 * @see org.jreliability.gui.Aspect#getLower(org.jreliability.function.
 	 * Function)
 	 */
 	@Override
-	public double getLower(Function function) {
+	public double getLower(ReliabilityFunction reliabilityFunction) {
 		return lower;
 	}
 

@@ -12,40 +12,39 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
+
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code WeibullDistribution} represents the Weibull distribution with
+ * The {@code ExponentialReliabilityFunction} represents the {@code
+ * ReliabilityFunction} of the {@code Exponential reliabilityFunction}
  * <p>
- * {@code f(x) = e^-(alpha * (x^beta))}.
+ * {@code R(x) = 1 - F(x) = e^-(alpha * x)}.
+ * <p>
+ * Typical for this reliabilityFunction is the constant failure-rate {@code lambda} that
+ * equals the parameter {@code alpha}.
  * 
  * @author glass
  * 
  */
-public class WeibullDistribution extends AbstractDistribution {
+public class ExponentialReliabilityFunction implements ReliabilityFunction {
 
 	/**
-	 * The used failure-rate {@code lambda}.
+	 * The parameter {@code alpha} corresponds to the failure-rate {@code
+	 * lambda}.
 	 */
 	protected final double alpha;
 
 	/**
-	 * The used shape of the {@code WeibullDistribution}.
-	 */
-	protected final double beta;
-
-	/**
-	 * Constructs a {@code WeibullDistribution} with a given {@code alpha} and
-	 * {code beta}.
+	 * Constructs an {@code ExponentialReliabilityFunction} with a given {@code
+	 * alpha}
 	 * 
 	 * @param alpha
 	 *            the alpha value
-	 * @param beta
-	 *            the beta value
 	 */
-	public WeibullDistribution(double alpha, double beta) {
+	public ExponentialReliabilityFunction(double alpha) {
 		this.alpha = alpha;
-		this.beta = beta;
 	}
 
 	/*
@@ -54,18 +53,8 @@ public class WeibullDistribution extends AbstractDistribution {
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	public double getY(double x) {
-		return Math.exp(-(alpha * Math.pow(x, beta)));
+		double y = Math.exp(-(alpha * x));
+		return y;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.AbstractDistribution#getX(double)
-	 */
-	@Override
-	public double getX(double y) {
-		double exponential = -(Math.log(y) / alpha);
-		double x = Math.pow(exponential, (1 / beta));
-		return x;
-	}
 }

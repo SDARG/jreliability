@@ -25,7 +25,6 @@ import org.jreliability.common.Constraint;
 import org.jreliability.common.Constraint.Literal;
 import org.jreliability.javabdd.JBDDProviderFactory;
 
-
 /**
  * The {@code ConstraintTester} can be used to test the {@code
  * BDDs.getConstraintBDD()} function.
@@ -42,17 +41,18 @@ public class ConstraintTester {
 	 */
 	public static void main(String[] args) {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Integer> bddProvider = bddProviderFactory.getProvider();
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 
-		List<Literal<Integer>> literals = new ArrayList<Literal<Integer>>();
+		List<Literal<String>> literals = new ArrayList<Literal<String>>();
 		int[] coefficients = { 1, 1, 2, 2, 3, 3, 3, 3, 7 };
+		String[] variables = { "x", "y", "z", "a", "b", "c", "d", "e", "f" };
 		for (int i = 0; i < 9; i++) {
-			Literal<Integer> literal = new Literal<Integer>(coefficients[i],
-					bddProvider.get(i));
+			Literal<String> literal = new Literal<String>(coefficients[i],
+					bddProvider.get(variables[i]));
 			literals.add(literal);
 		}
-		Constraint<Integer> constraint = new Constraint<Integer>(8, literals);
-		BDD<Integer> bdd = BDDs.getConstraintBDD(constraint);
+		Constraint<String> constraint = new Constraint<String>(8, literals);
+		BDD<String> bdd = BDDs.getConstraintBDD(constraint);
 		System.out.println(bdd.toString());
 		System.out.println(bdd.nodeCount());
 		System.out.println(BDDs.toDot(bdd));

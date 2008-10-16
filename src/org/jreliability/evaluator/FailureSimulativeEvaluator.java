@@ -22,8 +22,8 @@ import java.util.TreeSet;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.common.Failure;
-import org.jreliability.function.BDDDistribution;
-
+import org.jreliability.function.InverseFunction;
+import org.jreliability.function.common.BDDReliabilityFunction;
 
 /**
  * The {@code FailureSimulativeEvaluator} performs a Monte-Carlo simulation to
@@ -68,17 +68,17 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	/**
 	 * Returns the mean time to failure (MTTF) derived by simulation.
 	 * 
-	 * @param distribution
-	 *            the bdd distribution
+	 * @param reliabilityFunction
+	 *            the bdd reliabilityFunction
 	 * @return the mean time to failure
 	 */
-	public double evaluate(BDDDistribution<T> distribution) {
-		double timeSum = simulateTimeToFailure(distribution);
+	public double evaluate(BDDReliabilityFunction<T> reliabilityFunction) {
+		double timeSum = simulateTimeToFailure(reliabilityFunction);
 		int i = 1;
 		double diff;
 
 		do {
-			double value = simulateTimeToFailure(distribution);
+			double value = simulateTimeToFailure(reliabilityFunction);
 			timeSum += value;
 			i++;
 			if (i > 10000) {
@@ -97,16 +97,17 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	/**
 	 * Returns the time to failure of one single simulation run.
 	 * 
-	 * @param distribution
-	 *            the bdd distribution
+	 * @param reliabilityFunction
+	 *            the bdd reliabilityFunction
 	 * @return the time to failure of one single simulation run
 	 */
-	protected double simulateTimeToFailure(BDDDistribution<T> distribution) {
+	protected double simulateTimeToFailure(
+			BDDReliabilityFunction<T> reliabilityFunction) {
 		double time = 0;
-		BDD<T> bdd = distribution.getBdd();
+		BDD<T> bdd = reliabilityFunction.getBdd();
 		BDDProvider<T> provider = bdd.getProvider();
 		BDD<T> myBDD = bdd.copy();
-		Set<Failure<T>> failures = getFailures(distribution);
+		Set<Failure<T>> failures = getFailures(reliabilityFunction);
 
 		for (Failure<T> failure : failures) {
 			BDD<T> objectVariable = provider.get(failure.getObject());
@@ -122,18 +123,20 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 
 	/**
 	 * Returns a set of {@code Failures} for the elements {@code T} in the
-	 * {@code BDDDistribution}.
+	 * {@code BDDReliabilityFunction}.
 	 * 
-	 * @param distribution
-	 *            the bdd distribution
-	 * @return a set of failures for given elements T in the distribution
+	 * @param reliabilityFunction
+	 *            the bdd reliabilityFunction
+	 * @return a set of failures for given elements T in the reliabilityFunction
 	 */
-	protected Set<Failure<T>> getFailures(BDDDistribution<T> distribution) {
-		BDD<T> bdd = distribution.getBdd();
+	protected Set<Failure<T>> getFailures(
+			BDDReliabilityFunction<T> reliabilityFunction) {
+		InverseFunction inverse = new InverseFunction(reliabilityFunction);
+		BDD<T> bdd = reliabilityFunction.getBdd();
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {
-			double x = distribution.getX(random.nextDouble());
+			double x = inverse.getX(random.nextDouble());
 			Failure<T> failureTime = new Failure<T>(element, x);
 			failureTimes.add(failureTime);
 		}

@@ -17,15 +17,14 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.function.Distribution;
-import org.jreliability.function.Function;
 import org.jreliability.function.FunctionTransformer;
-import org.jreliability.function.WeibullDistribution;
-
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.WeibullReliabilityFunction;
 
 /**
  * The {@code TestWeibullTransformer} is a {@code Transformer} for the {@code
- * TestExample} that uses {@code WeibullDistributions} as {@code Functions}.
+ * TestExample} that uses {@code WeibullReliabilityFunctions} as {@code
+ * ReliabilityFunctions}.
  * 
  * @author glass
  * 
@@ -46,30 +45,33 @@ public class TestWeibullTransformer implements FunctionTransformer<String> {
 	protected final String pump2 = "Pump 2";
 
 	/**
-	 * Maps each element to its {@code Function}.
+	 * Maps each element to its {@code ReliabilityFunction}.
 	 */
-	protected Map<String, Function> functions = new HashMap<String, Function>();
+	protected Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
 	/**
-	 * The {@code Distribution} of the heater.
+	 * The {@code ReliabilityFunction} of the heater.
 	 */
-	Distribution heaterDistribution = new WeibullDistribution(0.1, 2);
+	ReliabilityFunction heaterReliabilityFunction = new WeibullReliabilityFunction(
+			3, 5);
 	/**
-	 * The {@code Distribution} of the first pump.
+	 * The {@code ReliabilityFunction} of the first pump.
 	 */
-	Distribution pump1Distribution = new WeibullDistribution(1, 3);
+	ReliabilityFunction pump1ReliabilityFunction = new WeibullReliabilityFunction(
+			1, 3);
 	/**
-	 * The {@code Distribution} of the second pump.
+	 * The {@code ReliabilityFunction} of the second pump.
 	 */
-	Distribution pump2Distribution = new WeibullDistribution(1.2, 3);
+	ReliabilityFunction pump2ReliabilityFunction = new WeibullReliabilityFunction(
+			1.2, 3);
 
 	/**
 	 * Constructs a {@code TestWeibullTransformer}.
 	 * 
 	 */
 	public TestWeibullTransformer() {
-		functions.put(heater, heaterDistribution);
-		functions.put(pump1, pump1Distribution);
-		functions.put(pump2, pump2Distribution);
+		reliabilityFunction.put(heater, heaterReliabilityFunction);
+		reliabilityFunction.put(pump1, pump1ReliabilityFunction);
+		reliabilityFunction.put(pump2, pump2ReliabilityFunction);
 	}
 
 	/*
@@ -78,8 +80,8 @@ public class TestWeibullTransformer implements FunctionTransformer<String> {
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
 	@Override
-	public Function transform(String a) {
-		return functions.get(a);
+	public ReliabilityFunction transform(String a) {
+		return reliabilityFunction.get(a);
 	}
 
 }
