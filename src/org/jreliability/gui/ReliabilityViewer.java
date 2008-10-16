@@ -16,14 +16,15 @@ package org.jreliability.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.net.URL;
 import java.util.List;
 import java.util.SortedMap;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import org.jreliability.function.Function;
-
 
 /**
  * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
@@ -43,6 +44,11 @@ public class ReliabilityViewer extends JFrame {
 	 * The title of the viewer.
 	 */
 	protected final String title;
+
+	/**
+	 * The location of the logo.
+	 */
+	protected final String logo = "icons/logo.png";
 
 	/**
 	 * The shown reliability panel.
@@ -83,6 +89,9 @@ public class ReliabilityViewer extends JFrame {
 	 */
 	protected final void init(SortedMap<String, Function> functions) {
 		setTitle(title);
+
+		loadImageIcon();
+
 		setLayout(new BorderLayout());
 
 		setPreferredSize(new Dimension(800, 600));
@@ -93,6 +102,20 @@ public class ReliabilityViewer extends JFrame {
 
 		pack();
 		setVisible(true);
+	}
+
+	/**
+	 * Sets the {@code ImageIcon} for this frame.
+	 */
+	protected final void loadImageIcon() {
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+		URL url = classLoader.getResource(logo);
+		try {
+			setIconImage((new ImageIcon(url)).getImage());
+		} catch (NullPointerException e) {
+			System.err.println("Image " + logo + " not found.");
+			e.printStackTrace();
+		}
 	}
 
 }
