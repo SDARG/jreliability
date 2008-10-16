@@ -24,14 +24,15 @@
 		<filter token="DATE" value="${date}" />
 	</filterset>
 
-	<target name="all" depends="clean,init,jar,light,dist,javadoc" description="Compile Java source." />
+	<target name="all" depends="clean,init,jar,light,dist,lightdist,javadoc" description="Compile Java source." />
 
 	<target name="init" depends="clean">
 		<mkdir dir="${build.dir}/src" />
 		<mkdir dir="${build.dir}/javadoc" />
 		<mkdir dir="${build.dir}/classes" />
 		<mkdir dir="${build.dir}/jar" />
-		<mkdir dir="${build.dir}/dist/jreliability-${version}" />
+		<mkdir dir="${build.dir}/dist/full/jreliability-${version}" />
+		<mkdir dir="${build.dir}/dist/light/jreliability-${version}-light" />
 
 		<copy toDir="${build.dir}/src">
 			<fileset dir="${resource.dir}" excludes=".svn,.svn/**/*,**/.svn" />
@@ -65,15 +66,34 @@
 	</target>
 
 	<target name="dist" depends="jar" description="Build distribution.">
-		<property name="zip.dir" value="${build.dir}/dist/jreliability-${version}" />
+		<property name="zip.dir" value="${build.dir}/dist/full/jreliability-${version}" />
 		<copy toDir="${zip.dir}">
-			<fileset dir="${build.dir}/jar" includes="*.jar" />
+			<fileset dir="${build.dir}/jar" includes="jreliability-${version}.jar" />
+		</copy>
+		<copy toDir="${zip.dir}">
+			<fileset dir="${files.dir}" includes="**/*" excludes=".svn,.svn/**/*,**/.svn" />
+			<filterset refid="defaultFilter" />
 		</copy>
 
-		<zip destfile="${build.dir}/jreliability-${version}.zip" basedir="${build.dir}/dist" />
-		<tar destfile="${build.dir}/jreliability-${version}.tar" basedir="${build.dir}/dist" />
+		<zip destfile="${build.dir}/jreliability-${version}.zip" basedir="${build.dir}/dist/full" />
+		<tar destfile="${build.dir}/jreliability-${version}.tar" basedir="${build.dir}/dist/full" />
 		<gzip src="${build.dir}/jreliability-${version}.tar" destfile="${build.dir}/jreliability-${version}.tar.gz" />
 	</target>
+	
+	<target name="lightdist" depends="jar" description="Build distribution.">
+			<property name="zip-light.dir" value="${build.dir}/dist/light/jreliability-${version}-light" />
+			<copy toDir="${zip-light.dir}">
+				<fileset dir="${build.dir}/jar" includes="jreliability-${version}-light.jar" />
+			</copy>
+			<copy toDir="${zip-light.dir}">
+				<fileset dir="${files.dir}" includes="**/*" excludes=".svn,.svn/**/*,**/.svn" />
+				<filterset refid="defaultFilter" />
+			</copy>
+
+			<zip destfile="${build.dir}/jreliability-${version}-light.zip" basedir="${build.dir}/dist/light" />
+			<tar destfile="${build.dir}/jreliability-${version}-light.tar" basedir="${build.dir}/dist/light" />
+			<gzip src="${build.dir}/jreliability-${version}-light.tar" destfile="${build.dir}/jreliability-${version}-light.tar.gz" />
+		</target>
 
 	<target name="javadoc" depends="init" description="Generate Javadocs.">
 		<javadoc sourcepath="${build.dir}/src" packagenames="*" destdir="${build.dir}/javadoc" author="false" protected="true" windowtitle="JReliability ${version} API" overview="${build.dir}/src/overview.html">
