@@ -74,7 +74,7 @@ public class ReliabilityTester {
 		reliabilityFunction.put("Exponential", exponentialDistribution);
 		reliabilityFunction.put("Weibull", weibullDistribution);
 
-		new ReliabilityViewer("Reliability Viewer", reliabilityFunction,
+		new ReliabilityViewer("JReliability Viewer", reliabilityFunction,
 				aspects);
 
 	}

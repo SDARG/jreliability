@@ -31,7 +31,7 @@ public class DensityAspect extends AbstractAspect {
 	 * Constructs a {@code DensityAspect}.
 	 */
 	public DensityAspect() {
-		super("DensityFunction", "time t", "density reliabilityFunction f(t)");
+		super("DensityFunction", "time t", "density function f(t)");
 	}
 
 	/*
