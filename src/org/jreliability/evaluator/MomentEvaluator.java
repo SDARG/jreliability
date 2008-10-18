@@ -14,9 +14,7 @@
  */
 package org.jreliability.evaluator;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.jreliability.function.Function;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -24,16 +22,52 @@ import org.jreliability.function.ReliabilityFunction;
  * density function {@code f(x)} given a {@code ReliabilityFunction} {@code
  * R(x)}.
  * <p>
- * {@code integral_0^infinity x^n f(x) dx}.
+ * E(X^n)={@code integral_0^infinity x^n f(x) dx}.
  * <p>
  * It performs an integration from {@code 0} to {@code infinity} using Rombergs
  * integration. This is commonly used to derived measures like, e.g., Mean Time
- * To Failure (MTTF) (n = 1), standard deviation (n = 2) and so on.
+ * To Failure (MTTF) (E(X)) and its variance (E(X^2)-E(X)^2).
  * 
- * @author glass
+ * @author glass, lukasiewycz
  * 
  */
 public class MomentEvaluator implements Evaluator {
+
+	/**
+	 * The moment function.
+	 * 
+	 * @author lukasiewycz
+	 * 
+	 */
+	class MomentFunction implements Function {
+
+		private ReliabilityFunction reliabilityFunction;
+		private int n;
+
+		/**
+		 * Constructs the moment function.
+		 * 
+		 * @param reliabilityFunction
+		 *            the reliability function
+		 * @param n
+		 *            the moment
+		 */
+		public MomentFunction(ReliabilityFunction reliabilityFunction, int n) {
+			this.reliabilityFunction = reliabilityFunction;
+			this.n = n;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.jreliability.function.Function#getY(double)
+		 */
+		@Override
+		public double getY(double x) {
+			return n * Math.pow(x, n - 1) * reliabilityFunction.getY(x);
+		}
+
+	}
 
 	/**
 	 * The allowed error / {@code epsilon} for Rombergs integration.
@@ -107,78 +141,36 @@ public class MomentEvaluator implements Evaluator {
 		}
 		double upperBound = 0.5;
 		double diff;
-		
+
+		Function momentFunction = new MomentFunction(reliabilityFunction, n);
+
 		do {
 			upperBound *= 2;
-			double prefix = n * Math.pow(upperBound, (n - 1));
-			diff = prefix * reliabilityFunction.getY(upperBound);
-		} while(diff > epsilon);
-		
+			diff = momentFunction.getY(upperBound);
+		} while (diff > epsilon);
+
 		return upperBound;
 
 	}
 
 	/**
-	 * Calculates the integral between low and high using Rombergs integration.
+	 * Calculates the integral between a and b using Rombergs integration.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
-	 * @param low
+	 * @param a
 	 *            the lower bound
-	 * @param high
+	 * @param b
 	 *            the upper bound
-	 * @return the value of the integral between low and high
+	 * @return the value of the integral between a and b
 	 */
 	protected double integrate(ReliabilityFunction reliabilityFunction,
-			double low, double high) {
-		double error;
+			double a, double b) {
+		Function f = new MomentFunction(reliabilityFunction, n);
 
-		List<List<Double>> rTable = new ArrayList<List<Double>>();
-		List<Double> line = new ArrayList<Double>(1);
-		rTable.add(line);
-
-		double lowPrefix = n * Math.pow(low, (n - 1));
-		double highPrefix = n * Math.pow(high, (n - 1));
-		double lowY = lowPrefix * reliabilityFunction.getY(low);
-		double highY = highPrefix * reliabilityFunction.getY(high);
-
-		double borderVal = lowY + highY;
-		double gap = high - low;
-
-		int j = 1;
-
-		rTable.get(0).add(0, (gap / 2) * borderVal);
-
-		do {
-			List<Double> j_line = new ArrayList<Double>(j + 1);
-			rTable.add(j_line);
-
-			double div = Math.pow(2, j);
-
-			// Calculate 1st value of the line with the trapezium rule
-			double sum = 0.0;
-			for (int i = 1; i < div; i++) {
-				double x = low + (i * gap) / div;
-				double xPrefix = n * Math.pow(x, (n - 1));
-				sum += xPrefix * reliabilityFunction.getY(x);
-			}
-			rTable.get(j).add(0, (gap / (2 * div)) * (borderVal + 2 * sum));
-
-			// the rest of the reliabilityFunctions with Neville-Aitken
-			for (int k = 1; k <= j; k++) {
-				double fourPow = Math.pow(2, (2 * k));
-
-				rTable.get(j).add(
-						k,
-						((fourPow * rTable.get(j).get(k - 1)) - rTable.get(
-								j - 1).get(k - 1))
-								/ (fourPow - 1));
-			}
-
-			error = rTable.get(j - 1).get(j - 1) - rTable.get(j).get(j - 1);
-			j++;
-		} while (error > epsilon);
-		return rTable.get(j - 1).get(j - 1);
+		IntegralEvaluator integral = new IntegralEvaluator(epsilon);
+		double value = integral.evaluate(f, a, b);
+		return value;
 	}
 
 }
