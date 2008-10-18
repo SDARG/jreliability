@@ -15,6 +15,7 @@
 package org.jreliability.evaluator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jreliability.function.ReliabilityFunction;
 
@@ -104,13 +105,15 @@ public class MomentEvaluator implements Evaluator {
 			throw new IllegalArgumentException(
 					"An n-th moment with n < 1 is undefined.");
 		}
-		double upperBound = 1.0;
-		double prefix = n * Math.pow(upperBound, (n - 1));
-		double diff = prefix * reliabilityFunction.getY(upperBound);
-		while (diff > 0.01) {
+		double upperBound = 0.5;
+		double diff;
+		
+		do {
 			upperBound *= 2;
+			double prefix = n * Math.pow(upperBound, (n - 1));
 			diff = prefix * reliabilityFunction.getY(upperBound);
-		}
+		} while(diff > epsilon);
+		
 		return upperBound;
 
 	}
@@ -130,8 +133,8 @@ public class MomentEvaluator implements Evaluator {
 			double low, double high) {
 		double error;
 
-		ArrayList<ArrayList<Double>> rTable = new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> line = new ArrayList<Double>(1);
+		List<List<Double>> rTable = new ArrayList<List<Double>>();
+		List<Double> line = new ArrayList<Double>(1);
 		rTable.add(line);
 
 		double lowPrefix = n * Math.pow(low, (n - 1));
@@ -147,7 +150,7 @@ public class MomentEvaluator implements Evaluator {
 		rTable.get(0).add(0, (gap / 2) * borderVal);
 
 		do {
-			ArrayList<Double> j_line = new ArrayList<Double>(j + 1);
+			List<Double> j_line = new ArrayList<Double>(j + 1);
 			rTable.add(j_line);
 
 			double div = Math.pow(2, j);
