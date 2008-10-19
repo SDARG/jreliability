@@ -15,14 +15,13 @@
 package org.jreliability.tester;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.BDDs;
-import org.jreliability.common.Constraint;
-import org.jreliability.common.Constraint.Literal;
 import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**
@@ -43,16 +42,16 @@ public class ConstraintTester {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 
-		List<Literal<String>> literals = new ArrayList<Literal<String>>();
-		int[] coefficients = { 1, 1, 2, 2, 3, 3, 3, 3, 7 };
+		List<Integer> coeffs = Arrays.asList(new Integer[] { 1, 1, 2, 2, 3, 3,
+				3, 3, 7 });
 		String[] variables = { "x", "y", "z", "a", "b", "c", "d", "e", "f" };
-		for (int i = 0; i < 9; i++) {
-			Literal<String> literal = new Literal<String>(coefficients[i],
-					bddProvider.get(variables[i]));
-			literals.add(literal);
+		List<BDD<String>> vars = new ArrayList<BDD<String>>();
+
+		for(String v: variables){
+			vars.add(bddProvider.get(v));
 		}
-		Constraint<String> constraint = new Constraint<String>(8, literals);
-		BDD<String> bdd = BDDs.getConstraintBDD(constraint);
+
+		BDD<String> bdd = BDDs.getBDD(coeffs, vars, "<=", 8);
 		System.out.println(bdd.toString());
 		System.out.println(bdd.nodeCount());
 		System.out.println(BDDs.toDot(bdd));

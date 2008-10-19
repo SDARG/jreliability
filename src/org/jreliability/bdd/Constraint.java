@@ -12,27 +12,24 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.common;
+package org.jreliability.bdd;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jreliability.bdd.BDD;
-
-
 /**
  * The {@code Constraint} is used to model {@code greater-equal} constraints
  * with a left-hand-side ({@code lhs}) consisting of {@code Literals} and the
  * right-hand-side ({@code rhs}) being an {@code Integer}.
  * 
- * @author glass
+ * @author glass, lukasiewycz
  * 
  * @param <T>
  *            the type of variables
  */
-public class Constraint<T> {
+class Constraint<T> {
 
 	/**
 	 * The right-hand-side of the constraint.
@@ -69,7 +66,7 @@ public class Constraint<T> {
 	 * @param literals
 	 *            the literals
 	 */
-	public void initialize(List<Literal<T>> literals) {
+	protected void initialize(List<Literal<T>> literals) {
 		for (Literal<T> literal : literals) {
 			checkCoefficient(literal);
 			checkAndAddVariable(literal);
@@ -204,8 +201,17 @@ public class Constraint<T> {
 	 * @param <T>
 	 *            the type of variable
 	 */
-	public static class Literal<T> extends Pair<Integer, BDD<T>> implements
-			Comparable<Literal<T>> {
+	static class Literal<T> {
+
+		/**
+		 * The coefficient.
+		 */
+		Integer coefficient = 0;
+
+		/**
+		 * The variable.
+		 */
+		BDD<T> variable = null;
 
 		/**
 		 * Constructs a {@code Literal} with a given coefficient and variable as
@@ -216,8 +222,9 @@ public class Constraint<T> {
 		 * @param variable
 		 *            the variable
 		 */
-		public Literal(Integer coefficient, BDD<T> variable) {
-			super(coefficient, variable);
+		public Literal(int coefficient, BDD<T> variable) {
+			this.coefficient = coefficient;
+			this.variable = variable;
 		}
 
 		/**
@@ -225,8 +232,8 @@ public class Constraint<T> {
 		 * 
 		 * @return the coefficient
 		 */
-		public Integer getCoefficient() {
-			return a;
+		public int getCoefficient() {
+			return coefficient;
 		}
 
 		/**
@@ -235,17 +242,7 @@ public class Constraint<T> {
 		 * @return the variable
 		 */
 		public BDD<T> getVariable() {
-			return b;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Comparable#compareTo(java.lang.Object)
-		 */
-		@Override
-		public int compareTo(Literal<T> o) {
-			return a.compareTo(o.getCoefficient());
+			return variable;
 		}
 
 		/**
@@ -255,7 +252,7 @@ public class Constraint<T> {
 		 *            the coefficient to set
 		 */
 		public void setCoefficient(Integer coefficient) {
-			this.a = coefficient;
+			this.coefficient = coefficient;
 		}
 
 		/**
@@ -265,7 +262,16 @@ public class Constraint<T> {
 		 *            the variable to set
 		 */
 		public void setVariable(BDD<T> variable) {
-			this.b = variable;
+			this.variable = variable;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#toString()
+		 */
+		public String toString() {
+			return "" + coefficient + "*" + variable.var();
 		}
 
 	}
@@ -281,15 +287,15 @@ public class Constraint<T> {
 	 * @param <B>
 	 *            the object b
 	 */
-	public static class Pair<A, B> {
+	static class Pair<A, B> {
 		/**
 		 * Object a.
 		 */
-		protected A a;
+		protected final A a;
 		/**
 		 * Object b.
 		 */
-		protected B b;
+		protected final B b;
 
 		/**
 		 * Constructs a {@code Pair} with two objects {@code a} and {@code b}.
@@ -314,16 +320,6 @@ public class Constraint<T> {
 		}
 
 		/**
-		 * Sets the {@code A} object to {@code a}.
-		 * 
-		 * @param a
-		 *            the a to set
-		 */
-		public void setA(A a) {
-			this.a = a;
-		}
-
-		/**
 		 * Returns the {@code B} object.
 		 * 
 		 * @return the b object
@@ -332,14 +328,35 @@ public class Constraint<T> {
 			return b;
 		}
 
-		/**
-		 * Sets the {@code B} object to {@code b}.
+		/*
+		 * (non-Javadoc)
 		 * 
-		 * @param b
-		 *            the b to set
+		 * @see java.lang.Object#hashCode()
 		 */
-		public void setB(B b) {
-			this.b = b;
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((a == null) ? 0 : a.hashCode());
+			result = prime * result + ((b == null) ? 0 : b.hashCode());
+			return result;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		@SuppressWarnings("unchecked")
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Pair<A, B> other = (Pair<A, B>) obj;
+
+			return a.equals(other.a) && b.equals(other.b);
 		}
 
 	}

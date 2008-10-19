@@ -20,6 +20,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.BDDs;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.BDDReliabilityFunction;
@@ -29,6 +31,7 @@ import org.jreliability.gui.DistributionAspect;
 import org.jreliability.gui.FailureRateAspect;
 import org.jreliability.gui.ReliabilityFunctionAspect;
 import org.jreliability.gui.ReliabilityViewer;
+import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**
  * The {@code ReliabilityTester} is a basic tester that uses the {@code
@@ -73,6 +76,28 @@ public class ReliabilityTester {
 		SortedMap<String, ReliabilityFunction> reliabilityFunction = new TreeMap<String, ReliabilityFunction>();
 		reliabilityFunction.put("Exponential", exponentialDistribution);
 		reliabilityFunction.put("Weibull", weibullDistribution);
+		
+		
+		JBDDProviderFactory factory = new JBDDProviderFactory();
+		BDDProvider<String> provider = factory.getProvider();
+		
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+		
+		List<Integer> coeffs = new ArrayList<Integer>();
+		List<BDD<String>> vars = new ArrayList<BDD<String>>();
+		
+		coeffs.add(1);
+		coeffs.add(3);
+		coeffs.add(2);
+		vars.add(a);
+		vars.add(b);
+		vars.add(c);
+		
+		BDD<String> cons = BDDs.getBDD(coeffs, vars, "<", 2);
+		System.out.println(BDDs.toDot(cons));
+		
 
 		new ReliabilityViewer("JReliability Viewer", reliabilityFunction,
 				aspects);

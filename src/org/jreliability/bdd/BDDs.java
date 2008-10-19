@@ -15,6 +15,8 @@
 package org.jreliability.bdd;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,9 +28,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import org.jreliability.common.Constraint;
-import org.jreliability.common.Constraint.Literal;
-import org.jreliability.common.Constraint.Pair;
+import org.jreliability.bdd.Constraint.Literal;
+import org.jreliability.bdd.Constraint.Pair;
 import org.jreliability.function.FunctionTransformer;
 
 /**
@@ -79,6 +80,58 @@ public class BDDs {
 	}
 
 	/**
+	 * Converts a linear constraint to a BDD.
+	 * 
+	 * @param <T>
+	 *            the type of variables of the BDD
+	 * @param coeffs
+	 *            the coefficients
+	 * @param vars
+	 *            the variables
+	 * @param comp
+	 *            the comparator ("<","<=","=",">=",">")
+	 * @param rhs
+	 *            the right hand side value
+	 * @return the BDD representing this linear constraint
+	 */
+	public static <T> BDD<T> getBDD(List<Integer> coeffs, List<BDD<T>> vars,
+			String comp, int rhs) {
+		assert (coeffs.size() == vars.size());
+
+		BDD<T> result;
+
+		if (comp.equals("=")) {
+			BDD<T> ge = getBDD(coeffs, vars, ">=", rhs);
+			BDD<T> le = getBDD(coeffs, vars, "<=", rhs);
+			ge.andWith(le);
+			result = ge;
+		} else if (comp.equals("<")) {
+			result = getBDD(coeffs, vars, "<=", rhs - 1);
+		} else if (comp.equals(">")) {
+			result = getBDD(coeffs, vars, ">=", rhs + 1);
+		} else if (comp.equals("<=")) {
+			List<Integer> negativeCoeffs = new ArrayList<Integer>();
+			for (int c : coeffs) {
+				negativeCoeffs.add(-c);
+			}
+			result = getBDD(negativeCoeffs, vars, ">=", -rhs);
+		} else if (comp.equals(">=")) {
+			List<Literal<T>> lits = new ArrayList<Literal<T>>();
+			for (int i = 0; i < coeffs.size(); i++) {
+				int c = coeffs.get(i);
+				BDD<T> v = vars.get(i);
+				lits.add(new Literal<T>(c, v));
+			}
+			Constraint<T> constraint = new Constraint<T>(rhs, lits);
+			result = getConstraintBDD(constraint);
+		} else {
+			throw new IllegalArgumentException("Unknown comparator: " + comp);
+		}
+
+		return result;
+	}
+
+	/**
 	 * Returns a {@code greater-equal} constraint represented as a {@code BDD}.
 	 * 
 	 * @param <T>
@@ -87,8 +140,16 @@ public class BDDs {
 	 *            the greater-equal constraint
 	 * @return the bdd representation of the given constraint
 	 */
-	public static <T> BDD<T> getConstraintBDD(Constraint<T> constraint) {
+	protected static <T> BDD<T> getConstraintBDD(Constraint<T> constraint) {
 		List<Literal<T>> literals = constraint.getLhs();
+		
+		Collections.sort(literals, new Comparator<Literal<T>>(){
+			@Override
+			public int compare(Literal<T> o1, Literal<T> o2) {
+				return o2.getCoefficient()-o1.getCoefficient();
+			}
+		});
+		
 		int materialLeft = 0;
 		BDDProvider<T> provider = literals.get(0).getVariable().getProvider();
 		for (Literal<T> literal : literals) {
