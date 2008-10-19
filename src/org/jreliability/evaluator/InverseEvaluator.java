@@ -46,7 +46,7 @@ public class InverseEvaluator implements Evaluator {
 	 */
 	public double evaluate(ReliabilityFunction reliabilityFunction, double y) {
 		InverseFunction inverse = new InverseFunction(reliabilityFunction);
-		double x = inverse.getX(y);
+		double x = inverse.getY(y);
 		return x;
 	}
 

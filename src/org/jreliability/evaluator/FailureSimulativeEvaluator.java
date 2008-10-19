@@ -136,7 +136,7 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {
-			double x = inverse.getX(random.nextDouble());
+			double x = inverse.getY(random.nextDouble());
 			Failure<T> failureTime = new Failure<T>(element, x);
 			failureTimes.add(failureTime);
 		}

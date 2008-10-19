@@ -15,14 +15,14 @@
 package org.jreliability.function;
 
 /**
- * The {@code InverseFunction} determines the {@code x} in {@code y = R(x)} for
- * a given {@code y} and the {@code ReliabilityFunction} {@code R(x)} via a
- * bisection approach.
+ * The {@code InverseFunction} determines the inverse reliability {@code
+ * R^-1(x)}. It calculates a {@code y} in {@code x = R(y)} for a given {@code x}
+ * and the {@code ReliabilityFunction} {@code R(x)} via a bisection approach.
  * 
  * @author glass
  * 
  */
-public class InverseFunction {
+public class InverseFunction implements Function {
 
 	/**
 	 * The {@code ReliabilityFunction} for which the inverse is to determine.
@@ -40,25 +40,22 @@ public class InverseFunction {
 		this.reliabilityFunction = reliabilityFunction;
 	}
 
-	/**
-	 * Returns an {@code x} value for a given {@code y} value in {@code y =
-	 * R(x)}.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param y
-	 *            the y value
-	 * @return an x value for the given y value
+	 * @see org.jreliability.function.Function#getY(double)
 	 */
-	public double getX(double y) {
+	public double getY(double x) {
 		double epsilon = 1.0 / 10000;
-		double x = 1;
-		double tmpY = reliabilityFunction.getY(x);
+		double y = 1;
+		double tmpY = reliabilityFunction.getY(y);
 
-		if (tmpY < (y - epsilon)) {
-			return bisection(y, 0.0, x, epsilon);
-		} else if (tmpY > (y + epsilon)) {
-			return bisection(y, x, 2.0, epsilon);
+		if (tmpY < (x - epsilon)) {
+			return bisection(x, 0.0, y, epsilon);
+		} else if (tmpY > (x + epsilon)) {
+			return bisection(x, y, 2.0, epsilon);
 		} else {
-			return x;
+			return y;
 		}
 	}
 
