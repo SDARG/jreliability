@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 
 import org.jreliability.bdd.Constraint.Literal;
 import org.jreliability.bdd.Constraint.Pair;
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 
 /**
  * The {@code BDDs} contains common reliabilityFunctions for/on {@code BDD}s.
@@ -142,14 +142,14 @@ public class BDDs {
 	 */
 	protected static <T> BDD<T> getConstraintBDD(Constraint<T> constraint) {
 		List<Literal<T>> literals = constraint.getLhs();
-		
-		Collections.sort(literals, new Comparator<Literal<T>>(){
+
+		Collections.sort(literals, new Comparator<Literal<T>>() {
 			@Override
 			public int compare(Literal<T> o1, Literal<T> o2) {
-				return o2.getCoefficient()-o1.getCoefficient();
+				return o2.getCoefficient() - o1.getCoefficient();
 			}
 		});
-		
+
 		int materialLeft = 0;
 		BDDProvider<T> provider = literals.get(0).getVariable().getProvider();
 		for (Literal<T> literal : literals) {
@@ -194,21 +194,19 @@ public class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@code BDD} based on the {@code Function}
-	 * of each variable {@code T} at the given {@code x} value.
+	 * Calculates the top event of the {@code BDD} based on a transformer that
+	 * delivers for each variable {@code T} a double value.
 	 * 
 	 * @param <T>
 	 *            the type of variable
 	 * @param bdd
 	 *            the bdd
 	 * @param transformer
-	 *            the transformer
-	 * @param x
-	 *            the x value
+	 *            the transformer that returns a double value for each variable
 	 * @return the top event of the bdd
 	 */
 	public static <T> double calculateTop(BDD<T> bdd,
-			FunctionTransformer<T> transformer, double x) {
+			Transformer<T, Double> transformer) {
 		if (bdd.isOne()) {
 			return 1.0;
 		}
@@ -219,7 +217,7 @@ public class BDDs {
 		Set<BDD<T>> upSort = new LinkedHashSet<BDD<T>>();
 		traverseBDD(bdd, upSort);
 
-		return evaluate(bdd, transformer, upSort, x);
+		return evaluate(bdd, transformer, upSort);
 	}
 
 	/**
@@ -250,15 +248,13 @@ public class BDDs {
 	 * @param bdd
 	 *            the bdd
 	 * @param transformer
-	 *            the reliabilityFunction transformer
+	 *            the transformer
 	 * @param upSort
 	 *            the sorted bdd nodes
-	 * @param x
-	 *            the x value
 	 * @return the top event
 	 */
 	protected static <T> double evaluate(BDD<T> bdd,
-			FunctionTransformer<T> transformer, Set<BDD<T>> upSort, double x) {
+			Transformer<T, Double> transformer, Set<BDD<T>> upSort) {
 		Map<T, Double> values = new HashMap<T, Double>();
 		HashMap<BDD<T>, Double> bddToDouble = new HashMap<BDD<T>, Double>();
 
@@ -267,7 +263,7 @@ public class BDDs {
 			T t = tmpBdd.var();
 			Double r = values.get(t);
 			if (r == null) {
-				r = transformer.transform(t).getY(x);
+				r = transformer.transform(t);
 				values.put(t, r);
 			}
 

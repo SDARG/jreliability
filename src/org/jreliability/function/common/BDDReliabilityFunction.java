@@ -16,12 +16,13 @@ package org.jreliability.function.common;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDs;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction} that
- * is inherently included in a {@code BDD}.
+ * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction}
+ * that is inherently included in a {@code BDD}.
  * 
  * @author glass
  * 
@@ -42,14 +43,15 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	protected final FunctionTransformer<T> transformer;
 
 	/**
-	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and {@code
-	 * FunctionTransformer}.
+	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and
+	 * {@code FunctionTransformer}.
 	 * 
 	 * @param bdd
 	 *            the bdd representing the reliabilityFunction
 	 * 
 	 * @param transformer
-	 *            the transformer to transform bdd elements to reliabilityFunction
+	 *            the transformer to transform bdd elements to
+	 *            reliabilityFunction
 	 */
 	public BDDReliabilityFunction(BDD<T> bdd, FunctionTransformer<T> transformer) {
 		super();
@@ -63,8 +65,16 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	@Override
-	public double getY(double x) {
-		return BDDs.calculateTop(bdd, transformer, x);
+	public double getY(final double x) {
+		
+		final Transformer<T, Double> t = new Transformer<T, Double>() {
+			@Override
+			public Double transform(T a) {
+				return transformer.transform(a).getY(x);
+			}
+		};
+		
+		return BDDs.calculateTop(bdd, t);
 	}
 
 	/**
