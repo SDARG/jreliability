@@ -15,9 +15,9 @@
 package org.jreliability.tester;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.Map;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.function.FunctionTransformer;
@@ -70,7 +70,7 @@ public class ReliabilityTester {
 		BDDReliabilityFunction<String> weibullDistribution = new BDDReliabilityFunction<String>(
 				bdd, weibullTransformer);
 
-		SortedMap<String, ReliabilityFunction> reliabilityFunction = new TreeMap<String, ReliabilityFunction>();
+		Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
 		reliabilityFunction.put("Exponential", exponentialDistribution);
 		reliabilityFunction.put("Weibull", weibullDistribution);
 

@@ -20,10 +20,10 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.Map.Entry;
 
 import javax.swing.JComboBox;
@@ -79,7 +79,12 @@ public class ReliabilityPanel extends JPanel {
 	/**
 	 * The list of reliabilityFunctions that shall be plotted.
 	 */
-	protected SortedMap<String, ReliabilityFunction> reliabilityFunctions;
+	protected Map<String, ReliabilityFunction> reliabilityFunctions;
+
+	/**
+	 * The names of the reliabilityFunctions in a distinct order.
+	 */
+	protected List<String> names;
 
 	/**
 	 * The map keeps track of the aspect and its index in the picker.
@@ -164,7 +169,9 @@ public class ReliabilityPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
+		 * @see
+		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
+		 * )
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -219,9 +226,10 @@ public class ReliabilityPanel extends JPanel {
 	 *            the reliabilityFunctions
 	 * @return the panel
 	 */
-	protected JPanel get(
-			SortedMap<String, ReliabilityFunction> reliabilityFunctions) {
+	protected JPanel get(Map<String, ReliabilityFunction> reliabilityFunctions) {
 		this.reliabilityFunctions = reliabilityFunctions;
+		names = new ArrayList<String>(reliabilityFunctions.keySet());
+		Collections.sort(names);
 
 		plot = new Plot();
 		sampler = new Sampler();
@@ -232,10 +240,10 @@ public class ReliabilityPanel extends JPanel {
 		Color[] colors = { Color.BLACK, Color.RED, Color.BLUE, Color.YELLOW,
 				Color.GREEN, Color.ORANGE };
 		plot.setColors(colors);
+
 		int i = 0;
-		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
-				.entrySet()) {
-			plot.addLegend(i, entry.getKey());
+		for (String name: names) {
+			plot.addLegend(i, name);
 			i++;
 		}
 
@@ -279,10 +287,11 @@ public class ReliabilityPanel extends JPanel {
 		double max = 0.0;
 		int i = 0;
 		setLabels(aspect.getXAxis(), aspect.getYAxis());
-		SortedMap<String, Samples> samples = sampler.getSamples(
-				reliabilityFunctions, aspect, 500);
-		for (Entry<String, Samples> entry : samples.entrySet()) {
-			Samples sample = entry.getValue();
+		Map<String, Samples> samples = sampler.getSamples(reliabilityFunctions,
+				aspect, 500);
+
+		for (String name : names) {
+			Samples sample = samples.get(name);
 			for (Entry<Double, Double> value : sample.entrySet()) {
 				double x = value.getKey();
 				double y = value.getValue();

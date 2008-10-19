@@ -14,6 +14,7 @@
  */
 package org.jreliability.gui;
 
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
@@ -50,8 +51,8 @@ public class Sampler {
 	 *            the number of points per samples
 	 * @return the samples of a set of reliabilityFunctions under a given aspect
 	 */
-	public SortedMap<String, Samples> getSamples(
-			SortedMap<String, ReliabilityFunction> reliabilityFunctions,
+	public Map<String, Samples> getSamples(
+			Map<String, ReliabilityFunction> reliabilityFunctions,
 			Aspect aspect, int number) {
 		Double lower = null;
 		Double upper = null;

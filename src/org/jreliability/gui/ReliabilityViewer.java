@@ -18,7 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.net.URL;
 import java.util.List;
-import java.util.SortedMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -52,7 +52,7 @@ public class ReliabilityViewer extends JFrame {
 	 *            the aspects
 	 */
 	public static void view(String title,
-			SortedMap<String, ReliabilityFunction> reliabilityFunctions,
+			Map<String, ReliabilityFunction> reliabilityFunctions,
 			List<Aspect> aspects) {
 
 		try {
