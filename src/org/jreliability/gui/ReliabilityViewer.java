@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import org.jreliability.function.ReliabilityFunction;
+
 /**
  * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
  * ReliabilityPanel}.
@@ -35,28 +36,13 @@ import org.jreliability.function.ReliabilityFunction;
 public class ReliabilityViewer extends JFrame {
 
 	/**
-	 * The standard serial version UID.
+	 * The location of the LOGO.
 	 */
-	private static final long serialVersionUID = 1L;
+	protected static final String LOGO = "icons/LOGO.png";
 
 	/**
-	 * The title of the viewer.
-	 */
-	protected final String title;
-
-	/**
-	 * The location of the logo.
-	 */
-	protected final String logo = "icons/logo.png";
-
-	/**
-	 * The shown reliability panel.
-	 */
-	protected ReliabilityPanel reliabilityPanel;
-
-	/**
-	 * Constructs a {@code ReliabilityViewer} with a given title, a list of
-	 * {@code ReliabilityFunctions}, and the {@code Aspects}.
+	 * Constructs and views {@code JFrame} with a given title, a list of {@code
+	 * ReliabilityFunctions}, and the {@code Aspects}.
 	 * 
 	 * @param title
 	 *            the title
@@ -65,12 +51,9 @@ public class ReliabilityViewer extends JFrame {
 	 * @param aspects
 	 *            the aspects
 	 */
-	public ReliabilityViewer(String title,
+	public static void view(String title,
 			SortedMap<String, ReliabilityFunction> reliabilityFunctions,
 			List<Aspect> aspects) {
-		this.title = title;
-
-		reliabilityPanel = new ReliabilityPanel(aspects);
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -78,45 +61,38 @@ public class ReliabilityViewer extends JFrame {
 			e.printStackTrace();
 		}
 
-		init(reliabilityFunctions);
+		JFrame frame = new JFrame();
+
+		ReliabilityPanel reliabilityPanel = new ReliabilityPanel(aspects);
+
+		ImageIcon icon = getImageIcon();
+		frame.setIconImage(icon.getImage());
+
+		frame.setLayout(new BorderLayout());
+		frame.setPreferredSize(new Dimension(640, 480));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(reliabilityPanel.get(reliabilityFunctions));
+
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	/**
-	 * Initializes the frame with a given set of {@code ReliabilityFunctions}.
-	 * 
-	 * @param reliabilityFunctions
-	 *            the reliabilityFunctions
+	 * Returns the {@code ImageIcon}.
 	 */
-	protected final void init(
-			SortedMap<String, ReliabilityFunction> reliabilityFunctions) {
-		setTitle(title);
-
-		loadImageIcon();
-
-		setLayout(new BorderLayout());
-
-		setPreferredSize(new Dimension(800, 600));
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		getContentPane().add(reliabilityPanel.get(reliabilityFunctions));
-
-		pack();
-		setVisible(true);
-	}
-
-	/**
-	 * Sets the {@code ImageIcon} for this frame.
-	 */
-	protected final void loadImageIcon() {
+	protected static final ImageIcon getImageIcon() {
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-		URL url = classLoader.getResource(logo);
+		URL url = classLoader.getResource(LOGO);
 		try {
-			setIconImage((new ImageIcon(url)).getImage());
+			ImageIcon icon = new ImageIcon(url);
+			return icon;
 		} catch (NullPointerException e) {
-			System.err.println("Image " + logo + " not found.");
+			System.err.println("Image " + LOGO + " not found.");
 			e.printStackTrace();
+			return null;
 		}
 	}
+
+	private static final long serialVersionUID = 1L;
 
 }
