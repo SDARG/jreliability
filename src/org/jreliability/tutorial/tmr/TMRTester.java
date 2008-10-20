@@ -20,10 +20,11 @@ import org.jreliability.gui.ReliabilityFunctionAspect;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
- * The {@code TMRTester}
+ * The {@code TMRTester} performs some common actions that are done with a
+ * modeled system.
  * 
  * @author glass
- *
+ * 
  */
 public class TMRTester {
 
@@ -46,9 +47,11 @@ public class TMRTester {
 
 		BDDReliabilityFunction<String> reliabilityFunctionTMR = new BDDReliabilityFunction<String>(
 				tmrBDD, transformer);
-		
-		// The single element solution equals a simple ExponentiaRreliabilityFunction
-		ReliabilityFunction reliabilityFunctionSingle = new ExponentialReliabilityFunction(0.1);
+
+		// The single element solution equals a simple
+		// ExponentiaRreliabilityFunction
+		ReliabilityFunction reliabilityFunctionSingle = new ExponentialReliabilityFunction(
+				0.1);
 
 		// Calculate Mean-Time-To-Failures (the first moment of the density
 		// function)
@@ -56,7 +59,8 @@ public class TMRTester {
 		Double mttfTMR = moment.evaluate(reliabilityFunctionTMR);
 		System.out.println("Mean-Time-To-Failure of TMR: " + mttfTMR);
 		Double mttfSingle = moment.evaluate(reliabilityFunctionSingle);
-		System.out.println("Mean-Time-To-Failure of single element: " + mttfSingle);
+		System.out.println("Mean-Time-To-Failure of single element: "
+				+ mttfSingle);
 		System.out.println("***");
 
 		// Using the GUI

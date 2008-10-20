@@ -1,8 +1,8 @@
 package org.jreliability.tutorial.boiler;
 
 /**
- * The {@code Controller} models a controlling element that is used for the
- * activating the pumps and controlling water temperature.
+ * The {@code Controller} models a controlling element that is used for
+ * activating the pumps and controlling the water temperature.
  * 
  * @author glass
  * 

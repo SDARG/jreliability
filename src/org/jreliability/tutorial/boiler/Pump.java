@@ -1,8 +1,8 @@
 package org.jreliability.tutorial.boiler;
 
 /**
- * The {@code Pump} is used to pump water from the {@code Boiler} to its
- * destination.
+ * The {@code Pump} models a pump that is used to pump water from the {@code
+ * Boiler} to its destination.
  * 
  * @author glass
  * 

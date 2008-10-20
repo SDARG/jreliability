@@ -1,13 +1,13 @@
 package org.jreliability.tutorial.boiler;
 
 /**
- * The {@code BoilerElement} is the abstract element that models each of the
- * boiler element.
+ * The abstract {@code BoilerElement} is the basic element that models each of
+ * the elements regarded in the model of the {@code Boiler}.
  * 
  * @author glass
  * 
  */
-public abstract class BoilerElement implements Comparable<BoilerElement> {
+public abstract class BoilerElement {
 
 	/**
 	 * The name of the element.
@@ -40,16 +40,6 @@ public abstract class BoilerElement implements Comparable<BoilerElement> {
 	 */
 	public String toString() {
 		return name;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	public int compareTo(BoilerElement element) {
-		int comp = name.compareTo(element.getName());
-		return comp;
 	}
 
 }

@@ -10,7 +10,7 @@ import org.jreliability.function.common.WeibullReliabilityFunction;
 /**
  * The {@code BoilerTransformer} provides a {@code ReliabilityFunction} for each
  * {@code BoilerElement} in the {@code Boiler}. In this implementation, each
- * element is assigned an {@code WeibulllReliabilityFunction} with a scale of
+ * element is assigned a {@code WeibulllReliabilityFunction} with a scale of
  * {@code 0.5} and a shape of {@code 2}.
  * 
  * @author glass
@@ -24,6 +24,12 @@ public class BoilerTransformer implements FunctionTransformer<BoilerElement> {
 	 */
 	Map<BoilerElement, ReliabilityFunction> reliabilityFunctions = new HashMap<BoilerElement, ReliabilityFunction>();
 
+	/**
+	 * Constructs a {@code BoilerTransformer} with a given {@code Boiler}.
+	 * 
+	 * @param boiler
+	 *            the boiler
+	 */
 	public BoilerTransformer(Boiler boiler) {
 		initialize(boiler);
 	}

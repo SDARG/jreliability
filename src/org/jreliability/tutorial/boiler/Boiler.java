@@ -31,14 +31,38 @@ import org.jreliability.javabdd.JBDDProviderFactory;
  */
 public class Boiler {
 
+	/**
+	 * The first temperature sensor.
+	 */
 	protected Sensor sensor1 = new Sensor("Sensor1");
+	/**
+	 * The second temperature sensor.
+	 */
 	protected Sensor sensor2 = new Sensor("Sensor2");
+	/**
+	 * The controller.
+	 */
 	protected Controller controller = new Controller("Controller");
+	/**
+	 * The water heater.
+	 */
 	protected Heater heater = new Heater("Heater");
+	/**
+	 * The first pump.
+	 */
 	protected Pump pump1 = new Pump("Pump1");
+	/**
+	 * The second pump.
+	 */
 	protected Pump pump2 = new Pump("Pump2");
 
+	/**
+	 * All elements that are modeled in the {@code Boiler}.
+	 */
 	protected List<BoilerElement> elements = new ArrayList<BoilerElement>();
+	/**
+	 * The used {@code FunctionTransformer}.
+	 */
 	protected BoilerTransformer transformer;
 
 	/**

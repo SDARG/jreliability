@@ -30,10 +30,22 @@ import org.jreliability.javabdd.JBDDProviderFactory;
  */
 public class TMR {
 
+	/**
+	 * The first element.
+	 */
 	protected String element1 = new String("element1");
+	/**
+	 * The second element.
+	 */
 	protected String element2 = new String("element2");
+	/**
+	 * The third element.
+	 */
 	protected String element3 = new String("element3");
 
+	/**
+	 * The used {@code FunctionTransformer}.
+	 */
 	protected FunctionTransformer<String> transformer;
 
 	/**
