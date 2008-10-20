@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<project name="jreliability-tutorial" default="compile">
+
+	<property name="lib.dir" value="lib" />
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="files.dir" value="files" />
+
+	<tstamp>
+		<format property="date" pattern="MM/dd/yyyy" />
+		<format property="date-flat" pattern="MMddyyyy" />
+	</tstamp>
+
+	<!-- VERSIONING -->
+	<property name="version" value="snapshot-${date-flat}" />
+	<!-- <property name="version" value="1.5" /> -->
+
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}" includes="*.jar" />
+	</path>
+
+	<target name="all" depends="clean,dist" description="All Tasks." />
+
+	<target name="compile" description="Compile Java source.">
+		<mkdir dir="${build.dir}/classes" />
+		<javac srcdir="${src.dir}" debug="on" destdir="${build.dir}/classes" source="1.5" target="1.5">
+			<classpath refid="compile.classpath" />
+			<compilerarg value="-Xlint" />
+		</javac>
+		<copy toDir="${build.dir}/classes">
+			<fileset dir="${src.dir}" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile" description="Build jar.">
+		<mkdir dir="${build.dir}/jar" />
+		<jar destfile="${build.dir}/jar/jreliability-tutorials-${version}.jar" basedir="${build.dir}/classes" />
+	</target>
+
+	<target name="dist" depends="jar" description="Build distribution.">
+		<mkdir dir="${build.dir}/dist/jreliability-${version}/src" />
+
+		<copy toDir="${build.dir}/dist/jreliability-${version}">
+			<fileset dir="${build.dir}/jar" includes="*.jar" />
+			<fileset dir="${files.dir}" includes="**/*" excludes=".svn,.svn/**/*,**/.svn" />
+		</copy>
+		<copy toDir="${build.dir}/dist/jreliability-${version}/src">
+			<fileset dir="${src.dir}" includes="**/*" excludes=".svn,.svn/**/*,**/.svn" />
+		</copy>
+
+		<replace dir="${build.dir}/dist" token="@VERSION" value="${version}">
+			<include name="**/*" />
+		</replace>
+
+		<zip destfile="${build.dir}/jreliability-tutorials-${version}.zip" basedir="${build.dir}/dist" />
+		<tar destfile="${build.dir}/jreliability-tutorials-${version}.tar" basedir="${build.dir}/dist" />
+		<gzip src="${build.dir}/jreliability-tutorials-${version}.tar" destfile="${build.dir}/jreliability-tutorials-${version}.tar.gz" />
+	</target>
+
+	<target name="clean" description="Remove generated files.">
+		<delete dir="${build.dir}" />
+	</target>
+
+</project>
