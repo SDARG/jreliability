@@ -24,8 +24,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.jreliability.bdd.Constraint.Literal;
@@ -178,7 +176,7 @@ public class BDDs {
 		Set<T> elements = getVariables(bdd);
 		Map<BDD<T>, String> variables = new HashMap<BDD<T>, String>();
 		Map<T, Integer> counters = new HashMap<T, Integer>();
-		SortedMap<T, String> markers = new TreeMap<T, String>();
+		Map<T, String> markers = new HashMap<T, String>();
 		for (T t : elements) {
 			counters.put(t, 0);
 		}
@@ -445,7 +443,7 @@ public class BDDs {
 	 *            the marker variables for each variable
 	 */
 	protected static <T> void collectDotMarkers(BDD<T> bdd, StringBuffer dot,
-			SortedMap<T, String> markers) {
+			Map<T, String> markers) {
 		List<T> elements = new ArrayList<T>();
 		collectVariablesSorted(bdd, elements);
 		List<T> tmpList = new ArrayList<T>();
