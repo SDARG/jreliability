@@ -71,9 +71,9 @@ public class TMR {
 	}
 
 	/**
-	 * Returns a model of the {@code Boiler} as a {@code BDD}.
+	 * Returns a model of the {@code TMR} as a {@code BDD}.
 	 * 
-	 * @return the bdd representation of the boiler
+	 * @return the bdd representation of the TMR
 	 */
 	public BDD<String> get() {
 
