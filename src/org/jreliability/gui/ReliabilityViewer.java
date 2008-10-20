@@ -38,7 +38,7 @@ public class ReliabilityViewer extends JFrame {
 	/**
 	 * The location of the LOGO.
 	 */
-	protected static final String LOGO = "icons/LOGO.png";
+	protected static final String LOGO = "icons/logo.png";
 
 	/**
 	 * Constructs and views {@code JFrame} with a given title, a list of {@code
@@ -79,6 +79,8 @@ public class ReliabilityViewer extends JFrame {
 
 	/**
 	 * Returns the {@code ImageIcon}.
+	 * 
+	 * @return the image icon
 	 */
 	protected static final ImageIcon getImageIcon() {
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
