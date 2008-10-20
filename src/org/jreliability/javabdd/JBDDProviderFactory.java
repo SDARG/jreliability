@@ -20,7 +20,6 @@ import java.util.Map;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 
-
 /**
  * The {@code JDDProviderFactory} is a {@code BDDProviderFactory} for the
  * JavaBDD library.
@@ -97,7 +96,6 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	 * @see org.jreliability.bdd.BDDProviderFactory#getProvider()
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public <T> BDDProvider<T> getProvider() {
 		final boolean useNative;
 

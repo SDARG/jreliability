@@ -144,7 +144,6 @@ public class BDDs {
 		List<Literal<T>> literals = constraint.getLhs();
 
 		Collections.sort(literals, new Comparator<Literal<T>>() {
-			@Override
 			public int compare(Literal<T> o1, Literal<T> o2) {
 				return o2.getCoefficient() - o1.getCoefficient();
 			}

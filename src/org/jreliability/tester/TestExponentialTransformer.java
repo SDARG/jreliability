@@ -79,7 +79,6 @@ public class TestExponentialTransformer implements FunctionTransformer<String> {
 	 * 
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
-	@Override
 	public ReliabilityFunction transform(String a) {
 		return reliabilityFunction.get(a);
 	}

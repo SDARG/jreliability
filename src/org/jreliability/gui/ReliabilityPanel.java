@@ -173,7 +173,6 @@ public class ReliabilityPanel extends JPanel {
 		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
 		 * )
 		 */
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			boolean changed = false;
 			Aspect aspect = aspects.get(comboBox.getSelectedIndex());
@@ -242,7 +241,7 @@ public class ReliabilityPanel extends JPanel {
 		plot.setColors(colors);
 
 		int i = 0;
-		for (String name: names) {
+		for (String name : names) {
 			plot.addLegend(i, name);
 			i++;
 		}

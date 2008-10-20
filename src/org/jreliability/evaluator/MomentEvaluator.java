@@ -62,7 +62,6 @@ public class MomentEvaluator implements Evaluator {
 		 * 
 		 * @see org.jreliability.function.Function#getY(double)
 		 */
-		@Override
 		public double getY(double x) {
 			return n * Math.pow(x, n - 1) * reliabilityFunction.getY(x);
 		}

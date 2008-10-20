@@ -64,11 +64,9 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
-	@Override
 	public double getY(final double x) {
 		
 		final Transformer<T, Double> t = new Transformer<T, Double>() {
-			@Override
 			public Double transform(T a) {
 				return transformer.transform(a).getY(x);
 			}

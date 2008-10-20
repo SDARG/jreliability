@@ -40,7 +40,6 @@ public class FailureRateAspect extends AbstractAspect {
 	 * @see org.jreliability.gui.Aspect#getUpper(org.jreliability.function.
 	 * Function)
 	 */
-	@Override
 	public double getUpper(ReliabilityFunction reliabilityFunction) {
 		MomentEvaluator evaluator = new MomentEvaluator(1);
 		return evaluator.getUpperBound(reliabilityFunction);

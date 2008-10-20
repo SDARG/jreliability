@@ -67,7 +67,6 @@ public abstract class AbstractAspect implements Aspect {
 	 * 
 	 * @see org.jreliability.gui.Aspect#getName()
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -77,7 +76,6 @@ public abstract class AbstractAspect implements Aspect {
 	 * 
 	 * @see org.jreliability.gui.Aspect#getXAxis()
 	 */
-	@Override
 	public String getXAxis() {
 		return xAxis;
 	}
@@ -87,7 +85,6 @@ public abstract class AbstractAspect implements Aspect {
 	 * 
 	 * @see org.jreliability.gui.Aspect#getYAxis()
 	 */
-	@Override
 	public String getYAxis() {
 		return yAxis;
 	}
@@ -98,7 +95,6 @@ public abstract class AbstractAspect implements Aspect {
 	 * @see org.jreliability.gui.Aspect#getLower(org.jreliability.function.
 	 * Function)
 	 */
-	@Override
 	public double getLower(ReliabilityFunction reliabilityFunction) {
 		return lower;
 	}

@@ -41,7 +41,6 @@ public class DistributionAspect extends AbstractAspect {
 	 * @see org.jreliability.gui.Aspect#getUpper(org.jreliability.function.
 	 * Function)
 	 */
-	@Override
 	public double getUpper(ReliabilityFunction reliabilityFunction) {
 		MomentEvaluator evaluator = new MomentEvaluator(1);
 		return evaluator.getUpperBound(reliabilityFunction);
@@ -53,7 +52,6 @@ public class DistributionAspect extends AbstractAspect {
 	 * @see org.jreliability.gui.Aspect#getY(double,
 	 * org.jreliability.function.Function)
 	 */
-	@Override
 	public Double getY(double x, ReliabilityFunction reliabilityFunction) {
 		Distribution distribution = new Distribution(reliabilityFunction);
 		Double y = distribution.getY(x);

@@ -167,7 +167,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.jreliability.bdd.BDD#getProvider()
 	 */
-	@Override
 	public BDDProvider<T> getProvider() {
 		return provider;
 	}
@@ -444,7 +443,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.jreliability.bdd.BDD#copy()
 	 */
-	@Override
 	public BDD<T> copy() {
 		JBDD<T> myCopy = null;
 		JBDD<T> one = (JBDD<T>) provider.one();
@@ -458,7 +456,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.jreliability.bdd.BDD#getVariables()
 	 */
-	@Override
 	public Set<T> getVariables() {
 		return BDDs.getVariables(this);
 	}

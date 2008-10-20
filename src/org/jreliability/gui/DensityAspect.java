@@ -40,7 +40,6 @@ public class DensityAspect extends AbstractAspect {
 	 * @seeorg.jreliability.gui.Aspect#getUpper(org.jreliability.function.
 	 * ReliabilityFunction)
 	 */
-	@Override
 	public double getUpper(ReliabilityFunction reliabilityFunction) {
 		MomentEvaluator evaluator = new MomentEvaluator(1);
 		return evaluator.getUpperBound(reliabilityFunction);
