@@ -23,7 +23,7 @@ import org.jreliability.javabdd.JBDDProviderFactory;
  * correctly (evaluates to {@code 1}) or fails (evaluates to {@code 0}) is as
  * follows:
  * <p>
- * {@code ((Sensor1 OR Sensor2) AND Controller) AND (Controller AND Heater) AND
+ * {@code ((Sensor1 AND Sensor2) AND Controller) AND (Controller AND Heater) AND
  * (Controller AND (Pump1 OR Pump2))}
  * 
  * @author glass
