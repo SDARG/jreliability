@@ -74,7 +74,7 @@ public class TMRTester {
 		reliabilityFunctions.put("TMR", reliabilityFunctionTMR);
 		reliabilityFunctions.put("Single Element", reliabilityFunctionSingle);
 
-		ReliabilityViewer.view("JReliability Viewer", reliabilityFunctions,
+		ReliabilityViewer.view("JReliability Viewer - TMR Tutorial", reliabilityFunctions,
 				aspects);
 
 	}

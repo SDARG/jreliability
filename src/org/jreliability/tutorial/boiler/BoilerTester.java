@@ -64,7 +64,7 @@ public class BoilerTester {
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
 		reliabilityFunctions.put("Boiler", reliabilityFunction);
 
-		ReliabilityViewer.view("JReliability Viewer", reliabilityFunctions,
+		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial", reliabilityFunctions,
 				aspects);
 
 	}
