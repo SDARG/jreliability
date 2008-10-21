@@ -36,7 +36,15 @@ public class SimpleFunctionTransformer<T> implements FunctionTransformer<T> {
 	/**
 	 * The element {@code T} and its {@code ReliabilityFunction}.
 	 */
-	protected Map<T, ReliabilityFunction> reliabilityFunctions = new HashMap<T, ReliabilityFunction>();
+	protected final Map<T, ReliabilityFunction> reliabilityFunctions;
+
+	/**
+	 * Constructs an empty {@code SimpleFunctionTransformer}.
+	 * 
+	 */
+	public SimpleFunctionTransformer() {
+		this(new HashMap<T, ReliabilityFunction>());
+	}
 
 	/**
 	 * Constructs a {@code SimpleFunctionTransformer} with given elements
