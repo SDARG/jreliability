@@ -67,7 +67,8 @@ public class ReliabilityViewer extends JFrame {
 
 		ImageIcon icon = getImageIcon();
 		frame.setIconImage(icon.getImage());
-
+		
+		frame.setTitle(title);
 		frame.setLayout(new BorderLayout());
 		frame.setPreferredSize(new Dimension(640, 480));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
