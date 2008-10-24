@@ -15,6 +15,7 @@
 package org.jreliability.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.net.URL;
 import java.util.List;
@@ -22,13 +23,15 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
- * ReliabilityPanel}.
+ * ReliabilityFunctionPlotPanel}.
  * 
  * @author glass
  * 
@@ -63,17 +66,26 @@ public class ReliabilityViewer extends JFrame {
 
 		JFrame frame = new JFrame();
 
-		ReliabilityPanel reliabilityPanel = new ReliabilityPanel(aspects);
+		ReliabilityFunctionPlotPanel reliabilityFunctionPlotPanel = new ReliabilityFunctionPlotPanel(
+				aspects);
 
 		ImageIcon icon = getImageIcon();
 		frame.setIconImage(icon.getImage());
-		
+
 		frame.setTitle(title);
 		frame.setLayout(new BorderLayout());
-		frame.setPreferredSize(new Dimension(640, 480));
+		frame.setPreferredSize(new Dimension(1000, 500));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(reliabilityPanel.get(reliabilityFunctions));
 
+		JPanel plotPanel = reliabilityFunctionPlotPanel
+				.get(reliabilityFunctions);
+		JPanel measuresPanel = new MeasuresPanel(reliabilityFunctions);
+
+		Container content = frame.getContentPane();
+		content.add(measuresPanel, BorderLayout.LINE_START);
+		content.add(plotPanel, BorderLayout.CENTER);
+		content.add(new JLabel(" \u00A9 JReliability.org 2008"),
+				BorderLayout.PAGE_END);
 		frame.pack();
 		frame.setVisible(true);
 	}

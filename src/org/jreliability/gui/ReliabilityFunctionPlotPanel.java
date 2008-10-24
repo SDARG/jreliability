@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,13 +38,13 @@ import org.jreliability.function.ReliabilityFunction;
 import ptolemy.plot.Plot;
 
 /**
- * The {@code ReliabilityPanel} is a basic GUI to visualize the reliability
- * {@code Aspects} for given {@code Functions}.
+ * The {@code ReliabilityFunctionPlotPanel} is a basic GUI to visualize the
+ * reliability {@code Aspects} for given {@code Functions}.
  * 
  * @author glass
  * 
  */
-public class ReliabilityPanel extends JPanel {
+public class ReliabilityFunctionPlotPanel extends JPanel {
 
 	/**
 	 * Standard serial version UID.
@@ -51,7 +52,7 @@ public class ReliabilityPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The used ptolemy plot.
+	 * The used {@code Ptolemy} plot.
 	 */
 	protected Plot plot;
 
@@ -115,9 +116,9 @@ public class ReliabilityPanel extends JPanel {
 		 */
 		protected Aspect currentAspect;
 		/**
-		 * The reliabilty panel.
+		 * The used {@code ReliabilityFunctionPlotPanel}.
 		 */
-		protected ReliabilityPanel panel;
+		protected ReliabilityFunctionPlotPanel panel;
 
 		/**
 		 * Constructs an {@code AspectPicker} with a given {@code JPanel} and
@@ -128,7 +129,8 @@ public class ReliabilityPanel extends JPanel {
 		 * @param aspects
 		 *            the aspects
 		 */
-		public AspectPicker(ReliabilityPanel panel, List<Aspect> aspects) {
+		public AspectPicker(ReliabilityFunctionPlotPanel panel,
+				List<Aspect> aspects) {
 			super();
 			this.panel = panel;
 			this.aspects = aspects;
@@ -208,12 +210,13 @@ public class ReliabilityPanel extends JPanel {
 	}
 
 	/**
-	 * Constructs a {@code ReliabilityPanel} with the given {@code Aspects}.
+	 * Constructs a {@code ReliabilityFunctionPlotPanel} with the given {@code
+	 * Aspects}.
 	 * 
 	 * @param aspects
 	 *            the aspects
 	 */
-	public ReliabilityPanel(List<Aspect> aspects) {
+	public ReliabilityFunctionPlotPanel(List<Aspect> aspects) {
 		this.aspects = aspects;
 	}
 
@@ -233,7 +236,7 @@ public class ReliabilityPanel extends JPanel {
 		plot = new Plot();
 		sampler = new Sampler();
 
-		picker = new AspectPicker(ReliabilityPanel.this, aspects);
+		picker = new AspectPicker(ReliabilityFunctionPlotPanel.this, aspects);
 		Aspect currentAspect = picker.get();
 
 		Color[] colors = { Color.BLACK, Color.RED, Color.BLUE, Color.YELLOW,
@@ -254,6 +257,10 @@ public class ReliabilityPanel extends JPanel {
 		paint(currentAspect);
 
 		panel.setPreferredSize(new Dimension(600, 400));
+
+		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+				.createTitledBorder("ReliabilityFunction Plots"), BorderFactory
+				.createEmptyBorder(5, 0, 0, 0)));
 
 		panel.revalidate();
 		panel.repaint();
