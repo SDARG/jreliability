@@ -34,6 +34,14 @@ import org.jreliability.javabdd.JBDDProviderFactory;
 public class ConstraintTester {
 
 	/**
+	 * Constructs a {@code ConstraintTester}.
+	 * 
+	 */
+	public ConstraintTester() {
+		super();
+	}
+
+	/**
 	 * Main.
 	 * 
 	 * @param args
@@ -47,13 +55,11 @@ public class ConstraintTester {
 		String[] variables = { "x", "y", "z", "a", "b", "c", "d", "e", "f" };
 		List<BDD<String>> vars = new ArrayList<BDD<String>>();
 
-		for(String v: variables){
+		for (String v : variables) {
 			vars.add(bddProvider.get(v));
 		}
 
 		BDD<String> bdd = BDDs.getBDD(coeffs, vars, "<=", 8);
-		System.out.println(bdd.toString());
-		System.out.println(bdd.nodeCount());
 		System.out.println(BDDs.toDot(bdd));
 	}
 }

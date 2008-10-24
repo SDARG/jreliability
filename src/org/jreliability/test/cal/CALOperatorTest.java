@@ -18,7 +18,6 @@ import org.jreliability.javabdd.JBDDProviderFactory;
 import org.jreliability.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.test.AbstractBDDOperatorTest;
 
-
 /**
  * The {@code CALOperatorTest} is a unit test operator class for the {@code CAL}
  * class.
@@ -28,6 +27,14 @@ import org.jreliability.test.AbstractBDDOperatorTest;
  * 
  */
 public class CALOperatorTest extends AbstractBDDOperatorTest {
+
+	/**
+	 * Constructs a {@code CALOperatorTest}.
+	 * 
+	 */
+	public CALOperatorTest() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)

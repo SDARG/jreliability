@@ -36,12 +36,20 @@ import org.jreliability.common.Transformer;
  * @author glass
  * 
  */
-public class BDDs {
+public abstract class BDDs {
 
 	/**
 	 * The platform-independent newline symbol.
 	 */
 	protected static String newline = System.getProperty("line.separator");
+
+	/**
+	 * Constructs a {@code BDDs}.
+	 * 
+	 */
+	public BDDs() {
+		super();
+	}
 
 	/**
 	 * Returns all variables (elements) {@code T} included in the {@code BDD}.

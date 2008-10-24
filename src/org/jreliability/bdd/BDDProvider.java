@@ -17,7 +17,7 @@ package org.jreliability.bdd;
 import java.util.List;
 
 /**
- * The {@code BDDProvider} provides the actual {@code BDDs} for each element.
+ * The {@code BDDProvider} provides the actual {@code BDDs} for each component.
  * 
  * @author glass, reimann
  * @param <T>

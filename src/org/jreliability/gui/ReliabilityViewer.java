@@ -36,12 +36,20 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass
  * 
  */
-public class ReliabilityViewer extends JFrame {
+public abstract class ReliabilityViewer extends JFrame {
 
 	/**
 	 * The location of the LOGO.
 	 */
 	protected static final String LOGO = "icons/logo.png";
+
+	/**
+	 * Constructs a {@code ReliabilityViewer}.
+	 * 
+	 */
+	public ReliabilityViewer() {
+		super();
+	}
 
 	/**
 	 * Constructs and views {@code JFrame} with a given title, a list of {@code

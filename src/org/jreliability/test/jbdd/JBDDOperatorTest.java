@@ -19,7 +19,6 @@ import org.jreliability.javabdd.JBDDProviderFactory;
 import org.jreliability.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.test.AbstractBDDOperatorTest;
 
-
 /**
  * The {@code JBDDOperatorTest} is a unit test operator class for the
  * {@link JBDD} class.
@@ -29,6 +28,14 @@ import org.jreliability.test.AbstractBDDOperatorTest;
  * 
  */
 public class JBDDOperatorTest extends AbstractBDDOperatorTest {
+
+	/**
+	 * Constructs a {@code JBDDOperatorTest}.
+	 * 
+	 */
+	public JBDDOperatorTest() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)

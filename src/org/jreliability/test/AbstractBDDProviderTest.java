@@ -21,7 +21,7 @@ import org.junit.Test;
 
 /**
  * The {@code AbstractBDDProviderTest} is the abstract class for all tests of
- * the {@line BDDProvider}.
+ * the {@code BDDProvider}.
  * 
  * @author lukasiewycz
  * 

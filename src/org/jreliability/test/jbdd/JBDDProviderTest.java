@@ -19,7 +19,6 @@ import org.jreliability.javabdd.JBDDProviderFactory;
 import org.jreliability.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.test.AbstractBDDProviderTest;
 
-
 /**
  * 
  * The {@code JBDDProviderTest} is the {@code AbstractBDDProviderTest} for the
@@ -29,6 +28,14 @@ import org.jreliability.test.AbstractBDDProviderTest;
  * 
  */
 public class JBDDProviderTest extends AbstractBDDProviderTest {
+
+	/**
+	 * Constructs a {@code JBDDProviderTest}.
+	 * 
+	 */
+	public JBDDProviderTest() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)

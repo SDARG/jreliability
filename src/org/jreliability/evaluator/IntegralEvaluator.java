@@ -20,7 +20,7 @@ import java.util.List;
 import org.jreliability.function.Function;
 
 /**
- * The {@code IntegralEvaluator} determines the integral of a {@link Function}
+ * The {@code IntegralEvaluator} determines the integral of a {@code Function}
  * using Romberg's method.
  * 
  * @author lukasiewycz

@@ -17,7 +17,7 @@ package org.jreliability.function;
 import org.jreliability.common.Transformer;
 
 /**
- * The {@code FunctionTransformer} transforms an object {@code T} into a {@code
+ * The {@code FunctionTransformer} transforms an object {@code T} to a {@code
  * ReliabilityFunction}.
  * 
  * @author glass
