@@ -46,45 +46,31 @@ public class InverseFunction implements Function {
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	public double getY(double x) {
-		double epsilon = 1.0 / 10000;
-		double y = 1;
-		double tmpY = reliabilityFunction.getY(y);
+		double epsilon = 1.0 / 100000;
+		double y;
+		double diff;
+		double low = 0;
+		double high = 2;
 
-		if (tmpY < (x - epsilon)) {
-			return bisection(x, 0.0, y, epsilon);
-		} else if (tmpY > (x + epsilon)) {
-			return bisection(x, y, 2.0, epsilon);
-		} else {
-			return y;
-		}
-	}
-
-	/**
-	 * Performs a bisection approach to determine the {@code x} for {@code y =
-	 * R(x)}.
-	 * 
-	 * @param y
-	 *            the y value
-	 * @param low
-	 *            the current lower bound of the interval
-	 * @param high
-	 *            the current upper bound of the interval
-	 * @param epsilon
-	 *            the epsilon value
-	 * @return x for y = R(x)
-	 */
-	protected double bisection(double y, double low, double high, double epsilon) {
-		double x = high - ((high - low) / 2);
-		double tmpY = reliabilityFunction.getY(x);
-
-		if (tmpY < (y - epsilon)) {
-			return bisection(y, low, x, epsilon);
-		} else if (tmpY > (y + epsilon)) {
-			return bisection(y, x, high, epsilon);
-		} else {
-			return x;
+		// Fast calculation of the bounds
+		while (reliabilityFunction.getY(high) > x) {
+			low = high;
+			high *= 2;
 		}
 
+		// Bisection
+		do {
+			y = high - ((high - low) / 2);
+			double tmpX = reliabilityFunction.getY(y);
+			if (tmpX < x) {
+				high = y;
+			} else {
+				low = y;
+			}
+			diff = Math.abs(x - tmpX);
+		} while (diff > epsilon);
+
+		return y;
 	}
 
 }
