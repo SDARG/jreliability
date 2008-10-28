@@ -14,20 +14,13 @@
  */
 package org.jreliability.tester;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.BDDReliabilityFunction;
-import org.jreliability.gui.Aspect;
-import org.jreliability.gui.DensityAspect;
-import org.jreliability.gui.DistributionAspect;
-import org.jreliability.gui.FailureRateAspect;
-import org.jreliability.gui.ReliabilityFunctionAspect;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
@@ -52,15 +45,8 @@ public class ReliabilityTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		List<Aspect> aspects = new ArrayList<Aspect>();
-		aspects.add(new ReliabilityFunctionAspect());
-		aspects.add(new DistributionAspect());
-		aspects.add(new DensityAspect());
-		aspects.add(new FailureRateAspect());
-
 		TestExample example = new TestExample();
 		BDD<String> bdd = example.get();
-		// System.out.println(BDDs.toDot(bdd));
 
 		FunctionTransformer<String> exponentialTransformer = new TestExponentialTransformer();
 		FunctionTransformer<String> weibullTransformer = new TestWeibullTransformer();
@@ -74,8 +60,7 @@ public class ReliabilityTester {
 		reliabilityFunction.put("Exponential", exponentialDistribution);
 		reliabilityFunction.put("Weibull", weibullDistribution);
 
-		ReliabilityViewer.view("JReliability Viewer", reliabilityFunction,
-				aspects);
+		ReliabilityViewer.view("JReliability Viewer", reliabilityFunction);
 
 	}
 

@@ -14,6 +14,8 @@
  */
 package org.jreliability.evaluator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
@@ -92,6 +94,39 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 		double meanTime = (timeSum / i);
 		return meanTime;
 
+	}
+
+	/**
+	 * Performs {@code 5,000} single simulation runs and collects all {@code
+	 * times to failure}.
+	 * 
+	 * @param reliabilityFunction
+	 *            the bdd reliability functon
+	 * @return the times to failure of 5000 simulation runs
+	 */
+	public List<Double> collectTimesToFailure(
+			BDDReliabilityFunction<T> reliabilityFunction) {
+		return collectTimesToFailure(reliabilityFunction, 5000);
+	}
+
+	/**
+	 * Performs {@code n} single simulation runs and collects all {@code times
+	 * to failure}.
+	 * 
+	 * @param reliabilityFunction
+	 *            the bdd reliability function
+	 * @param n
+	 *            the number of runs to perform
+	 * @return the times to failure of n simulation runs
+	 */
+	public List<Double> collectTimesToFailure(
+			BDDReliabilityFunction<T> reliabilityFunction, int n) {
+		List<Double> times = new ArrayList<Double>();
+		for (int i = 0; i < n; i++) {
+			Double time = simulateTimeToFailure(reliabilityFunction);
+			times.add(time);
+		}
+		return times;
 	}
 
 	/**

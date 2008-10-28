@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.gui;
+package org.jreliability.gui.aspect;
 
 import java.util.Map;
 import java.util.SortedMap;
@@ -23,19 +23,19 @@ import org.jreliability.common.Samples;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code Sampler} is used to generate the {@code Samples} of a set of
+ * The {@code SampleCollector} is used to generate the {@code Samples} of a set of
  * {@code ReliabilityFunction} under a given {@code Aspect}.
  * 
  * @author glass
  * 
  */
-public class Sampler {
+public class SampleCollector {
 
 	/**
-	 * Constructs a {@code Sampler}.
+	 * Constructs a {@code SampleCollector}.
 	 * 
 	 */
-	public Sampler() {
+	public SampleCollector() {
 		super();
 	}
 

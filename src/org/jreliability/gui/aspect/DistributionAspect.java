@@ -12,33 +12,34 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.gui;
+package org.jreliability.gui.aspect;
 
 import org.jreliability.evaluator.MomentEvaluator;
-import org.jreliability.function.DensityFunction;
+import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code DensityAspect} represents the density of a {@code
- * ReliabilityFunction}.
+ * The {@code DistributionAspect} represents the {@code Distribution} of a
+ * {@code ReliabilityFunction}.
  * 
  * @author glass
  * 
  */
-public class DensityAspect extends AbstractAspect {
+public class DistributionAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@code DensityAspect}.
+	 * Constructs a {@code DistributionAspect}.
+	 * 
 	 */
-	public DensityAspect() {
-		super("DensityFunction", "time t", "density function f(t)");
+	public DistributionAspect() {
+		super("Distribution", "time t", "distribution function F(t)");
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @seeorg.jreliability.gui.Aspect#getUpper(org.jreliability.function.
-	 * ReliabilityFunction)
+	 * @see org.jreliability.gui.Aspect#getUpper(org.jreliability.function.
+	 * Function)
 	 */
 	public double getUpper(ReliabilityFunction reliabilityFunction) {
 		MomentEvaluator evaluator = new MomentEvaluator(1);
@@ -49,11 +50,11 @@ public class DensityAspect extends AbstractAspect {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.gui.Aspect#getY(double,
-	 * org.jreliability.function.ReliabilityFunction)
+	 * org.jreliability.function.Function)
 	 */
 	public Double getY(double x, ReliabilityFunction reliabilityFunction) {
-		DensityFunction density = new DensityFunction(reliabilityFunction);
-		Double y = density.getY(x);
+		Distribution distribution = new Distribution(reliabilityFunction);
+		Double y = distribution.getY(x);
 		if (y.isNaN()) {
 			return null;
 		} else {

@@ -34,6 +34,8 @@ import javax.swing.JToolBar;
 
 import org.jreliability.common.Samples;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.gui.aspect.Aspect;
+import org.jreliability.gui.aspect.SampleCollector;
 
 import ptolemy.plot.Plot;
 
@@ -57,13 +59,13 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	protected Plot plot;
 
 	/**
-	 * The used sampler to determine the {@code Samples} of a {@code
+	 * The used sampleCollector to determine the {@code Samples} of a {@code
 	 * ReliabilityFunction} under a given {@code Aspect}.
 	 */
-	protected Sampler sampler;
+	protected SampleCollector sampleCollector;
 
 	/**
-	 * The list of aspects that can be chosen.
+	 * The list of samplers that can be chosen.
 	 */
 	protected final List<Aspect> aspects;
 
@@ -93,7 +95,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	protected final Map<Aspect, Integer> indices = new HashMap<Aspect, Integer>();
 
 	/**
-	 * The {@code AspectPicker} is used to choose between the different {@code
+	 * The {@code SamplerPicker} is used to choose between the different {@code
 	 * Aspects}.
 	 * 
 	 * @author lukasiewycz, glass
@@ -121,7 +123,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		protected ReliabilityFunctionPlotPanel panel;
 
 		/**
-		 * Constructs an {@code AspectPicker} with a given {@code JPanel} and
+		 * Constructs an {@code SamplerPicker} with a given {@code JPanel} and
 		 * the {@code Aspects}.
 		 * 
 		 * @param panel
@@ -234,7 +236,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		Collections.sort(names);
 
 		plot = new Plot();
-		sampler = new Sampler();
+		sampleCollector = new SampleCollector();
 
 		picker = new AspectPicker(ReliabilityFunctionPlotPanel.this, aspects);
 		Aspect currentAspect = picker.get();
@@ -256,7 +258,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		setLabels(currentAspect.getXAxis(), currentAspect.getYAxis());
 		paint(currentAspect);
 
-		panel.setPreferredSize(new Dimension(600, 400));
+		panel.setPreferredSize(new Dimension(600, 300));
 
 		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
 				.createTitledBorder("ReliabilityFunction Plots"), BorderFactory
@@ -293,8 +295,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		double max = 0.0;
 		int i = 0;
 		setLabels(aspect.getXAxis(), aspect.getYAxis());
-		Map<String, Samples> samples = sampler.getSamples(reliabilityFunctions,
-				aspect, 500);
+		Map<String, Samples> samples = sampleCollector.getSamples(
+				reliabilityFunctions, aspect, 500);
 
 		for (String name : names) {
 			Samples sample = samples.get(name);

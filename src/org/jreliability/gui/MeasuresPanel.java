@@ -15,6 +15,7 @@
 package org.jreliability.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -165,7 +166,6 @@ public class MeasuresPanel extends JPanel {
 		 */
 		private void initialize() {
 			this.setLayout(new GridBagLayout());
-			GridBagConstraints c = new GridBagConstraints();
 
 			DecimalFormatSymbols symbol = new DecimalFormatSymbols();
 			;
@@ -190,96 +190,91 @@ public class MeasuresPanel extends JPanel {
 			JLabel deviationLabel = new JLabel("Deviation:");
 			JLabel deviationValue = new JLabel(deviation.toString());
 
+			GridBagConstraints e = new GridBagConstraints();
+			e.ipady = 10;
+			e.ipadx = 10;
+			e.anchor = GridBagConstraints.EAST;
+
+			GridBagConstraints w = new GridBagConstraints();
+			w.ipady = 10;
+			w.ipadx = 10;
+			w.anchor = GridBagConstraints.WEST;
+
+			GridBagConstraints c = new GridBagConstraints();
 			c.ipady = 10;
-			c.ipadx = 5;
+			c.ipadx = 10;
+			c.anchor = GridBagConstraints.CENTER;
+			c.gridwidth = 2;
+
+			GridBagConstraints s = new GridBagConstraints();
+			s.ipady = 10;
+			s.ipadx = 10;
+			s.anchor = GridBagConstraints.CENTER;
+			s.gridwidth = 2;
+			s.fill = GridBagConstraints.HORIZONTAL;
+
 			c.gridx = 0;
 			c.gridy = 5;
-			c.gridwidth = 2;
-			this.add(new JLabel("Properties"), c);
-			c.gridwidth = 1;
+			JLabel propLabel = new JLabel("Properties:");
+			Font myFont = propLabel.getFont();
+			propLabel.setFont(myFont.deriveFont(Font.PLAIN));
+			this.add(propLabel, c);
+			e.gridwidth = 1;
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 10;
-			this.add(expectedLabel, c);
+			e.gridx = 0;
+			e.gridy = 10;
+			this.add(expectedLabel, e);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 1;
-			c.gridy = 10;
-			this.add(expectedValue, c);
+			w.gridx = 1;
+			w.gridy = 10;
+			this.add(expectedValue, w);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 20;
-			this.add(varianceLabel, c);
+			e.gridx = 0;
+			e.gridy = 20;
+			this.add(varianceLabel, e);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 1;
-			c.gridy = 20;
-			this.add(varianceValue, c);
+			w.gridx = 1;
+			w.gridy = 20;
+			this.add(varianceValue, w);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 30;
-			this.add(deviationLabel, c);
+			e.gridx = 0;
+			e.gridy = 30;
+			this.add(deviationLabel, e);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 1;
-			c.gridy = 30;
-			this.add(deviationValue, c);
+			w.gridx = 1;
+			w.gridy = 30;
+			this.add(deviationValue, w);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 40;
-			c.gridwidth = 2;
-			this.add(new JSeparator(), c);
-			c.gridwidth = 1;
+			s.gridx = 0;
+			s.gridy = 40;
+			this.add(new JSeparator(), s);
 
 			JLabel mttfLabel = new JLabel("MTTF:");
 			JLabel mttfValue = new JLabel(expected.toString());
 
-			c.ipady = 10;
-			c.ipadx = 5;
 			c.gridx = 0;
 			c.gridy = 45;
-			c.gridwidth = 2;
-			this.add(new JLabel("Mean-Time-To-Failure"), c);
-			c.gridwidth = 1;
+			JLabel mttfSectionLabel = new JLabel("Mean-Time-To-Failure:");
+			mttfSectionLabel.setFont(myFont.deriveFont(Font.PLAIN));
+			this.add(mttfSectionLabel, c);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 50;
-			this.add(mttfLabel, c);
+			e.gridx = 0;
+			e.gridy = 50;
+			this.add(mttfLabel, e);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 1;
-			c.gridy = 50;
-			this.add(mttfValue, c);
+			w.gridx = 1;
+			w.gridy = 50;
+			this.add(mttfValue, w);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 60;
-			c.gridwidth = 2;
-			this.add(new JSeparator(), c);
-			c.gridwidth = 1;
+			s.gridx = 0;
+			s.gridy = 60;
+			this.add(new JSeparator(), s);
 
-			c.ipady = 10;
-			c.ipadx = 5;
 			c.gridx = 0;
 			c.gridy = 65;
-			c.gridwidth = 2;
-			this.add(new JLabel("Mission-Time"), c);
-			c.gridwidth = 1;
+			JLabel mtSectionLabel = new JLabel("Mission-Time:");
+			mtSectionLabel.setFont(myFont.deriveFont(Font.PLAIN));
+			this.add(mtSectionLabel, c);
 
 			JLabel pmtLabel = new JLabel("P[MT] =");
 			JLabel mtLabel = new JLabel("MT:");
@@ -290,29 +285,21 @@ public class MeasuresPanel extends JPanel {
 			mtProbability.setText(standardMT.toString());
 			mt = new JLabel(mtVal.toString());
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 70;
-			this.add(pmtLabel, c);
+			e.gridx = 0;
+			e.gridy = 70;
+			this.add(pmtLabel, e);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 1;
-			c.gridy = 70;
-			this.add(mtProbability, c);
+			w.gridx = 1;
+			w.gridy = 70;
+			this.add(mtProbability, w);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 0;
-			c.gridy = 80;
-			this.add(mtLabel, c);
+			e.gridx = 0;
+			e.gridy = 80;
+			this.add(mtLabel, e);
 
-			c.ipady = 10;
-			c.ipadx = 5;
-			c.gridx = 1;
-			c.gridy = 80;
-			this.add(mt, c);
+			w.gridx = 1;
+			w.gridy = 80;
+			this.add(mt, w);
 
 		}
 
