@@ -27,7 +27,7 @@ public class BoilerTester {
 	public static void main(String[] args) {
 
 		Boiler boiler = new Boiler();
-		BDD<BoilerElement> boilerBDD = boiler.get();
+		BDD<BoilerComponent> boilerBDD = boiler.get();
 
 		// Visualizing the BDD
 		String dot = BDDs.toDot(boilerBDD);
@@ -36,7 +36,7 @@ public class BoilerTester {
 
 		BoilerTransformer transformer = boiler.getTransformer();
 
-		BDDReliabilityFunction<BoilerElement> reliabilityFunction = new BDDReliabilityFunction<BoilerElement>(
+		BDDReliabilityFunction<BoilerComponent> reliabilityFunction = new BDDReliabilityFunction<BoilerComponent>(
 				boilerBDD, transformer);
 
 		// Using Evaluators

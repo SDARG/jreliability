@@ -20,7 +20,7 @@ import org.jreliability.javabdd.JBDDProviderFactory;
  * {@code TripleModularRedundancy}. This behavior can be expressed as a linear
  * constrained as follows:
  * <p>
- * {@code 1*element1 + 1*element2 + 1* element3 >= 2}
+ * {@code 1*component1 + 1*component2 + 1* component3 >= 2}
  * <p>
  * The needed comparator to perform the voting is commonly not modeled
  * explicitly due to its extremely high reliability.
@@ -31,17 +31,17 @@ import org.jreliability.javabdd.JBDDProviderFactory;
 public class TMR {
 
 	/**
-	 * The first element.
+	 * The first component.
 	 */
-	protected String element1 = new String("element1");
+	protected String component1 = new String("component1");
 	/**
-	 * The second element.
+	 * The second component.
 	 */
-	protected String element2 = new String("element2");
+	protected String component2 = new String("component2");
 	/**
-	 * The third element.
+	 * The third component.
 	 */
-	protected String element3 = new String("element3");
+	protected String component3 = new String("component3");
 
 	/**
 	 * The used {@code FunctionTransformer}.
@@ -63,9 +63,9 @@ public class TMR {
 	private void initialize() {
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
 		ReliabilityFunction function = new ExponentialReliabilityFunction(0.1);
-		reliabilityFunctions.put(element1, function);
-		reliabilityFunctions.put(element2, function);
-		reliabilityFunctions.put(element3, function);
+		reliabilityFunctions.put(component1, function);
+		reliabilityFunctions.put(component2, function);
+		reliabilityFunctions.put(component3, function);
 		transformer = new SimpleFunctionTransformer<String>(
 				reliabilityFunctions);
 	}
@@ -80,9 +80,9 @@ public class TMR {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 
-		BDD<String> element1BDD = bddProvider.get(element1);
-		BDD<String> element2BDD = bddProvider.get(element2);
-		BDD<String> element3BDD = bddProvider.get(element3);
+		BDD<String> component1BDD = bddProvider.get(component1);
+		BDD<String> component2BDD = bddProvider.get(component2);
+		BDD<String> component3BDD = bddProvider.get(component3);
 
 		// To use the inbuilt constraint functionality, setup the left-hand-side
 		// first
@@ -91,13 +91,13 @@ public class TMR {
 		List<BDD<String>> variables = new ArrayList<BDD<String>>();
 
 		coefficients.add(1);
-		variables.add(element1BDD);
+		variables.add(component1BDD);
 
 		coefficients.add(1);
-		variables.add(element2BDD);
+		variables.add(component2BDD);
 
 		coefficients.add(1);
-		variables.add(element3BDD);
+		variables.add(component3BDD);
 
 		BDD<String> tmr = BDDs.getBDD(coefficients, variables, ">=", 2);
 

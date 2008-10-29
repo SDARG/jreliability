@@ -59,7 +59,7 @@ public class TMRTester {
 		// Using the GUI
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
 		reliabilityFunctions.put("TMR", reliabilityFunctionTMR);
-		reliabilityFunctions.put("Single Element", reliabilityFunctionSingle);
+		reliabilityFunctions.put("Single Component", reliabilityFunctionSingle);
 
 		ReliabilityViewer.view("JReliability Viewer - TMR Tutorial",
 				reliabilityFunctions);

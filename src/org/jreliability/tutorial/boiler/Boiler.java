@@ -57,9 +57,9 @@ public class Boiler {
 	protected Pump pump2 = new Pump("Pump2");
 
 	/**
-	 * All elements that are modeled in the {@code Boiler}.
+	 * All components that are included in the {@code Boiler}.
 	 */
-	protected List<BoilerElement> elements = new ArrayList<BoilerElement>();
+	protected List<BoilerComponent> components = new ArrayList<BoilerComponent>();
 	/**
 	 * The used {@code FunctionTransformer}.
 	 */
@@ -76,15 +76,15 @@ public class Boiler {
 	}
 
 	/**
-	 * Initializes the list of elements of the {@code Boiler}.
+	 * Initializes the list of components of the {@code Boiler}.
 	 */
 	private void initialize() {
-		elements.add(sensor1);
-		elements.add(sensor2);
-		elements.add(controller);
-		elements.add(heater);
-		elements.add(pump1);
-		elements.add(pump2);
+		components.add(sensor1);
+		components.add(sensor2);
+		components.add(controller);
+		components.add(heater);
+		components.add(pump1);
+		components.add(pump2);
 	}
 
 	/**
@@ -92,34 +92,34 @@ public class Boiler {
 	 * 
 	 * @return the bdd representation of the boiler
 	 */
-	public BDD<BoilerElement> get() {
+	public BDD<BoilerComponent> get() {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<BoilerElement> bddProvider = bddProviderFactory
+		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory
 				.getProvider();
 
-		BDD<BoilerElement> sensor1BDD = bddProvider.get(sensor1);
-		BDD<BoilerElement> sensor2BDD = bddProvider.get(sensor2);
-		BDD<BoilerElement> controllerBDD = bddProvider.get(controller);
-		BDD<BoilerElement> heaterBDD = bddProvider.get(heater);
-		BDD<BoilerElement> pump1BDD = bddProvider.get(pump1);
-		BDD<BoilerElement> pump2BDD = bddProvider.get(pump2);
+		BDD<BoilerComponent> sensor1BDD = bddProvider.get(sensor1);
+		BDD<BoilerComponent> sensor2BDD = bddProvider.get(sensor2);
+		BDD<BoilerComponent> controllerBDD = bddProvider.get(controller);
+		BDD<BoilerComponent> heaterBDD = bddProvider.get(heater);
+		BDD<BoilerComponent> pump1BDD = bddProvider.get(pump1);
+		BDD<BoilerComponent> pump2BDD = bddProvider.get(pump2);
 
-		BDD<BoilerElement> sensorSubSystem = sensor1BDD.and(sensor2BDD);
-		BDD<BoilerElement> senControlSubSystem = sensorSubSystem
+		BDD<BoilerComponent> sensorSubSystem = sensor1BDD.and(sensor2BDD);
+		BDD<BoilerComponent> senControlSubSystem = sensorSubSystem
 				.and(controllerBDD);
 
-		BDD<BoilerElement> heatingSubSystem = heaterBDD.and(controllerBDD);
+		BDD<BoilerComponent> heatingSubSystem = heaterBDD.and(controllerBDD);
 
-		BDD<BoilerElement> pumpSubSystem = pump1BDD.or(pump2BDD);
-		BDD<BoilerElement> pumpControlSubSystem = pumpSubSystem
+		BDD<BoilerComponent> pumpSubSystem = pump1BDD.or(pump2BDD);
+		BDD<BoilerComponent> pumpControlSubSystem = pumpSubSystem
 				.and(controllerBDD);
 
-		BDD<BoilerElement> boilerBDD = senControlSubSystem
+		BDD<BoilerComponent> boilerBDD = senControlSubSystem
 				.and(heatingSubSystem);
 		// Important: With-operators consume (destroy!) the BDD that is the
 		// argument i.e. the pumpControlSubSystem is destroyed after this
 		// operation, while
-		// BDD<BoilerElement> boilerBDD = boilerBDD.and(pumpControlSubSystem);
+		// BDD<BoilerComponent> boilerBDD = boilerBDD.and(pumpControlSubSystem);
 		// would not destroy anything
 		boilerBDD.andWith(pumpControlSubSystem);
 
@@ -127,12 +127,12 @@ public class Boiler {
 	}
 
 	/**
-	 * Returns the elements of the {@code Boiler}.
+	 * Returns the components of the {@code Boiler}.
 	 * 
-	 * @return the elements
+	 * @return the components
 	 */
-	public List<BoilerElement> getElements() {
-		return elements;
+	public List<BoilerComponent> getComponents() {
+		return components;
 	}
 
 	/**

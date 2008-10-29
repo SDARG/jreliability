@@ -7,7 +7,7 @@ package org.jreliability.tutorial.boiler;
  * @author glass
  * 
  */
-public class Pump extends BoilerElement {
+public class Pump extends BoilerComponent {
 
 	/**
 	 * Constructs a {@code Pump} with a given name.
