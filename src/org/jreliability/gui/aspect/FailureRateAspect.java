@@ -56,9 +56,8 @@ public class FailureRateAspect extends AbstractAspect {
 		Double y = lambda.getY(x);
 		if (y.isNaN()) {
 			return null;
-		} else {
-			return y;
 		}
+		return y;
 	}
 
 }

@@ -54,9 +54,8 @@ public class ReliabilityFunctionAspect extends AbstractAspect {
 		Double y = reliabilityFunction.getY(x);
 		if (y.isNaN()) {
 			return null;
-		} else {
-			return y;
 		}
+		return y;
 	}
 
 }

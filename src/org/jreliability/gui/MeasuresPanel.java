@@ -168,7 +168,7 @@ public class MeasuresPanel extends JPanel {
 			this.setLayout(new GridBagLayout());
 
 			DecimalFormatSymbols symbol = new DecimalFormatSymbols();
-			;
+
 			symbol.setDecimalSeparator('.');
 			DecimalFormat decimalFormat = new DecimalFormat();
 			decimalFormat.setDecimalFormatSymbols(symbol);

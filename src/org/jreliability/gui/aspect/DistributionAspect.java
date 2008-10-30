@@ -57,9 +57,8 @@ public class DistributionAspect extends AbstractAspect {
 		Double y = distribution.getY(x);
 		if (y.isNaN()) {
 			return null;
-		} else {
-			return y;
 		}
+		return y;
 	}
 
 }

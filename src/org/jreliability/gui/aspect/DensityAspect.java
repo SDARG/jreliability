@@ -56,9 +56,8 @@ public class DensityAspect extends AbstractAspect {
 		Double y = density.getY(x);
 		if (y.isNaN()) {
 			return null;
-		} else {
-			return y;
 		}
+		return y;
 	}
 
 }
