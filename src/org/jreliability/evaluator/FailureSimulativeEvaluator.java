@@ -24,7 +24,9 @@ import java.util.TreeSet;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.common.Failure;
+import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.InverseFunction;
+import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.BDDReliabilityFunction;
 
 /**
@@ -166,11 +168,14 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 */
 	protected Set<Failure<T>> getFailures(
 			BDDReliabilityFunction<T> reliabilityFunction) {
-		InverseFunction inverse = new InverseFunction(reliabilityFunction);
 		BDD<T> bdd = reliabilityFunction.getBdd();
+		FunctionTransformer<T> transformer = reliabilityFunction
+				.getTransformer();
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {
+			ReliabilityFunction relFunction = transformer.transform(element);
+			InverseFunction inverse = new InverseFunction(relFunction);
 			double x = inverse.getY(random.nextDouble());
 			Failure<T> failureTime = new Failure<T>(element, x);
 			failureTimes.add(failureTime);
