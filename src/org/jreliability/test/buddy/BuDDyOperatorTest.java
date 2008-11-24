@@ -41,6 +41,7 @@ public class BuDDyOperatorTest extends AbstractBDDOperatorTest {
 	 * 
 	 * @see org.jreliability.test.AbstractBDDTest#init()
 	 */
+	@Override
 	public void init() {
 		this.factory = new JBDDProviderFactory(Type.BUDDY);
 	}

@@ -168,8 +168,9 @@ class Constraint<T> {
 	 * @return the gcd of two integers
 	 */
 	protected int gcdRec(int a, int b) {
-		if (b == 0)
+		if (b == 0) {
 			return a;
+		}
 		return gcdRec(b, a % b);
 	}
 
@@ -270,10 +271,10 @@ class Constraint<T> {
 		 * 
 		 * @see java.lang.Object#toString()
 		 */
+		@Override
 		public String toString() {
 			return "" + coefficient + "*" + variable.var();
 		}
-
 	}
 
 	/**
@@ -350,10 +351,12 @@ class Constraint<T> {
 		@SuppressWarnings("unchecked")
 		@Override
 		public boolean equals(Object obj) {
-			if (obj == null)
+			if (obj == null) {
 				return false;
-			if (getClass() != obj.getClass())
+			}
+			if (getClass() != obj.getClass()) {
 				return false;
+			}
 			Pair<A, B> other = (Pair<A, B>) obj;
 
 			return a.equals(other.a) && b.equals(other.b);

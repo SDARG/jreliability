@@ -42,6 +42,7 @@ public class JBDDProviderTest extends AbstractBDDProviderTest {
 	 * 
 	 * @see org.jreliability.test.AbstractBDDProviderTest#init()
 	 */
+	@Override
 	public void init() {
 		this.factory = new JBDDProviderFactory(Type.JAVABDD);
 	}
