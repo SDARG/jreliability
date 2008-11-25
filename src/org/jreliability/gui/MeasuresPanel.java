@@ -349,7 +349,6 @@ public class MeasuresPanel extends JPanel {
 			layout.setAutoCreateGaps(true);
 			layout.setAutoCreateContainerGaps(true);
 
-			System.out.print(LARGEStWIDTH + " -> ");
 			if (subPanel.getPreferredSize().width > LARGEStWIDTH) {
 				LARGEStWIDTH = subPanel.getPreferredSize().width;
 				for (JPanel other : SUBPANELS) {
@@ -362,7 +361,6 @@ public class MeasuresPanel extends JPanel {
 				subPanel.setPreferredSize(new Dimension(LARGEStWIDTH, subPanel
 						.getPreferredSize().height));
 			}
-			System.out.println(LARGEStWIDTH);
 			SUBPANELS.add(subPanel);
 			return subPanel;
 		}
