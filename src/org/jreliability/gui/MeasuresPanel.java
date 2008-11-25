@@ -16,30 +16,33 @@ package org.jreliability.gui;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
 
 import org.jreliability.evaluator.InverseEvaluator;
 import org.jreliability.evaluator.MomentEvaluator;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code MeasuresPanel} collects a {@code MeasurePanel} for each {@code
+ * The {@code MeasuresPanel2} collects a {@code MeasurePanel} for each {@code
  * ReliabilityFunction} that shall be shown in the GUI and adds them to a
  * {@code JTabbedPane}.
  * 
@@ -64,7 +67,7 @@ public class MeasuresPanel extends JPanel {
 	protected final Map<String, ReliabilityFunction> reliabilityFunctions;
 
 	/**
-	 * Constructs a {@code MeasuresPanel} with a given {@code
+	 * Constructs a {@code MeasuresPanel2} with a given {@code
 	 * ReliabilityFunctions} and their {@code Identifiers}.
 	 * 
 	 * @param reliabilityFunctions
@@ -76,7 +79,7 @@ public class MeasuresPanel extends JPanel {
 	}
 
 	/**
-	 * Initializes the {@code MeasuresPanel} by adding all single {@code
+	 * Initializes the {@code MeasuresPanel2} by adding all single {@code
 	 * MeasurePanels} to a {@code JTabbedPane}.
 	 */
 	protected void initialize() {
@@ -165,7 +168,8 @@ public class MeasuresPanel extends JPanel {
 		 * Initializes the panel.
 		 */
 		private void initialize() {
-			this.setLayout(new GridBagLayout());
+			GroupLayout layout = new GroupLayout(this);
+			this.setLayout(layout);
 
 			DecimalFormatSymbols symbol = new DecimalFormatSymbols();
 
@@ -174,133 +178,28 @@ public class MeasuresPanel extends JPanel {
 			decimalFormat.setDecimalFormatSymbols(symbol);
 			mtFieldFormat = decimalFormat;
 
-			// Collect all the interesting values.
 			Double expected = firstMoment.evaluate(reliabilityFunction);
-			Double variance = secondMoment.evaluate(reliabilityFunction)
-					- Math.pow(expected, 2);
-			Double deviation = Math.sqrt(variance);
-			Double mtVal = inverse.evaluate(reliabilityFunction, standardMT);
 
 			JLabel expectedLabel = new JLabel("Expected Value:");
-			JLabel expectedValue = new JLabel(expected.toString());
+			JPanel propertiesPanel = createPropertiesPanel(expected,
+					expectedLabel);
+			JPanel mttfPanel = createMttfPanel(expected, expectedLabel
+					.getPreferredSize());
+			JPanel mtPanel = createMtPanel(expectedLabel.getPreferredSize());
 
-			JLabel varianceLabel = new JLabel("Variance:");
-			JLabel varianceValue = new JLabel(variance.toString());
+			layout.setAutoCreateGaps(true);
+			layout.setAutoCreateContainerGaps(true);
+			layout.setHorizontalGroup(layout.createSequentialGroup().addGroup(
+					layout.createParallelGroup().addComponent(propertiesPanel)
+							.addComponent(mttfPanel).addComponent(mtPanel)));
+			layout.setVerticalGroup(layout.createSequentialGroup()
+					.addComponent(propertiesPanel).addComponent(mttfPanel)
+					.addComponent(mtPanel));
+			layout.linkSize(SwingConstants.HORIZONTAL, propertiesPanel,
+					mttfPanel, mtPanel);
 
-			JLabel deviationLabel = new JLabel("Deviation:");
-			JLabel deviationValue = new JLabel(deviation.toString());
-
-			GridBagConstraints e = new GridBagConstraints();
-			e.ipady = 10;
-			e.ipadx = 10;
-			e.anchor = GridBagConstraints.EAST;
-
-			GridBagConstraints w = new GridBagConstraints();
-			w.ipady = 10;
-			w.ipadx = 10;
-			w.anchor = GridBagConstraints.WEST;
-
-			GridBagConstraints c = new GridBagConstraints();
-			c.ipady = 10;
-			c.ipadx = 10;
-			c.anchor = GridBagConstraints.CENTER;
-			c.gridwidth = 2;
-
-			GridBagConstraints s = new GridBagConstraints();
-			s.ipady = 10;
-			s.ipadx = 10;
-			s.anchor = GridBagConstraints.CENTER;
-			s.gridwidth = 2;
-			s.fill = GridBagConstraints.HORIZONTAL;
-
-			c.gridx = 0;
-			c.gridy = 5;
-			JLabel propLabel = new JLabel("Properties:");
-			Font myFont = propLabel.getFont();
-			propLabel.setFont(myFont.deriveFont(Font.PLAIN));
-			this.add(propLabel, c);
-			e.gridwidth = 1;
-
-			e.gridx = 0;
-			e.gridy = 10;
-			this.add(expectedLabel, e);
-
-			w.gridx = 1;
-			w.gridy = 10;
-			this.add(expectedValue, w);
-
-			e.gridx = 0;
-			e.gridy = 20;
-			this.add(varianceLabel, e);
-
-			w.gridx = 1;
-			w.gridy = 20;
-			this.add(varianceValue, w);
-
-			e.gridx = 0;
-			e.gridy = 30;
-			this.add(deviationLabel, e);
-
-			w.gridx = 1;
-			w.gridy = 30;
-			this.add(deviationValue, w);
-
-			s.gridx = 0;
-			s.gridy = 40;
-			this.add(new JSeparator(), s);
-
-			JLabel mttfLabel = new JLabel("MTTF:");
-			JLabel mttfValue = new JLabel(expected.toString());
-
-			c.gridx = 0;
-			c.gridy = 45;
-			JLabel mttfSectionLabel = new JLabel("Mean-Time-To-Failure:");
-			mttfSectionLabel.setFont(myFont.deriveFont(Font.PLAIN));
-			this.add(mttfSectionLabel, c);
-
-			e.gridx = 0;
-			e.gridy = 50;
-			this.add(mttfLabel, e);
-
-			w.gridx = 1;
-			w.gridy = 50;
-			this.add(mttfValue, w);
-
-			s.gridx = 0;
-			s.gridy = 60;
-			this.add(new JSeparator(), s);
-
-			c.gridx = 0;
-			c.gridy = 65;
-			JLabel mtSectionLabel = new JLabel("Mission-Time:");
-			mtSectionLabel.setFont(myFont.deriveFont(Font.PLAIN));
-			this.add(mtSectionLabel, c);
-
-			JLabel pmtLabel = new JLabel("P[MT] =");
-			JLabel mtLabel = new JLabel("MT:");
-			mtProbability = new JFormattedTextField(mtFieldFormat);
-			mtProbability.addActionListener(MeasurePanel.this);
-			mtProbability.setPreferredSize(new Dimension(70, 15));
-			mtProbability.setHorizontalAlignment(SwingConstants.RIGHT);
-			mtProbability.setText(standardMT.toString());
-			mt = new JLabel(mtVal.toString());
-
-			e.gridx = 0;
-			e.gridy = 70;
-			this.add(pmtLabel, e);
-
-			w.gridx = 1;
-			w.gridy = 70;
-			this.add(mtProbability, w);
-
-			e.gridx = 0;
-			e.gridy = 80;
-			this.add(mtLabel, e);
-
-			w.gridx = 1;
-			w.gridy = 80;
-			this.add(mt, w);
-
+			revalidate();
+			repaint();
 		}
 
 		/*
@@ -319,6 +218,162 @@ public class MeasuresPanel extends JPanel {
 				mt.setText(mtVal.toString());
 			}
 		}
+
+		/**
+		 * Creates the {@code JPanel} showing the properties.
+		 * 
+		 * @param expected
+		 *            the expected value
+		 * @param expectedLabel
+		 *            the "expected" label, i.e. the longest
+		 * @return the JPanel showing the properties
+		 */
+		private JPanel createPropertiesPanel(Double expected,
+				JLabel expectedLabel) {
+			Double variance = secondMoment.evaluate(reliabilityFunction)
+					- Math.pow(expected, 2);
+			Double deviation = Math.sqrt(variance);
+
+			JLabel expectedValue = new JLabel(expected.toString());
+
+			JLabel varianceLabel = new JLabel("Variance:");
+			JLabel varianceValue = new JLabel(variance.toString());
+
+			JLabel deviationLabel = new JLabel("Deviation:");
+			JLabel deviationValue = new JLabel(deviation.toString());
+
+			return createSubPanel("Properties", expectedLabel, expectedValue,
+					varianceLabel, varianceValue, deviationLabel,
+					deviationValue);
+		}
+
+		/**
+		 * Creates the {@code JPanel} showing the mean time to failure.
+		 * 
+		 * @param mttf
+		 *            the mean time to failure
+		 * @param maxWidth
+		 *            the dimension of the longest label
+		 * @return the JPanel showing the mean time to failure
+		 */
+		private JPanel createMttfPanel(Double mttf, Dimension maxWidth) {
+			JLabel mttfLabel = new JLabel("MTTF:");
+			mttfLabel.setMinimumSize(maxWidth);
+
+			JLabel expectedValue = new JLabel(mttf.toString());
+
+			return createSubPanel("Mean-Time-To-Failure", mttfLabel,
+					expectedValue);
+		}
+
+		/**
+		 * Creates the {@code JPanel} showing the mission time.
+		 * 
+		 * @param maxwidth
+		 *            the dimension of the longest label
+		 * @return the JPanel showing the mission time
+		 */
+		private JPanel createMtPanel(Dimension maxwidth) {
+			Double mtVal = inverse.evaluate(reliabilityFunction, standardMT);
+
+			JLabel pmtLabel = new JLabel("P[MT] =");
+			pmtLabel.setMinimumSize(maxwidth);
+
+			JLabel mtLabel = new JLabel("MT:");
+			mtLabel.setMinimumSize(maxwidth);
+
+			mtProbability = new JFormattedTextField(mtFieldFormat);
+			mtProbability.addActionListener(MeasurePanel.this);
+			mtProbability.setPreferredSize(new Dimension(70, 15));
+			mtProbability.setHorizontalAlignment(SwingConstants.RIGHT);
+			mtProbability.setText(standardMT.toString());
+
+			mt = new JLabel(mtVal.toString());
+
+			return createSubPanel("Mission-Time", pmtLabel, mtProbability,
+					mtLabel, mt);
+		}
+
+		/**
+		 * Creates a {@code JPanel} with a title and a set of label/value pairs.
+		 * 
+		 * Each label must be followed by its corresponding value. Therefore the
+		 * number of components must be even.
+		 * 
+		 * @param title
+		 *            the title of the panel
+		 * @param components
+		 *            the alternating array of labels and their corresponding
+		 *            values
+		 * @return
+		 */
+		private JPanel createSubPanel(String title, JComponent... components) {
+			if (components.length % 2 == 1) {
+				throw new IllegalArgumentException(
+						"Number of components is odd (" + components.length
+								+ ").");
+			}
+
+			JPanel subPanel = new JPanel();
+
+			subPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+					.createTitledBorder(title), BorderFactory
+					.createEmptyBorder(5, 5, 5, 5)));
+			GroupLayout layout = new GroupLayout(subPanel);
+			subPanel.setLayout(layout);
+
+			ParallelGroup labels = layout
+					.createParallelGroup(GroupLayout.Alignment.LEADING);
+			for (int i = 0; i < components.length; i += 2) {
+				Font myFont = components[i].getFont();
+				components[i].setFont(myFont.deriveFont(Font.PLAIN));
+				labels.addComponent(components[i]);
+			}
+			ParallelGroup values = layout
+					.createParallelGroup(GroupLayout.Alignment.LEADING);
+			for (int i = 1; i < components.length; i += 2) {
+
+				values.addComponent(components[i]);
+			}
+			layout.setHorizontalGroup(layout.createSequentialGroup().addGroup(
+					labels).addGroup(values));
+
+			SequentialGroup vgroup = layout.createSequentialGroup();
+			for (int i = 0; i < components.length; i += 2) {
+				vgroup.addGroup(layout.createParallelGroup(
+						GroupLayout.Alignment.BASELINE).addComponent(
+						components[i]).addComponent(components[i + 1]));
+			}
+			layout.setVerticalGroup(vgroup);
+
+			layout.setAutoCreateGaps(true);
+			layout.setAutoCreateContainerGaps(true);
+
+			System.out.print(LARGEStWIDTH + " -> ");
+			if (subPanel.getPreferredSize().width > LARGEStWIDTH) {
+				LARGEStWIDTH = subPanel.getPreferredSize().width;
+				for (JPanel other : SUBPANELS) {
+					other.setPreferredSize(new Dimension(LARGEStWIDTH, other
+							.getPreferredSize().height));
+					other.revalidate();
+					other.repaint();
+				}
+			} else {
+				subPanel.setPreferredSize(new Dimension(LARGEStWIDTH, subPanel
+						.getPreferredSize().height));
+			}
+			System.out.println(LARGEStWIDTH);
+			SUBPANELS.add(subPanel);
+			return subPanel;
+		}
 	}
 
+	/**
+	 * The width of the widest subpanel
+	 */
+	private static int LARGEStWIDTH = 0;
+	/**
+	 * The set of subpanels
+	 */
+	private final static Set<JPanel> SUBPANELS = new HashSet<JPanel>();
 }
