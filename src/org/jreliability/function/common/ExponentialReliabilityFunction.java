@@ -20,10 +20,11 @@ import org.jreliability.function.ReliabilityFunction;
  * The {@code ExponentialReliabilityFunction} represents the {@code
  * ReliabilityFunction} of the {@code Exponential reliabilityFunction}
  * <p>
- * {@code R(x) = 1 - F(x) = e^-(alpha * x)}.
+ * {@code R(x) = 1 - F(x) = e^-(alpha * x)}<br />
+ * with {@code alpha > 0}.
  * <p>
- * Typical for this reliabilityFunction is the constant failure-rate {@code lambda} that
- * equals the parameter {@code alpha}.
+ * Typical for this reliabilityFunction is the constant failure-rate
+ * {@code lambda} that equals the parameter {@code alpha}.
  * 
  * @author glass
  * 
@@ -45,6 +46,9 @@ public class ExponentialReliabilityFunction implements ReliabilityFunction {
 	 */
 	public ExponentialReliabilityFunction(double alpha) {
 		this.alpha = alpha;
+		if (!(alpha > 0)) {
+			throw new IllegalArgumentException("ExponentialReliabilityFunction: Alpha should be greater 0.");
+		}
 	}
 
 	/*

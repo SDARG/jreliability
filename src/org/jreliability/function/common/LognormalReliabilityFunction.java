@@ -21,7 +21,8 @@ import org.jreliability.function.ReliabilityFunction;
  * ReliabilityFunction} of the {@code Lognormal reliabilityFunction}
  * <p>
  * {@code R(x) = 1 - F(x) = (1 / (rho * sqrt(2 * pi))) * e^(-0.5 * ((ln(T) - mu)
- * / rho)^2)}.
+ * / rho)^2)}<br />
+ * with {@code mu, rho > 0}.
  * <p>
  * The {@code rho} and {@code mu} parameter represent the standard deviation and
  * mean of the variable's natural logarithm.
@@ -54,6 +55,9 @@ public class LognormalReliabilityFunction implements ReliabilityFunction {
 	public LognormalReliabilityFunction(double mu, double rho) {
 		this.mu = mu;
 		this.rho = rho;
+		if (!(mu > 0) || !(rho > 0)) {
+			throw new IllegalArgumentException("LognormalReliabilityFunction: Mu and Rho should be greater 0.");
+		}
 	}
 
 	/*

@@ -20,11 +20,13 @@ import org.jreliability.function.ReliabilityFunction;
  * The {@code WeibullReliabilityFunction} represents the {@code
  * ReliabilityFunction} of the {@code Weibull reliabilityFunction}
  * <p>
- * {@code R(x) = 1 - F(x) = e^-(alpha * (x^beta))}.
+ * {@code R(x) = 1 - F(x) = e^-(alpha * (x^beta))}<br />
+ * with {@code alpha, beta > 0}.
  * <p>
- * While the parameter {@code alpha} scales the reliabilityFunction and, thus, somehow
- * corresponds to the failure-rate, the {@code beta} parameter determines the
- * {@code shape} of the reliabilityFunction.
+ * While the parameter {@code alpha} scales the
+ * reliabilityFunction and, thus, somehow corresponds to the failure-rate, the
+ * {@code beta} parameter determines the {@code shape} of the
+ * reliabilityFunction.
  * 
  * @author glass
  * 
@@ -54,6 +56,9 @@ public class WeibullReliabilityFunction implements ReliabilityFunction {
 	public WeibullReliabilityFunction(double alpha, double beta) {
 		this.alpha = alpha;
 		this.beta = beta;
+		if (!(alpha > 0) || !(beta > 0)) {
+			throw new IllegalArgumentException("WeibullReliabilityFunction: Alpha and Beta should be greater 0.");
+		}
 	}
 
 	/*
