@@ -14,6 +14,8 @@
  */
 package org.jreliability.booleanfunction;
 
+import org.jreliability.function.Phi;
+
 /**
  * The {@code Term} represents a mathematical {@code Term} in a
  * {@code Boolean Function}. A {@code Term} can consist of other {@code Terms}.
@@ -23,7 +25,7 @@ package org.jreliability.booleanfunction;
  * @author glass
  * 
  */
-public interface Term {
+public interface Term extends Phi{
 
 	/**
 	 * Returns {@code false} if the whole {@code Term} is negated.
