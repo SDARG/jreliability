@@ -22,6 +22,7 @@ import org.jreliability.booleanfunction.LinearTerm;
 import org.jreliability.booleanfunction.LiteralTerm;
 import org.jreliability.booleanfunction.ORTerm;
 import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.LinearTerm.Comparator;
 
 /**
  * The {@code BDDTransformer} transforms a {@code Boolean function} represented
@@ -133,8 +134,9 @@ public class BDDTransformer<T> {
 			BDD<T> elementBDD = transform(element);
 			bdds.add(elementBDD);
 		}
+		Comparator comparator = term.getComparator();
 		int rhs = term.getRHS();
-		return BDDs.getBDD(coefficients, bdds, ">=", rhs);
+		return BDDs.getBDD(coefficients, bdds, comparator, rhs);
 	}
 
 	/**

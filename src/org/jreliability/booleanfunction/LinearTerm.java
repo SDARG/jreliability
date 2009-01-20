@@ -17,7 +17,9 @@ package org.jreliability.booleanfunction;
 import java.util.List;
 
 /**
- * The {@code LinearTerm} represents a {@code greater-equal linear constraint}.
+ * The {@code LinearTerm} represents a {@code linear constraint} of the form:
+ * <p>
+ * {@code left-hand-side comparator right-hand-side}
  * 
  * @author glass
  * 
@@ -25,9 +27,44 @@ import java.util.List;
 public class LinearTerm extends AbstractHierarchicalTerm {
 
 	/**
+	 * The {@code Comparator} determines the comparator in the
+	 * {@code LinearTerm}, i.e. =, >, >=, <, <=.
+	 * 
+	 * @author glass
+	 * 
+	 */
+	public enum Comparator {
+		/**
+		 * The equal comparator, i.e. =.
+		 */
+		EQUAL,
+		/**
+		 * The greater comparator, i.e. >.
+		 */
+		GREATER,
+		/**
+		 * The greater-equal comparator, i.e. >=.
+		 */
+		GREATEREQUAL,
+		/**
+		 * The less comparator, i.e. <.
+		 */
+		LESS,
+		/**
+		 * The less-equal comparator, i.e. <=.
+		 */
+		LESSEQUAL;
+	}
+
+	/**
 	 * The coefficients of the embedded terms.
 	 */
 	protected final List<Integer> coefficients;
+
+	/**
+	 * The used {@code Comparator}.
+	 */
+	protected final Comparator comparator;
 
 	/**
 	 * The right-hand-side of the {@code LinearTerm}.
@@ -36,35 +73,42 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 
 	/**
 	 * Constructs a {@code LinearTerm} with a given list of coefficients, the
-	 * embedded {@code Terms}, and the right-hand-side.
+	 * embedded {@code Terms}, the {@code Comparator}, and the
+	 * right-hand-side.
 	 * 
 	 * @param coefficients
 	 *            the coefficients of the terms
 	 * @param terms
 	 *            the terms
+	 * @param comparator
+	 *            the used comparator
 	 * @param rhs
 	 *            the right-hand-side
 	 */
-	public LinearTerm(List<Integer> coefficients, List<Term> terms, int rhs) {
-		this(coefficients, terms, rhs, true);
+	public LinearTerm(List<Integer> coefficients, List<Term> terms, Comparator comparator, int rhs) {
+		this(coefficients, terms, comparator, rhs, true);
 	}
 
 	/**
 	 * Constructs a {@code LinearTerm} with a given list of coefficients, the
-	 * embedded {@code Terms}, the right-hand-side, and the sign.
+	 * embedded {@code Terms}, the {@code Comparator}, the right-hand-side,
+	 * and the sign.
 	 * 
 	 * @param coefficients
 	 *            the coefficients of the terms
 	 * @param terms
-	 *            the terms
+	 *            the terms *
+	 * @param comparator
+	 *            the used comparator
 	 * @param rhs
 	 *            the right-hand-side
 	 * @param sign
 	 *            the sign
 	 */
-	public LinearTerm(List<Integer> coefficients, List<Term> terms, int rhs, boolean sign) {
+	public LinearTerm(List<Integer> coefficients, List<Term> terms, Comparator comparator, int rhs, boolean sign) {
 		this.coefficients = coefficients;
 		this.terms = terms;
+		this.comparator = comparator;
 		this.rhs = rhs;
 		this.sign = sign;
 	}
@@ -107,6 +151,15 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	public void add(Term term, int coefficient) {
 		terms.add(term);
 		coefficients.add(coefficient);
+	}
+
+	/**
+	 * Returns the {@code Comparator} of the {@code LinearTerm}.
+	 * 
+	 * @return the comparator of the linear term
+	 */
+	public Comparator getComparator() {
+		return comparator;
 	}
 
 }
