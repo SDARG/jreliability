@@ -18,7 +18,8 @@ import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDs;
 import org.jreliability.common.Transformer;
 import org.jreliability.function.FunctionTransformer;
-import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.Phi;
+import org.jreliability.function.PhiReliabilityFunction;
 
 /**
  * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction}
@@ -29,7 +30,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @param <T>
  *            the type of variable
  */
-public class BDDReliabilityFunction<T> implements ReliabilityFunction {
+public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 
 	/**
 	 * The BDD representing the {@code Distribution}.
@@ -65,13 +66,13 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	public double getY(final double x) {
-		
+
 		final Transformer<T, Double> t = new Transformer<T, Double>() {
 			public Double transform(T a) {
 				return transformer.transform(a).getY(x);
 			}
 		};
-		
+
 		return BDDs.calculateTop(bdd, t);
 	}
 
@@ -84,13 +85,22 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 		return bdd;
 	}
 
-	/**
-	 * Returns the {@code Transformer}.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return the transformer
+	 * @see org.jreliability.function.PhiReliabilityFunction#getTransformer()
 	 */
 	public FunctionTransformer<T> getTransformer() {
 		return transformer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.function.PhiReliabilityFunction#phi()
+	 */
+	public Phi phi() {
+		return bdd;
 	}
 
 }

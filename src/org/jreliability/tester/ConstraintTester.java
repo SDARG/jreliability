@@ -15,13 +15,15 @@
 package org.jreliability.tester;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
+import org.jreliability.bdd.BDDTransformer;
 import org.jreliability.bdd.BDDs;
+import org.jreliability.booleanfunction.LinearTerm;
+import org.jreliability.booleanfunction.LiteralTerm;
+import org.jreliability.booleanfunction.Term;
 import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**
@@ -50,16 +52,42 @@ public class ConstraintTester {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 
-		List<Integer> coeffs = Arrays.asList(new Integer[] { 1, 1, 2, 2, 3, 3,
-				3, 3, 7 });
-		String[] variables = { "x", "y", "z", "a", "b", "c", "d", "e", "f" };
-		List<BDD<String>> vars = new ArrayList<BDD<String>>();
+		Term x = new LiteralTerm<String>("x");
+		Term y = new LiteralTerm<String>("y");
+		Term z = new LiteralTerm<String>("z");
+		Term a = new LiteralTerm<String>("a");
+		Term b = new LiteralTerm<String>("b");
+		Term c = new LiteralTerm<String>("c");
+		Term d = new LiteralTerm<String>("d");
+		Term e = new LiteralTerm<String>("e");
+		Term f = new LiteralTerm<String>("f");
 
-		for (String v : variables) {
-			vars.add(bddProvider.get(v));
-		}
+		LinearTerm term = new LinearTerm(new ArrayList<Integer>(), new ArrayList<Term>(), LinearTerm.Comparator.LESSEQUAL, 8);
+		term.add(x, 1);
+		term.add(y, 1);
+		term.add(z, 2);
+		term.add(a, 2);
+		term.add(b, 3);
+		term.add(c, 3);
+		term.add(d, 3);
+		term.add(e, 3);
+		term.add(f, 7);
 
-		BDD<String> bdd = BDDs.getBDD(coeffs, vars, "<=", 8);
+		BDDTransformer<String> transformer = new BDDTransformer<String>(bddProvider);
+		BDD<String> bdd = transformer.transform(term);
+
+		// List<Integer> coeffs = Arrays.asList(new Integer[] { 1, 1, 2, 2, 3,
+		// 3,
+		// 3, 3, 7 });
+		// String[] variables = { "x", "y", "z", "a", "b", "c", "d", "e", "f" };
+		// List<BDD<String>> vars = new ArrayList<BDD<String>>();
+
+		// for (String v : variables) {
+		// vars.add(bddProvider.get(v));
+		// }
+
+		// BDD<String> bdd = BDDs.getBDD(coeffs, vars, "<=", 8);
+
 		System.out.println(BDDs.toDot(bdd));
 	}
 }
