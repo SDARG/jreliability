@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jreliability.booleanfunction.ANDTerm;
+import org.jreliability.booleanfunction.FALSETerm;
 import org.jreliability.booleanfunction.LinearTerm;
 import org.jreliability.booleanfunction.LiteralTerm;
 import org.jreliability.booleanfunction.ORTerm;
+import org.jreliability.booleanfunction.TRUETerm;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.LinearTerm.Comparator;
 
@@ -76,6 +78,12 @@ public class BDDTransformer<T> {
 		} else if (term instanceof LiteralTerm) {
 			LiteralTerm<T> literalTerm = (LiteralTerm<T>) term;
 			bdd = transformLiteral(literalTerm);
+		} else if (term instanceof TRUETerm) {
+			TRUETerm trueTerm = (TRUETerm) term;
+			bdd = transformTRUE(trueTerm);
+		} else if (term instanceof FALSETerm) {
+			FALSETerm falseTerm = (FALSETerm) term;
+			bdd = transformFALSE(falseTerm);
 		} else {
 			throw new IllegalArgumentException("Unknown Term class in boolean function.");
 		}
@@ -150,6 +158,28 @@ public class BDDTransformer<T> {
 	protected BDD<T> transformLiteral(LiteralTerm term) {
 		T t = (T) term.get();
 		return provider.get(t);
+	}
+
+	/**
+	 * Transforms a {@code TRUETerm} to a {@code BDD}.
+	 * 
+	 * @param term
+	 *            the term to transform
+	 * @return a bdd representing the TRUE term
+	 */
+	protected BDD<T> transformTRUE(TRUETerm term) {
+		return provider.one();
+	}
+
+	/**
+	 * Transforms a {@code FALSETerm} to a {@code BDD}.
+	 * 
+	 * @param term
+	 *            the term to transform
+	 * @return a bdd representing the FALSE term
+	 */
+	protected BDD<T> transformFALSE(FALSETerm term) {
+		return provider.zero();
 	}
 
 }
