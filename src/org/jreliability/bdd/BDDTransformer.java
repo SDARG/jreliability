@@ -88,7 +88,9 @@ public class BDDTransformer<T> {
 			throw new IllegalArgumentException("Unknown Term class in boolean function.");
 		}
 		if (!term.sign()) {
-			bdd = bdd.not();
+			BDD<T> temp = bdd.not();
+			bdd.andWith(provider.zero());
+			bdd = temp;
 		}
 		return bdd;
 	}
@@ -105,7 +107,7 @@ public class BDDTransformer<T> {
 		List<Term> terms = term.getTerms();
 		for (Term element : terms) {
 			BDD<T> elementBDD = transform(element);
-			bdd = bdd.and(elementBDD);
+			bdd.andWith(elementBDD);
 		}
 		return bdd;
 	}
@@ -122,7 +124,7 @@ public class BDDTransformer<T> {
 		List<Term> terms = term.getTerms();
 		for (Term element : terms) {
 			BDD<T> elementBDD = transform(element);
-			bdd = bdd.or(elementBDD);
+			bdd.orWith(elementBDD);
 		}
 		return bdd;
 	}
