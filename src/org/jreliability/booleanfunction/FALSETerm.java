@@ -39,4 +39,13 @@ public class FALSETerm implements Term {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return "0";
+	}
+
 }

@@ -62,4 +62,18 @@ public class LiteralTerm<T> extends AbstractTerm {
 		return variable;
 	}
 
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		String s = "";
+		if(!sign){
+			s += "~";
+		}
+		s += variable;
+		return s;
+	}
 }

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code ANDTerm} is a {@code Term} that interrelates its embedded
- * {@code Terms} with the {@code AND-Operator}.
+ * The {@code ANDTerm} is a {@code Term} that interrelates its embedded {@code
+ * Terms} with the {@code AND-Operator}.
  * 
  * @author glass
  * 
@@ -45,7 +45,8 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Constructs an {@code ANDTerm} with a given list of embedded {@code Terms}.
+	 * Constructs an {@code ANDTerm} with a given list of embedded {@code Terms}
+	 * .
 	 * 
 	 * @param terms
 	 *            the embedded terms
@@ -66,6 +67,31 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	public ANDTerm(boolean sign, List<Term> terms) {
 		this.sign = sign;
 		this.terms = terms;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		String s = "";
+		if(!sign){
+			s += "~";
+		}
+		s += "(";
+		if (terms.isEmpty()) {
+			s += "0";
+		} else {
+			for (int i = 0; i < size(); i++) {
+				s += terms.get(i);
+				if (i < size() - 1) {
+					s += " AND ";
+				}
+			}
+		}
+		s += ")";
+		return s;
 	}
 
 }

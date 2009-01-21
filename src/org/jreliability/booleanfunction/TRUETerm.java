@@ -39,4 +39,13 @@ public class TRUETerm implements Term {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return "1";
+	}
+
 }

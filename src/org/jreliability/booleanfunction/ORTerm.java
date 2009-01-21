@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code ORTerm} is a {@code Term} that interrelates its embedded
- * {@code Terms} with the {@code OR-Operator}.
+ * The {@code ORTerm} is a {@code Term} that interrelates its embedded {@code
+ * Terms} with the {@code OR-Operator}.
  * 
  * @author glass
  * 
@@ -68,4 +68,28 @@ public class ORTerm extends AbstractHierarchicalTerm {
 		this.terms = terms;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		String s = "";
+		if(!sign){
+			s += "~";
+		}
+		s += "(";
+		if (terms.isEmpty()) {
+			s += "1";
+		} else {
+			for (int i = 0; i < size(); i++) {
+				s += terms.get(i);
+				if (i < size() - 1) {
+					s += " OR ";
+				}
+			}
+		}
+		s += ")";
+		return s;
+	}
 }
