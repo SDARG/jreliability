@@ -28,7 +28,7 @@ import java.util.Map.Entry;
 
 import org.jreliability.bdd.Constraint.Literal;
 import org.jreliability.bdd.Constraint.Pair;
-import org.jreliability.booleanfunction.LinearTerm;
+import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.common.Transformer;
 
 /**

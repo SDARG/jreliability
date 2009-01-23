@@ -21,9 +21,9 @@ import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.TermToReliabilityFunctionBDD;
 import org.jreliability.bdd.BDDs;
-import org.jreliability.booleanfunction.LinearTerm;
-import org.jreliability.booleanfunction.LiteralTerm;
 import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.common.LinearTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**

@@ -12,21 +12,23 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.booleanfunction;
+package org.jreliability.booleanfunction.common;
+
+import org.jreliability.booleanfunction.Term;
 
 /**
- * The {@code FALSETerm} corresponds to the logical {@code FALSE} or {@code 0}.
+ * The {@code TRUETerm} corresponds to the logical {@code TRUE} or {@code 1}.
  * 
  * @author glass
  * 
  */
-public class FALSETerm implements Term {
+public class TRUETerm implements Term {
 
 	/**
-	 * Constructs a {@code FALSETerm}.
+	 * Constructs a {@code TRUETerm}.
 	 * 
 	 */
-	public FALSETerm() {
+	public TRUETerm() {
 		super();
 	}
 
@@ -36,7 +38,7 @@ public class FALSETerm implements Term {
 	 * @see org.jreliability.booleanfunction.Term#sign()
 	 */
 	public boolean sign() {
-		return false;
+		return true;
 	}
 
 	/*
@@ -45,7 +47,7 @@ public class FALSETerm implements Term {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "0";
+		return "1";
 	}
 
 }

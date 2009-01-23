@@ -12,9 +12,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.booleanfunction;
+package org.jreliability.booleanfunction.common;
 
 import java.util.List;
+
+import org.jreliability.booleanfunction.AbstractHierarchicalTerm;
+import org.jreliability.booleanfunction.Term;
 
 /**
  * The {@code LinearTerm} represents a {@code linear constraint} of the form:

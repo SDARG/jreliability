@@ -12,40 +12,30 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.booleanfunction;
+package org.jreliability.booleanfunction.common;
+
+import org.jreliability.booleanfunction.ExistsTransformer;
 
 /**
- * The {@code TRUETerm} corresponds to the logical {@code TRUE} or {@code 1}.
+ * The {@code FalseExistsTransformer} is a default {@code ExistsTransformer}
+ * that returns {@code false} for each element, i.e., no variable is an
+ * exists-variable.
  * 
  * @author glass
  * 
+ * @param
+ * <P>
+ * the type of variable
  */
-public class TRUETerm implements Term {
-
-	/**
-	 * Constructs a {@code TRUETerm}.
-	 * 
-	 */
-	public TRUETerm() {
-		super();
-	}
+public class FalseExistsTransformer<P> implements ExistsTransformer<P> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.Term#sign()
+	 * @see org.jreliability.booleanfunction.ExistsTransformer#transform(java.lang.Object)
 	 */
-	public boolean sign() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		return "1";
+	public boolean transform(P p) {
+		return false;
 	}
 
 }

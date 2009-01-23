@@ -18,16 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.jreliability.booleanfunction.ANDTerm;
 import org.jreliability.booleanfunction.ExistsTransformer;
-import org.jreliability.booleanfunction.FALSETerm;
-import org.jreliability.booleanfunction.LinearTerm;
-import org.jreliability.booleanfunction.LiteralTerm;
-import org.jreliability.booleanfunction.ORTerm;
-import org.jreliability.booleanfunction.TRUETerm;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.TermToReliabilityFunction;
-import org.jreliability.booleanfunction.LinearTerm.Comparator;
+import org.jreliability.booleanfunction.common.ANDTerm;
+import org.jreliability.booleanfunction.common.FALSETerm;
+import org.jreliability.booleanfunction.common.FalseExistsTransformer;
+import org.jreliability.booleanfunction.common.LinearTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.booleanfunction.common.TRUETerm;
+import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.BDDReliabilityFunction;
@@ -261,30 +262,6 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 */
 	protected BDD<T> transformFALSE(FALSETerm term) {
 		return provider.zero();
-	}
-
-	/**
-	 * The {@code FalseExistsTransformer} is a default {@code ExistsTransformer}
-	 * that returns {@code false} for each element, i.e., no variable is an
-	 * exists-variable.
-	 * 
-	 * @author glass
-	 * 
-	 * @param
-	 * <P>
-	 * the type of variable
-	 */
-	protected class FalseExistsTransformer<P> implements ExistsTransformer<P> {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.jreliability.booleanfunction.ExistsTransformer#transform(java.lang.Object)
-		 */
-		public boolean transform(P p) {
-			return false;
-		}
-
 	}
 
 }

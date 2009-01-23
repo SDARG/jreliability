@@ -12,7 +12,9 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.booleanfunction;
+package org.jreliability.booleanfunction.common;
+
+import org.jreliability.booleanfunction.AbstractTerm;
 
 /**
  * The {@code LiteralTerm} represents a {@code Literal}, i.e. the used
