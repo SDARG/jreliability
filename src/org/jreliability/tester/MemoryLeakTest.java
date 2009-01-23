@@ -14,6 +14,7 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.evaluator.MomentEvaluator;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.BDDReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.javabdd.JBDDProviderFactory;
 
@@ -41,8 +42,7 @@ public class MemoryLeakTest {
 
 		Random r = new Random(0);
 
-		for (int i = 0; i < 1; i++) {
-			System.out.print("Starting BDD Setup...");
+		/*for (int i = 0; i < 1000; i++) {
 			BDD<Integer> and = bddProvider.one();
 			for (int j = 0; j < 10; j++) {
 				Set<Integer> vars = new HashSet<Integer>();
@@ -56,19 +56,12 @@ public class MemoryLeakTest {
 				}
 				and.andWith(or);
 			}
-			System.out.println("Done!");
-			System.out.println("BDD size: "+and.nodeCount());
-			System.out.print("Starting Analyzer...");
-			MomentEvaluator evaluator = new MomentEvaluator(1);
-			ReliabilityFunction reliabilityFunction = transformer.convert(and, functionTransformer);
-			evaluator.evaluate(reliabilityFunction);
-			System.out.println("Done!");
 			
 			and.free();
 
-		}
+		}*/
 
-		if(true) return;
+		//if(true) return;
 		
 		System.out.println("SECOND");
 
@@ -89,9 +82,11 @@ public class MemoryLeakTest {
 			}
 
 			BDD<Integer> result = transformer.convertToBDD(term);
-			// same as above:
-			result.andWith(bddProvider.zero());
-
+			
+			//ReliabilityFunction reliabilityFunction = transformer.convert(result, functionTransformer);
+			//((BDDReliabilityFunction)reliabilityFunction).getBdd().free();
+			result.free();
+			//System.out.println("Done!");
 		}
 
 	}

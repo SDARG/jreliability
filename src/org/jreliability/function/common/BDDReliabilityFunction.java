@@ -75,7 +75,7 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 
 		return BDDs.calculateTop(bdd, t);
 	}
-
+	
 	/**
 	 * Returns the {@code BDD}.
 	 * 

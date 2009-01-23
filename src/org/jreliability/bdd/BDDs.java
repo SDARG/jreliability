@@ -226,6 +226,9 @@ public abstract class BDDs {
 		Set<BDD<T>> upSort = new LinkedHashSet<BDD<T>>();
 		traverseBDD(bdd, upSort);
 		double top = evaluate(bdd, transformer, upSort);
+		for (BDD<T> ups : upSort) {
+			ups.free();
+		}
 		return top;
 	}
 
@@ -243,10 +246,14 @@ public abstract class BDDs {
 		if (bdd.isOne() || bdd.isZero() || upSort.contains(bdd)) {
 			return;
 		}
-		traverseBDD(bdd.high(), upSort);
-		traverseBDD(bdd.low(), upSort);
+		BDD<T> high = bdd.high();
+		traverseBDD(high, upSort);
+		high.free();
+		BDD<T> low = bdd.low();
+		traverseBDD(low, upSort);
+		low.free();
 
-		upSort.add(bdd);
+		upSort.add(bdd.copy());
 	}
 
 	/**
@@ -277,22 +284,25 @@ public abstract class BDDs {
 
 			double high;
 			double low;
-
-			if (tmpBdd.high().isOne()) {
+			BDD<T> highBdd = tmpBdd.high();
+			if (highBdd.isOne()) {
 				high = 1.0;
-			} else if (tmpBdd.high().isZero()) {
+			} else if (highBdd.isZero()) {
 				high = 0.0;
 			} else {
-				high = bddToDouble.get(tmpBdd.high());
+				high = bddToDouble.get(highBdd);
 			}
+			highBdd.free();
 
-			if (tmpBdd.low().isOne()) {
+			BDD<T> lowBdd = tmpBdd.low();
+			if (lowBdd.isOne()) {
 				low = 1.0;
-			} else if (tmpBdd.low().isZero()) {
+			} else if (lowBdd.isZero()) {
 				low = 0.0;
 			} else {
-				low = bddToDouble.get(tmpBdd.low());
+				low = bddToDouble.get(lowBdd);
 			}
+			lowBdd.free();
 
 			// Shannon decomposition
 			double y = r * high + (1 - r) * low;
@@ -300,7 +310,13 @@ public abstract class BDDs {
 			bddToDouble.put(tmpBdd, y);
 		}
 
-		return bddToDouble.get(bdd);
+		double x = bddToDouble.get(bdd);
+
+		for (BDD<T> freeBdd : bddToDouble.keySet()) {
+			freeBdd.free();
+		}
+
+		return x;
 	}
 
 	/**
@@ -520,8 +536,12 @@ public abstract class BDDs {
 		if (bdd.isOne() || bdd.isZero() || variables.contains(bdd.var())) {
 			return;
 		}
-		collectVariables(bdd.high(), variables);
-		collectVariables(bdd.low(), variables);
+		BDD<T> high = bdd.high();
+		collectVariables(high, variables);
+		high.free();
+		BDD<T> low = bdd.low();
+		collectVariables(low, variables);
+		low.free();
 		variables.add(bdd.var());
 	}
 

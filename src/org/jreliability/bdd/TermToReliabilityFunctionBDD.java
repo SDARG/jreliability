@@ -21,6 +21,7 @@ import java.util.Set;
 import org.jreliability.booleanfunction.ExistsTransformer;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.TermToReliabilityFunction;
+import org.jreliability.booleanfunction.Terms;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
 import org.jreliability.booleanfunction.common.FalseExistsTransformer;
@@ -122,7 +123,7 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 */
 	public BDD<T> convertToBDD(Term term, ExistsTransformer<T> existsTransformer) {
 		BDD<T> bdd = transform(term);
-		Set<T> variables = BDDs.getVariables(bdd);
+		Set<T> variables = Terms.getVariables(term);
 		for (T t : variables) {
 			if (existsTransformer.transform(t)) {
 				BDD<T> tmp = bdd.exist(t);
