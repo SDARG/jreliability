@@ -15,7 +15,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.BDDs;
+import org.jreliability.bdd.TopEvent;
 import org.jreliability.common.Transformer;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.Phi;
@@ -42,6 +42,12 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 	 * element of the {@code BDD}.
 	 */
 	protected final FunctionTransformer<T> transformer;
+	
+	
+	/**
+	 * The calculator for the top event.
+	 */
+	protected final TopEvent<T> topEvent;
 
 	/**
 	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and
@@ -58,6 +64,7 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 		super();
 		this.bdd = bdd;
 		this.transformer = transformer;
+		this.topEvent = new TopEvent<T>(bdd);
 	}
 
 	/*
@@ -73,7 +80,9 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 			}
 		};
 
-		return BDDs.calculateTop(bdd, t);
+		
+		return topEvent.calculate(t);
+		//return BDDs.calculateTop(bdd, t);
 	}
 	
 	/**
