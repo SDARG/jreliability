@@ -148,8 +148,10 @@ public class JBDD<T> implements BDD<T> {
 	 * @see org.jreliability.bdd.BDD#exist(java.lang.Object)
 	 */
 	public BDD<T> exist(T variable) {
-		return new JBDD<T>(provider, bdd.exist(((JBDD<T>) provider
-				.get(variable)).bdd));
+		JBDD<T> tmp = (JBDD<T>) provider.get(variable);
+		JBDD<T> tmp2 = new JBDD<T>(provider, bdd.exist((tmp).bdd));
+		tmp.free();
+		return tmp2;
 	}
 
 	/*
@@ -158,8 +160,10 @@ public class JBDD<T> implements BDD<T> {
 	 * @see org.jreliability.bdd.BDD#forAll(java.lang.Object)
 	 */
 	public BDD<T> forAll(T variable) {
-		return new JBDD<T>(provider, bdd.forAll(((JBDD<T>) provider
-				.get(variable)).bdd));
+		JBDD<T> tmp = (JBDD<T>) provider.get(variable);
+		JBDD<T> tmp2 = new JBDD<T>(provider, bdd.forAll((tmp).bdd));
+		tmp.free();
+		return tmp2;
 	}
 
 	/*
@@ -202,11 +206,10 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.bdd.BDD#ite(org.jreliability.bdd.BDD,
-	 * org.jreliability.bdd.BDD)
+	 *      org.jreliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
-		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
-				((JBDD<T>) elseBDD).bdd));
+		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd, ((JBDD<T>) elseBDD).bdd));
 	}
 
 	/*
@@ -269,8 +272,7 @@ public class JBDD<T> implements BDD<T> {
 	 * @see org.jreliability.bdd.BDD#replace(java.lang.Object, java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
-		BDDPairing pair = provider.getFactory().makePair(
-				((JBDD<T>) provider.get(variable1)).bdd.var(),
+		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		return new JBDD<T>(provider, bdd.replace(pair));
 	}
@@ -279,11 +281,10 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.bdd.BDD#replaceWith(java.lang.Object,
-	 * java.lang.Object)
+	 *      java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
-		BDDPairing pair = provider.getFactory().makePair(
-				((JBDD<T>) provider.get(variable1)).bdd.var(),
+		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider.get(variable1)).bdd.var(),
 				((JBDD<T>) provider.get(variable2)).bdd.var());
 		bdd.replaceWith(pair);
 	}
@@ -459,4 +460,14 @@ public class JBDD<T> implements BDD<T> {
 	public Set<T> getVariables() {
 		return BDDs.getVariables(this);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.bdd.BDD#free()
+	 */
+	public void free() {
+		bdd.andWith(((JBDD<T>) provider.zero()).bdd);
+	}
+
 }

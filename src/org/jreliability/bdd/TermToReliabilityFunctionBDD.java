@@ -16,26 +16,33 @@ package org.jreliability.bdd;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.jreliability.booleanfunction.ANDTerm;
+import org.jreliability.booleanfunction.ExistsTransformer;
 import org.jreliability.booleanfunction.FALSETerm;
 import org.jreliability.booleanfunction.LinearTerm;
 import org.jreliability.booleanfunction.LiteralTerm;
 import org.jreliability.booleanfunction.ORTerm;
 import org.jreliability.booleanfunction.TRUETerm;
 import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.TermToReliabilityFunction;
 import org.jreliability.booleanfunction.LinearTerm.Comparator;
+import org.jreliability.function.FunctionTransformer;
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.BDDReliabilityFunction;
 
 /**
- * The {@code BDDTransformer} transforms a {@code Boolean function} represented
- * as a {@code Term} into a {@code BDD}.
+ * The {@code TermToReliabilityFunctionBDD} transforms a
+ * {@code Boolean function} represented as a {@code Term} into a
+ * {@code ReliabilityFunction} or, if needed, into a {@code BDD}.
  * 
  * @author glass
  * 
  * @param <T>
  *            the type of the variables
  */
-public class BDDTransformer<T> {
+public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunction<T> {
 
 	/**
 	 * The {@code BDDProvider}.
@@ -43,17 +50,86 @@ public class BDDTransformer<T> {
 	protected final BDDProvider<T> provider;
 
 	/**
-	 * Constructs a {@code BDDTransformer}.
-	 * 
-	 */
-	/**
-	 * Constructs a {@code BDDTransformer} with a given {@code BDDProvider}.
+	 * Constructs a {@code TermToReliabilityFunctionBDD} with a given
+	 * {@code BDDProvider}.
 	 * 
 	 * @param provider
-	 *            the bddProvider
+	 *            the bdd provider
 	 */
-	public BDDTransformer(BDDProvider<T> provider) {
+	public TermToReliabilityFunctionBDD(BDDProvider<T> provider) {
 		this.provider = provider;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.booleanfunction.TermToReliabilityFunction#convert(org.jreliability.booleanfunction.Term)
+	 */
+	public ReliabilityFunction convert(Term term, FunctionTransformer<T> functionTransformer) {
+		return convert(term, functionTransformer, new FalseExistsTransformer<T>());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.booleanfunction.TermToReliabilityFunction#convert(org.jreliability.booleanfunction.Term,
+	 *      org.jreliability.booleanfunction.ExistsTransformer)
+	 */
+	public ReliabilityFunction convert(Term term, FunctionTransformer<T> functionTransformer,
+			ExistsTransformer<T> existsTransformer) {
+		BDD<T> bdd = convertToBDD(term, existsTransformer);
+		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
+		return function;
+	}
+
+	/**
+	 * Converts a given {@code BDD} and a {@code FunctionTransformer} to a
+	 * {@code ReliabilityFunction.}
+	 * 
+	 * @param bdd
+	 *            the bdd
+	 * @param functionTransformer
+	 *            the function transformer
+	 * @return a reliability function from the given bdd and function
+	 *         transformer
+	 */
+	public ReliabilityFunction convert(BDD<T> bdd, FunctionTransformer<T> functionTransformer) {
+		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
+		return function;
+	}
+
+	/**
+	 * Returns a {@code BDD} representing the given {@code Term}.
+	 * 
+	 * @param term
+	 *            the term
+	 * @return a bdd representing the given term
+	 */
+	public BDD<T> convertToBDD(Term term) {
+		return convertToBDD(term, new FalseExistsTransformer<T>());
+	}
+
+	/**
+	 * Returns a {@code BDD} representing the given {@code Term} while
+	 * respecting the exists-variables.
+	 * 
+	 * @param term
+	 *            the term
+	 * @param existsTransformer
+	 *            the exists transformer
+	 * @return a bdd representing the given term
+	 */
+	public BDD<T> convertToBDD(Term term, ExistsTransformer<T> existsTransformer) {
+		BDD<T> bdd = transform(term);
+		Set<T> variables = BDDs.getVariables(bdd);
+		for (T t : variables) {
+			if (existsTransformer.transform(t)) {
+				BDD<T> tmp = bdd.exist(t);
+				bdd.free();
+				bdd = tmp;
+			}
+		}
+		return bdd;
 	}
 
 	/**
@@ -64,7 +140,7 @@ public class BDDTransformer<T> {
 	 * @return a bdd representing the term
 	 */
 	@SuppressWarnings("unchecked")
-	public BDD<T> transform(Term term) {
+	protected BDD<T> transform(Term term) {
 		BDD<T> bdd = null;
 		if (term instanceof ANDTerm) {
 			ANDTerm andTerm = (ANDTerm) term;
@@ -89,9 +165,10 @@ public class BDDTransformer<T> {
 		}
 		if (!term.sign()) {
 			BDD<T> temp = bdd.not();
-			bdd.andWith(provider.zero());
+			bdd.free();
 			bdd = temp;
 		}
+		//System.out.println("o"+bdd.nodeCount());
 		return bdd;
 	}
 
@@ -108,7 +185,9 @@ public class BDDTransformer<T> {
 		for (Term element : terms) {
 			BDD<T> elementBDD = transform(element);
 			bdd.andWith(elementBDD);
+			//System.out.println("i"+bdd.nodeCount());
 		}
+		
 		return bdd;
 	}
 
@@ -182,6 +261,30 @@ public class BDDTransformer<T> {
 	 */
 	protected BDD<T> transformFALSE(FALSETerm term) {
 		return provider.zero();
+	}
+
+	/**
+	 * The {@code FalseExistsTransformer} is a default {@code ExistsTransformer}
+	 * that returns {@code false} for each element, i.e., no variable is an
+	 * exists-variable.
+	 * 
+	 * @author glass
+	 * 
+	 * @param
+	 * <P>
+	 * the type of variable
+	 */
+	protected class FalseExistsTransformer<P> implements ExistsTransformer<P> {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.jreliability.booleanfunction.ExistsTransformer#transform(java.lang.Object)
+		 */
+		public boolean transform(P p) {
+			return false;
+		}
+
 	}
 
 }

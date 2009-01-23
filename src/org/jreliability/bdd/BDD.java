@@ -30,7 +30,7 @@ import org.jreliability.function.Phi;
  * @param <T>
  *            the type of the variables
  */
-public interface BDD<T> extends Phi{
+public interface BDD<T> extends Phi {
 
 	/**
 	 * Returns a {@code BDDAllSatIterator} containing all satisfying variable
@@ -251,8 +251,8 @@ public interface BDD<T> extends Phi{
 
 	/**
 	 * Returns a BDD where the variables of {@code that} BDD are set to constant
-	 * reliabilityFunctions in {@code this} BDD. Note: Both BDDs remain unchanged after
-	 * this or-operation.
+	 * reliabilityFunctions in {@code this} BDD. Note: Both BDDs remain
+	 * unchanged after this or-operation.
 	 * 
 	 * @param that
 	 *            the BDD to or with this BDD
@@ -261,9 +261,9 @@ public interface BDD<T> extends Phi{
 	public BDD<T> restrict(BDD<T> that);
 
 	/**
-	 * Restricts the variables of {@code that} to constant reliabilityFunctions in {@code
-	 * this} BDD. Note: {@code That} BDD is consumed(!) within this operation
-	 * and invalid afterwards.
+	 * Restricts the variables of {@code that} to constant reliabilityFunctions
+	 * in {@code this} BDD. Note: {@code That} BDD is consumed(!) within this
+	 * operation and invalid afterwards.
 	 * 
 	 * @param that
 	 *            the BDD to or with this BDD
@@ -347,4 +347,9 @@ public interface BDD<T> extends Phi{
 	 * @return the set of variables that are used in this bdd
 	 */
 	public Set<T> getVariables();
+
+	/**
+	 * Destroys this {@code BDD}.
+	 */
+	public void free();
 }

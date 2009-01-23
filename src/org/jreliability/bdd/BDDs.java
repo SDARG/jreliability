@@ -137,7 +137,7 @@ public abstract class BDDs {
 			result = getBDD(negativeCoeffs, vars, LinearTerm.Comparator.GREATEREQUAL, -rhs);
 			break;
 		default:
-			throw new IllegalArgumentException("Unknown comparator in LinearTerm: "+comp);
+			throw new IllegalArgumentException("Unknown comparator in LinearTerm: " + comp);
 		}
 
 		return result;
@@ -225,8 +225,8 @@ public abstract class BDDs {
 
 		Set<BDD<T>> upSort = new LinkedHashSet<BDD<T>>();
 		traverseBDD(bdd, upSort);
-
-		return evaluate(bdd, transformer, upSort);
+		double top = evaluate(bdd, transformer, upSort);
+		return top;
 	}
 
 	/**
