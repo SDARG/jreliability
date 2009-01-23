@@ -81,6 +81,7 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 			ExistsTransformer<T> existsTransformer) {
 		BDD<T> bdd = convertToBDD(term, existsTransformer);
 		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
+		bdd.free();
 		return function;
 	}
 

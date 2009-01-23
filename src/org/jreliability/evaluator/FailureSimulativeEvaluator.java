@@ -38,6 +38,7 @@ import org.jreliability.function.common.BDDReliabilityFunction;
  * @param <T>
  *            the elements of the bdd
  */
+@Deprecated
 public class FailureSimulativeEvaluator<T> implements Evaluator {
 
 	/**
@@ -141,7 +142,7 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	protected double simulateTimeToFailure(
 			BDDReliabilityFunction<T> reliabilityFunction) {
 		double time = 0;
-		BDD<T> bdd = reliabilityFunction.getBdd();
+		BDD<T> bdd = null; //TODO reliabilityFunction.getBdd();
 		BDDProvider<T> provider = bdd.getProvider();
 		BDD<T> myBDD = bdd.copy();
 		Set<Failure<T>> failures = getFailures(reliabilityFunction);
@@ -168,9 +169,9 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 */
 	protected Set<Failure<T>> getFailures(
 			BDDReliabilityFunction<T> reliabilityFunction) {
-		BDD<T> bdd = reliabilityFunction.getBdd();
-		FunctionTransformer<T> transformer = reliabilityFunction
-				.getTransformer();
+		BDD<T> bdd = null; // TODO reliabilityFunction.getBdd();
+		FunctionTransformer<T> transformer = null; // TODO reliabilityFunction
+				//.getTransformer();
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {

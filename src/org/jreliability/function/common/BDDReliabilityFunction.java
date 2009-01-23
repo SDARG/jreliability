@@ -15,11 +15,10 @@
 package org.jreliability.function.common;
 
 import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.TopEvent;
+import org.jreliability.bdd.BDDTopEvent;
 import org.jreliability.common.Transformer;
 import org.jreliability.function.FunctionTransformer;
-import org.jreliability.function.Phi;
-import org.jreliability.function.PhiReliabilityFunction;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction}
@@ -30,24 +29,18 @@ import org.jreliability.function.PhiReliabilityFunction;
  * @param <T>
  *            the type of variable
  */
-public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
-
-	/**
-	 * The BDD representing the {@code Distribution}.
-	 */
-	protected final BDD<T> bdd;
+public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 
 	/**
 	 * The used {@code FunctionTransformer} to get the {@code Function} of each
 	 * element of the {@code BDD}.
 	 */
 	protected final FunctionTransformer<T> transformer;
-	
-	
+
 	/**
 	 * The calculator for the top event.
 	 */
-	protected final TopEvent<T> topEvent;
+	protected final BDDTopEvent<T> bDDTopEvent;
 
 	/**
 	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and
@@ -62,9 +55,8 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 	 */
 	public BDDReliabilityFunction(BDD<T> bdd, FunctionTransformer<T> transformer) {
 		super();
-		this.bdd = bdd;
 		this.transformer = transformer;
-		this.topEvent = new TopEvent<T>(bdd);
+		this.bDDTopEvent = new BDDTopEvent<T>(bdd);
 	}
 
 	/*
@@ -80,36 +72,8 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 			}
 		};
 
-		
-		return topEvent.calculate(t);
-		//return BDDs.calculateTop(bdd, t);
-	}
-	
-	/**
-	 * Returns the {@code BDD}.
-	 * 
-	 * @return the bdd
-	 */
-	public BDD<T> getBdd() {
-		return bdd;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.PhiReliabilityFunction#getTransformer()
-	 */
-	public FunctionTransformer<T> getTransformer() {
-		return transformer;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.PhiReliabilityFunction#phi()
-	 */
-	public Phi phi() {
-		return bdd;
+		return bDDTopEvent.calculate(t);
+		// return BDDs.calculateTop(bdd, t);
 	}
 
 }

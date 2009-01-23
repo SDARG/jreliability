@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 import org.jreliability.common.Transformer;
 
 /**
- * The {@code TopEvent} allows the fast calculation of the top event for a given
+ * The {@code BDDTopEvent} allows the fast calculation of the top event for a given
  * {@code BDD}. Here, the {@code BDD} is copied to a internal structure such
  * that the {@code free} method of the {@code BDD} does not interfere with this
  * class.
@@ -33,7 +33,7 @@ import org.jreliability.common.Transformer;
  * @param <T>
  *            the type of variables
  */
-public class TopEvent<T> {
+public class BDDTopEvent<T> {
 
 	/**
 	 * 
@@ -120,7 +120,7 @@ public class TopEvent<T> {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.jreliability.bdd.TopEvent.Node#getValue()
+		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
 		public double getValue() {
 			return value;
@@ -196,7 +196,7 @@ public class TopEvent<T> {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.jreliability.bdd.TopEvent.Node#getValue()
+		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
 		public double getValue() {
 			return 1;
@@ -214,7 +214,7 @@ public class TopEvent<T> {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.jreliability.bdd.TopEvent.Node#getValue()
+		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
 		public double getValue() {
 			return 0;
@@ -247,12 +247,12 @@ public class TopEvent<T> {
 	Node root;
 
 	/**
-	 * Constructs the {@code TopEvent} calculator for a given {@code BDD}.
+	 * Constructs the {@code BDDTopEvent} calculator for a given {@code BDD}.
 	 * 
 	 * @param bdd
 	 *            the given bdd
 	 */
-	public TopEvent(BDD<T> bdd) {
+	public BDDTopEvent(BDD<T> bdd) {
 
 		Map<BDD<T>, VarNode> map = new HashMap<BDD<T>, VarNode>();
 		root = build(bdd, map);
