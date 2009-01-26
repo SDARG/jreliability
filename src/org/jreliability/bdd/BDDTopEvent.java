@@ -23,10 +23,10 @@ import java.util.Map.Entry;
 import org.jreliability.common.Transformer;
 
 /**
- * The {@code BDDTopEvent} allows the fast calculation of the top event for a given
- * {@code BDD}. Here, the {@code BDD} is copied to a internal structure such
- * that the {@code free} method of the {@code BDD} does not interfere with this
- * class.
+ * The {@code BDDTopEvent} allows the fast calculation of the top event for a
+ * given {@code BDD}. Here, the {@code BDD} is copied to a internal structure
+ * such that the {@code free} method of the {@code BDD} does not interfere with
+ * this class.
  * 
  * @author lukasiewycz
  * 
@@ -43,8 +43,16 @@ public class BDDTopEvent<T> {
 	 * 
 	 */
 	class Var {
+
+		/**
+		 * The variable.
+		 */
 		protected final T variable;
-		double value;
+
+		/**
+		 * The vale of the variable.
+		 */
+		protected double value;
 
 		/**
 		 * Constructs a {@code Var}.
@@ -102,9 +110,21 @@ public class BDDTopEvent<T> {
 	 */
 	class VarNode implements Node {
 
+		/**
+		 * The variable represented by this node.
+		 */
 		protected final Var var;
+		/**
+		 * The value of the node.
+		 */
 		protected double value;
+		/**
+		 * The successor node at the high edge.
+		 */
 		protected Node hi = null;
+		/**
+		 * The successor node at the low edge.
+		 */
 		protected Node lo = null;
 
 		/**
@@ -167,7 +187,7 @@ public class BDDTopEvent<T> {
 		/**
 		 * Sets the {@code Node} of the low-branch.
 		 * 
-		 * @param hi
+		 * @param lo
 		 *            the {@code Node} of the low-branch
 		 */
 		public void setLo(Node lo) {

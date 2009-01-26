@@ -42,7 +42,7 @@ public class Terms {
 			}
 		} else if (term instanceof LiteralTerm) {
 			LiteralTerm<T> literalTerm = (LiteralTerm<T>) term;
-			set.add((T) literalTerm.get());
+			set.add(literalTerm.get());
 		}
 	}
 

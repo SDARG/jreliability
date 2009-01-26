@@ -16,9 +16,9 @@ package org.jreliability.gui.sampler;
 
 import java.util.List;
 
+import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.evaluator.FailureSimulativeEvaluator;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.BDDReliabilityFunction;
 
 /**
  * The {@code TTFFrequencyDistributionSampler} uses the {@code

@@ -23,11 +23,11 @@ import java.util.TreeSet;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.common.Failure;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.InverseFunction;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.BDDReliabilityFunction;
 
 /**
  * The {@code FailureSimulativeEvaluator} performs a Monte-Carlo simulation to

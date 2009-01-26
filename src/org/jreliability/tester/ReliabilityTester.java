@@ -18,9 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.BDDReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**

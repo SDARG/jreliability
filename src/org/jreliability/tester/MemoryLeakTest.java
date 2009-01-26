@@ -7,6 +7,7 @@ import java.util.Set;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
+import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.bdd.TermToReliabilityFunctionBDD;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
@@ -14,7 +15,6 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.evaluator.MomentEvaluator;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.BDDReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.javabdd.JBDDProviderFactory;
 

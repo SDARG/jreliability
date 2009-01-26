@@ -32,7 +32,6 @@ import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.BDDReliabilityFunction;
 
 /**
  * The {@code TermToReliabilityFunctionBDD} transforms a
