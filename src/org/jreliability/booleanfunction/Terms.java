@@ -20,19 +20,39 @@ import java.util.Set;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 
 /**
- * The {@code Terms}
+ * The {@code Terms} provides static methods for the {@code Term} class.
  * 
  * @author glass
  * 
  */
 public class Terms {
 
+	/**
+	 * Returns the variables included in a {@code Term}.
+	 * 
+	 * @param <T>
+	 *            the type of the variables
+	 * @param term
+	 *            the term
+	 * @return the variables included in the term
+	 */
 	public static <T> Set<T> getVariables(Term term) {
 		Set<T> set = new HashSet<T>();
 		getVariables(term, set);
 		return set;
 	}
 
+	/**
+	 * Adds the variables included in a {@code Term} to a given set of
+	 * variables.
+	 * 
+	 * @param <T>
+	 *            the type of the variables
+	 * @param term
+	 *            the term
+	 * @param set
+	 *            the set of variables
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> void getVariables(Term term, Set<T> set) {
 		if (term instanceof AbstractHierarchicalTerm) {
