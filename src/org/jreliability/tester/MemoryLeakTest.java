@@ -7,13 +7,11 @@ import java.util.Set;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.bdd.TermToReliabilityFunctionBDD;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
-import org.jreliability.evaluator.MomentEvaluator;
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.javabdd.JBDDProviderFactory;
@@ -34,7 +32,7 @@ public class MemoryLeakTest {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<Integer> bddProvider = bddProviderFactory.getProvider();
 		TermToReliabilityFunctionBDD<Integer> transformer = new TermToReliabilityFunctionBDD<Integer>(bddProvider);
-		FunctionTransformer<Integer> functionTransformer = new FunctionTransformer<Integer>() {
+		Transformer<Integer, ReliabilityFunction> functionTransformer = new Transformer<Integer, ReliabilityFunction>() {
 			public ReliabilityFunction transform(Integer a) {
 				return new ExponentialReliabilityFunction(0.0001);
 			}
@@ -42,27 +40,18 @@ public class MemoryLeakTest {
 
 		Random r = new Random(0);
 
-		/*for (int i = 0; i < 1000; i++) {
-			BDD<Integer> and = bddProvider.one();
-			for (int j = 0; j < 10; j++) {
-				Set<Integer> vars = new HashSet<Integer>();
-				for (int k = 0; k < 30; k++) {
-					vars.add(r.nextInt(100));
-				}
-				BDD<Integer> or = bddProvider.zero();
-				for (int var : vars) {
-					BDD<Integer> bdd = bddProvider.get(var);
-					or.orWith(bdd);
-				}
-				and.andWith(or);
-			}
-			
-			and.free();
+		/*
+		 * for (int i = 0; i < 1000; i++) { BDD<Integer> and =
+		 * bddProvider.one(); for (int j = 0; j < 10; j++) { Set<Integer> vars =
+		 * new HashSet<Integer>(); for (int k = 0; k < 30; k++) {
+		 * vars.add(r.nextInt(100)); } BDD<Integer> or = bddProvider.zero();
+		 * for (int var : vars) { BDD<Integer> bdd = bddProvider.get(var);
+		 * or.orWith(bdd); } and.andWith(or); }
+		 * 
+		 * and.free(); }
+		 */
 
-		}*/
-
-		//if(true) return;
-		
+		// if(true) return;
 		System.out.println("SECOND");
 
 		for (int i = 0; i < 1000; i++) {
@@ -82,11 +71,12 @@ public class MemoryLeakTest {
 			}
 
 			BDD<Integer> result = transformer.convertToBDD(term);
-			
-			//ReliabilityFunction reliabilityFunction = transformer.convert(result, functionTransformer);
-			//((BDDReliabilityFunction)reliabilityFunction).getBdd().free();
+
+			// ReliabilityFunction reliabilityFunction =
+			// functionTransformer.convert(result, functionTransformer);
+			// ((BDDReliabilityFunction)reliabilityFunction).getBdd().free();
 			result.free();
-			//System.out.println("Done!");
+			// System.out.println("Done!");
 		}
 
 	}

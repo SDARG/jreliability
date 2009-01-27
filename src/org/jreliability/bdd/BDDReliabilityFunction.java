@@ -15,9 +15,7 @@
 package org.jreliability.bdd;
 
 import org.jreliability.common.Transformer;
-import org.jreliability.function.FunctionTransformer;
-import org.jreliability.function.Phi;
-import org.jreliability.function.PhiReliabilityFunction;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction}
@@ -28,7 +26,7 @@ import org.jreliability.function.PhiReliabilityFunction;
  * @param <T>
  *            the type of variable
  */
-public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
+public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 
 	/**
 	 * The BDD representing the {@code Distribution}.
@@ -36,10 +34,10 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 	protected final BDD<T> bdd;
 
 	/**
-	 * The used {@code FunctionTransformer} to get the {@code Function} of each
-	 * element of the {@code BDD}.
+	 * The used {@code Transformer} to get the {@code Function} of each element
+	 * of the {@code BDD}.
 	 */
-	protected final FunctionTransformer<T> transformer;
+	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
 	/**
 	 * The calculator for the top event.
@@ -48,19 +46,19 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 
 	/**
 	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and
-	 * {@code FunctionTransformer}.
+	 * {@code Transformer}.
 	 * 
 	 * @param bdd
 	 *            the bdd representing the reliabilityFunction
 	 * 
-	 * @param transformer
-	 *            the transformer to transform bdd elements to
+	 * @param functionTransformer
+	 *            the functionTransformer to transform bdd elements to
 	 *            reliabilityFunction
 	 */
-	public BDDReliabilityFunction(BDD<T> bdd, FunctionTransformer<T> transformer) {
+	public BDDReliabilityFunction(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		super();
 		this.bdd = bdd;
-		this.transformer = transformer;
+		this.functionTransformer = functionTransformer;
 		this.topEvent = new BDDTopEvent<T>(bdd);
 	}
 
@@ -73,7 +71,7 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 
 		final Transformer<T, Double> t = new Transformer<T, Double>() {
 			public Double transform(T a) {
-				return transformer.transform(a).getY(x);
+				return functionTransformer.transform(a).getY(x);
 			}
 		};
 
@@ -89,22 +87,13 @@ public class BDDReliabilityFunction<T> implements PhiReliabilityFunction {
 		return bdd;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Returns the used {@code Transformer}.
 	 * 
-	 * @see org.jreliability.function.PhiReliabilityFunction#getTransformer()
+	 * @return the used functionTransformer
 	 */
-	public FunctionTransformer<T> getTransformer() {
-		return transformer;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.PhiReliabilityFunction#phi()
-	 */
-	public Phi phi() {
-		return bdd;
+	public Transformer<T, ReliabilityFunction> getTransformer() {
+		return functionTransformer;
 	}
 
 }

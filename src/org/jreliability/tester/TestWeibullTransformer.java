@@ -17,7 +17,7 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.WeibullReliabilityFunction;
 
@@ -29,7 +29,7 @@ import org.jreliability.function.common.WeibullReliabilityFunction;
  * @author glass
  * 
  */
-public class TestWeibullTransformer implements FunctionTransformer<String> {
+public class TestWeibullTransformer implements Transformer<String, ReliabilityFunction> {
 
 	/**
 	 * The heater.
@@ -51,18 +51,15 @@ public class TestWeibullTransformer implements FunctionTransformer<String> {
 	/**
 	 * The {@code ReliabilityFunction} of the heater.
 	 */
-	ReliabilityFunction heaterReliabilityFunction = new WeibullReliabilityFunction(
-			3, 5);
+	ReliabilityFunction heaterReliabilityFunction = new WeibullReliabilityFunction(3, 5);
 	/**
 	 * The {@code ReliabilityFunction} of the first pump.
 	 */
-	ReliabilityFunction pump1ReliabilityFunction = new WeibullReliabilityFunction(
-			1, 3);
+	ReliabilityFunction pump1ReliabilityFunction = new WeibullReliabilityFunction(1, 3);
 	/**
 	 * The {@code ReliabilityFunction} of the second pump.
 	 */
-	ReliabilityFunction pump2ReliabilityFunction = new WeibullReliabilityFunction(
-			1.2, 3);
+	ReliabilityFunction pump2ReliabilityFunction = new WeibullReliabilityFunction(1.2, 3);
 
 	/**
 	 * Constructs a {@code TestWeibullTransformer}.

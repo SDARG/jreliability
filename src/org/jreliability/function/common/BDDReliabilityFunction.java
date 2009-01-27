@@ -17,7 +17,6 @@ package org.jreliability.function.common;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDTopEvent;
 import org.jreliability.common.Transformer;
-import org.jreliability.function.FunctionTransformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -35,7 +34,7 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	 * The used {@code FunctionTransformer} to get the {@code Function} of each
 	 * element of the {@code BDD}.
 	 */
-	protected final FunctionTransformer<T> transformer;
+	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
 	/**
 	 * The calculator for the top event.
@@ -49,13 +48,13 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	 * @param bdd
 	 *            the bdd representing the reliabilityFunction
 	 * 
-	 * @param transformer
-	 *            the transformer to transform bdd elements to
+	 * @param functionTransformer
+	 *            the functionTransformer to transform bdd elements to
 	 *            reliabilityFunction
 	 */
-	public BDDReliabilityFunction(BDD<T> bdd, FunctionTransformer<T> transformer) {
+	public BDDReliabilityFunction(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		super();
-		this.transformer = transformer;
+		this.functionTransformer = functionTransformer;
 		this.bDDTopEvent = new BDDTopEvent<T>(bdd);
 	}
 
@@ -68,12 +67,11 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 
 		final Transformer<T, Double> t = new Transformer<T, Double>() {
 			public Double transform(T a) {
-				return transformer.transform(a).getY(x);
+				return functionTransformer.transform(a).getY(x);
 			}
 		};
 
 		return bDDTopEvent.calculate(t);
-		// return BDDs.calculateTop(bdd, t);
 	}
 
 }

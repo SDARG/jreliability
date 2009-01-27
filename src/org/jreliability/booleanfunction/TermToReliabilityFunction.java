@@ -14,7 +14,7 @@
  */
 package org.jreliability.booleanfunction;
 
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -34,10 +34,10 @@ public interface TermToReliabilityFunction<T> {
 	 * @param term
 	 *            the term to transform
 	 * @param functionTransformer
-	 *            the used function transformer
+	 *            the used function functionTransformer
 	 * @return the reliabilityFunction deduced from the term
 	 */
-	public ReliabilityFunction convert(Term term, FunctionTransformer<T> functionTransformer);
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer);
 
 	/**
 	 * Converts a {@code Term} to a {@code ReliabilityFunction} and excludes the
@@ -46,12 +46,12 @@ public interface TermToReliabilityFunction<T> {
 	 * @param term
 	 *            the term to transform
 	 * @param functionTransformer
-	 *            the used function transformer
+	 *            the used function functionTransformer
 	 * @param existsTransformer
 	 *            the exists-variable existsTransformer
 	 * @return the reliabilityFunction deduced from the term
 	 */
-	public ReliabilityFunction convert(Term term, FunctionTransformer<T> functionTransformer,
-			ExistsTransformer<T> existsTransformer);
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
+			Transformer<T, Boolean> existsTransformer);
 
 }

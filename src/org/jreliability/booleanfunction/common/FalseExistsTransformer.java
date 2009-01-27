@@ -14,7 +14,7 @@
  */
 package org.jreliability.booleanfunction.common;
 
-import org.jreliability.booleanfunction.ExistsTransformer;
+import org.jreliability.common.Transformer;
 
 /**
  * The {@code FalseExistsTransformer} is a default {@code ExistsTransformer}
@@ -23,18 +23,17 @@ import org.jreliability.booleanfunction.ExistsTransformer;
  * 
  * @author glass
  * 
- * @param
- * <P>
- * the type of variable
+ * @param <T>
+ *            the type of variable
  */
-public class FalseExistsTransformer<P> implements ExistsTransformer<P> {
+public class FalseExistsTransformer<T> implements Transformer<T, Boolean> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.ExistsTransformer#transform(java.lang.Object)
+	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
-	public boolean transform(P p) {
+	public Boolean transform(T p) {
 		return false;
 	}
 

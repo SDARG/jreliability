@@ -25,7 +25,7 @@ import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.common.Failure;
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.InverseFunction;
 import org.jreliability.function.ReliabilityFunction;
 
@@ -107,8 +107,7 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 *            the bdd reliability functon
 	 * @return the times to failure of 5000 simulation runs
 	 */
-	public List<Double> collectTimesToFailure(
-			BDDReliabilityFunction<T> reliabilityFunction) {
+	public List<Double> collectTimesToFailure(BDDReliabilityFunction<T> reliabilityFunction) {
 		return collectTimesToFailure(reliabilityFunction, 5000);
 	}
 
@@ -122,8 +121,7 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 *            the number of runs to perform
 	 * @return the times to failure of n simulation runs
 	 */
-	public List<Double> collectTimesToFailure(
-			BDDReliabilityFunction<T> reliabilityFunction, int n) {
+	public List<Double> collectTimesToFailure(BDDReliabilityFunction<T> reliabilityFunction, int n) {
 		List<Double> times = new ArrayList<Double>();
 		for (int i = 0; i < n; i++) {
 			Double time = simulateTimeToFailure(reliabilityFunction);
@@ -139,10 +137,9 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 *            the bdd reliabilityFunction
 	 * @return the time to failure of one single simulation run
 	 */
-	protected double simulateTimeToFailure(
-			BDDReliabilityFunction<T> reliabilityFunction) {
+	protected double simulateTimeToFailure(BDDReliabilityFunction<T> reliabilityFunction) {
 		double time = 0;
-		BDD<T> bdd = null; //TODO reliabilityFunction.getBdd();
+		BDD<T> bdd = null; // TODO reliabilityFunction.getBdd();
 		BDDProvider<T> provider = bdd.getProvider();
 		BDD<T> myBDD = bdd.copy();
 		Set<Failure<T>> failures = getFailures(reliabilityFunction);
@@ -167,11 +164,11 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 *            the bdd reliabilityFunction
 	 * @return a set of failures for given elements T in the reliabilityFunction
 	 */
-	protected Set<Failure<T>> getFailures(
-			BDDReliabilityFunction<T> reliabilityFunction) {
+	protected Set<Failure<T>> getFailures(BDDReliabilityFunction<T> reliabilityFunction) {
 		BDD<T> bdd = null; // TODO reliabilityFunction.getBdd();
-		FunctionTransformer<T> transformer = null; // TODO reliabilityFunction
-				//.getTransformer();
+		Transformer<T, ReliabilityFunction> transformer = null; // TODO
+																// reliabilityFunction
+		// .getTransformer();
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {

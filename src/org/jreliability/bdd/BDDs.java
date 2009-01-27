@@ -204,8 +204,9 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@code BDD} based on a transformer that
-	 * delivers for each variable {@code T} a double value.
+	 * Calculates the top event of the {@code BDD} based on a
+	 * functionTransformer that delivers for each variable {@code T} a double
+	 * value.
 	 * 
 	 * @param <T>
 	 *            the type of variable

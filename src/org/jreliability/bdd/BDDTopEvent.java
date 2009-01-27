@@ -285,7 +285,7 @@ public class BDDTopEvent<T> {
 	}
 
 	/**
-	 * Calculates the top event for the values given by the transformer.
+	 * Calculates the top event for the values given by the functionTransformer.
 	 * 
 	 * @param transformer
 	 *            the transformer from the variables to the values

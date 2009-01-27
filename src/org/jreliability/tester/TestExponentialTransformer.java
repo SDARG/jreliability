@@ -17,7 +17,7 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 
@@ -29,7 +29,7 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
  * @author glass
  * 
  */
-public class TestExponentialTransformer implements FunctionTransformer<String> {
+public class TestExponentialTransformer implements Transformer<String, ReliabilityFunction> {
 
 	/**
 	 * The heater.

@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDReliabilityFunction;
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
@@ -48,13 +48,12 @@ public class ReliabilityTester {
 		TestExample example = new TestExample();
 		BDD<String> bdd = example.get();
 
-		FunctionTransformer<String> exponentialTransformer = new TestExponentialTransformer();
-		FunctionTransformer<String> weibullTransformer = new TestWeibullTransformer();
+		Transformer<String, ReliabilityFunction> exponentialTransformer = new TestExponentialTransformer();
+		Transformer<String, ReliabilityFunction> weibullTransformer = new TestWeibullTransformer();
 
-		BDDReliabilityFunction<String> exponentialDistribution = new BDDReliabilityFunction<String>(
-				bdd, exponentialTransformer);
-		BDDReliabilityFunction<String> weibullDistribution = new BDDReliabilityFunction<String>(
-				bdd, weibullTransformer);
+		BDDReliabilityFunction<String> exponentialDistribution = new BDDReliabilityFunction<String>(bdd,
+				exponentialTransformer);
+		BDDReliabilityFunction<String> weibullDistribution = new BDDReliabilityFunction<String>(bdd, weibullTransformer);
 
 		Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
 		reliabilityFunction.put("Exponential", exponentialDistribution);

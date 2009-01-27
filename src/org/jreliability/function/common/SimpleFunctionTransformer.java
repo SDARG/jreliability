@@ -17,21 +17,21 @@ package org.jreliability.function.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code SimpleFunctionTransformer} is a basic implementation of a {@code
- * FunctionTransformer}. Note: This transformer has to be initialized with all
- * elements {@code T} and their corresponding {@code ReliabilityFunctions}
- * before using it.
+ * FunctionTransformer}. Note: This functionTransformer has to be initialized
+ * with all elements {@code T} and their corresponding
+ * {@code ReliabilityFunctions} before using it.
  * 
  * @author glass
  * 
  * @param <T>
  *            the type of variable
  */
-public class SimpleFunctionTransformer<T> implements FunctionTransformer<T> {
+public class SimpleFunctionTransformer<T> implements Transformer<T, ReliabilityFunction> {
 
 	/**
 	 * The element {@code T} and its {@code ReliabilityFunction}.
@@ -53,8 +53,7 @@ public class SimpleFunctionTransformer<T> implements FunctionTransformer<T> {
 	 * @param reliabilityFunctions
 	 *            elements and their reliability functions
 	 */
-	public SimpleFunctionTransformer(
-			Map<T, ReliabilityFunction> reliabilityFunctions) {
+	public SimpleFunctionTransformer(Map<T, ReliabilityFunction> reliabilityFunctions) {
 		super();
 		this.reliabilityFunctions = reliabilityFunctions;
 	}
@@ -75,7 +74,7 @@ public class SimpleFunctionTransformer<T> implements FunctionTransformer<T> {
 	 * @param element
 	 *            the element
 	 * @param reliabilityFunction
-	 *            the reliabilty function of the element
+	 *            the reliability function of the element
 	 */
 	public void set(T element, ReliabilityFunction reliabilityFunction) {
 		reliabilityFunctions.put(element, reliabilityFunction);

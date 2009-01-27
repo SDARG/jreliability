@@ -18,8 +18,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.jreliability.function.Phi;
-
 /**
  * The {@code BDD} is an interface containing the very basic functionality of a
  * {@code BDD}. Thus, it is used as a front end for the various available BDD
@@ -30,7 +28,7 @@ import org.jreliability.function.Phi;
  * @param <T>
  *            the type of the variables
  */
-public interface BDD<T> extends Phi {
+public interface BDD<T> {
 
 	/**
 	 * Returns a {@code BDDAllSatIterator} containing all satisfying variable

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.jreliability.booleanfunction.ExistsTransformer;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.TermToReliabilityFunction;
 import org.jreliability.booleanfunction.Terms;
@@ -30,7 +29,7 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -66,7 +65,7 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 * 
 	 * @see org.jreliability.booleanfunction.TermToReliabilityFunction#convert(org.jreliability.booleanfunction.Term)
 	 */
-	public ReliabilityFunction convert(Term term, FunctionTransformer<T> functionTransformer) {
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
 		return convert(term, functionTransformer, new FalseExistsTransformer<T>());
 	}
 
@@ -76,8 +75,8 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 * @see org.jreliability.booleanfunction.TermToReliabilityFunction#convert(org.jreliability.booleanfunction.Term,
 	 *      org.jreliability.booleanfunction.ExistsTransformer)
 	 */
-	public ReliabilityFunction convert(Term term, FunctionTransformer<T> functionTransformer,
-			ExistsTransformer<T> existsTransformer) {
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
+			Transformer<T, Boolean> existsTransformer) {
 		BDD<T> bdd = convertToBDD(term, existsTransformer);
 		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		bdd.free();
@@ -85,17 +84,17 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	}
 
 	/**
-	 * Converts a given {@code BDD} and a {@code FunctionTransformer} to a
+	 * Converts a given {@code BDD} and a {@code Transformer} to a
 	 * {@code ReliabilityFunction.}
 	 * 
 	 * @param bdd
 	 *            the bdd
 	 * @param functionTransformer
-	 *            the function transformer
+	 *            the function functionTransformer
 	 * @return a reliability function from the given bdd and function
-	 *         transformer
+	 *         functionTransformer
 	 */
-	public ReliabilityFunction convert(BDD<T> bdd, FunctionTransformer<T> functionTransformer) {
+	public ReliabilityFunction convert(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		return function;
 	}
@@ -118,10 +117,10 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 * @param term
 	 *            the term
 	 * @param existsTransformer
-	 *            the exists transformer
+	 *            the exists functionTransformer
 	 * @return a bdd representing the given term
 	 */
-	public BDD<T> convertToBDD(Term term, ExistsTransformer<T> existsTransformer) {
+	public BDD<T> convertToBDD(Term term, Transformer<T, Boolean> existsTransformer) {
 		BDD<T> bdd = transform(term);
 		Set<T> variables = Terms.getVariables(term);
 		for (T t : variables) {
@@ -170,7 +169,6 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 			bdd.free();
 			bdd = temp;
 		}
-		//System.out.println("o"+bdd.nodeCount());
 		return bdd;
 	}
 
@@ -187,9 +185,8 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 		for (Term element : terms) {
 			BDD<T> elementBDD = transform(element);
 			bdd.andWith(elementBDD);
-			//System.out.println("i"+bdd.nodeCount());
 		}
-		
+
 		return bdd;
 	}
 
