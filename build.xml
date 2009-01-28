@@ -10,8 +10,8 @@
 	</tstamp>
 
 	<!-- VERSIONING -->
-	<!--<property name="version" value="snapshot-${date-flat}" /> -->
-	<property name="version" value="1.2.1" />
+	<property name="version" value="snapshot-${date-flat}" />
+	<!-- <property name="version" value="1.2.1" /> -->
 
 	<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${utils.dir}/jarjar-1.0rc7.jar" />
 
