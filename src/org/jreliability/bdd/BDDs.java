@@ -63,7 +63,7 @@ public abstract class BDDs {
 	 */
 	public static <T> Set<T> getVariables(BDD<T> bdd) {
 		Set<T> variables = new HashSet<T>();
-		collectVariables(bdd, variables);
+		collectVariables(bdd, variables, new HashSet<BDD<T>>());
 		return variables;
 	}
 
@@ -187,6 +187,10 @@ public abstract class BDDs {
 	public static <T> String toDot(BDD<T> bdd) {
 		StringBuffer dot = new StringBuffer();
 		Set<T> elements = getVariables(bdd);
+		for (T t : elements) {
+			System.out.print(" " + t);
+		}
+		System.out.println("");
 		Map<BDD<T>, String> variables = new HashMap<BDD<T>, String>();
 		Map<T, Integer> counters = new HashMap<T, Integer>();
 		Map<T, String> markers = new HashMap<T, String>();
@@ -195,6 +199,9 @@ public abstract class BDDs {
 		}
 		dot.append("digraph bdd {" + newline);
 		collectDotMarkers(bdd, dot, markers);
+		for (T t : counters.keySet()) {
+			System.out.print(" " + t);
+		}
 		collectDotNodes(bdd, dot, variables, counters);
 		Set<BDD<T>> considered = new HashSet<BDD<T>>();
 		collectDotEdges(bdd, dot, variables, considered);
@@ -532,18 +539,27 @@ public abstract class BDDs {
 	 *            the bdd
 	 * @param variables
 	 *            the variables
+	 * @param considered
+	 *            the already considered bdds
 	 */
-	protected static <T> void collectVariables(BDD<T> bdd, Set<T> variables) {
-		if (bdd.isOne() || bdd.isZero() || variables.contains(bdd.var())) {
+	protected static <T> void collectVariables(BDD<T> bdd, Set<T> variables, Set<BDD<T>> considered) {
+		if (bdd.isOne() || bdd.isZero()) {
+			return;
+		} else if (considered.contains(bdd)) {
 			return;
 		}
 		BDD<T> high = bdd.high();
-		collectVariables(high, variables);
+		collectVariables(high, variables, considered);
 		high.free();
+
 		BDD<T> low = bdd.low();
-		collectVariables(low, variables);
+		collectVariables(low, variables, considered);
 		low.free();
+
 		variables.add(bdd.var());
+		considered.add(bdd);
+
+		// TODO Take care of the BDDs in considered (free)
 	}
 
 	/**

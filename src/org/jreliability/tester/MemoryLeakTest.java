@@ -8,13 +8,13 @@ import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.TermToReliabilityFunctionBDD;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**
  * The {@code MemoryLeakTest}.

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.javabdd;
+package org.jreliability.bdd.javabdd;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -272,8 +272,11 @@ public class JBDD<T> implements BDD<T> {
 	 * @see org.jreliability.bdd.BDD#replace(java.lang.Object, java.lang.Object)
 	 */
 	public BDD<T> replace(T variable1, T variable2) {
-		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider.get(variable1)).bdd.var(),
-				((JBDD<T>) provider.get(variable2)).bdd.var());
+		JBDD<T> tmp1 = (JBDD<T>) provider.get(variable1);
+		JBDD<T> tmp2 = (JBDD<T>) provider.get(variable2);
+		BDDPairing pair = provider.getFactory().makePair(tmp1.bdd.var(), tmp2.bdd.var());
+		tmp1.free();
+		tmp2.free();
 		return new JBDD<T>(provider, bdd.replace(pair));
 	}
 
@@ -284,8 +287,11 @@ public class JBDD<T> implements BDD<T> {
 	 *      java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
-		BDDPairing pair = provider.getFactory().makePair(((JBDD<T>) provider.get(variable1)).bdd.var(),
-				((JBDD<T>) provider.get(variable2)).bdd.var());
+		JBDD<T> tmp1 = (JBDD<T>) provider.get(variable1);
+		JBDD<T> tmp2 = (JBDD<T>) provider.get(variable2);
+		BDDPairing pair = provider.getFactory().makePair(tmp1.bdd.var(), tmp2.bdd.var());
+		tmp1.free();
+		tmp2.free();
 		bdd.replaceWith(pair);
 	}
 

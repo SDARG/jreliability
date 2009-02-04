@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.javabdd;
+package org.jreliability.bdd.javabdd;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
-import org.jreliability.javabdd.JBDDProviderFactory.Type;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 
 import net.sf.javabdd.BDDException;
 import net.sf.javabdd.BDDFactory;
@@ -67,12 +67,6 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 */
 	protected int vars;
 
-	/**
-	 * 
-	 * 
-	 * @param vars
-	 *            the number of variables
-	 */
 	/**
 	 * Constructs a {@code JDDProvider} with the {@code Type} of real {@code
 	 * BDDs} and a given number of variables.

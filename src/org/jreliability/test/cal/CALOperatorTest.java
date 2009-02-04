@@ -14,8 +14,8 @@
  */
 package org.jreliability.test.cal;
 
-import org.jreliability.javabdd.JBDDProviderFactory;
-import org.jreliability.javabdd.JBDDProviderFactory.Type;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.test.AbstractBDDOperatorTest;
 
 /**

@@ -17,7 +17,7 @@ package org.jreliability.tester;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.javabdd.JBDDProviderFactory;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 
 /**
  * The {@code TestExample} is a play example. It describes a water heating

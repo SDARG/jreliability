@@ -21,10 +21,10 @@ import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.TermToReliabilityFunctionBDD;
 import org.jreliability.bdd.BDDs;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
-import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**
  * The {@code ConstraintTester} can be used to test the {@code

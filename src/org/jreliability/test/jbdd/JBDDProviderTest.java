@@ -14,9 +14,9 @@
  */
 package org.jreliability.test.jbdd;
 
-import org.jreliability.javabdd.JBDD;
-import org.jreliability.javabdd.JBDDProviderFactory;
-import org.jreliability.javabdd.JBDDProviderFactory.Type;
+import org.jreliability.bdd.javabdd.JBDD;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.test.AbstractBDDProviderTest;
 
 /**
