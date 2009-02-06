@@ -187,10 +187,6 @@ public abstract class BDDs {
 	public static <T> String toDot(BDD<T> bdd) {
 		StringBuffer dot = new StringBuffer();
 		Set<T> elements = getVariables(bdd);
-		for (T t : elements) {
-			System.out.print(" " + t);
-		}
-		System.out.println("");
 		Map<BDD<T>, String> variables = new HashMap<BDD<T>, String>();
 		Map<T, Integer> counters = new HashMap<T, Integer>();
 		Map<T, String> markers = new HashMap<T, String>();

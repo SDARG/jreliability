@@ -38,7 +38,6 @@ import org.jreliability.function.ReliabilityFunction;
  * @param <T>
  *            the elements of the bdd
  */
-@Deprecated
 public class FailureSimulativeEvaluator<T> implements Evaluator {
 
 	/**
@@ -91,7 +90,7 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 				break;
 			}
 			diff = Math.abs((timeSum / i) - ((timeSum - value) / (i - 1)));
-			System.out.println(diff);
+			// System.out.println(diff);
 		} while (diff > epsilon);
 
 		double meanTime = (timeSum / i);
@@ -139,11 +138,10 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 */
 	protected double simulateTimeToFailure(BDDReliabilityFunction<T> reliabilityFunction) {
 		double time = 0;
-		BDD<T> bdd = null; // TODO reliabilityFunction.getBdd();
+		BDD<T> bdd = reliabilityFunction.getBdd();
 		BDDProvider<T> provider = bdd.getProvider();
 		BDD<T> myBDD = bdd.copy();
 		Set<Failure<T>> failures = getFailures(reliabilityFunction);
-
 		for (Failure<T> failure : failures) {
 			BDD<T> objectVariable = provider.get(failure.getObject());
 			myBDD.restrictWith(objectVariable.not());
@@ -165,10 +163,8 @@ public class FailureSimulativeEvaluator<T> implements Evaluator {
 	 * @return a set of failures for given elements T in the reliabilityFunction
 	 */
 	protected Set<Failure<T>> getFailures(BDDReliabilityFunction<T> reliabilityFunction) {
-		BDD<T> bdd = null; // TODO reliabilityFunction.getBdd();
-		Transformer<T, ReliabilityFunction> transformer = null; // TODO
-																// reliabilityFunction
-		// .getTransformer();
+		BDD<T> bdd = reliabilityFunction.getBdd();
+		Transformer<T, ReliabilityFunction> transformer = reliabilityFunction.getTransformer();
 		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {
