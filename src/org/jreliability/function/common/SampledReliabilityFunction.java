@@ -14,72 +14,107 @@
  */
 package org.jreliability.function.common;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code SampledReliabilityFunction}
+ * The {@code SampledReliabilityFunction} approximates a {@code
+ * ReliabilityFunction} from a set of sortedSamples.
  * 
- * @author glass
+ * @author glass, lukasiewycz
  * 
  */
 public class SampledReliabilityFunction implements ReliabilityFunction {
 
-	protected boolean initialized = false;
-	protected Map<Double, Double> xToY = new HashMap<Double, Double>();
-	protected SortedSet<Double> samples = new TreeSet<Double>();
+	/**
+	 * Sorted list of all samples.
+	 */
+	protected List<Double> sortedSamples = new ArrayList<Double>();
+	
+	/**
+	 * Array from the x values (as positions) to the y values.
+	 */
+	protected final double[] yarray;
+	
+	/**
+	 * The x-stepsize.
+	 */
+	protected final double step;
 
-	public SampledReliabilityFunction(List<Double> samples) {
-		this.samples.addAll(samples);
-		double sum = 0;
-		for(double sample : samples) {
-			sum += sample;
+	/**
+	 * Constructs a {@code SampledReliabilityFunction}.
+	 * 
+	 * @param samples
+	 *            the collection of samples
+	 */
+	public SampledReliabilityFunction(Collection<Double> samples) {
+
+		this.sortedSamples.addAll(samples);
+		Collections.sort(sortedSamples);
+
+		int n = sortedSamples.size();
+
+		int size = (int) Math.sqrt(n);// Math.pow(n, 1.0 / Math.sqrt(3));
+
+		yarray = new double[size + 2];
+
+		double maxValue = sortedSamples.get(n - 1);
+
+		step = maxValue / size;
+
+		int k = 0;
+
+		for (int i = 0; i < size + 1; i++) {
+			double x = step * (i);
+			while (k < n && sortedSamples.get(k) <= x) {
+				k++;
+			}
+			double y = ((double) (n - k)) / n;
+			yarray[i] = y;
 		}
-		System.out.println((sum) / samples.size());
-		initialize();
 	}
 
+	/**
+	 * Returns all samples in an ordered {@code List}.
+	 * 
+	 * @return all samples
+	 */
+	public List<Double> getSamples() {
+		return sortedSamples;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.function.Function#getY(double)
+	 */
 	public double getY(double x) {
-		SortedSet<Double> headSet = samples.headSet(x);
-		SortedSet<Double> tailSet = samples.tailSet(x);
-		if (headSet.isEmpty()) {
-			return 1.0;
-		}
-		double headX = headSet.last();
-		double headY = xToY.get(headX);
-		if (!tailSet.isEmpty()) {
-			double tailX = tailSet.first();
-			double tailY = xToY.get(tailX);
-			
-			double base = tailY;
+		double pos = x / (double) step;
 
-			headY = headY - base;
+		int posa = (int) Math.floor(pos);
+		int posb = (int) Math.ceil(pos);
 
-			double y = (headY * (tailX - x)) / (tailX - headX);
-			y += base;
-			return y;
+		final double y;
+
+		if (posb > yarray.length - 1) {
+			y = 0.0;
 		} else {
-			return 0.0;
+			double xa = step * posa;
+			double xb = step * posb;
+			double ya = yarray[posa];
+			double yb = yarray[posb];
+
+			double xoff = x - xa;
+
+			double yoff = xa == xb ? 0 : ((ya - yb) / (xb - xa)) * xoff;
+
+			y = ya - yoff;
 		}
+		return y;
+
 	}
-
-	protected void initialize() {
-		samples.add(0.0);
-		samples.add(samples.last() * 8);
-
-		double size = samples.size();
-
-		double i = 0;
-		for (double x : samples) {
-			double y = 1 - (i / (size - 1.0));
-			xToY.put(x, y);
-			i++;
-		}
-	}
-
 }
