@@ -12,9 +12,6 @@ import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
-import org.jreliability.common.Transformer;
-import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.ExponentialReliabilityFunction;
 
 /**
  * The {@code MemoryLeakTest}.
@@ -32,11 +29,6 @@ public class MemoryLeakTest {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<Integer> bddProvider = bddProviderFactory.getProvider();
 		TermToReliabilityFunctionBDD<Integer> transformer = new TermToReliabilityFunctionBDD<Integer>(bddProvider);
-		Transformer<Integer, ReliabilityFunction> functionTransformer = new Transformer<Integer, ReliabilityFunction>() {
-			public ReliabilityFunction transform(Integer a) {
-				return new ExponentialReliabilityFunction(0.0001);
-			}
-		};
 
 		Random r = new Random(0);
 

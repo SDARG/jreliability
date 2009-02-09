@@ -17,8 +17,11 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.BDDReliabilityFunction;
+import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.BDDProviderFactory;
+import org.jreliability.bdd.TermToReliabilityFunctionBDD;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.booleanfunction.Term;
 import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
@@ -46,14 +49,16 @@ public class ReliabilityTester {
 	 */
 	public static void main(String[] args) {
 		TestExample example = new TestExample();
-		BDD<String> bdd = example.get();
+		Term bdd = example.get();
 
 		Transformer<String, ReliabilityFunction> exponentialTransformer = new TestExponentialTransformer();
 		Transformer<String, ReliabilityFunction> weibullTransformer = new TestWeibullTransformer();
 
-		BDDReliabilityFunction<String> exponentialDistribution = new BDDReliabilityFunction<String>(bdd,
-				exponentialTransformer);
-		BDDReliabilityFunction<String> weibullDistribution = new BDDReliabilityFunction<String>(bdd, weibullTransformer);
+		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
+		TermToReliabilityFunctionBDD<String> transformer = new TermToReliabilityFunctionBDD<String>(bddProvider);
+		ReliabilityFunction exponentialDistribution = transformer.convert(bdd, exponentialTransformer);
+		ReliabilityFunction weibullDistribution = transformer.convert(bdd, weibullTransformer);
 
 		Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
 		reliabilityFunction.put("Exponential", exponentialDistribution);

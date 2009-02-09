@@ -76,15 +76,14 @@ public abstract class ReliabilityViewer extends JFrame {
 	 * @param reliabilityFunctions
 	 *            the reliabilityFunctions
 	 */
-	public static void view(String title,
-			Map<String, ReliabilityFunction> reliabilityFunctions) {
+	public static void view(String title, Map<String, ReliabilityFunction> reliabilityFunctions) {
 		view(title, reliabilityFunctions, false);
 	}
 
 	/**
-	 * Constructs and views {@code JFrame} with a given title, a list of {@code
-	 * ReliabilityFunctions}, and a boolean variable that enable to show the
-	 * {@code SampleHistogramPanel}.
+	 * Constructs and views a {@code JFrame} with a given title, a list of
+	 * {@code ReliabilityFunctions}, and a boolean variable that enable to show
+	 * the {@code SampleHistogramPanel}.
 	 * 
 	 * @param title
 	 *            the title
@@ -93,9 +92,7 @@ public abstract class ReliabilityViewer extends JFrame {
 	 * @param showSampleHistograms
 	 *            enables to show the sample histogram panel
 	 */
-	public static void view(String title,
-			Map<String, ReliabilityFunction> reliabilityFunctions,
-			boolean showSampleHistograms) {
+	public static void view(String title, Map<String, ReliabilityFunction> reliabilityFunctions, boolean showSampleHistograms) {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -109,10 +106,8 @@ public abstract class ReliabilityViewer extends JFrame {
 		aspects.add(new DistributionAspect());
 		aspects.add(new DensityAspect());
 		aspects.add(new FailureRateAspect());
-		ReliabilityFunctionPlotPanel reliabilityFunctionPlotPanel = new ReliabilityFunctionPlotPanel(
-				aspects);
-		JPanel plotPanel = reliabilityFunctionPlotPanel
-				.get(reliabilityFunctions);
+		ReliabilityFunctionPlotPanel reliabilityFunctionPlotPanel = new ReliabilityFunctionPlotPanel(aspects);
+		JPanel plotPanel = reliabilityFunctionPlotPanel.get(reliabilityFunctions);
 
 		JPanel measuresPanel = new MeasuresPanel(reliabilityFunctions);
 
@@ -121,8 +116,7 @@ public abstract class ReliabilityViewer extends JFrame {
 		if (showSampleHistograms) {
 			List<Sampler> samplers = new ArrayList<Sampler>();
 			samplers.add(new TTFFrequencyDistributionSampler());
-			SamplerHistogramPanel samplerHistogramPanel = new SamplerHistogramPanel(
-					samplers);
+			SamplerHistogramPanel samplerHistogramPanel = new SamplerHistogramPanel(samplers);
 			samplerPanel = samplerHistogramPanel.get(reliabilityFunctions);
 		}
 		JFrame frame = new JFrame();
@@ -188,6 +182,56 @@ public abstract class ReliabilityViewer extends JFrame {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * Returns the GUI as a {@code JPanel} with a given title and a map of
+	 * {@code ReliabilityFunctions}.
+	 * 
+	 * @param title
+	 *            the title of the panel
+	 * @param reliabilityFunctions
+	 *            the reliability functions to visualize
+	 * @return the GUI as a JPanel
+	 */
+	public static JPanel getPanel(String title, Map<String, ReliabilityFunction> reliabilityFunctions) {
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// Setup the aspects for the plot panel
+		List<Aspect> aspects = new ArrayList<Aspect>();
+		aspects.add(new ReliabilityFunctionAspect());
+		aspects.add(new DistributionAspect());
+		aspects.add(new DensityAspect());
+		aspects.add(new FailureRateAspect());
+		ReliabilityFunctionPlotPanel reliabilityFunctionPlotPanel = new ReliabilityFunctionPlotPanel(aspects);
+		JPanel plotPanel = reliabilityFunctionPlotPanel.get(reliabilityFunctions);
+
+		JPanel measuresPanel = new MeasuresPanel(reliabilityFunctions);
+
+		JPanel viewPanel = new JPanel();
+
+		viewPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.ipady = 10;
+		c.ipadx = 10;
+		c.fill = GridBagConstraints.BOTH;
+
+		c.gridx = 0;
+		c.gridy = 5;
+		c.weighty = 0.5;
+		viewPanel.add(measuresPanel, c);
+		c.gridx = 1;
+		c.gridy = 5;
+		c.weightx = 1.0;
+		c.weighty = 0.5;
+		viewPanel.add(plotPanel, c);
+
+		return viewPanel;
 	}
 
 }

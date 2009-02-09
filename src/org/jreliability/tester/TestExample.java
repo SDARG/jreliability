@@ -14,10 +14,10 @@
  */
 package org.jreliability.tester;
 
-import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.BDDProvider;
-import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.common.ANDTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.ORTerm;
 
 /**
  * The {@code TestExample} is a play example. It describes a water heating
@@ -51,37 +51,24 @@ public class TestExample {
 	}
 
 	/**
-	 * Returns a {@code BDD} representation of the system structure.
+	 * Returns the {@code Term} representation of the {@code TestExample}.
 	 * 
-	 * @return a bdd representing the system structure
+	 * @return the term representation of the test example
 	 */
-	public BDD<String> get() {
-		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
+	public Term get() {
+		LiteralTerm<String> heaterLiteral = new LiteralTerm<String>(true, heater);
+		LiteralTerm<String> pump1Literal = new LiteralTerm<String>(true, pump1);
+		LiteralTerm<String> pump2Literal = new LiteralTerm<String>(true, pump2);
 
-		BDD<String> heaterBDD = bddProvider.get(heater);
-		BDD<String> pump1BDD = bddProvider.get(pump1);
-		BDD<String> pump2BDD = bddProvider.get(pump2);
+		ORTerm orTerm = new ORTerm();
+		orTerm.add(pump1Literal);
+		orTerm.add(pump2Literal);
 
-		BDD<String> pumpSystem = bddProvider.zero();
-		pumpSystem.orWith(pump1BDD);
-		pumpSystem.orWith(pump2BDD);
+		ANDTerm andTerm = new ANDTerm();
+		andTerm.add(orTerm);
+		andTerm.add(heaterLiteral);
 
-		BDD<String> system = bddProvider.one();
-		system.andWith(heaterBDD);
-		system.andWith(pumpSystem);
-
-		/*
-		 * This little change can be used to show the BDDs.toDot() method.
-		 * 
-		 * BDD<String> a = heaterBDD.and(pump1BDD); BDD<String> aNot =
-		 * heaterBDD.not().and(pump2BDD);
-		 * 
-		 * BDD<String> system = a.or(aNot);
-		 */
-
-		return system;
-
+		return andTerm;
 	}
 
 }
