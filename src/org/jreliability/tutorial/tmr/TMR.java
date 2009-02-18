@@ -1,19 +1,20 @@
 package org.jreliability.tutorial.tmr;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.BDDs;
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.bdd.BDDTTRF;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.common.LinearTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.function.common.SimpleFunctionTransformer;
-import org.jreliability.javabdd.JBDDProviderFactory;
 
 /**
  * The {@code TMR} models a {@code 2-out-of-3} majority voter commonly known as
@@ -46,7 +47,7 @@ public class TMR {
 	/**
 	 * The used {@code FunctionTransformer}.
 	 */
-	protected FunctionTransformer<String> transformer;
+	protected Transformer<String, ReliabilityFunction> transformer;
 
 	/**
 	 * Constructs a {@code TMR}.
@@ -58,7 +59,7 @@ public class TMR {
 	}
 
 	/**
-	 * Initializes the {@code FunctionTransformer} of the TMR.
+	 * Initializes the {@code Transformer} of the TMR.
 	 */
 	private void initialize() {
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
@@ -66,50 +67,46 @@ public class TMR {
 		reliabilityFunctions.put(component1, function);
 		reliabilityFunctions.put(component2, function);
 		reliabilityFunctions.put(component3, function);
-		transformer = new SimpleFunctionTransformer<String>(
-				reliabilityFunctions);
+		transformer = new SimpleFunctionTransformer<String>(reliabilityFunctions);
 	}
 
 	/**
-	 * Returns a model of the {@code TMR} as a {@code BDD}.
+	 * Returns a model of the {@code TMR} as a {@code Term}.
 	 * 
-	 * @return the bdd representation of the TMR
+	 * @return the term representation of the TMR
 	 */
-	public BDD<String> get() {
+	public Term getTerm() {
 
+		LinearTerm term = new LinearTerm(Comparator.GREATEREQUAL, 2);
+
+		term.add(1, new LiteralTerm<String>(component1));
+		term.add(1, new LiteralTerm<String>(component2));
+		term.add(1, new LiteralTerm<String>(component3));
+
+		return term;
+	}
+
+	/**
+	 * Returns {@code ReliabilityFunction} describing the {@code TMR} using the
+	 * {@code BDDTTRF}.
+	 * 
+	 * @return the reliabilityFunction of the TMR
+	 */
+	public ReliabilityFunction get() {
+		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-
-		BDD<String> component1BDD = bddProvider.get(component1);
-		BDD<String> component2BDD = bddProvider.get(component2);
-		BDD<String> component3BDD = bddProvider.get(component3);
-
-		// To use the inbuilt constraint functionality, setup the left-hand-side
-		// first
-
-		List<Integer> coefficients = new ArrayList<Integer>();
-		List<BDD<String>> variables = new ArrayList<BDD<String>>();
-
-		coefficients.add(1);
-		variables.add(component1BDD);
-
-		coefficients.add(1);
-		variables.add(component2BDD);
-
-		coefficients.add(1);
-		variables.add(component3BDD);
-
-		BDD<String> tmr = BDDs.getBDD(coefficients, variables, ">=", 2);
-
-		return tmr;
+		BDDTTRF<String> bddTTRF = new BDDTTRF<String>(bddProvider);
+		return bddTTRF.convert(term, transformer);
 	}
 
 	/**
-	 * Returns the {@code FunctionTransformer}.
+	 * Returns a {@code Transformer} for each element of the system to its
+	 * {@code ReliabilityFunction}.
 	 * 
 	 * @return the transformer
 	 */
-	public FunctionTransformer<String> getTransformer() {
+	public Transformer<String, ReliabilityFunction> getTransformer() {
 		return transformer;
 	}
 

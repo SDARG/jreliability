@@ -3,7 +3,7 @@ package org.jreliability.tutorial.boiler;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.function.FunctionTransformer;
+import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.WeibullReliabilityFunction;
 
@@ -16,7 +16,7 @@ import org.jreliability.function.common.WeibullReliabilityFunction;
  * @author glass
  * 
  */
-public class BoilerTransformer implements FunctionTransformer<BoilerComponent> {
+public class BoilerTransformer implements Transformer<BoilerComponent, ReliabilityFunction> {
 
 	/**
 	 * The used {@code ReliabilityFunction} for each component of the {@code
@@ -43,8 +43,7 @@ public class BoilerTransformer implements FunctionTransformer<BoilerComponent> {
 	 */
 	private void initialize(Boiler boiler) {
 		for (BoilerComponent component : boiler.getComponents()) {
-			ReliabilityFunction reliabilityFunction = new WeibullReliabilityFunction(
-					0.5, 2);
+			ReliabilityFunction reliabilityFunction = new WeibullReliabilityFunction(0.5, 2);
 			reliabilityFunctions.put(component, reliabilityFunction);
 		}
 
@@ -57,8 +56,7 @@ public class BoilerTransformer implements FunctionTransformer<BoilerComponent> {
 	 */
 	@Override
 	public ReliabilityFunction transform(BoilerComponent element) {
-		ReliabilityFunction reliabilityFunction = reliabilityFunctions
-				.get(element);
+		ReliabilityFunction reliabilityFunction = reliabilityFunctions.get(element);
 		return reliabilityFunction;
 	}
 

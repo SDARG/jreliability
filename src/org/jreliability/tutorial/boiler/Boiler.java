@@ -3,10 +3,15 @@ package org.jreliability.tutorial.boiler;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.javabdd.JBDDProviderFactory;
+import org.jreliability.bdd.BDDTTRF;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.common.ANDTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code Boiler} models a boiler that is responsible for keeping the water
@@ -88,42 +93,58 @@ public class Boiler {
 	}
 
 	/**
-	 * Returns a model of the {@code Boiler} as a {@code BDD}.
+	 * Returns a model of the {@code Boiler} as a {@code Term}.
 	 * 
-	 * @return the bdd representation of the boiler
+	 * @return the term representation of the boiler
 	 */
-	public BDD<BoilerComponent> get() {
+	public Term getTerm() {
+		LiteralTerm<BoilerComponent> sensor1Literal = new LiteralTerm<BoilerComponent>(sensor1);
+		LiteralTerm<BoilerComponent> sensor2Literal = new LiteralTerm<BoilerComponent>(sensor2);
+		LiteralTerm<BoilerComponent> controllerLiteral = new LiteralTerm<BoilerComponent>(controller);
+		LiteralTerm<BoilerComponent> heaterLiteral = new LiteralTerm<BoilerComponent>(heater);
+		LiteralTerm<BoilerComponent> pump1Literal = new LiteralTerm<BoilerComponent>(pump1);
+		LiteralTerm<BoilerComponent> pump2Literal = new LiteralTerm<BoilerComponent>(pump2);
+
+		ANDTerm sensorSubSystem = new ANDTerm();
+		sensorSubSystem.add(sensor1Literal);
+		sensorSubSystem.add(sensor2Literal);
+
+		ANDTerm sensorControlSubSystem = new ANDTerm();
+		sensorControlSubSystem.add(sensorSubSystem);
+		sensorControlSubSystem.add(controllerLiteral);
+
+		ANDTerm heatingSubSystem = new ANDTerm();
+		heatingSubSystem.add(heaterLiteral);
+		heatingSubSystem.add(controllerLiteral);
+
+		ORTerm pumpSubSystem = new ORTerm();
+		pumpSubSystem.add(pump1Literal);
+		pumpSubSystem.add(pump2Literal);
+
+		ANDTerm pumpControlSubSystem = new ANDTerm();
+		pumpControlSubSystem.add(pumpSubSystem);
+		pumpControlSubSystem.add(controllerLiteral);
+
+		ANDTerm system = new ANDTerm();
+		system.add(sensorControlSubSystem);
+		system.add(heatingSubSystem);
+		system.add(pumpControlSubSystem);
+
+		return system;
+	}
+
+	/**
+	 * Returns the {@code ReliabilityFunction} that represents the
+	 * {@code Boiler}.
+	 * 
+	 * @return the reliability function of the boiler
+	 */
+	public ReliabilityFunction get() {
+		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory
-				.getProvider();
-
-		BDD<BoilerComponent> sensor1BDD = bddProvider.get(sensor1);
-		BDD<BoilerComponent> sensor2BDD = bddProvider.get(sensor2);
-		BDD<BoilerComponent> controllerBDD = bddProvider.get(controller);
-		BDD<BoilerComponent> heaterBDD = bddProvider.get(heater);
-		BDD<BoilerComponent> pump1BDD = bddProvider.get(pump1);
-		BDD<BoilerComponent> pump2BDD = bddProvider.get(pump2);
-
-		BDD<BoilerComponent> sensorSubSystem = sensor1BDD.and(sensor2BDD);
-		BDD<BoilerComponent> senControlSubSystem = sensorSubSystem
-				.and(controllerBDD);
-
-		BDD<BoilerComponent> heatingSubSystem = heaterBDD.and(controllerBDD);
-
-		BDD<BoilerComponent> pumpSubSystem = pump1BDD.or(pump2BDD);
-		BDD<BoilerComponent> pumpControlSubSystem = pumpSubSystem
-				.and(controllerBDD);
-
-		BDD<BoilerComponent> boilerBDD = senControlSubSystem
-				.and(heatingSubSystem);
-		// Important: With-operators consume (destroy!) the BDD that is the
-		// argument i.e. the pumpControlSubSystem is destroyed after this
-		// operation, while
-		// BDD<BoilerComponent> boilerBDD = boilerBDD.and(pumpControlSubSystem);
-		// would not destroy anything
-		boilerBDD.andWith(pumpControlSubSystem);
-
-		return boilerBDD;
+		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<BoilerComponent> bddTTRF = new BDDTTRF<BoilerComponent>(bddProvider);
+		return bddTTRF.convert(term, transformer);
 	}
 
 	/**

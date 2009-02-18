@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.BDDProviderFactory;
+import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.BDDs;
-import org.jreliability.evaluator.MomentEvaluator;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory;
+import org.jreliability.booleanfunction.Term;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.BDDReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
@@ -27,32 +30,25 @@ public class BoilerTester {
 	public static void main(String[] args) {
 
 		Boiler boiler = new Boiler();
-		BDD<BoilerComponent> boilerBDD = boiler.get();
-
-		// Visualizing the BDD
-		String dot = BDDs.toDot(boilerBDD);
+		Term term = boiler.getTerm();
+		System.out.println("The Term:");
+		System.out.println(term);
+		System.out.println("The BDD:");
+		// For this example, a BDD is generated first to visualize the BDD of
+		// the Boiler
+		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
+		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<BoilerComponent> bddTTRF = new BDDTTRF<BoilerComponent>(bddProvider);
+		BDD<BoilerComponent> bdd = bddTTRF.convertToBDD(term);
+		String dot = BDDs.toDot(bdd);
 		System.out.println(dot);
-		System.out.println("***");
-
-		BoilerTransformer transformer = boiler.getTransformer();
-
-		BDDReliabilityFunction<BoilerComponent> reliabilityFunction = new BDDReliabilityFunction<BoilerComponent>(
-				boilerBDD, transformer);
-
-		// Using Evaluators
-		// Calculate Mean-Time-To-Failure (the first moment of the density
-		// function)
-		MomentEvaluator moment = new MomentEvaluator(1);
-		Double mttf = moment.evaluate(reliabilityFunction);
-		System.out.println("Mean-Time-To-Failure: " + mttf);
-		System.out.println("***");
+		ReliabilityFunction reliabilityFunctionBoiler = boiler.get();
 
 		// Using the GUI
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
-		reliabilityFunctions.put("Boiler", reliabilityFunction);
+		reliabilityFunctions.put("Boiler", reliabilityFunctionBoiler);
 
-		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial",
-				reliabilityFunctions, true);
+		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial", reliabilityFunctions);
 
 	}
 
