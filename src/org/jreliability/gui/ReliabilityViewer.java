@@ -123,7 +123,7 @@ public abstract class ReliabilityViewer extends JFrame {
 		c.weighty = 0.0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_END;
-		content.add(new JLabel(" \u00A9 JReliability.org 2008"), c);
+		content.add(new JLabel(" \u00A9 JReliability.org 2008 - 2009"), c);
 
 		frame.pack();
 		frame.setVisible(true);
