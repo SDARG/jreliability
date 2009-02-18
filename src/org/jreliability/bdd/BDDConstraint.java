@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * The {@code Constraint} is used to model {@code greater-equal} constraints
+ * The {@code BDDConstraint} is used to model {@code greater-equal} constraints
  * with a left-hand-side ({@code lhs}) consisting of {@code Literals} and the
  * right-hand-side ({@code rhs}) being an {@code Integer}.
  * 
@@ -29,7 +29,7 @@ import java.util.Set;
  * @param <T>
  *            the type of variables
  */
-class Constraint<T> {
+class BDDConstraint<T> {
 
 	/**
 	 * The right-hand-side of the constraint.
@@ -46,7 +46,7 @@ class Constraint<T> {
 	protected Set<BDD<T>> variables = new HashSet<BDD<T>>();
 
 	/**
-	 * Constructs a {@code Constraint} with a given right-hand-side {@code rhs}
+	 * Constructs a {@code BDDConstraint} with a given right-hand-side {@code rhs}
 	 * and left-hand-side {@code lhs}.
 	 * 
 	 * @param rhs
@@ -54,13 +54,13 @@ class Constraint<T> {
 	 * @param lhs
 	 *            the left-hand-side as a {@code List} of {@code Literals}.
 	 */
-	public Constraint(int rhs, List<Literal<T>> lhs) {
+	public BDDConstraint(int rhs, List<Literal<T>> lhs) {
 		this.rhs = rhs;
 		initialize(lhs);
 	}
 
 	/**
-	 * Initializes the {@code Constraint} with the normalizing operations
+	 * Initializes the {@code BDDConstraint} with the normalizing operations
 	 * proposed by {@code Een & Soerrensson 2006}.
 	 * 
 	 * @param literals
@@ -96,7 +96,7 @@ class Constraint<T> {
 
 	/**
 	 * Checks the {@code Literal} if it includes a variable that is already
-	 * present in the {@code Constraint} and adds it correctly.
+	 * present in the {@code BDDConstraint} and adds it correctly.
 	 * 
 	 * @param literal
 	 */

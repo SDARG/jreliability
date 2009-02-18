@@ -35,8 +35,6 @@ import org.jreliability.gui.aspect.DensityAspect;
 import org.jreliability.gui.aspect.DistributionAspect;
 import org.jreliability.gui.aspect.FailureRateAspect;
 import org.jreliability.gui.aspect.ReliabilityFunctionAspect;
-import org.jreliability.gui.sampler.Sampler;
-import org.jreliability.gui.sampler.TTFFrequencyDistributionSampler;
 
 /**
  * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
@@ -77,22 +75,6 @@ public abstract class ReliabilityViewer extends JFrame {
 	 *            the reliabilityFunctions
 	 */
 	public static void view(String title, Map<String, ReliabilityFunction> reliabilityFunctions) {
-		view(title, reliabilityFunctions, false);
-	}
-
-	/**
-	 * Constructs and views a {@code JFrame} with a given title, a list of
-	 * {@code ReliabilityFunctions}, and a boolean variable that enable to show
-	 * the {@code SampleHistogramPanel}.
-	 * 
-	 * @param title
-	 *            the title
-	 * @param reliabilityFunctions
-	 *            the reliabilityFunctions
-	 * @param showSampleHistograms
-	 *            enables to show the sample histogram panel
-	 */
-	public static void view(String title, Map<String, ReliabilityFunction> reliabilityFunctions, boolean showSampleHistograms) {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -111,23 +93,11 @@ public abstract class ReliabilityViewer extends JFrame {
 
 		JPanel measuresPanel = new MeasuresPanel(reliabilityFunctions);
 
-		// Setup the samplers for the histogram panel?
-		JPanel samplerPanel = null;
-		if (showSampleHistograms) {
-			List<Sampler> samplers = new ArrayList<Sampler>();
-			samplers.add(new TTFFrequencyDistributionSampler());
-			SamplerHistogramPanel samplerHistogramPanel = new SamplerHistogramPanel(samplers);
-			samplerPanel = samplerHistogramPanel.get(reliabilityFunctions);
-		}
 		JFrame frame = new JFrame();
 
 		frame.setTitle(title);
 		frame.setIconImage(getImageIcon().getImage());
-		if (showSampleHistograms) {
-			frame.setPreferredSize(new Dimension(1000, 800));
-		} else {
-			frame.setPreferredSize(new Dimension(1000, 500));
-		}
+		frame.setPreferredSize(new Dimension(1000, 500));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container content = frame.getContentPane();
@@ -146,14 +116,7 @@ public abstract class ReliabilityViewer extends JFrame {
 		c.weightx = 1.0;
 		c.weighty = 0.5;
 		content.add(plotPanel, c);
-		if (showSampleHistograms) {
-			c.gridx = 0;
-			c.gridy = 10;
-			c.gridwidth = 2;
-			c.weightx = 0.5;
-			c.weighty = 1.0;
-			content.add(samplerPanel, c);
-		}
+
 		c.gridx = 0;
 		c.gridy = 20;
 		c.gridwidth = 2;

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.TermToReliabilityFunctionBDD;
+import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.BDDs;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
@@ -73,20 +73,8 @@ public class ConstraintTester {
 		term.add(e, 3);
 		term.add(f, 7);
 
-		TermToReliabilityFunctionBDD<String> transformer = new TermToReliabilityFunctionBDD<String>(bddProvider);
+		BDDTTRF<String> transformer = new BDDTTRF<String>(bddProvider);
 		BDD<String> bdd = transformer.convertToBDD(term);
-
-		// List<Integer> coeffs = Arrays.asList(new Integer[] { 1, 1, 2, 2, 3,
-		// 3,
-		// 3, 3, 7 });
-		// String[] variables = { "x", "y", "z", "a", "b", "c", "d", "e", "f" };
-		// List<BDD<String>> vars = new ArrayList<BDD<String>>();
-
-		// for (String v : variables) {
-		// vars.add(bddProvider.get(v));
-		// }
-
-		// BDD<String> bdd = BDDs.getBDD(coeffs, vars, "<=", 8);
 
 		System.out.println(BDDs.toDot(bdd));
 	}

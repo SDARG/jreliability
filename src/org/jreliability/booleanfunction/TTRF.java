@@ -18,15 +18,14 @@ import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code TermToReliabilityFunction} converts a {@code Term} to a
- * {@code ReliabilityFunction}.
+ * The {@code TTRF} converts a {@code Term} to a {@code ReliabilityFunction}.
  * 
  * @author glass
  * 
  * @param <T>
  *            the type of variable
  */
-public interface TermToReliabilityFunction<T> {
+public interface TTRF<T> {
 
 	/**
 	 * Converts a {@code Term} to a {@code ReliabilityFunction}.

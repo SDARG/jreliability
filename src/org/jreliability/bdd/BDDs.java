@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import org.jreliability.bdd.Constraint.Literal;
-import org.jreliability.bdd.Constraint.Pair;
+import org.jreliability.bdd.BDDConstraint.Literal;
+import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.common.Transformer;
 
@@ -123,7 +123,7 @@ public abstract class BDDs {
 				BDD<T> v = vars.get(i);
 				lits.add(new Literal<T>(c, v));
 			}
-			Constraint<T> constraint = new Constraint<T>(rhs, lits);
+			BDDConstraint<T> constraint = new BDDConstraint<T>(rhs, lits);
 			result = getConstraintBDD(constraint);
 			break;
 		case LESS:
@@ -152,7 +152,7 @@ public abstract class BDDs {
 	 *            the greater-equal constraint
 	 * @return the bdd representation of the given constraint
 	 */
-	protected static <T> BDD<T> getConstraintBDD(Constraint<T> constraint) {
+	protected static <T> BDD<T> getConstraintBDD(BDDConstraint<T> constraint) {
 		List<Literal<T>> literals = constraint.getLhs();
 
 		Collections.sort(literals, new Comparator<Literal<T>>() {
@@ -195,9 +195,6 @@ public abstract class BDDs {
 		}
 		dot.append("digraph bdd {" + newline);
 		collectDotMarkers(bdd, dot, markers);
-		for (T t : counters.keySet()) {
-			System.out.print(" " + t);
-		}
 		collectDotNodes(bdd, dot, variables, counters);
 		Set<BDD<T>> considered = new HashSet<BDD<T>>();
 		collectDotEdges(bdd, dot, variables, considered);

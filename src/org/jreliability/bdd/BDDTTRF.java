@@ -18,12 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.jreliability.booleanfunction.TTRF;
 import org.jreliability.booleanfunction.Term;
-import org.jreliability.booleanfunction.TermToReliabilityFunction;
 import org.jreliability.booleanfunction.Terms;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
-import org.jreliability.booleanfunction.common.FalseExistsTransformer;
 import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
@@ -33,16 +32,16 @@ import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code TermToReliabilityFunctionBDD} transforms a
- * {@code Boolean function} represented as a {@code Term} into a
- * {@code ReliabilityFunction} or, if needed, into a {@code BDD}.
+ * The {@code BDDTTRF} transforms a {@code Boolean function} represented as a
+ * {@code Term} into a {@code ReliabilityFunction} or, if needed, into a
+ * {@code BDD}.
  * 
  * @author glass
  * 
  * @param <T>
  *            the type of the variables
  */
-public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunction<T> {
+public class BDDTTRF<T> implements TTRF<T> {
 
 	/**
 	 * The {@code BDDProvider}.
@@ -50,29 +49,28 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	protected final BDDProvider<T> provider;
 
 	/**
-	 * Constructs a {@code TermToReliabilityFunctionBDD} with a given
-	 * {@code BDDProvider}.
+	 * Constructs a {@code BDDTTRF} with a given {@code BDDProvider}.
 	 * 
 	 * @param provider
 	 *            the bdd provider
 	 */
-	public TermToReliabilityFunctionBDD(BDDProvider<T> provider) {
+	public BDDTTRF(BDDProvider<T> provider) {
 		this.provider = provider;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TermToReliabilityFunction#convert(org.jreliability.booleanfunction.Term)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term)
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
-		return convert(term, functionTransformer, new FalseExistsTransformer<T>());
+		return convert(term, functionTransformer, null);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TermToReliabilityFunction#convert(org.jreliability.booleanfunction.Term,
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
 	 *      org.jreliability.booleanfunction.ExistsTransformer)
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
@@ -107,7 +105,7 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 * @return a bdd representing the given term
 	 */
 	public BDD<T> convertToBDD(Term term) {
-		return convertToBDD(term, new FalseExistsTransformer<T>());
+		return convertToBDD(term, null);
 	}
 
 	/**
@@ -122,12 +120,14 @@ public class TermToReliabilityFunctionBDD<T> implements TermToReliabilityFunctio
 	 */
 	public BDD<T> convertToBDD(Term term, Transformer<T, Boolean> existsTransformer) {
 		BDD<T> bdd = transform(term);
-		Set<T> variables = Terms.getVariables(term);
-		for (T t : variables) {
-			if (existsTransformer.transform(t)) {
-				BDD<T> tmp = bdd.exist(t);
-				bdd.free();
-				bdd = tmp;
+		if (!(existsTransformer == null)) {
+			Set<T> variables = Terms.getVariables(term);
+			for (T t : variables) {
+				if (existsTransformer.transform(t)) {
+					BDD<T> tmp = bdd.exist(t);
+					bdd.free();
+					bdd = tmp;
+				}
 			}
 		}
 		return bdd;

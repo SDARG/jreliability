@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.TermToReliabilityFunctionBDD;
+import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.common.Transformer;
@@ -56,7 +56,7 @@ public class ReliabilityTester {
 
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-		TermToReliabilityFunctionBDD<String> transformer = new TermToReliabilityFunctionBDD<String>(bddProvider);
+		BDDTTRF<String> transformer = new BDDTTRF<String>(bddProvider);
 		ReliabilityFunction exponentialDistribution = transformer.convert(bdd, exponentialTransformer);
 		ReliabilityFunction weibullDistribution = transformer.convert(bdd, weibullTransformer);
 
