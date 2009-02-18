@@ -28,6 +28,14 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 public class Terms {
 
 	/**
+	 * Constructs a {@code Terms}.
+	 * 
+	 */
+	public Terms() {
+		super();
+	}
+
+	/**
 	 * Returns the variables included in a {@code Term}.
 	 * 
 	 * @param <T>

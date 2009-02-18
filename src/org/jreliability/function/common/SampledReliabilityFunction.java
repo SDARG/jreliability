@@ -23,7 +23,7 @@ import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code SampledReliabilityFunction} approximates a {@code
- * ReliabilityFunction} from a set of sortedSamples.
+ * ReliabilityFunction} from a set of Samples.
  * 
  * @author glass, lukasiewycz
  * 

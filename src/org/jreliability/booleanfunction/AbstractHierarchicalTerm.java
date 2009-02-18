@@ -26,6 +26,14 @@ import java.util.List;
 public abstract class AbstractHierarchicalTerm extends AbstractTerm {
 
 	/**
+	 * Constructs an {@code AbstractHierarchicalTerm}.
+	 * 
+	 */
+	public AbstractHierarchicalTerm() {
+		super();
+	}
+
+	/**
 	 * The embedded {@code Terms}.
 	 */
 	protected List<Term> terms;

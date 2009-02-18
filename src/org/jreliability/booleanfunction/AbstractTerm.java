@@ -27,6 +27,14 @@ public abstract class AbstractTerm implements Term {
 	 */
 	protected boolean sign;
 
+	/**
+	 * Constructs an {@code AbstractTerm}.
+	 * 
+	 */
+	public AbstractTerm() {
+		super();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
