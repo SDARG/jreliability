@@ -14,6 +14,7 @@
  */
 package org.jreliability.booleanfunction.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jreliability.booleanfunction.AbstractHierarchicalTerm;
@@ -95,8 +96,37 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	protected int rhs;
 
 	/**
+	 * Constructs a {@code LinearTerm} with a given {@code Comparator}, and the
+	 * right-hand-side.
+	 * 
+	 * @param comparator
+	 *            the used comparator
+	 * @param rhs
+	 *            the right-hand-side
+	 */
+	public LinearTerm(Comparator comparator, int rhs) {
+		this(new ArrayList<Integer>(), new ArrayList<Term>(), comparator, rhs, true);
+	}
+
+	/**
+	 * Constructs a {@code LinearTerm} with a given {@code Comparator}, the
+	 * right-hand-side, and the sign.
+	 * 
+	 * @param comparator
+	 *            the used comparator
+	 * @param rhs
+	 *            the right-hand-side
+	 * @param sign
+	 *            the sign
+	 */
+	public LinearTerm(Comparator comparator, int rhs, boolean sign) {
+		this(new ArrayList<Integer>(), new ArrayList<Term>(), comparator, rhs, sign);
+	}
+
+	/**
 	 * Constructs a {@code LinearTerm} with a given list of coefficients, the
-	 * embedded {@code Terms}, the {@code Comparator}, and the right-hand-side.
+	 * embedded {@code Terms}, the {@code Comparator}, and the
+	 * right-hand-side.
 	 * 
 	 * @param coefficients
 	 *            the coefficients of the terms
@@ -107,15 +137,14 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	 * @param rhs
 	 *            the right-hand-side
 	 */
-	public LinearTerm(List<Integer> coefficients, List<Term> terms,
-			Comparator comparator, int rhs) {
+	public LinearTerm(List<Integer> coefficients, List<Term> terms, Comparator comparator, int rhs) {
 		this(coefficients, terms, comparator, rhs, true);
 	}
 
 	/**
 	 * Constructs a {@code LinearTerm} with a given list of coefficients, the
-	 * embedded {@code Terms}, the {@code Comparator}, the right-hand-side, and
-	 * the sign.
+	 * embedded {@code Terms}, the {@code Comparator}, the right-hand-side,
+	 * and the sign.
 	 * 
 	 * @param coefficients
 	 *            the coefficients of the terms
@@ -128,8 +157,7 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	 * @param sign
 	 *            the sign
 	 */
-	public LinearTerm(List<Integer> coefficients, List<Term> terms,
-			Comparator comparator, int rhs, boolean sign) {
+	public LinearTerm(List<Integer> coefficients, List<Term> terms, Comparator comparator, int rhs, boolean sign) {
 		this.coefficients = coefficients;
 		this.terms = terms;
 		this.comparator = comparator;
@@ -158,22 +186,21 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @seeorg.jreliability.booleanfunction.AbstractHierarchicalTerm#add(org.
-	 * jreliability.booleanfunction.Term)
+	 * @see org.jreliability.booleanfunction.AbstractHierarchicalTerm#add(org.jreliability.booleanfunction.Term)
 	 */
 	public void add(Term term) {
-		add(term, 1);
+		add(1, term);
 	}
 
 	/**
 	 * Adds a {@code Term} and its coefficient.
 	 * 
-	 * @param term
-	 *            the term
 	 * @param coefficient
 	 *            the coefficient
+	 * @param term
+	 *            the term
 	 */
-	public void add(Term term, int coefficient) {
+	public void add(int coefficient, Term term) {
 		terms.add(term);
 		coefficients.add(coefficient);
 	}

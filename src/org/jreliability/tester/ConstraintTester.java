@@ -63,15 +63,15 @@ public class ConstraintTester {
 		Term f = new LiteralTerm<String>("f");
 
 		LinearTerm term = new LinearTerm(new ArrayList<Integer>(), new ArrayList<Term>(), LinearTerm.Comparator.LESSEQUAL, 8);
-		term.add(x, 1);
-		term.add(y, 1);
-		term.add(z, 2);
-		term.add(a, 2);
-		term.add(b, 3);
-		term.add(c, 3);
-		term.add(d, 3);
-		term.add(e, 3);
-		term.add(f, 7);
+		term.add(1, x);
+		term.add(1, y);
+		term.add(2, z);
+		term.add(2, a);
+		term.add(3, b);
+		term.add(3, c);
+		term.add(3, d);
+		term.add(3, e);
+		term.add(7, f);
 
 		BDDTTRF<String> transformer = new BDDTTRF<String>(bddProvider);
 		BDD<String> bdd = transformer.convertToBDD(term);
