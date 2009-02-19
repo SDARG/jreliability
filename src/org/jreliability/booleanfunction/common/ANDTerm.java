@@ -77,16 +77,17 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		String s = "(";
-		if(!sign){
+		if (!sign) {
 			s += "~";
 		}
 		s += "AND";
-		for(Term term: terms){
-			s += " "+term;
+		for (Term term : terms) {
+			s += " " + term;
 		}
-		return s+")";
+		return s + ")";
 	}
 
 }

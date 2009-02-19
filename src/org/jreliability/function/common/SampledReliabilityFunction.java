@@ -34,12 +34,12 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 	 * Sorted list of all samples.
 	 */
 	protected List<Double> sortedSamples = new ArrayList<Double>();
-	
+
 	/**
 	 * Array from the x values (as positions) to the y values.
 	 */
 	protected final double[] yarray;
-	
+
 	/**
 	 * The x-stepsize.
 	 */
@@ -93,7 +93,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	public double getY(double x) {
-		double pos = x / (double) step;
+		double pos = x / step;
 
 		int posa = (int) Math.floor(pos);
 		int posb = (int) Math.ceil(pos);

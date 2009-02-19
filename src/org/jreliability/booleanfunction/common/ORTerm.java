@@ -76,15 +76,16 @@ public class ORTerm extends AbstractHierarchicalTerm {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		String s = "(";
-		if(!sign){
+		if (!sign) {
 			s += "~";
 		}
 		s += "OR";
-		for(Term term: terms){
-			s += " "+term;
+		for (Term term : terms) {
+			s += " " + term;
 		}
-		return s+")";
+		return s + ")";
 	}
 }

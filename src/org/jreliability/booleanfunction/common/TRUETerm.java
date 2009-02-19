@@ -46,6 +46,7 @@ public class TRUETerm implements Term {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		return "1";
 	}
