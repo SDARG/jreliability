@@ -16,6 +16,7 @@ package org.jreliability.gui;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -27,15 +28,12 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 
 import org.jreliability.evaluator.InverseEvaluator;
 import org.jreliability.evaluator.MomentEvaluator;
@@ -168,8 +166,7 @@ public class MeasuresPanel extends JPanel {
 		 * Initializes the panel.
 		 */
 		private void initialize() {
-			GroupLayout layout = new GroupLayout(this);
-			this.setLayout(layout);
+			this.setLayout(new GridLayout(0, 1, 10, 10));
 
 			DecimalFormatSymbols symbol = new DecimalFormatSymbols();
 
@@ -187,16 +184,9 @@ public class MeasuresPanel extends JPanel {
 					.getPreferredSize());
 			JPanel mtPanel = createMtPanel(expectedLabel.getPreferredSize());
 
-			layout.setAutoCreateGaps(true);
-			layout.setAutoCreateContainerGaps(true);
-			layout.setHorizontalGroup(layout.createSequentialGroup().addGroup(
-					layout.createParallelGroup().addComponent(propertiesPanel)
-							.addComponent(mttfPanel).addComponent(mtPanel)));
-			layout.setVerticalGroup(layout.createSequentialGroup()
-					.addComponent(propertiesPanel).addComponent(mttfPanel)
-					.addComponent(mtPanel));
-			layout.linkSize(SwingConstants.HORIZONTAL, propertiesPanel,
-					mttfPanel, mtPanel);
+			this.add(propertiesPanel);
+			this.add(mttfPanel);
+			this.add(mtPanel);
 
 			revalidate();
 			repaint();
@@ -319,35 +309,19 @@ public class MeasuresPanel extends JPanel {
 			subPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
 					.createTitledBorder(title), BorderFactory
 					.createEmptyBorder(5, 5, 5, 5)));
-			GroupLayout layout = new GroupLayout(subPanel);
-			subPanel.setLayout(layout);
 
-			ParallelGroup labels = layout
-					.createParallelGroup(GroupLayout.Alignment.LEADING);
-			for (int i = 0; i < components.length; i += 2) {
-				Font myFont = components[i].getFont();
-				components[i].setFont(myFont.deriveFont(Font.PLAIN));
-				labels.addComponent(components[i]);
+			subPanel.setLayout(new GridLayout(0, 2, 10, 10));
+
+			for (int i = 0; i < components.length; i++) {
+				if (i % 2 == 0) {
+					Font myFont = components[i].getFont();
+					components[i].setFont(myFont.deriveFont(Font.PLAIN));
+				} else {
+					Font myFont = components[i].getFont();
+					components[i].setFont(myFont.deriveFont(Font.BOLD));
+				}
+				subPanel.add(components[i]);
 			}
-			ParallelGroup values = layout
-					.createParallelGroup(GroupLayout.Alignment.LEADING);
-			for (int i = 1; i < components.length; i += 2) {
-
-				values.addComponent(components[i]);
-			}
-			layout.setHorizontalGroup(layout.createSequentialGroup().addGroup(
-					labels).addGroup(values));
-
-			SequentialGroup vgroup = layout.createSequentialGroup();
-			for (int i = 0; i < components.length; i += 2) {
-				vgroup.addGroup(layout.createParallelGroup(
-						GroupLayout.Alignment.BASELINE).addComponent(
-						components[i]).addComponent(components[i + 1]));
-			}
-			layout.setVerticalGroup(vgroup);
-
-			layout.setAutoCreateGaps(true);
-			layout.setAutoCreateContainerGaps(true);
 
 			if (subPanel.getPreferredSize().width > LARGEStWIDTH) {
 				LARGEStWIDTH = subPanel.getPreferredSize().width;
