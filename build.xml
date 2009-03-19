@@ -56,6 +56,7 @@
 			<fileset dir="${build.dir}/classes" />
 			<zipfileset src="${lib.dir}/${javabdd.jar}" excludes="META-INF/**" />
 			<zipfileset src="${lib.dir}/${plot.jar}" excludes="META-INF/**" />
+			<zipfileset src="${lib.dir}/${collections.jar}" excludes="META-INF/**" />
 			<manifest>
 				<attribute name="Main-Class" value="${main.class}" />
 			</manifest>

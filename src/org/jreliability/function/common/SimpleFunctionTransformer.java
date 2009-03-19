@@ -17,7 +17,7 @@ package org.jreliability.function.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.common.Transformer;
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**

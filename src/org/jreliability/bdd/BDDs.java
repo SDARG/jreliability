@@ -26,10 +26,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.booleanfunction.common.LinearTerm;
-import org.jreliability.common.Transformer;
 
 /**
  * The {@code BDDs} contains common reliabilityFunctions for/on {@code BDD}s.

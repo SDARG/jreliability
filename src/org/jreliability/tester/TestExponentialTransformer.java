@@ -17,7 +17,7 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.common.Transformer;
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 
@@ -51,18 +51,15 @@ public class TestExponentialTransformer implements Transformer<String, Reliabili
 	/**
 	 * The {@code ReliabilityFunction} of the heater.
 	 */
-	protected ReliabilityFunction heaterReliabilityFunction = new ExponentialReliabilityFunction(
-			0.5);
+	protected ReliabilityFunction heaterReliabilityFunction = new ExponentialReliabilityFunction(0.5);
 	/**
 	 * The {@code ReliabilityFunction} of the first pump.
 	 */
-	protected ReliabilityFunction pump1ReliabilityFunction = new ExponentialReliabilityFunction(
-			1);
+	protected ReliabilityFunction pump1ReliabilityFunction = new ExponentialReliabilityFunction(1);
 	/**
 	 * The {@code ReliabilityFunction} of the second pump.
 	 */
-	protected ReliabilityFunction pump2ReliabilityFunction = new ExponentialReliabilityFunction(
-			1);
+	protected ReliabilityFunction pump2ReliabilityFunction = new ExponentialReliabilityFunction(1);
 
 	/**
 	 * Constructs a {@code TestExponentialTransformer}.

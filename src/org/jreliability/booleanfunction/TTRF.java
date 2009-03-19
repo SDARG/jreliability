@@ -14,7 +14,8 @@
  */
 package org.jreliability.booleanfunction;
 
-import org.jreliability.common.Transformer;
+import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -46,11 +47,11 @@ public interface TTRF<T> {
 	 *            the term to transform
 	 * @param functionTransformer
 	 *            the used function functionTransformer
-	 * @param existsTransformer
-	 *            the exists-variable existsTransformer
+	 * @param existsPredicate
+	 *            the exists-variable existsPredicate
 	 * @return the reliabilityFunction deduced from the term
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Transformer<T, Boolean> existsTransformer);
+			Predicate<T> existsPredicate);
 
 }

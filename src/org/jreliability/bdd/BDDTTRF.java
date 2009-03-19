@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.TTRF;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.Terms;
@@ -28,7 +30,6 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
-import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -61,7 +62,8 @@ public class BDDTTRF<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
+	 *      org.apache.commons.collections15.Transformer)
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
 		return convert(term, functionTransformer, null);
@@ -71,11 +73,12 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
-	 *      org.jreliability.booleanfunction.ExistsTransformer)
+	 *      org.apache.commons.collections15.Transformer,
+	 *      org.apache.commons.collections15.Predicate)
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Transformer<T, Boolean> existsTransformer) {
-		BDD<T> bdd = convertToBDD(term, existsTransformer);
+			Predicate<T> existsPredicate) {
+		BDD<T> bdd = convertToBDD(term, existsPredicate);
 		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		bdd.free();
 		return function;
@@ -114,16 +117,16 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 * 
 	 * @param term
 	 *            the term
-	 * @param existsTransformer
-	 *            the exists functionTransformer
+	 * @param existsPredicate
+	 *            the exists predicate
 	 * @return a bdd representing the given term
 	 */
-	public BDD<T> convertToBDD(Term term, Transformer<T, Boolean> existsTransformer) {
+	public BDD<T> convertToBDD(Term term, Predicate<T> existsPredicate) {
 		BDD<T> bdd = transform(term);
-		if (!(existsTransformer == null)) {
+		if (!(existsPredicate == null)) {
 			Set<T> variables = Terms.getVariables(term);
 			for (T t : variables) {
-				if (existsTransformer.transform(t)) {
+				if (existsPredicate.evaluate(t)) {
 					BDD<T> tmp = bdd.exist(t);
 					bdd.free();
 					bdd = tmp;

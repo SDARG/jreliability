@@ -21,10 +21,11 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.TTRF;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.common.Failure;
-import org.jreliability.common.Transformer;
 import org.jreliability.function.InverseFunction;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.SampledReliabilityFunction;
@@ -84,8 +85,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
-	 *      org.jreliability.common.Transformer)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(Term, Transformer)
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
 		return convert(term, functionTransformer, null);
@@ -110,13 +110,12 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
-	 *      org.jreliability.common.Transformer,
-	 *      org.jreliability.common.Transformer)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(Term, Transformer,
+	 *      Transformer)
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Transformer<T, Boolean> existsTransformer) {
-		List<Double> samples = collectTimesToFailure(term, functionTransformer, existsTransformer);
+			Predicate<T> existsPredicate) {
+		List<Double> samples = collectTimesToFailure(term, functionTransformer, existsPredicate);
 		return new SampledReliabilityFunction(samples);
 	}
 
@@ -128,15 +127,15 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	 *            the term to convert
 	 * @param functionTransformer
 	 *            the element to reliability function transformer
-	 * @param existsTransformer
-	 *            the element to exists transformer
+	 * @param existsPredicate
+	 *            the element to exists predicate
 	 * @param j
 	 *            the number of samples to use
 	 * @return the reliability function
 	 */
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Transformer<T, Boolean> existsTransformer, int j) {
-		List<Double> samples = collectTimesToFailure(term, functionTransformer, existsTransformer, j);
+			Predicate<T> existsPredicate, int j) {
+		List<Double> samples = collectTimesToFailure(term, functionTransformer, existsPredicate, j);
 		return new SampledReliabilityFunction(samples);
 	}
 
@@ -148,13 +147,13 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	 *            the term to convert
 	 * @param functionTransformer
 	 *            the element to reliability function transformer
-	 * @param existsTransformer
-	 *            the element to exists transformer
+	 * @param existsPredicate
+	 *            the element to exists predicate
 	 * @return the reliability function
 	 */
 	public List<Double> collectTimesToFailure(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Transformer<T, Boolean> existsTransformer) {
-		return collectTimesToFailure(term, functionTransformer, existsTransformer, 5000);
+			Predicate<T> existsPredicate) {
+		return collectTimesToFailure(term, functionTransformer, existsPredicate, 5000);
 	}
 
 	/**
@@ -165,17 +164,17 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	 *            the term to convert
 	 * @param functionTransformer
 	 *            the element to reliability function transformer
-	 * @param existsTransformer
-	 *            the element to exists transformer
+	 * @param existsPredicate
+	 *            the element to exists predicate
 	 * @param n
 	 *            the number of samples
 	 * @return the reliability function
 	 */
 	public List<Double> collectTimesToFailure(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Transformer<T, Boolean> existsTransformer, int n) {
+			Predicate<T> existsPredicate, int n) {
 		List<Double> times = new ArrayList<Double>();
 		BDDTTRF<T> bddTTRF = new BDDTTRF<T>(provider);
-		BDD<T> bdd = bddTTRF.convertToBDD(term, existsTransformer);
+		BDD<T> bdd = bddTTRF.convertToBDD(term, existsPredicate);
 		for (int i = 0; i < n; i++) {
 			Double time = simulateTimeToFailure(bdd, functionTransformer);
 			times.add(time);

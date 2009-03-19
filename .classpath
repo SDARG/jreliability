@@ -15,5 +15,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/ptolemyplot-5.7.jar"/>
 	<classpathentry kind="lib" path="lib/minijdd_103.jar"/>
+	<classpathentry kind="lib" path="lib/collections-generic-4.01.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

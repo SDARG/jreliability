@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.jreliability.common.Transformer;
+import org.apache.commons.collections15.Transformer;
 
 /**
  * The {@code BDDTopEvent} allows the fast calculation of the top event for a
