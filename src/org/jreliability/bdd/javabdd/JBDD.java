@@ -16,6 +16,7 @@ package org.jreliability.bdd.javabdd;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import net.sf.javabdd.BDDPairing;
@@ -33,6 +34,7 @@ import org.jreliability.bdd.BDDs;
  *            the type of the variables
  */
 public class JBDD<T> implements BDD<T> {
+
 	JBDDProvider<T> provider;
 
 	net.sf.javabdd.BDD bdd;
@@ -87,13 +89,77 @@ public class JBDD<T> implements BDD<T> {
 	}
 
 	/**
+	 * The {@code AllSatIterator} is used as the {@code Iterator}.
+	 * 
+	 * @author glass, reimann
+	 * 
+	 */
+	private class AllSatIterator implements Iterator<BDD<T>> {
+
+		Iterator<Object> iterator;
+
+		/**
+		 * Constructs a {@code BDDIterator} with a given javabdd JDD iterator.
+		 * 
+		 * @param provider
+		 *            the used JDDProvider
+		 * @param list
+		 *            .iterator() the javabdd JDD iterator
+		 */
+		@SuppressWarnings("unchecked")
+		AllSatIterator(List list) {
+			this.iterator = list.iterator();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Iterator#hasNext()
+		 */
+		public boolean hasNext() {
+			return iterator.hasNext();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Iterator#next()
+		 */
+		public BDD<T> next() {
+			assert iterator.hasNext();
+			byte[] x = (byte[]) iterator.next();
+
+			BDD<T> bdd = provider.one();
+			for (int i = 0; i < x.length; i++) {
+				BDD<T> var = provider.get(provider.intToVariable.get(i));
+
+				if (x[i] == 1) {
+					bdd.andWith(var);
+				} else if (x[i] == 0) {
+					bdd.andWith(var.not());
+				}
+			}
+			return bdd;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.Iterator#remove()
+		 */
+		public void remove() {
+			iterator.remove();
+		}
+
+	}
+
+	/**
 	 * Constructs a {@code JDD} with a {@code JDDProvider} and the BDD
 	 * implementation used in the {@code JBBFactory} of the {@code JavaBDD}
 	 * library.
 	 * 
 	 * @param provider
 	 *            the used JDDProvider
-	 * 
 	 * @param bdd
 	 *            the BDD implementation used in the JBBFactory of the javabdd
 	 *            library
@@ -108,9 +174,8 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.jreliability.bdd.BDD#allsat()
 	 */
-	@SuppressWarnings("unchecked")
-	public BDDIterator allsat() {
-		return new BDDIterator(bdd.allsat().iterator());
+	public Iterator<BDD<T>> allsat() {
+		return new AllSatIterator(bdd.allsat());
 	}
 
 	/*
@@ -206,10 +271,11 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.bdd.BDD#ite(org.jreliability.bdd.BDD,
-	 *      org.jreliability.bdd.BDD)
+	 * org.jreliability.bdd.BDD)
 	 */
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD) {
-		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd, ((JBDD<T>) elseBDD).bdd));
+		return new JBDD<T>(provider, bdd.ite(((JBDD<T>) thenBDD).bdd,
+				((JBDD<T>) elseBDD).bdd));
 	}
 
 	/*
@@ -274,7 +340,8 @@ public class JBDD<T> implements BDD<T> {
 	public BDD<T> replace(T variable1, T variable2) {
 		JBDD<T> tmp1 = (JBDD<T>) provider.get(variable1);
 		JBDD<T> tmp2 = (JBDD<T>) provider.get(variable2);
-		BDDPairing pair = provider.getFactory().makePair(tmp1.bdd.var(), tmp2.bdd.var());
+		BDDPairing pair = provider.getFactory().makePair(tmp1.bdd.var(),
+				tmp2.bdd.var());
 		tmp1.free();
 		tmp2.free();
 		return new JBDD<T>(provider, bdd.replace(pair));
@@ -284,12 +351,13 @@ public class JBDD<T> implements BDD<T> {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.jreliability.bdd.BDD#replaceWith(java.lang.Object,
-	 *      java.lang.Object)
+	 * java.lang.Object)
 	 */
 	public void replaceWith(T variable1, T variable2) {
 		JBDD<T> tmp1 = (JBDD<T>) provider.get(variable1);
 		JBDD<T> tmp2 = (JBDD<T>) provider.get(variable2);
-		BDDPairing pair = provider.getFactory().makePair(tmp1.bdd.var(), tmp2.bdd.var());
+		BDDPairing pair = provider.getFactory().makePair(tmp1.bdd.var(),
+				tmp2.bdd.var());
 		tmp1.free();
 		tmp2.free();
 		bdd.replaceWith(pair);
