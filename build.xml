@@ -83,8 +83,6 @@
 		</copy>
 
 		<zip destfile="${build.dir}/jreliability-${version}.zip" basedir="${build.dir}/dist/full" />
-		<tar destfile="${build.dir}/jreliability-${version}.tar" basedir="${build.dir}/dist/full" />
-		<gzip src="${build.dir}/jreliability-${version}.tar" destfile="${build.dir}/jreliability-${version}.tar.gz" />
 	</target>
 
 	<target name="lightdist" depends="jar" description="Build distribution.">
@@ -98,8 +96,6 @@
 		</copy>
 
 		<zip destfile="${build.dir}/jreliability-${version}-light.zip" basedir="${build.dir}/dist/light" />
-		<tar destfile="${build.dir}/jreliability-${version}-light.tar" basedir="${build.dir}/dist/light" />
-		<gzip src="${build.dir}/jreliability-${version}-light.tar" destfile="${build.dir}/jreliability-${version}-light.tar.gz" />
 	</target>
 
 	<target name="javadoc" depends="init" description="Generate Javadocs.">

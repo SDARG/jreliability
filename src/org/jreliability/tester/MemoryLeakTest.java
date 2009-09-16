@@ -27,8 +27,8 @@ public class MemoryLeakTest {
 	public static void main(String[] args) {
 
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Integer> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<Integer> transformer = new BDDTTRF<Integer>(bddProvider);
+		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF transformer = new BDDTTRF(bddProvider);
 
 		Random r = new Random(0);
 
@@ -56,13 +56,13 @@ public class MemoryLeakTest {
 
 				ORTerm or = new ORTerm();
 				for (int var : vars) {
-					LiteralTerm<Integer> lit = new LiteralTerm<Integer>(r.nextBoolean(), var);
+					LiteralTerm lit = new LiteralTerm(r.nextBoolean(), var);
 					or.add(lit);
 				}
 				term.add(or);
 			}
 
-			BDD<Integer> result = transformer.convertToBDD(term);
+			BDD<Object> result = transformer.convertToBDD(term);
 
 			// ReliabilityFunction reliabilityFunction =
 			// functionTransformer.convert(result, functionTransformer);

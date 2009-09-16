@@ -23,10 +23,8 @@ import org.jreliability.function.ReliabilityFunction;
  * 
  * @author glass
  * 
- * @param <T>
- *            the type of variable
  */
-public interface TTRF<T> {
+public interface TTRF {
 
 	/**
 	 * Converts a {@code Term} to a {@code ReliabilityFunction}.
@@ -37,7 +35,8 @@ public interface TTRF<T> {
 	 *            the used function functionTransformer
 	 * @return the reliabilityFunction deduced from the term
 	 */
-	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer);
+	public ReliabilityFunction convert(Term term,
+			Transformer<Object, ReliabilityFunction> functionTransformer);
 
 	/**
 	 * Converts a {@code Term} to a {@code ReliabilityFunction} and excludes the
@@ -51,7 +50,8 @@ public interface TTRF<T> {
 	 *            the exists-variable existsPredicate
 	 * @return the reliabilityFunction deduced from the term
 	 */
-	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
-			Predicate<T> existsPredicate);
+	public ReliabilityFunction convert(Term term,
+			Transformer<Object, ReliabilityFunction> functionTransformer,
+			Predicate<Object> existsPredicate);
 
 }

@@ -56,9 +56,9 @@ public class TestExample {
 	 * @return the term representation of the test example
 	 */
 	public Term get() {
-		LiteralTerm<String> heaterLiteral = new LiteralTerm<String>(true, heater);
-		LiteralTerm<String> pump1Literal = new LiteralTerm<String>(true, pump1);
-		LiteralTerm<String> pump2Literal = new LiteralTerm<String>(true, pump2);
+		LiteralTerm heaterLiteral = new LiteralTerm(true, heater);
+		LiteralTerm pump1Literal = new LiteralTerm(true, pump1);
+		LiteralTerm pump2Literal = new LiteralTerm(true, pump2);
 
 		ORTerm orTerm = new ORTerm();
 		orTerm.add(pump1Literal);

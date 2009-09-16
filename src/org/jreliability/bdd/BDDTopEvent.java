@@ -24,7 +24,7 @@ import org.apache.commons.collections15.Transformer;
 
 /**
  * The {@code BDDTopEvent} allows the fast calculation of the top event for a
- * given {@code BDD}. Here, the {@code BDD} is copied to a internal structure
+ * given {@code BDD}. Here, the {@code BDD} is copied to an internal structure
  * such that the {@code free} method of the {@code BDD} does not interfere with
  * this class.
  * 
