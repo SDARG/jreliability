@@ -40,9 +40,9 @@ public class TMRTester {
 		// For this example, a BDD is generated first to visualizing the BDD of
 		// an MTTR
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<String> bddTTRF = new BDDTTRF<String>(bddProvider);
-		BDD<String> bdd = bddTTRF.convertToBDD(term);
+		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
+		BDD<Object> bdd = bddTTRF.convertToBDD(term);
 		String dot = BDDs.toDot(bdd);
 		System.out.println(dot);
 		System.out.println("***");
@@ -52,7 +52,8 @@ public class TMRTester {
 
 		// The single element solution equals a simple
 		// ExponentiaRreliabilityFunction
-		ReliabilityFunction reliabilityFunctionSingle = new ExponentialReliabilityFunction(0.1);
+		ReliabilityFunction reliabilityFunctionSingle = new ExponentialReliabilityFunction(
+				0.1);
 
 		// Calculate Mean-Time-To-Failures (the first moment of the density
 		// function)
@@ -60,7 +61,8 @@ public class TMRTester {
 		Double mttfTMR = moment.evaluate(reliabilityFunctionTMR);
 		System.out.println("Mean-Time-To-Failure of TMR: " + mttfTMR);
 		Double mttfSingle = moment.evaluate(reliabilityFunctionSingle);
-		System.out.println("Mean-Time-To-Failure of single element: " + mttfSingle);
+		System.out.println("Mean-Time-To-Failure of single element: "
+				+ mttfSingle);
 		System.out.println("***");
 
 		// Using the GUI
@@ -68,7 +70,8 @@ public class TMRTester {
 		reliabilityFunctions.put("TMR", reliabilityFunctionTMR);
 		reliabilityFunctions.put("Single Component", reliabilityFunctionSingle);
 
-		ReliabilityViewer.view("JReliability Viewer - TMR Tutorial", reliabilityFunctions);
+		ReliabilityViewer.view("JReliability Viewer - TMR Tutorial",
+				reliabilityFunctions);
 
 	}
 

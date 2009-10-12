@@ -3,6 +3,7 @@ package org.jreliability.tutorial.tmr;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.BDDTTRF;
@@ -11,7 +12,6 @@ import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
-import org.jreliability.common.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.function.common.SimpleFunctionTransformer;
@@ -47,7 +47,7 @@ public class TMR {
 	/**
 	 * The used {@code FunctionTransformer}.
 	 */
-	protected Transformer<String, ReliabilityFunction> transformer;
+	protected Transformer<Object, ReliabilityFunction> transformer;
 
 	/**
 	 * Constructs a {@code TMR}.
@@ -62,12 +62,13 @@ public class TMR {
 	 * Initializes the {@code Transformer} of the TMR.
 	 */
 	private void initialize() {
-		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
+		Map<Object, ReliabilityFunction> reliabilityFunctions = new HashMap<Object, ReliabilityFunction>();
 		ReliabilityFunction function = new ExponentialReliabilityFunction(0.1);
 		reliabilityFunctions.put(component1, function);
 		reliabilityFunctions.put(component2, function);
 		reliabilityFunctions.put(component3, function);
-		transformer = new SimpleFunctionTransformer<String>(reliabilityFunctions);
+		transformer = new SimpleFunctionTransformer<Object>(
+				reliabilityFunctions);
 	}
 
 	/**
@@ -79,9 +80,9 @@ public class TMR {
 
 		LinearTerm term = new LinearTerm(Comparator.GREATEREQUAL, 2);
 
-		term.add(1, new LiteralTerm<String>(component1));
-		term.add(1, new LiteralTerm<String>(component2));
-		term.add(1, new LiteralTerm<String>(component3));
+		term.add(1, new LiteralTerm(component1));
+		term.add(1, new LiteralTerm(component2));
+		term.add(1, new LiteralTerm(component3));
 
 		return term;
 	}
@@ -95,8 +96,8 @@ public class TMR {
 	public ReliabilityFunction get() {
 		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<String> bddTTRF = new BDDTTRF<String>(bddProvider);
+		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
 		return bddTTRF.convert(term, transformer);
 	}
 
@@ -106,7 +107,7 @@ public class TMR {
 	 * 
 	 * @return the transformer
 	 */
-	public Transformer<String, ReliabilityFunction> getTransformer() {
+	public Transformer<Object, ReliabilityFunction> getTransformer() {
 		return transformer;
 	}
 

@@ -98,12 +98,12 @@ public class Boiler {
 	 * @return the term representation of the boiler
 	 */
 	public Term getTerm() {
-		LiteralTerm<BoilerComponent> sensor1Literal = new LiteralTerm<BoilerComponent>(sensor1);
-		LiteralTerm<BoilerComponent> sensor2Literal = new LiteralTerm<BoilerComponent>(sensor2);
-		LiteralTerm<BoilerComponent> controllerLiteral = new LiteralTerm<BoilerComponent>(controller);
-		LiteralTerm<BoilerComponent> heaterLiteral = new LiteralTerm<BoilerComponent>(heater);
-		LiteralTerm<BoilerComponent> pump1Literal = new LiteralTerm<BoilerComponent>(pump1);
-		LiteralTerm<BoilerComponent> pump2Literal = new LiteralTerm<BoilerComponent>(pump2);
+		LiteralTerm sensor1Literal = new LiteralTerm(sensor1);
+		LiteralTerm sensor2Literal = new LiteralTerm(sensor2);
+		LiteralTerm controllerLiteral = new LiteralTerm(controller);
+		LiteralTerm heaterLiteral = new LiteralTerm(heater);
+		LiteralTerm pump1Literal = new LiteralTerm(pump1);
+		LiteralTerm pump2Literal = new LiteralTerm(pump2);
 
 		ANDTerm sensorSubSystem = new ANDTerm();
 		sensorSubSystem.add(sensor1Literal);
@@ -142,8 +142,8 @@ public class Boiler {
 	public ReliabilityFunction get() {
 		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<BoilerComponent> bddTTRF = new BDDTTRF<BoilerComponent>(bddProvider);
+		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
 		return bddTTRF.convert(term, transformer);
 	}
 

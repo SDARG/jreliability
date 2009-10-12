@@ -37,9 +37,9 @@ public class BoilerTester {
 		// For this example, a BDD is generated first to visualize the BDD of
 		// the Boiler
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<BoilerComponent> bddTTRF = new BDDTTRF<BoilerComponent>(bddProvider);
-		BDD<BoilerComponent> bdd = bddTTRF.convertToBDD(term);
+		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
+		BDD<Object> bdd = bddTTRF.convertToBDD(term);
 		String dot = BDDs.toDot(bdd);
 		System.out.println(dot);
 		ReliabilityFunction reliabilityFunctionBoiler = boiler.get();
@@ -48,7 +48,8 @@ public class BoilerTester {
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
 		reliabilityFunctions.put("Boiler", reliabilityFunctionBoiler);
 
-		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial", reliabilityFunctions);
+		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial",
+				reliabilityFunctions);
 
 	}
 
