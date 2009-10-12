@@ -23,7 +23,7 @@ import java.util.List;
  * @author glass
  * 
  */
-public abstract class AbstractHierarchicalTerm extends AbstractTerm {
+public abstract class AbstractHierarchicalTerm implements Term {
 
 	/**
 	 * Constructs an {@code AbstractHierarchicalTerm}.

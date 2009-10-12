@@ -14,7 +14,7 @@
  */
 package org.jreliability.booleanfunction.common;
 
-import org.jreliability.booleanfunction.AbstractTerm;
+import org.jreliability.booleanfunction.Term;
 
 /**
  * The {@code LiteralTerm} represents a {@code Literal}, i.e. the used variable.
@@ -22,7 +22,7 @@ import org.jreliability.booleanfunction.AbstractTerm;
  * @author glass
  * 
  */
-public class LiteralTerm extends AbstractTerm {
+public class LiteralTerm implements Term {
 
 	/**
 	 * The variable or literal.
@@ -36,19 +36,6 @@ public class LiteralTerm extends AbstractTerm {
 	 *            the variable
 	 */
 	public LiteralTerm(Object variable) {
-		this(true, variable);
-	}
-
-	/**
-	 * Constructs a {@code LiteralTerm} with a given sign and variable.
-	 * 
-	 * @param sign
-	 *            the sign
-	 * @param variable
-	 *            the variable
-	 */
-	public LiteralTerm(boolean sign, Object variable) {
-		this.sign = sign;
 		this.variable = variable;
 	}
 
@@ -68,11 +55,9 @@ public class LiteralTerm extends AbstractTerm {
 	 */
 	@Override
 	public String toString() {
-		String s = "";
-		if (!sign) {
-			s += "~";
-		}
+		String s = "\"";
 		s += variable;
+		s+= "\"";
 		return s;
 	}
 }

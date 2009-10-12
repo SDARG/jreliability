@@ -23,6 +23,9 @@ import org.jreliability.booleanfunction.Term;
 /**
  * The {@code ANDTerm} is a {@code Term} that interrelates its embedded {@code
  * Terms} with the {@code AND-Operator}.
+ * <p>
+ * (AND term1 ... termN)
+ * </p>
  * 
  * @author glass
  * 
@@ -34,17 +37,7 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	 * 
 	 */
 	public ANDTerm() {
-		this(true, new ArrayList<Term>());
-	}
-
-	/**
-	 * Constructs an {@code ANDTerm} with a given sign.
-	 * 
-	 * @param sign
-	 *            the sign of the term
-	 */
-	public ANDTerm(boolean sign) {
-		this(sign, new ArrayList<Term>());
+		this(new ArrayList<Term>());
 	}
 
 	/**
@@ -55,20 +48,6 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	 *            the embedded terms
 	 */
 	public ANDTerm(List<Term> terms) {
-		this(true, terms);
-	}
-
-	/**
-	 * Constructs an {@code ANDTerm} with a given sign and a list of embedded
-	 * {@code Terms}.
-	 * 
-	 * @param sign
-	 *            the sign of the term
-	 * @param terms
-	 *            the embedded terms
-	 */
-	public ANDTerm(boolean sign, List<Term> terms) {
-		this.sign = sign;
 		this.terms = terms;
 	}
 
@@ -80,9 +59,6 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	@Override
 	public String toString() {
 		String s = "(";
-		if (!sign) {
-			s += "~";
-		}
 		s += "AND";
 		for (Term term : terms) {
 			s += " " + term;

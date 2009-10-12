@@ -166,7 +166,6 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 		this.terms = terms;
 		this.comparator = comparator;
 		this.rhs = rhs;
-		this.sign = sign;
 	}
 
 	/**
@@ -190,8 +189,7 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @seeorg.jreliability.booleanfunction.AbstractHierarchicalTerm#add(org.
-	 * jreliability.booleanfunction.Term)
+	 * @see org.jreliability.booleanfunction.AbstractHierarchicalTerm#add(org.jreliability.booleanfunction.Term)
 	 */
 	@Override
 	public void add(Term term) {
@@ -227,12 +225,13 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	 */
 	@Override
 	public String toString() {
-		String s = "";
+		String s = "(";
+		s += comparator + " ";
+		s += "\"" + rhs + "\"";
 		for (int i = 0; i < size(); i++) {
-			s += coefficients.get(i) + " " + terms.get(i) + " ";
+			s += " " + "\"" + coefficients.get(i) + "\"" + " " + terms.get(i);
 		}
-		s += comparator;
-		s += rhs;
+		s+= ")";
 		return s;
 	}
 

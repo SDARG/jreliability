@@ -71,8 +71,8 @@ public class ConstraintTester {
 		term.add(3, c);
 		term.add(3, d);
 		term.add(3, e);
-		term.add(7, f);
-
+		term.add(7, f);		
+		
 		BDDTTRF transformer = new BDDTTRF(bddProvider);
 		BDD<Object> bdd = transformer.convertToBDD(term);
 

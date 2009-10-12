@@ -27,6 +27,7 @@ import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
 import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
@@ -124,11 +125,10 @@ public class BDDTTRF implements TTRF {
 	 *            the exists predicate
 	 * @return a bdd representing the given term
 	 */
-	@SuppressWarnings("unchecked")
 	public BDD<Object> convertToBDD(Term term, Predicate<Object> existsPredicate) {
 		BDD<Object> bdd = transform(term);
 		if (!(existsPredicate == null)) {
-			Set<Object> variables = (Set<Object>) Terms.getVariables(term);
+			Set<Object> variables = Terms.getVariables(term);
 			for (Object variable : variables) {
 				if (existsPredicate.evaluate(variable)) {
 					BDD<Object> tmp = bdd.exist(variable);
@@ -167,14 +167,12 @@ public class BDDTTRF implements TTRF {
 		} else if (term instanceof FALSETerm) {
 			FALSETerm falseTerm = (FALSETerm) term;
 			bdd = transformFALSE(falseTerm);
+		} else if (term instanceof NOTTerm) {
+			NOTTerm notTerm = (NOTTerm) term;
+			bdd = transformNOT(notTerm);
 		} else {
 			throw new IllegalArgumentException(
 					"Unknown Term class in boolean function.");
-		}
-		if (!term.sign()) {
-			BDD<Object> temp = bdd.not();
-			bdd.free();
-			bdd = temp;
 		}
 		return bdd;
 	}
@@ -242,7 +240,7 @@ public class BDDTTRF implements TTRF {
 	 * @return a bdd representing the literal term
 	 */
 	protected BDD<Object> transformLiteral(LiteralTerm term) {
-		Object variable = (Object) term.get();
+		Object variable = term.get();
 		return provider.get(variable);
 	}
 
@@ -266,6 +264,22 @@ public class BDDTTRF implements TTRF {
 	 */
 	protected BDD<Object> transformFALSE(FALSETerm term) {
 		return provider.zero();
+	}
+
+	/**
+	 * Transforms a {@code NOTTerm} to a {@code BDD}.
+	 * 
+	 * @param term
+	 *            the term to transform
+	 * @return a bdd representing the NOT term
+	 */
+	protected BDD<Object> transformNOT(NOTTerm term) {
+		Term element = term.get();
+		BDD<Object> bdd = transform(element);
+		BDD<Object> temp = bdd.not();
+		bdd.free();
+		bdd = temp;
+		return bdd;
 	}
 
 }

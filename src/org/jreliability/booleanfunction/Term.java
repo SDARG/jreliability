@@ -25,11 +25,4 @@ package org.jreliability.booleanfunction;
  */
 public interface Term {
 
-	/**
-	 * Returns {@code false} if the whole {@code Term} is negated.
-	 * 
-	 * @return false if the whole term is negated
-	 */
-	public boolean sign();
-
 }

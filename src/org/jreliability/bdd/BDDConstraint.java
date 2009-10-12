@@ -266,9 +266,7 @@ class BDDConstraint<T> {
 			this.variable = variable;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
+		/* (non-Javadoc)
 		 * @see java.lang.Object#toString()
 		 */
 		@Override

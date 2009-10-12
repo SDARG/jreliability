@@ -55,21 +55,27 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	 *            the functionTransformer to transform bdd elements to
 	 *            reliabilityFunction
 	 */
-	public BDDReliabilityFunction(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
+	public BDDReliabilityFunction(BDD<T> bdd,
+			Transformer<T, ReliabilityFunction> functionTransformer) {
 		super();
 		this.bdd = bdd;
 		this.functionTransformer = functionTransformer;
 		this.topEvent = new BDDTopEvent<T>(bdd);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	public double getY(final double x) {
 
 		final Transformer<T, Double> t = new Transformer<T, Double>() {
+			/**
+			 * Default {@code Transformer}.
+			 * 
+			 * @param a
+			 *            parameter a
+			 * @return the double value of a
+			 */
 			public Double transform(T a) {
 				return functionTransformer.transform(a).getY(x);
 			}

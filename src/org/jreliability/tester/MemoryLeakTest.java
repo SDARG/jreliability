@@ -11,6 +11,7 @@ import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 
 /**
@@ -36,8 +37,8 @@ public class MemoryLeakTest {
 		 * for (int i = 0; i < 1000; i++) { BDD<Integer> and =
 		 * bddProvider.one(); for (int j = 0; j < 10; j++) { Set<Integer> vars =
 		 * new HashSet<Integer>(); for (int k = 0; k < 30; k++) {
-		 * vars.add(r.nextInt(100)); } BDD<Integer> or = bddProvider.zero();
-		 * for (int var : vars) { BDD<Integer> bdd = bddProvider.get(var);
+		 * vars.add(r.nextInt(100)); } BDD<Integer> or = bddProvider.zero(); for
+		 * (int var : vars) { BDD<Integer> bdd = bddProvider.get(var);
 		 * or.orWith(bdd); } and.andWith(or); }
 		 * 
 		 * and.free(); }
@@ -56,8 +57,13 @@ public class MemoryLeakTest {
 
 				ORTerm or = new ORTerm();
 				for (int var : vars) {
-					LiteralTerm lit = new LiteralTerm(r.nextBoolean(), var);
-					or.add(lit);
+					LiteralTerm lit = new LiteralTerm(var);
+					if (r.nextBoolean()) {
+						or.add(lit);
+					} else {
+						NOTTerm notLit = new NOTTerm(lit);
+						or.add(notLit);
+					}
 				}
 				term.add(or);
 			}

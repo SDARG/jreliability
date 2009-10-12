@@ -35,15 +35,6 @@ public class TRUETerm implements Term {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.Term#sign()
-	 */
-	public boolean sign() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

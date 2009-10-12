@@ -34,17 +34,7 @@ public class ORTerm extends AbstractHierarchicalTerm {
 	 * 
 	 */
 	public ORTerm() {
-		this(true, new ArrayList<Term>());
-	}
-
-	/**
-	 * Constructs an {@code ORTerm} with a given sign.
-	 * 
-	 * @param sign
-	 *            the sign of the term
-	 */
-	public ORTerm(boolean sign) {
-		this(sign, new ArrayList<Term>());
+		this(new ArrayList<Term>());
 	}
 
 	/**
@@ -54,20 +44,6 @@ public class ORTerm extends AbstractHierarchicalTerm {
 	 *            the embedded terms
 	 */
 	public ORTerm(List<Term> terms) {
-		this(true, terms);
-	}
-
-	/**
-	 * Constructs an {@code ORTerm} with a given sign OR a list of embedded
-	 * {@code Terms}.
-	 * 
-	 * @param sign
-	 *            the sign of the term
-	 * @param terms
-	 *            the embedded terms
-	 */
-	public ORTerm(boolean sign, List<Term> terms) {
-		this.sign = sign;
 		this.terms = terms;
 	}
 
@@ -79,9 +55,6 @@ public class ORTerm extends AbstractHierarchicalTerm {
 	@Override
 	public String toString() {
 		String s = "(";
-		if (!sign) {
-			s += "~";
-		}
 		s += "OR";
 		for (Term term : terms) {
 			s += " " + term;
