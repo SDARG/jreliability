@@ -34,8 +34,8 @@ public class IntegralEvaluator {
 	protected final double epsilon;
 
 	/**
-	 * Constructs the {@code IntegralEvaluator} with the epsilon value {@code
-	 * 1.0E-8}.
+	 * Constructs the {@code IntegralEvaluator} with the epsilon value
+	 * {@code 1.0E-8}.
 	 */
 	public IntegralEvaluator() {
 		this(1.0E-8);
@@ -53,7 +53,7 @@ public class IntegralEvaluator {
 	}
 
 	/**
-	 * Calculates the integral between from {@code a} to {@code b}.
+	 * Calculates the integral from {@code a} to {@code b}.
 	 * 
 	 * @param f
 	 *            the function to be integrated
@@ -82,7 +82,7 @@ public class IntegralEvaluator {
 				row.add(value);
 			}
 		}
-		
+
 		Table R = new Table();
 
 		double fa = f.getY(a);
