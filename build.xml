@@ -42,7 +42,7 @@
 	</target>
 
 	<target name="compile" depends="init" description="Compile Java source.">
-		<javac srcdir="${build.dir}/src" debug="on" destdir="${build.dir}/classes" source="1.5" target="1.5">
+		<javac srcdir="${build.dir}/src" debug="on" destdir="${build.dir}/classes" source="1.5" target="1.5" includeantruntime="false">
 			<classpath refid="compile.classpath" />
 			<compilerarg value="-Xlint" />
 		</javac>
