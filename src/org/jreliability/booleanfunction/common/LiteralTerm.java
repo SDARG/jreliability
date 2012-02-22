@@ -21,13 +21,15 @@ import org.jreliability.booleanfunction.Term;
  * 
  * @author glass
  * 
+ * @param <T>
+ *            the type of the variable
  */
-public class LiteralTerm implements Term {
+public class LiteralTerm<T> implements Term {
 
 	/**
 	 * The variable or literal.
 	 */
-	protected final Object variable;
+	protected final T variable;
 
 	/**
 	 * Constructs a {@code LiteralTerm} with a given variable.
@@ -35,7 +37,7 @@ public class LiteralTerm implements Term {
 	 * @param variable
 	 *            the variable
 	 */
-	public LiteralTerm(Object variable) {
+	public LiteralTerm(T variable) {
 		this.variable = variable;
 	}
 
@@ -44,7 +46,7 @@ public class LiteralTerm implements Term {
 	 * 
 	 * @return the variable
 	 */
-	public Object get() {
+	public T get() {
 		return variable;
 	}
 
@@ -57,7 +59,7 @@ public class LiteralTerm implements Term {
 	public String toString() {
 		String s = "\"";
 		s += variable;
-		s+= "\"";
+		s += "\"";
 		return s;
 	}
 }

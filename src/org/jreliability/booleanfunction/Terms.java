@@ -45,12 +45,14 @@ public class Terms {
 	/**
 	 * Returns the variables included in a {@code Term}.
 	 * 
+	 * @param <T>
+	 *            the type of the variables
 	 * @param term
 	 *            the term
 	 * @return the variables included in the term
 	 */
-	public static Set<Object> getVariables(Term term) {
-		Set<Object> set = new HashSet<Object>();
+	public static <T> Set<T> getVariables(Term term) {
+		Set<T> set = new HashSet<T>();
 		getVariables(term, set);
 		return set;
 	}
@@ -59,19 +61,22 @@ public class Terms {
 	 * Adds the variables included in a {@code Term} to a given set of
 	 * variables.
 	 * 
+	 * @param <T>
+	 *            the type of the variables
 	 * @param term
 	 *            the term
 	 * @param set
 	 *            the set of variables
 	 */
-	public static void getVariables(Term term, Set<Object> set) {
+	@SuppressWarnings("unchecked")
+	public static <T> void getVariables(Term term, Set<T> set) {
 		if (term instanceof AbstractHierarchicalTerm) {
 			AbstractHierarchicalTerm hierarchicalTerm = (AbstractHierarchicalTerm) term;
 			for (Term t : hierarchicalTerm.getTerms()) {
 				getVariables(t, set);
 			}
 		} else if (term instanceof LiteralTerm) {
-			LiteralTerm literalTerm = (LiteralTerm) term;
+			LiteralTerm<T> literalTerm = (LiteralTerm<T>) term;
 			set.add(literalTerm.get());
 		}
 	}

@@ -50,17 +50,17 @@ public class ConstraintTester {
 	 */
 	public static void main(String[] args) {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 
-		Term x = new LiteralTerm("x");
-		Term y = new LiteralTerm("y");
-		Term z = new LiteralTerm("z");
-		Term a = new LiteralTerm("a");
-		Term b = new LiteralTerm("b");
-		Term c = new LiteralTerm("c");
-		Term d = new LiteralTerm("d");
-		Term e = new LiteralTerm("e");
-		Term f = new LiteralTerm("f");
+		Term x = new LiteralTerm<String>("x");
+		Term y = new LiteralTerm<String>("y");
+		Term z = new LiteralTerm<String>("z");
+		Term a = new LiteralTerm<String>("a");
+		Term b = new LiteralTerm<String>("b");
+		Term c = new LiteralTerm<String>("c");
+		Term d = new LiteralTerm<String>("d");
+		Term e = new LiteralTerm<String>("e");
+		Term f = new LiteralTerm<String>("f");
 
 		LinearTerm term = new LinearTerm(new ArrayList<Integer>(), new ArrayList<Term>(), LinearTerm.Comparator.LESSEQUAL, 8);
 		term.add(1, x);
@@ -73,8 +73,8 @@ public class ConstraintTester {
 		term.add(3, e);
 		term.add(7, f);		
 		
-		BDDTTRF transformer = new BDDTTRF(bddProvider);
-		BDD<Object> bdd = transformer.convertToBDD(term);
+		BDDTTRF<String> transformer = new BDDTTRF<String>(bddProvider);
+		BDD<String> bdd = transformer.convertToBDD(term);
 
 		System.out.println(BDDs.toDot(bdd));
 	}

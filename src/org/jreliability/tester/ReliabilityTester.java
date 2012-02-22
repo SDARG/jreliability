@@ -51,12 +51,12 @@ public class ReliabilityTester {
 		TestExample example = new TestExample();
 		Term bdd = example.get();
 
-		Transformer<Object, ReliabilityFunction> exponentialTransformer = new TestExponentialTransformer();
-		Transformer<Object, ReliabilityFunction> weibullTransformer = new TestWeibullTransformer();
+		Transformer<String, ReliabilityFunction> exponentialTransformer = new TestExponentialTransformer();
+		Transformer<String, ReliabilityFunction> weibullTransformer = new TestWeibullTransformer();
 
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF transformer = new BDDTTRF(bddProvider);
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<String> transformer = new BDDTTRF<String>(bddProvider);
 		ReliabilityFunction exponentialDistribution = transformer.convert(bdd, exponentialTransformer);
 		ReliabilityFunction weibullDistribution = transformer.convert(bdd, weibullTransformer);
 

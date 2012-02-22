@@ -29,7 +29,7 @@ import org.jreliability.function.common.WeibullReliabilityFunction;
  * @author glass
  * 
  */
-public class TestWeibullTransformer implements Transformer<Object, ReliabilityFunction> {
+public class TestWeibullTransformer implements Transformer<String, ReliabilityFunction> {
 
 	/**
 	 * The heater.
@@ -76,7 +76,7 @@ public class TestWeibullTransformer implements Transformer<Object, ReliabilityFu
 	 * 
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
-	public ReliabilityFunction transform(Object a) {
+	public ReliabilityFunction transform(String a) {
 		return reliabilityFunction.get(a);
 	}
 

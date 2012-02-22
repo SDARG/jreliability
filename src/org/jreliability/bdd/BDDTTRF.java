@@ -35,18 +35,20 @@ import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code BDDTTRF} transforms a {@code Boolean function} represented as a
- * {@code Term} into a {@code ReliabilityFunction} or, if needed, into a {@code
- * BDD}.
+ * {@code Term} into a {@code ReliabilityFunction} or, if needed, into a
+ * {@code BDD}.
  * 
  * @author glass
  * 
+ * @param <T>
+ *            the type of the variables
  */
-public class BDDTTRF implements TTRF {
+public class BDDTTRF<T> implements TTRF<T> {
 
 	/**
 	 * The {@code BDDProvider}.
 	 */
-	protected final BDDProvider<Object> provider;
+	protected final BDDProvider<T> provider;
 
 	/**
 	 * Constructs a {@code BDDTTRF} with a given {@code BDDProvider}.
@@ -54,41 +56,40 @@ public class BDDTTRF implements TTRF {
 	 * @param provider
 	 *            the bdd provider
 	 */
-	public BDDTTRF(BDDProvider<Object> provider) {
+	public BDDTTRF(BDDProvider<T> provider) {
 		this.provider = provider;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @seeorg.jreliability.booleanfunction.TTRF#convert(org.jreliability.
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
 	 * booleanfunction.Term, org.apache.commons.collections15.Transformer)
 	 */
-	public ReliabilityFunction convert(Term term,
-			Transformer<Object, ReliabilityFunction> functionTransformer) {
+	@Override
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
 		return convert(term, functionTransformer, null);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @seeorg.jreliability.booleanfunction.TTRF#convert(org.jreliability.
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
 	 * booleanfunction.Term, org.apache.commons.collections15.Transformer,
 	 * org.apache.commons.collections15.Predicate)
 	 */
-	public ReliabilityFunction convert(Term term,
-			Transformer<Object, ReliabilityFunction> functionTransformer,
-			Predicate<Object> existsPredicate) {
-		BDD<Object> bdd = convertToBDD(term, existsPredicate);
-		BDDReliabilityFunction<Object> function = new BDDReliabilityFunction<Object>(
-				bdd, functionTransformer);
+	@Override
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
+			Predicate<T> existsPredicate) {
+		BDD<T> bdd = convertToBDD(term, existsPredicate);
+		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		bdd.free();
 		return function;
 	}
 
 	/**
-	 * Converts a given {@code BDD} and a {@code Transformer} to a {@code
-	 * ReliabilityFunction.}
+	 * Converts a given {@code BDD} and a {@code Transformer} to a
+	 * {@code ReliabilityFunction.}
 	 * 
 	 * @param bdd
 	 *            the bdd
@@ -97,10 +98,8 @@ public class BDDTTRF implements TTRF {
 	 * @return a reliability function from the given bdd and function
 	 *         functionTransformer
 	 */
-	public ReliabilityFunction convert(BDD<Object> bdd,
-			Transformer<Object, ReliabilityFunction> functionTransformer) {
-		BDDReliabilityFunction<Object> function = new BDDReliabilityFunction<Object>(
-				bdd, functionTransformer);
+	public ReliabilityFunction convert(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
+		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		return function;
 	}
 
@@ -111,7 +110,7 @@ public class BDDTTRF implements TTRF {
 	 *            the term
 	 * @return a bdd representing the given term
 	 */
-	public BDD<Object> convertToBDD(Term term) {
+	public BDD<T> convertToBDD(Term term) {
 		return convertToBDD(term, null);
 	}
 
@@ -125,13 +124,13 @@ public class BDDTTRF implements TTRF {
 	 *            the exists predicate
 	 * @return a bdd representing the given term
 	 */
-	public BDD<Object> convertToBDD(Term term, Predicate<Object> existsPredicate) {
-		BDD<Object> bdd = transform(term);
+	public BDD<T> convertToBDD(Term term, Predicate<T> existsPredicate) {
+		BDD<T> bdd = transform(term);
 		if (!(existsPredicate == null)) {
-			Set<Object> variables = Terms.getVariables(term);
-			for (Object variable : variables) {
+			Set<T> variables = Terms.getVariables(term);
+			for (T variable : variables) {
 				if (existsPredicate.evaluate(variable)) {
-					BDD<Object> tmp = bdd.exist(variable);
+					BDD<T> tmp = bdd.exist(variable);
 					bdd.free();
 					bdd = tmp;
 				}
@@ -147,8 +146,9 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the term
 	 */
-	protected BDD<Object> transform(Term term) {
-		BDD<Object> bdd = null;
+	@SuppressWarnings("unchecked")
+	protected BDD<T> transform(Term term) {
+		BDD<T> bdd = null;
 		if (term instanceof ANDTerm) {
 			ANDTerm andTerm = (ANDTerm) term;
 			bdd = transformAND(andTerm);
@@ -159,7 +159,7 @@ public class BDDTTRF implements TTRF {
 			LinearTerm linearTerm = (LinearTerm) term;
 			bdd = transformLinear(linearTerm);
 		} else if (term instanceof LiteralTerm) {
-			LiteralTerm literalTerm = (LiteralTerm) term;
+			LiteralTerm<T> literalTerm = (LiteralTerm<T>) term;
 			bdd = transformLiteral(literalTerm);
 		} else if (term instanceof TRUETerm) {
 			TRUETerm trueTerm = (TRUETerm) term;
@@ -171,8 +171,7 @@ public class BDDTTRF implements TTRF {
 			NOTTerm notTerm = (NOTTerm) term;
 			bdd = transformNOT(notTerm);
 		} else {
-			throw new IllegalArgumentException(
-					"Unknown Term class in boolean function.");
+			throw new IllegalArgumentException("Unknown Term class in boolean function.");
 		}
 		return bdd;
 	}
@@ -184,11 +183,11 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the AND term
 	 */
-	protected BDD<Object> transformAND(ANDTerm term) {
-		BDD<Object> bdd = provider.one();
+	protected BDD<T> transformAND(ANDTerm term) {
+		BDD<T> bdd = provider.one();
 		List<Term> terms = term.getTerms();
 		for (Term element : terms) {
-			BDD<Object> elementBDD = transform(element);
+			BDD<T> elementBDD = transform(element);
 			bdd.andWith(elementBDD);
 		}
 
@@ -202,11 +201,11 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the OR term
 	 */
-	protected BDD<Object> transformOR(ORTerm term) {
-		BDD<Object> bdd = provider.zero();
+	protected BDD<T> transformOR(ORTerm term) {
+		BDD<T> bdd = provider.zero();
 		List<Term> terms = term.getTerms();
 		for (Term element : terms) {
-			BDD<Object> elementBDD = transform(element);
+			BDD<T> elementBDD = transform(element);
 			bdd.orWith(elementBDD);
 		}
 		return bdd;
@@ -219,12 +218,12 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the linear term
 	 */
-	protected BDD<Object> transformLinear(LinearTerm term) {
+	protected BDD<T> transformLinear(LinearTerm term) {
 		List<Integer> coefficients = term.getCoefficients();
-		List<BDD<Object>> bdds = new ArrayList<BDD<Object>>();
+		List<BDD<T>> bdds = new ArrayList<BDD<T>>();
 		List<Term> terms = term.getTerms();
 		for (Term element : terms) {
-			BDD<Object> elementBDD = transform(element);
+			BDD<T> elementBDD = transform(element);
 			bdds.add(elementBDD);
 		}
 		Comparator comparator = term.getComparator();
@@ -239,8 +238,8 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the literal term
 	 */
-	protected BDD<Object> transformLiteral(LiteralTerm term) {
-		Object variable = term.get();
+	protected BDD<T> transformLiteral(LiteralTerm<T> term) {
+		T variable = term.get();
 		return provider.get(variable);
 	}
 
@@ -251,7 +250,7 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the TRUE term
 	 */
-	protected BDD<Object> transformTRUE(TRUETerm term) {
+	protected BDD<T> transformTRUE(TRUETerm term) {
 		return provider.one();
 	}
 
@@ -262,7 +261,7 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the FALSE term
 	 */
-	protected BDD<Object> transformFALSE(FALSETerm term) {
+	protected BDD<T> transformFALSE(FALSETerm term) {
 		return provider.zero();
 	}
 
@@ -273,10 +272,10 @@ public class BDDTTRF implements TTRF {
 	 *            the term to transform
 	 * @return a bdd representing the NOT term
 	 */
-	protected BDD<Object> transformNOT(NOTTerm term) {
+	protected BDD<T> transformNOT(NOTTerm term) {
 		Term element = term.get();
-		BDD<Object> bdd = transform(element);
-		BDD<Object> temp = bdd.not();
+		BDD<T> bdd = transform(element);
+		BDD<T> temp = bdd.not();
 		bdd.free();
 		bdd = temp;
 		return bdd;

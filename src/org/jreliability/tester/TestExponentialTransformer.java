@@ -29,7 +29,7 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
  * @author glass
  * 
  */
-public class TestExponentialTransformer implements Transformer<Object, ReliabilityFunction> {
+public class TestExponentialTransformer implements Transformer<String, ReliabilityFunction> {
 
 	/**
 	 * The heater.
@@ -76,7 +76,7 @@ public class TestExponentialTransformer implements Transformer<Object, Reliabili
 	 * 
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
-	public ReliabilityFunction transform(Object a) {
+	public ReliabilityFunction transform(String a) {
 		return reliabilityFunction.get(a);
 	}
 
