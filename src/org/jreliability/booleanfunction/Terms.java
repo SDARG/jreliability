@@ -121,30 +121,21 @@ public class Terms {
 				return term;
 			} else if ("NOT".equalsIgnoreCase(operator)) {
 				if (list.size() > 2) {
-					throw new RuntimeException(
-							"Too many arguments in NOT term: " + list);
+					throw new RuntimeException("Too many arguments in NOT term: " + list);
 				}
 				NOTTerm term = new NOTTerm(parse(list.get(1)));
 				return term;
 			} else { // Linear
 				Comparator comparator = null;
-				if (operator.equalsIgnoreCase(LinearTerm.Comparator.EQUAL
-						.toString())) {
+				if (operator.equalsIgnoreCase(LinearTerm.Comparator.EQUAL.toString())) {
 					comparator = LinearTerm.Comparator.EQUAL;
-				} else if (operator
-						.equalsIgnoreCase(LinearTerm.Comparator.GREATER
-								.toString())) {
+				} else if (operator.equalsIgnoreCase(LinearTerm.Comparator.GREATER.toString())) {
 					comparator = LinearTerm.Comparator.GREATER;
-				} else if (operator
-						.equalsIgnoreCase(LinearTerm.Comparator.GREATEREQUAL
-								.toString())) {
+				} else if (operator.equalsIgnoreCase(LinearTerm.Comparator.GREATEREQUAL.toString())) {
 					comparator = LinearTerm.Comparator.GREATEREQUAL;
-				} else if (operator.equalsIgnoreCase(LinearTerm.Comparator.LESS
-						.toString())) {
+				} else if (operator.equalsIgnoreCase(LinearTerm.Comparator.LESS.toString())) {
 					comparator = LinearTerm.Comparator.LESS;
-				} else if (operator
-						.equalsIgnoreCase(LinearTerm.Comparator.LESSEQUAL
-								.toString())) {
+				} else if (operator.equalsIgnoreCase(LinearTerm.Comparator.LESSEQUAL.toString())) {
 					comparator = LinearTerm.Comparator.LESSEQUAL;
 				} else {
 					throw new RuntimeException("Unknown operator: " + operator);
@@ -161,7 +152,7 @@ public class Terms {
 				return term;
 			}
 		} else { // Literal
-			LiteralTerm term = new LiteralTerm(object);
+			LiteralTerm<Object> term = new LiteralTerm<Object>(object);
 			return term;
 		}
 	}
@@ -183,8 +174,7 @@ public class Terms {
 
 			// Operator
 			String operator = "";
-			while (!string.isEnd() && string.getCurrent() != ' '
-					&& string.getCurrent() != '\n') {
+			while (!string.isEnd() && string.getCurrent() != ' ' && string.getCurrent() != '\n') {
 				operator += string.getCurrent();
 				string.next();
 			}
@@ -201,9 +191,8 @@ public class Terms {
 					return list;
 				}
 			}
-			throw new RuntimeException(
-					"String is not in compliance with the regular expression to describe a Term."
-							+ "Missing ')' before EOF.");
+			throw new RuntimeException("String is not in compliance with the regular expression to describe a Term."
+					+ "Missing ')' before EOF.");
 		} else if (string.getCurrent() == '"') {
 			String variable = "";
 			string.next();
@@ -217,15 +206,14 @@ public class Terms {
 			}
 			throw new RuntimeException("No closing \" in: " + variable);
 		} else {
-			throw new RuntimeException(
-					"String is not in compliance with the regular expression to describe a Term."
-							+ "Operands must be enclosed in brackets (), variables must be enclosed in \"\".");
+			throw new RuntimeException("String is not in compliance with the regular expression to describe a Term."
+					+ "Operands must be enclosed in brackets (), variables must be enclosed in \"\".");
 		}
 	}
 
 	/**
-	 * The {@code ParseString} is a helper class to parse a helper {@code
-	 * Object} from a given {@code String}.
+	 * The {@code ParseString} is a helper class to parse a helper
+	 * {@code Object} from a given {@code String}.
 	 * 
 	 * @author glass
 	 * 
@@ -301,8 +289,7 @@ public class Terms {
 		 * newline character.
 		 */
 		public void skipSpaces() {
-			while (!this.isEnd()
-					&& (this.getCurrent() == ' ' || this.getCurrent() == '\n')) {
+			while (!this.isEnd() && (this.getCurrent() == ' ' || this.getCurrent() == '\n')) {
 				this.next();
 			}
 		}
