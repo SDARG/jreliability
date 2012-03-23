@@ -18,8 +18,10 @@ import org.jreliability.booleanfunction.Term;
 
 /**
  * The {@code LiteralTerm} represents a {@code Literal}, i.e. the used variable.
+ * A {@link LiteralTerm} equals another {@link LiteralTerm} if their variables
+ * are equal.
  * 
- * @author glass
+ * @author glass, reimann
  * 
  * @param <T>
  *            the type of the variable
@@ -61,5 +63,45 @@ public class LiteralTerm<T> implements Term {
 		s += variable;
 		s += "\"";
 		return s;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((variable == null) ? 0 : variable.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		LiteralTerm<?> other = (LiteralTerm<?>) obj;
+		if (variable == null) {
+			if (other.variable != null) {
+				return false;
+			}
+		} else if (!variable.equals(other.variable)) {
+			return false;
+		}
+		return true;
 	}
 }
