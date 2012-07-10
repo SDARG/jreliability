@@ -26,14 +26,6 @@ import java.util.List;
 public abstract class AbstractHierarchicalTerm implements Term {
 
 	/**
-	 * Constructs an {@code AbstractHierarchicalTerm}.
-	 * 
-	 */
-	public AbstractHierarchicalTerm() {
-		super();
-	}
-
-	/**
 	 * The embedded {@code Terms}.
 	 */
 	protected List<Term> terms;
@@ -55,6 +47,18 @@ public abstract class AbstractHierarchicalTerm implements Term {
 	 */
 	public void add(Term term) {
 		terms.add(term);
+	}
+
+	/**
+	 * Adds a {@code Term} to the list of embedded {@code Terms}.
+	 * 
+	 * @param term
+	 *            the term to add
+	 */
+	public void add(Term... terms) {
+		for (Term term : terms) {
+			this.terms.add(term);
+		}
 	}
 
 	/**
