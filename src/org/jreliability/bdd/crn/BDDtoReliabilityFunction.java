@@ -12,8 +12,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
-package org.jreliability.bdd;
+package org.jreliability.bdd.crn;
 
+import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDReliabilityFunction;
 import org.jreliability.cra.Adapter;
 import org.jreliability.cra.CompositionalReliabilityNode;
 import org.jreliability.function.ReliabilityFunction;
@@ -28,24 +30,39 @@ import org.jreliability.function.ReliabilityFunction;
  * @param <T>
  *            the type of the variables
  */
-public class BDDTTRF<T> implements CompositionalReliabilityNode<BDD<T>, BDDReliabilityFunction<T>> {
+public class BDDtoReliabilityFunction<T> implements CompositionalReliabilityNode<BDDReliabilityFunction<T>> {
 
-	public final Adapter<T, ReliabilityFunction> functionTransformer;
+	private Adapter<T, ReliabilityFunction> functionTransformer;
+	private BDD<T> bdd;
 
-	public BDDTTRF(Adapter<T, ReliabilityFunction> functionTransformer) {
-		this.functionTransformer = functionTransformer;
+	@SuppressWarnings("unchecked")
+	@Override
+	public void set(Object input) {
+		if (input instanceof BDD) {
+			bdd = (BDD<T>) input;
+		} else if (input instanceof Adapter) {
+			functionTransformer = (Adapter<T, ReliabilityFunction>) input;
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
-	 * booleanfunction.Term, org.apache.commons.collections15.Transformer)
-	 */
 	@Override
-	public BDDReliabilityFunction<T> convert(BDD<T> bdd) {
+	public BDDReliabilityFunction<T> get() {
 		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		bdd.free();
 		return function;
+	}
+
+	@Override
+	public void requires() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void provides() {
+		// TODO Auto-generated method stub
+
 	}
 }

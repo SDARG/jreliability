@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jreliability.cra.Adapter;
+import org.jreliability.cra.Provider;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 
@@ -29,7 +30,7 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
  * @author glass
  * 
  */
-public class TestExponentialTransformer implements Adapter<String, ReliabilityFunction> {
+public class TestExponentialTransformer implements Provider<Adapter<String, ReliabilityFunction>> {
 
 	/**
 	 * The heater.
@@ -77,7 +78,12 @@ public class TestExponentialTransformer implements Adapter<String, ReliabilityFu
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
 	@Override
-	public ReliabilityFunction transform(String a) {
-		return reliabilityFunction.get(a);
+	public Adapter<String, ReliabilityFunction> get() {
+		return new Adapter<String, ReliabilityFunction>() {
+			@Override
+			public ReliabilityFunction transform(String i) {
+				return reliabilityFunction.get(i);
+			}
+		};
 	}
 }

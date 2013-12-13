@@ -20,7 +20,7 @@ import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.BDDs;
-import org.jreliability.bdd.adapter.TermToBDDAdapter;
+import org.jreliability.bdd.crn.TermToBDDAdapter;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.LinearTerm;

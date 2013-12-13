@@ -1,16 +1,16 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
  * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.tester;
 
@@ -18,6 +18,7 @@ import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.cra.Provider;
 
 /**
  * The {@code TestExample} is a play example. It describes a water heating
@@ -28,7 +29,7 @@ import org.jreliability.booleanfunction.common.ORTerm;
  * @author glass
  * 
  */
-public class TestExample {
+public class TestExample implements Provider<Term> {
 
 	/**
 	 * The heater.
@@ -55,6 +56,7 @@ public class TestExample {
 	 * 
 	 * @return the term representation of the test example
 	 */
+	@Override
 	public Term get() {
 		LiteralTerm<String> heaterLiteral = new LiteralTerm<String>(heater);
 		LiteralTerm<String> pump1Literal = new LiteralTerm<String>(pump1);

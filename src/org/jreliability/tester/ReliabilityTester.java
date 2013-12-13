@@ -17,14 +17,13 @@ package org.jreliability.tester;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.adapter.TermToBDDAdapter;
+import org.jreliability.bdd.crn.BDDtoReliabilityFunction;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.booleanfunction.Term;
-import org.jreliability.cra.Adapter;
+import org.jreliability.cra.CompositeAnalysis;
+import org.jreliability.cra.Node;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
@@ -50,29 +49,57 @@ public class ReliabilityTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		TestExample example = new TestExample();
-		Term term = example.get();
-
-		Adapter<String, ReliabilityFunction> exponentialTransformer = new TestExponentialTransformer();
-		Adapter<String, ReliabilityFunction> weibullTransformer = new TestWeibullTransformer();
-
+		// TestExample example = new TestExample();
+		// Term term = example.get();
+		//
+		// Adapter<String, ReliabilityFunction> exponentialTransformer = new
+		// TestExponentialTransformer();
+		// Adapter<String, ReliabilityFunction> weibullTransformer = new
+		// TestWeibullTransformer();
+		//
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-		TermToBDDAdapter<String> adapter = new TermToBDDAdapter<String>(bddProvider);
-
-		BDD<String> bdd = adapter.transform(term);
-		BDD<String> bdd2 = bdd.copy();
-		BDDTTRF<String> bddtexponentialrf = new BDDTTRF<String>(exponentialTransformer);
-		ReliabilityFunction exponentialDistribution = bddtexponentialrf.convert(bdd);
-
-		BDDTTRF<String> bddtweibullrf = new BDDTTRF<String>(weibullTransformer);
-		ReliabilityFunction weibullDistribution = bddtweibullrf.convert(bdd2);
-
+		// TermToBDDAdapter<String> adapter = new
+		// TermToBDDAdapter<String>(bddProvider);
+		//
+		// BDD<String> bdd = adapter.transform(term);
+		// BDD<String> bdd2 = bdd.copy();
+		// BDDTTRF<String> bddtexponentialrf = new
+		// BDDTTRF<String>(exponentialTransformer);
+		// ReliabilityFunction exponentialDistribution =
+		// bddtexponentialrf.convert(bdd);
+		//
+		// BDDTTRF<String> bddtweibullrf = new
+		// BDDTTRF<String>(weibullTransformer);
+		// ReliabilityFunction weibullDistribution =
+		// bddtweibullrf.convert(bdd2);
+		//
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
-		reliabilityFunctions.put("Exponential", exponentialDistribution);
-		reliabilityFunctions.put("Weibull", weibullDistribution);
+		// reliabilityFunctions.put("Exponential", exponentialDistribution);
+		// reliabilityFunctions.put("Weibull", weibullDistribution);
+		//
+		// ReliabilityViewer.view("JReliability Viewer", reliabilityFunctions);
 
-		ReliabilityViewer.view("JReliability Viewer", reliabilityFunctions);
+		CompositeAnalysis analysis = new CompositeAnalysis();
 
+		// Node bddcopy = new BDDCopy();
+		Node bddttrf = new BDDtoReliabilityFunction<String>();
+		analysis.connect(new TestExample(), new TermToBDDAdapter<String>(bddProvider), // bddcopy,
+				bddttrf);
+		analysis.connect(new TestExponentialTransformer(), bddttrf);
+		String id1 = "Exponential";
+		analysis.setTargetID(bddttrf, id1);
+
+		// Node bddttrf2 = new BDDTTRF<String>();
+		// analysis.connect(bddcopy, bddttrf2);
+		// analysis.connect(new TestWeibullTransformer(), bddttrf2);
+		// String id2 = "Weibull";
+		// analysis.setTargetID(bddttrf2, id2);
+
+		Map<String, ReliabilityFunction> reliabilityFunctions2 = new HashMap<String, ReliabilityFunction>();
+		ReliabilityFunction reliabilityFunction = analysis.<ReliabilityFunction> get(id1);
+		reliabilityFunctions.put(id1, reliabilityFunction);
+
+		ReliabilityViewer.view("JReliability Viewer2", reliabilityFunctions);
 	}
 }

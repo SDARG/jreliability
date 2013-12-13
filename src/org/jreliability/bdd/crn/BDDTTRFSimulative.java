@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
-package org.jreliability.bdd;
+package org.jreliability.bdd.crn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDProvider;
 import org.jreliability.common.Failure;
 import org.jreliability.cra.Adapter;
 import org.jreliability.cra.CompositionalReliabilityNode;
@@ -38,7 +40,7 @@ import org.jreliability.function.common.SampledReliabilityFunction;
  * @param <T>
  *            the elements of the bdd
  */
-public class BDDTTRFSimulative<T> implements CompositionalReliabilityNode<BDD<T>, ReliabilityFunction> {
+public class BDDTTRFSimulative<T> implements CompositionalReliabilityNode<ReliabilityFunction> {
 
 	/**
 	 * The used maximum error / {@code epsilon} value for the simulation.
@@ -52,6 +54,8 @@ public class BDDTTRFSimulative<T> implements CompositionalReliabilityNode<BDD<T>
 
 	private Adapter<T, ReliabilityFunction> functionTransformer;
 
+	private BDD<T> bdd;
+
 	/**
 	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider}
 	 * and a standard epsilon of {@code 0.001}.
@@ -59,8 +63,8 @@ public class BDDTTRFSimulative<T> implements CompositionalReliabilityNode<BDD<T>
 	 * @param provider
 	 *            the used bddProvider
 	 */
-	public BDDTTRFSimulative(Adapter<T, ReliabilityFunction> functionTransformer) {
-		this(functionTransformer, 0.001);
+	public BDDTTRFSimulative() {
+		this(0.001);
 	}
 
 	/**
@@ -72,15 +76,38 @@ public class BDDTTRFSimulative<T> implements CompositionalReliabilityNode<BDD<T>
 	 * @param epsilon
 	 *            the used epsilon value
 	 */
-	public BDDTTRFSimulative(Adapter<T, ReliabilityFunction> functionTransformer, double epsilon) {
-		this.functionTransformer = functionTransformer;
+	public BDDTTRFSimulative(double epsilon) {
 		this.epsilon = epsilon;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ReliabilityFunction convert(BDD<T> model) {
-		List<Double> samples = collectTimesToFailure(model, 5000);
+	public void set(Object input) {
+		if (input instanceof BDD) {
+			bdd = (BDD<T>) input;
+		} else if (input instanceof Adapter) {
+			functionTransformer = (Adapter<T, ReliabilityFunction>) input;
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	@Override
+	public ReliabilityFunction get() {
+		List<Double> samples = collectTimesToFailure(bdd, 5000);
 		return new SampledReliabilityFunction(samples);
+	}
+
+	@Override
+	public void requires() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void provides() {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
