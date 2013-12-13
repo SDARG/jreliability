@@ -1,16 +1,16 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
  * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -26,10 +26,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.booleanfunction.common.LinearTerm;
+import org.jreliability.cra.Adapter;
 
 /**
  * The {@code BDDs} contains common reliabilityFunctions for/on {@code BDD}s.
@@ -68,8 +68,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns all nodes of the {@code BDD} that represent the variable {@code
-	 * T}.
+	 * Returns all nodes of the {@code BDD} that represent the variable
+	 * {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -156,6 +156,7 @@ public abstract class BDDs {
 		List<Literal<T>> literals = constraint.getLhs();
 
 		Collections.sort(literals, new Comparator<Literal<T>>() {
+			@Override
 			public int compare(Literal<T> o1, Literal<T> o2) {
 				return o2.getCoefficient() - o1.getCoefficient();
 			}
@@ -216,7 +217,7 @@ public abstract class BDDs {
 	 *            the transformer that returns a double value for each variable
 	 * @return the top event of the bdd
 	 */
-	public static <T> double calculateTop(BDD<T> bdd, Transformer<T, Double> transformer) {
+	public static <T> double calculateTop(BDD<T> bdd, Adapter<T, Double> transformer) {
 		if (bdd.isOne()) {
 			return 1.0;
 		}
@@ -270,7 +271,7 @@ public abstract class BDDs {
 	 *            the sorted bdd nodes
 	 * @return the top event
 	 */
-	protected static <T> double evaluate(BDD<T> bdd, Transformer<T, Double> transformer, Set<BDD<T>> upSort) {
+	protected static <T> double evaluate(BDD<T> bdd, Adapter<T, Double> transformer, Set<BDD<T>> upSort) {
 		Map<T, Double> values = new HashMap<T, Double>();
 		HashMap<BDD<T>, Double> bddToDouble = new HashMap<BDD<T>, Double>();
 
@@ -342,8 +343,8 @@ public abstract class BDDs {
 	 *            the used bdd provider
 	 * @return the bdd representation of the given constraint
 	 */
-	protected static <T> BDD<T> buildConstraintBDD(List<Literal<T>> literals, int rhs, int index, int sum, int materialLeft,
-			Map<Pair<Integer, Integer>, BDD<T>> memo, BDDProvider<T> provider) {
+	protected static <T> BDD<T> buildConstraintBDD(List<Literal<T>> literals, int rhs, int index, int sum,
+			int materialLeft, Map<Pair<Integer, Integer>, BDD<T>> memo, BDDProvider<T> provider) {
 		if (sum >= rhs) {
 			return provider.one();
 		} else if (sum + materialLeft < rhs) {

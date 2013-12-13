@@ -7,7 +7,7 @@ import java.util.Set;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
-import org.jreliability.bdd.BDDTTRF;
+import org.jreliability.bdd.adapter.TermToBDDAdapter;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
@@ -29,7 +29,7 @@ public class MemoryLeakTest {
 
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<Integer> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<Integer> transformer = new BDDTTRF<Integer>(bddProvider);
+		TermToBDDAdapter<Integer> adapter = new TermToBDDAdapter<Integer>(bddProvider);
 
 		Random r = new Random(0);
 
@@ -67,7 +67,7 @@ public class MemoryLeakTest {
 				term.add(or);
 			}
 
-			BDD<Integer> result = transformer.convertToBDD(term);
+			BDD<Integer> result = adapter.transform(term);
 
 			// ReliabilityFunction reliabilityFunction =
 			// functionTransformer.convert(result, functionTransformer);

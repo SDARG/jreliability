@@ -1,27 +1,29 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
  * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.function;
 
+import org.jreliability.cra.ReliabilityMeasure;
+
 /**
- * The {@code DensityFunction} determines the density {@code f(x)} of a {@code
- * ReliabilityFunction} {@code R(x)}.
+ * The {@code DensityFunction} determines the density {@code f(x)} of a
+ * {@code ReliabilityFunction} {@code R(x)}.
  * 
  * @author glass
  * 
  */
-public class DensityFunction {
+public class DensityFunction implements ReliabilityMeasure {
 
 	/**
 	 * The {@code ReliabilityFunction} for which the {@code DensityFunction} is
@@ -30,8 +32,8 @@ public class DensityFunction {
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * Constructs a {@code DensityFunction} with a given {@code
-	 * ReliabilityFunction}.
+	 * Constructs a {@code DensityFunction} with a given
+	 * {@code ReliabilityFunction}.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction

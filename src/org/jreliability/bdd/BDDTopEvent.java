@@ -1,16 +1,16 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
  * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.collections15.Transformer;
+import org.jreliability.cra.Adapter;
 
 /**
  * The {@code BDDTopEvent} allows the fast calculation of the top event for a
@@ -142,6 +142,7 @@ public class BDDTopEvent<T> {
 		 * 
 		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
+		@Override
 		public double getValue() {
 			return value;
 		}
@@ -218,6 +219,7 @@ public class BDDTopEvent<T> {
 		 * 
 		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
+		@Override
 		public double getValue() {
 			return 1;
 		}
@@ -236,6 +238,7 @@ public class BDDTopEvent<T> {
 		 * 
 		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
+		@Override
 		public double getValue() {
 			return 0;
 		}
@@ -291,7 +294,7 @@ public class BDDTopEvent<T> {
 	 *            the transformer from the variables to the values
 	 * @return the top event as a {@code double} value
 	 */
-	public double calculate(Transformer<T, Double> transformer) {
+	public double calculate(Adapter<T, Double> transformer) {
 
 		for (Entry<T, Var> entry : variables.entrySet()) {
 			T t = entry.getKey();

@@ -1,16 +1,16 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
  * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -85,6 +85,7 @@ public interface BDD<T> {
 	 *            the BDD to compare with this BDD
 	 * @return true if this BDD equals that BDD
 	 */
+	@Override
 	public boolean equals(Object that);
 
 	/**
@@ -172,9 +173,9 @@ public interface BDD<T> {
 	public BDD<T> low();
 
 	/**
-	 * Returns a {@code BDD} the is the negation of {@code this} BDD.
+	 * Returns the {@code BDD} that is the negation of {@code this} BDD.
 	 * 
-	 * @return a BDD the is the negation of this BDD
+	 * @return a BDD that is the negation of this BDD
 	 */
 	public BDD<T> not();
 
@@ -225,7 +226,7 @@ public interface BDD<T> {
 
 	/**
 	 * Returns a {@code BDD} where the variable for {@code variable1} is
-	 * replaced with the variable of {@code variable2}.
+	 * replaced with the variable of {@code variable2} .
 	 * 
 	 * @param variable1
 	 *            the first variable
@@ -237,8 +238,8 @@ public interface BDD<T> {
 	public BDD<T> replace(T variable1, T variable2);
 
 	/**
-	 * Replaces the variable for {@code variable1} with the variable of {@code
-	 * variable2} in {@code this} {@code BDD}.
+	 * Replaces the variable for {@code variable1} with the variable of
+	 * {@code variable2} in {@code this} {@code BDD}.
 	 * 
 	 * @param variable1
 	 *            the first variable

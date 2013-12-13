@@ -6,7 +6,7 @@
 
 	<tstamp>
 		<format property="date" pattern="MM/dd/yyyy" />
-		<format property="date-flat" pattern="MMddyyyy" />
+		<format property="date-flat" pattern="yyyyMMdd" />
 	</tstamp>
 
 	<!-- VERSIONING -->
@@ -42,7 +42,7 @@
 	</target>
 
 	<target name="compile" depends="init" description="Compile Java source.">
-		<javac srcdir="${build.dir}/src" debug="on" destdir="${build.dir}/classes" source="1.5" target="1.5" includeantruntime="false">
+		<javac srcdir="${build.dir}/src" debug="on" destdir="${build.dir}/classes" source="1.7" target="1.7" includeantruntime="false">
 			<classpath refid="compile.classpath" />
 			<compilerarg value="-Xlint" />
 		</javac>
@@ -101,7 +101,7 @@
 	<target name="javadoc" depends="init" description="Generate Javadocs.">
 		<javadoc sourcepath="${build.dir}/src" packagenames="*" destdir="${build.dir}/javadoc" author="false" protected="true" windowtitle="JReliability ${version} API" overview="${build.dir}/src/overview.html">
 			<classpath refid="compile.classpath" />
-			<link href="http://java.sun.com/javase/6/docs/api" />
+			<link href="http://docs.oracle.com/javase/7/docs/api/" />
 		</javadoc>
 	</target>
 
