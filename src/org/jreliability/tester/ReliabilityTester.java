@@ -49,37 +49,10 @@ public class ReliabilityTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TestExample example = new TestExample();
-		// Term term = example.get();
-		//
-		// Adapter<String, ReliabilityFunction> exponentialTransformer = new
-		// TestExponentialTransformer();
-		// Adapter<String, ReliabilityFunction> weibullTransformer = new
-		// TestWeibullTransformer();
-		//
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-		// TermToBDDAdapter<String> adapter = new
-		// TermToBDDAdapter<String>(bddProvider);
-		//
-		// BDD<String> bdd = adapter.transform(term);
-		// BDD<String> bdd2 = bdd.copy();
-		// BDDTTRF<String> bddtexponentialrf = new
-		// BDDTTRF<String>(exponentialTransformer);
-		// ReliabilityFunction exponentialDistribution =
-		// bddtexponentialrf.convert(bdd);
-		//
-		// BDDTTRF<String> bddtweibullrf = new
-		// BDDTTRF<String>(weibullTransformer);
-		// ReliabilityFunction weibullDistribution =
-		// bddtweibullrf.convert(bdd2);
-		//
-		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
-		// reliabilityFunctions.put("Exponential", exponentialDistribution);
-		// reliabilityFunctions.put("Weibull", weibullDistribution);
-		//
-		// ReliabilityViewer.view("JReliability Viewer", reliabilityFunctions);
 
+		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
 		CompositeAnalysis analysis = new CompositeAnalysis();
 
 		// Node bddcopy = new BDDCopy();
