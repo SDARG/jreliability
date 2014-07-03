@@ -19,10 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.BDDProvider;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
-
 import net.sf.javabdd.BDDException;
 import net.sf.javabdd.BDDFactory;
 import net.sf.javabdd.BuDDyFactory;
@@ -30,6 +26,10 @@ import net.sf.javabdd.CALFactory;
 import net.sf.javabdd.CUDDFactory;
 import net.sf.javabdd.JDDFactory;
 import net.sf.javabdd.JFactory;
+
+import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 
 /**
  * The {@code JBDDProvider} used to get {@code JBDD} BDDs.
@@ -53,8 +53,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected BDDFactory factory;
 
 	/**
-	 * A translation of the variable to an {@code Integer} for the real {@code
-	 * BDD}.
+	 * A translation of the variable to an {@code Integer} for the real
+	 * {@code BDD}.
 	 */
 	protected Map<T, Integer> variableToInt = new HashMap<T, Integer>();
 	/**
@@ -68,8 +68,8 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected int vars;
 
 	/**
-	 * Constructs a {@code JDDProvider} with the {@code Type} of real {@code
-	 * BDDs} and a given number of variables.
+	 * Constructs a {@code JDDProvider} with the {@code Type} of real
+	 * {@code BDDs} and a given number of variables.
 	 * 
 	 * @param type
 	 *            the type of the real bdd implementation
@@ -152,6 +152,13 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	public BDD<T> get(T variable) {
 		if (!variableToInt.containsKey(variable)) {
 			add(variable);
+		} else {
+			// Once a BDD is constructed, further changes in the reliability
+			// attributes of implementations do not apply to its variables.
+			// Therefore, to support multiple analysis of the same BDD with
+			// different reliability values, we update the variables.
+			Integer offset = variableToInt.get(variable);
+			intToVariable.put(offset, variable);
 		}
 
 		if (type == Type.BUDDY) {
