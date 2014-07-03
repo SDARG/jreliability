@@ -172,9 +172,9 @@ public interface BDD<T> {
 	public BDD<T> low();
 
 	/**
-	 * Returns a {@code BDD} the is the negation of {@code this} BDD.
+	 * Returns a {@code BDD} that is the negation of {@code this} BDD.
 	 * 
-	 * @return a BDD the is the negation of this BDD
+	 * @return a BDD that is the negation of this BDD
 	 */
 	public BDD<T> not();
 
@@ -237,8 +237,8 @@ public interface BDD<T> {
 	public BDD<T> replace(T variable1, T variable2);
 
 	/**
-	 * Replaces the variable for {@code variable1} with the variable of {@code
-	 * variable2} in {@code this} {@code BDD}.
+	 * Replaces the variable for {@code variable1} with the variable of
+	 * {@code variable2} in {@code this} {@code BDD}.
 	 * 
 	 * @param variable1
 	 *            the first variable
@@ -253,8 +253,7 @@ public interface BDD<T> {
 	 * unchanged after this or-operation.
 	 * 
 	 * @param that
-	 *            the BDD to or with this BDD
-	 * @return the logical or of the two BDDs
+	 * @return
 	 */
 	public BDD<T> restrict(BDD<T> that);
 
@@ -264,7 +263,6 @@ public interface BDD<T> {
 	 * operation and invalid afterwards.
 	 * 
 	 * @param that
-	 *            the BDD to or with this BDD
 	 */
 	public void restrictWith(BDD<T> that);
 
