@@ -17,8 +17,8 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code ExponentialReliabilityFunction} represents the {@code
- * ReliabilityFunction} of the {@code Exponential reliabilityFunction}
+ * The {@code ExponentialReliabilityFunction} represents the
+ * {@code ReliabilityFunction} of the {@code Exponential reliabilityFunction}
  * <p>
  * {@code R(x) = 1 - F(x) = e^-(alpha * x)}<br />
  * with {@code alpha > 0}.
@@ -32,14 +32,14 @@ import org.jreliability.function.ReliabilityFunction;
 public class ExponentialReliabilityFunction implements ReliabilityFunction {
 
 	/**
-	 * The parameter {@code alpha} corresponds to the failure-rate {@code
-	 * lambda}.
+	 * The parameter {@code alpha} corresponds to the failure-rate
+	 * {@code lambda}.
 	 */
 	protected final double alpha;
 
 	/**
-	 * Constructs an {@code ExponentialReliabilityFunction} with a given {@code
-	 * alpha}
+	 * Constructs an {@code ExponentialReliabilityFunction} with a given
+	 * {@code alpha}
 	 * 
 	 * @param alpha
 	 *            the alpha value
@@ -47,7 +47,8 @@ public class ExponentialReliabilityFunction implements ReliabilityFunction {
 	public ExponentialReliabilityFunction(double alpha) {
 		this.alpha = alpha;
 		if (!(alpha > 0)) {
-			throw new IllegalArgumentException("ExponentialReliabilityFunction: Alpha should be greater 0.");
+			throw new IllegalArgumentException(
+					"ExponentialReliabilityFunction: Alpha should be greater 0.");
 		}
 	}
 
@@ -59,6 +60,10 @@ public class ExponentialReliabilityFunction implements ReliabilityFunction {
 	public double getY(double x) {
 		double y = Math.exp(-(alpha * x));
 		return y;
+	}
+
+	public double getAlpha() {
+		return alpha;
 	}
 
 }

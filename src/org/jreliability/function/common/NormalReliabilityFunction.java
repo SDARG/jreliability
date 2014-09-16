@@ -17,20 +17,19 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code LognormalReliabilityFunction} represents the
- * {@code ReliabilityFunction} of the {@code Lognormal reliabilityFunction}
+ * The {@code NormalReliabilityFunction} represents the
+ * {@code ReliabilityFunction} of the {@code Normal reliabilityFunction}
  * <p>
- * {@code R(x) = 1 - F(x) = 0.5 - 0.5 * (Math.log(x) - mu) / (rho * Math.sqrt(2))}
- * <br />
+ * {@code R(x) = 1 - F(x) = 0.5 - 0.5 * (x - mu) / (rho * Math.sqrt(2))} <br />
  * with {@code mu, rho > 0}.
  * <p>
  * The {@code rho} and {@code mu} parameter represent the standard deviation and
  * mean of the variable's natural logarithm.
  * 
- * @author glass, khosravi
+ * @author khosravi
  * 
  */
-public class LognormalReliabilityFunction implements ReliabilityFunction {
+public class NormalReliabilityFunction implements ReliabilityFunction {
 
 	/**
 	 * The used mean of the natural logarithms of the times-to-failure.
@@ -43,6 +42,8 @@ public class LognormalReliabilityFunction implements ReliabilityFunction {
 	 */
 	protected final double rho;
 
+	LognormalReliabilityFunction lognormalReliabilityFunction;
+
 	/**
 	 * Constructs a {@code LognormalReliabilityFunction} with a given {@code mu}
 	 * and {@code rho}.
@@ -52,9 +53,10 @@ public class LognormalReliabilityFunction implements ReliabilityFunction {
 	 * @param rho
 	 *            the standard deviation of the variable's natural logarithm
 	 */
-	public LognormalReliabilityFunction(double mu, double rho) {
+	public NormalReliabilityFunction(double mu, double rho) {
 		this.mu = mu;
 		this.rho = rho;
+		lognormalReliabilityFunction = new LognormalReliabilityFunction(mu, rho);
 		if (!(rho > 0)) {
 			throw new IllegalArgumentException(
 					"LognormalReliabilityFunction: Mu and Rho should be greater 0.");
@@ -68,39 +70,12 @@ public class LognormalReliabilityFunction implements ReliabilityFunction {
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 * 
-	 * @param x
+	 * @param
 	 * @return {@code R(x)}
 	 */
 	public double getY(double x) {
-		double inTerm = (Math.log(x) - mu) / (rho * Math.sqrt(2));
-		double y = 0.5 - 0.5 * erf(inTerm);
-
-		return y;
+		if (x == mu)
+			x += 0.000000000000001;
+		return this.lognormalReliabilityFunction.getY(Math.exp(x));
 	}
-
-	/**
-	 * Estimated Error Function (from the Formula 7.1.26 in
-	 * "Handbook of Mathematical Functions" by M. Abramowitz and I. A. Stegun.)
-	 * 
-	 * @param x
-	 * @return erf(x)
-	 */
-	private double erf(double x) {
-		// constants
-		final double a1 = 0.254829592;
-		final double a2 = -0.284496736;
-		final double a3 = 1.421413741;
-		final double a4 = -1.453152027;
-		final double a5 = 1.061405429;
-		final double p = 0.3275911;
-
-		double t = 1.0 / (1.0 + p * Math.abs(x));
-		double y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t
-				* Math.exp(-Math.abs(x) * Math.abs(x));
-
-		if (x > 0)
-			return y;
-		return -y;
-	}
-
 }

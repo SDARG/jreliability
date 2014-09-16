@@ -158,6 +158,12 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 			// Therefore, to support multiple analysis of the same BDD with
 			// different reliability values, we update the variables.
 			Integer offset = variableToInt.get(variable);
+			// Since the attributes of the input variable may differ from those
+			// of the corresponding, existing variable, we overwrite it into the
+			// maps to update attributes of the stored variable
+			variableToInt.remove(variable);
+			variableToInt.put(variable, offset);
+			intToVariable.remove(offset);
 			intToVariable.put(offset, variable);
 		}
 
