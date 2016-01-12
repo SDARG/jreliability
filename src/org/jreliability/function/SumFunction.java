@@ -2,8 +2,6 @@ package org.jreliability.function;
 
 import java.util.Set;
 
-import org.jreliability.function.ReliabilityFunction;
-
 public class SumFunction implements ReliabilityFunction {
 
 	private Set<ReliabilityFunction> functions;
