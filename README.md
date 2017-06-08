@@ -48,4 +48,4 @@ Brought to you by
 
 ## License
 
-JReliability uses LGPLv2.
+JReliability uses [LGPLv3](./LICENSE).
