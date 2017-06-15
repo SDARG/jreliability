@@ -16,8 +16,7 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
- * The {@code TMRTester} performs some common actions that are done with a
- * modeled system.
+ * The {@code TMRTester} performs some common actions that are done with a modeled system.
  * 
  * @author glass
  * 
@@ -28,6 +27,7 @@ public class TMRTester {
 	 * Main.
 	 * 
 	 * @param args
+	 *            command line arguments
 	 */
 	public static void main(String[] args) {
 
@@ -52,8 +52,7 @@ public class TMRTester {
 
 		// The single element solution equals a simple
 		// ExponentiaRreliabilityFunction
-		ReliabilityFunction reliabilityFunctionSingle = new ExponentialReliabilityFunction(
-				0.1);
+		ReliabilityFunction reliabilityFunctionSingle = new ExponentialReliabilityFunction(0.1);
 
 		// Calculate Mean-Time-To-Failures (the first moment of the density
 		// function)
@@ -61,17 +60,15 @@ public class TMRTester {
 		Double mttfTMR = moment.evaluate(reliabilityFunctionTMR);
 		System.out.println("Mean-Time-To-Failure of TMR: " + mttfTMR);
 		Double mttfSingle = moment.evaluate(reliabilityFunctionSingle);
-		System.out.println("Mean-Time-To-Failure of single element: "
-				+ mttfSingle);
+		System.out.println("Mean-Time-To-Failure of single element: " + mttfSingle);
 		System.out.println("***");
 
 		// Using the GUI
-		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
+		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 		reliabilityFunctions.put("TMR", reliabilityFunctionTMR);
 		reliabilityFunctions.put("Single Component", reliabilityFunctionSingle);
 
-		ReliabilityViewer.view("JReliability Viewer - TMR Tutorial",
-				reliabilityFunctions);
+		ReliabilityViewer.view("JReliability Viewer - TMR Tutorial", reliabilityFunctions);
 
 	}
 

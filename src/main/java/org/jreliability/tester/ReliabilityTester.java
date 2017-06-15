@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.tester;
 
@@ -46,6 +44,7 @@ public class ReliabilityTester {
 	 * Main.
 	 * 
 	 * @param args
+	 *            command line arguments
 	 */
 	public static void main(String[] args) {
 		TestExample example = new TestExample();
@@ -56,11 +55,11 @@ public class ReliabilityTester {
 
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<String> transformer = new BDDTTRF<String>(bddProvider);
+		BDDTTRF<String> transformer = new BDDTTRF<>(bddProvider);
 		ReliabilityFunction exponentialDistribution = transformer.convert(bdd, exponentialTransformer);
 		ReliabilityFunction weibullDistribution = transformer.convert(bdd, weibullTransformer);
 
-		Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
+		Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<>();
 		reliabilityFunction.put("Exponential", exponentialDistribution);
 		reliabilityFunction.put("Weibull", weibullDistribution);
 

@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.function.common;
 
@@ -20,13 +18,11 @@ import org.jreliability.function.ReliabilityFunction;
  * The {@code WeibullReliabilityFunction} represents the {@code
  * ReliabilityFunction} of the {@code Weibull reliabilityFunction}
  * <p>
- * {@code R(x) = 1 - F(x) = e^-(alpha * (x^beta))}<br />
+ * {@code R(x) = 1 - F(x) = e^-(alpha * (x^beta))}<br>
  * with {@code alpha, beta > 0}.
  * <p>
- * While the parameter {@code alpha} scales the
- * reliabilityFunction and, thus, somehow corresponds to the failure-rate, the
- * {@code beta} parameter determines the {@code shape} of the
- * reliabilityFunction.
+ * While the parameter {@code alpha} scales the reliabilityFunction and, thus, somehow corresponds to the failure-rate,
+ * the {@code beta} parameter determines the {@code shape} of the reliabilityFunction.
  * 
  * @author glass
  * 
@@ -66,6 +62,7 @@ public class WeibullReliabilityFunction implements ReliabilityFunction {
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
+	@Override
 	public double getY(double x) {
 		double y = Math.exp(-(alpha * Math.pow(x, beta)));
 		return y;

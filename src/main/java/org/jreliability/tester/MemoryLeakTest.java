@@ -24,21 +24,20 @@ public class MemoryLeakTest {
 
 	/**
 	 * @param args
+	 *            command line arguments
 	 */
 	public static void main(String[] args) {
 
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<Integer> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF<Integer> transformer = new BDDTTRF<Integer>(bddProvider);
+		BDDTTRF<Integer> transformer = new BDDTTRF<>(bddProvider);
 
 		Random r = new Random(0);
 
 		/*
-		 * for (int i = 0; i < 1000; i++) { BDD<Integer> and =
-		 * bddProvider.one(); for (int j = 0; j < 10; j++) { Set<Integer> vars =
-		 * new HashSet<Integer>(); for (int k = 0; k < 30; k++) {
-		 * vars.add(r.nextInt(100)); } BDD<Integer> or = bddProvider.zero(); for
-		 * (int var : vars) { BDD<Integer> bdd = bddProvider.get(var);
+		 * for (int i = 0; i < 1000; i++) { BDD<Integer> and = bddProvider.one(); for (int j = 0; j < 10; j++) {
+		 * Set<Integer> vars = new HashSet<Integer>(); for (int k = 0; k < 30; k++) { vars.add(r.nextInt(100)); }
+		 * BDD<Integer> or = bddProvider.zero(); for (int var : vars) { BDD<Integer> bdd = bddProvider.get(var);
 		 * or.orWith(bdd); } and.andWith(or); }
 		 * 
 		 * and.free(); }
@@ -50,14 +49,14 @@ public class MemoryLeakTest {
 		for (int i = 0; i < 1000; i++) {
 			ANDTerm term = new ANDTerm();
 			for (int j = 0; j < 10; j++) {
-				Set<Integer> vars = new HashSet<Integer>();
+				Set<Integer> vars = new HashSet<>();
 				for (int k = 0; k < 10; k++) {
 					vars.add(r.nextInt(100) + 1);
 				}
 
 				ORTerm or = new ORTerm();
 				for (int var : vars) {
-					LiteralTerm<Integer> lit = new LiteralTerm<Integer>(var);
+					LiteralTerm<Integer> lit = new LiteralTerm<>(var);
 					if (!r.nextBoolean()) {
 						NOTTerm notLit = new NOTTerm(lit);
 						or.add(notLit);

@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -23,8 +21,8 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDDConstraint.Literal;
@@ -62,7 +60,7 @@ public abstract class BDDs {
 	 * @return all variables T included in the bdd
 	 */
 	public static <T> Set<T> getVariables(BDD<T> bdd) {
-		Set<T> variables = new HashSet<T>();
+		Set<T> variables = new HashSet<>();
 		collectVariables(bdd, variables, new HashSet<BDD<T>>());
 		return variables;
 	}
@@ -80,8 +78,8 @@ public abstract class BDDs {
 	 * @return all nodes in the bdd that represent variable t
 	 */
 	public static <T> Set<BDD<T>> getNodes(T t, BDD<T> bdd) {
-		Set<BDD<T>> nodes = new HashSet<BDD<T>>();
-		Set<BDD<T>> considered = new HashSet<BDD<T>>();
+		Set<BDD<T>> nodes = new HashSet<>();
+		Set<BDD<T>> considered = new HashSet<>();
 		collectNodes(bdd, t, considered, nodes);
 		return nodes;
 	}
@@ -96,7 +94,7 @@ public abstract class BDDs {
 	 * @param vars
 	 *            the variables
 	 * @param comp
-	 *            the comparator ("<","<=","=",">=",">")
+	 *            the comparator ("&lt;","&lt;=","=","&gt;=","&gt;")
 	 * @param rhs
 	 *            the right hand side value
 	 * @return the BDD representing this linear constraint
@@ -117,20 +115,20 @@ public abstract class BDDs {
 			result = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs + 1);
 			break;
 		case GREATEREQUAL:
-			List<Literal<T>> lits = new ArrayList<Literal<T>>();
+			List<Literal<T>> lits = new ArrayList<>();
 			for (int i = 0; i < coeffs.size(); i++) {
 				int c = coeffs.get(i);
 				BDD<T> v = vars.get(i);
-				lits.add(new Literal<T>(c, v));
+				lits.add(new Literal<>(c, v));
 			}
-			BDDConstraint<T> constraint = new BDDConstraint<T>(rhs, lits);
+			BDDConstraint<T> constraint = new BDDConstraint<>(rhs, lits);
 			result = getConstraintBDD(constraint);
 			break;
 		case LESS:
 			result = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs - 1);
 			break;
 		case LESSEQUAL:
-			List<Integer> negativeCoeffs = new ArrayList<Integer>();
+			List<Integer> negativeCoeffs = new ArrayList<>();
 			for (int c : coeffs) {
 				negativeCoeffs.add(-c);
 			}
@@ -156,6 +154,7 @@ public abstract class BDDs {
 		List<Literal<T>> literals = constraint.getLhs();
 
 		Collections.sort(literals, new Comparator<Literal<T>>() {
+			@Override
 			public int compare(Literal<T> o1, Literal<T> o2) {
 				return o2.getCoefficient() - o1.getCoefficient();
 			}
@@ -169,14 +168,13 @@ public abstract class BDDs {
 		}
 
 		int rhs = constraint.getRhs();
-		Map<Pair<Integer, Integer>, BDD<T>> memo = new HashMap<Pair<Integer, Integer>, BDD<T>>();
+		Map<Pair<Integer, Integer>, BDD<T>> memo = new HashMap<>();
 		BDD<T> bdd = buildConstraintBDD(literals, rhs, literals.size(), 0, materialLeft, memo, provider);
 		return bdd;
 	}
 
 	/**
-	 * Returns a graphical representation of the {@code BDD} in the {@code DOT}
-	 * input format.
+	 * Returns a graphical representation of the {@code BDD} in the {@code DOT} input format.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -187,16 +185,16 @@ public abstract class BDDs {
 	public static <T> String toDot(BDD<T> bdd) {
 		StringBuffer dot = new StringBuffer();
 		Set<T> elements = getVariables(bdd);
-		Map<BDD<T>, String> variables = new HashMap<BDD<T>, String>();
-		Map<T, Integer> counters = new HashMap<T, Integer>();
-		Map<T, String> markers = new HashMap<T, String>();
+		Map<BDD<T>, String> variables = new HashMap<>();
+		Map<T, Integer> counters = new HashMap<>();
+		Map<T, String> markers = new HashMap<>();
 		for (T t : elements) {
 			counters.put(t, 0);
 		}
 		dot.append("digraph bdd {" + newline);
 		collectDotMarkers(bdd, dot, markers);
 		collectDotNodes(bdd, dot, variables, counters);
-		Set<BDD<T>> considered = new HashSet<BDD<T>>();
+		Set<BDD<T>> considered = new HashSet<>();
 		collectDotEdges(bdd, dot, variables, considered);
 		collectDotRanks(bdd, dot, variables, markers);
 		dot.append("}" + newline);
@@ -204,9 +202,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@code BDD} based on a
-	 * functionTransformer that delivers for each variable {@code T} a double
-	 * value.
+	 * Calculates the top event of the {@code BDD} based on a functionTransformer that delivers for each variable
+	 * {@code T} a double value.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -224,7 +221,7 @@ public abstract class BDDs {
 			return 0.0;
 		}
 
-		Set<BDD<T>> upSort = new LinkedHashSet<BDD<T>>();
+		Set<BDD<T>> upSort = new LinkedHashSet<>();
 		traverseBDD(bdd, upSort);
 		double top = evaluate(bdd, transformer, upSort);
 		for (BDD<T> ups : upSort) {
@@ -271,8 +268,8 @@ public abstract class BDDs {
 	 * @return the top event
 	 */
 	protected static <T> double evaluate(BDD<T> bdd, Transformer<T, Double> transformer, Set<BDD<T>> upSort) {
-		Map<T, Double> values = new HashMap<T, Double>();
-		HashMap<BDD<T>, Double> bddToDouble = new HashMap<BDD<T>, Double>();
+		Map<T, Double> values = new HashMap<>();
+		HashMap<BDD<T>, Double> bddToDouble = new HashMap<>();
 
 		for (BDD<T> tmpBdd : upSort) {
 
@@ -321,8 +318,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a {@code greater-equal} constraint represented as a {@code BDD}
-	 * via a recursive procedure proposed by {@code Een & Soerrensson 2006}.
+	 * Returns a {@code greater-equal} constraint represented as a {@code BDD} via a recursive procedure proposed by
+	 * {@code Een & Soerrensson 2006}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -342,15 +339,15 @@ public abstract class BDDs {
 	 *            the used bdd provider
 	 * @return the bdd representation of the given constraint
 	 */
-	protected static <T> BDD<T> buildConstraintBDD(List<Literal<T>> literals, int rhs, int index, int sum, int materialLeft,
-			Map<Pair<Integer, Integer>, BDD<T>> memo, BDDProvider<T> provider) {
+	protected static <T> BDD<T> buildConstraintBDD(List<Literal<T>> literals, int rhs, int index, int sum,
+			int materialLeft, Map<Pair<Integer, Integer>, BDD<T>> memo, BDDProvider<T> provider) {
 		if (sum >= rhs) {
 			return provider.one();
 		} else if (sum + materialLeft < rhs) {
 			return provider.zero();
 		}
 
-		Pair<Integer, Integer> key = new Pair<Integer, Integer>(index, sum);
+		Pair<Integer, Integer> key = new Pair<>(index, sum);
 		if (!memo.containsKey(key)) {
 			index--;
 			int coefficient = literals.get(index).getCoefficient();
@@ -368,8 +365,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT}
-	 * representation.
+	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT} representation.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -387,13 +383,15 @@ public abstract class BDDs {
 		if (variables.containsKey(bdd)) {
 			return;
 		} else if (bdd.isOne()) {
-			dot.append("one [label = \"1\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];"
-					+ newline);
+			dot.append(
+					"one [label = \"1\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];"
+							+ newline);
 			variables.put(bdd, "one");
 			return;
 		} else if (bdd.isZero()) {
-			dot.append("zero [label = \"0\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];"
-					+ newline);
+			dot.append(
+					"zero [label = \"0\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];"
+							+ newline);
 			variables.put(bdd, "zero");
 			return;
 		}
@@ -413,8 +411,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all edges for the {@code DOT}
-	 * representation.
+	 * Traverses the {@code BDD} to collects all edges for the {@code DOT} representation.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -450,8 +447,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes
-	 * belonging to the same variable.
+	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -463,9 +459,9 @@ public abstract class BDDs {
 	 *            the marker variables for each variable
 	 */
 	protected static <T> void collectDotMarkers(BDD<T> bdd, StringBuffer dot, Map<T, String> markers) {
-		List<T> elements = new ArrayList<T>();
+		List<T> elements = new ArrayList<>();
 		collectVariablesSorted(bdd, elements);
-		List<T> tmpList = new ArrayList<T>();
+		List<T> tmpList = new ArrayList<>();
 		for (int i = 0; i < elements.size(); i++) {
 			T t = elements.get(i);
 			if (t != null) {
@@ -490,8 +486,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes
-	 * belonging to the same variable.
+	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -556,8 +551,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all variables in the current
-	 * variable order of the {@code BDD}.
+	 * Traverses the {@code BDD} to collect all variables in the current variable order of the {@code BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -584,8 +578,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all nodes for a given variable
-	 * {@code T}.
+	 * Traverses the {@code BDD} to collect all nodes for a given variable {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variables

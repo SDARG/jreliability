@@ -14,8 +14,7 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
- * The {@code BoilerTester} performs some common actions that are done with a
- * modeled system.
+ * The {@code BoilerTester} performs some common actions that are done with a modeled system.
  * 
  * @author glass
  * 
@@ -26,6 +25,7 @@ public class BoilerTester {
 	 * Main.
 	 * 
 	 * @param args
+	 *            command line arguments
 	 */
 	public static void main(String[] args) {
 
@@ -45,11 +45,10 @@ public class BoilerTester {
 		ReliabilityFunction reliabilityFunctionBoiler = boiler.get();
 
 		// Using the GUI
-		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<String, ReliabilityFunction>();
+		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 		reliabilityFunctions.put("Boiler", reliabilityFunctionBoiler);
 
-		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial",
-				reliabilityFunctions);
+		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial", reliabilityFunctions);
 
 	}
 
