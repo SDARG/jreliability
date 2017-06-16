@@ -12,7 +12,8 @@ repositories {
 dependencies {
 	compile group: 'net.sourceforge.collections', name: 'collections-generic', version: '4.01'
 	compile group: 'de.fosd.typechef', name: 'javabdd_repackaged', version: '1.0b2'
-	compile files('lib/minijdd_103.jar', 'lib/ptolemyplot-5.7.jar')
+	compile group: 'org.bitbucket.vahidi', name: 'jdd', version: '108'
+	compile files('lib/ptolemyplot-5.7.jar')
     
 	testCompile 'junit:junit:4.12'
 }
