@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/felixreimann/jreliability.svg?branch=master)](https://travis-ci.org/felixreimann/jreliability)
+
 # JReliability - The Java-based Reliability Library
 
 JReliability allows to derive several reliability-related measures like Mean-Time-To-Failure (MTTF) or Mission-Time (MT) of complex systems that are modeled using Boolean functions, efficiently encoded in Binary Decision Diagrams (BDDs).
