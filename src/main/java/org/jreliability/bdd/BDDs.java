@@ -32,7 +32,7 @@ import org.jreliability.booleanfunction.common.LinearTerm;
 /**
  * The {@code BDDs} contains common reliabilityFunctions for/on {@code BDD}s.
  * 
- * @author glass
+ * @author glass, reimann
  * 
  */
 public abstract class BDDs {
@@ -41,14 +41,6 @@ public abstract class BDDs {
 	 * The platform-independent newline symbol.
 	 */
 	protected static String newline = System.getProperty("line.separator");
-
-	/**
-	 * Constructs a {@code BDDs}.
-	 * 
-	 */
-	public BDDs() {
-		super();
-	}
 
 	/**
 	 * Returns all variables (elements) {@code T} included in the {@code BDD}.

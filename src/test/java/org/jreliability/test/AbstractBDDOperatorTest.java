@@ -1,32 +1,33 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.test;
 
-import junit.framework.Assert;
+import java.util.Arrays;
+import java.util.Collections;
 
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.BDDs;
+import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
- * The {@code AbstractBDDOperatorTest} is the base class for tests of the
- * operators for the {@code BDD}.
+ * The {@code AbstractBDDOperatorTest} is the base class for tests of the operators for the {@code BDD}.
  * 
- * @author lukasiewycz
+ * @author lukasiewycz, reimann
  * 
  */
 public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
@@ -104,8 +105,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code and} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@code and} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -163,8 +163,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@code or} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -180,6 +179,105 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.restrictWith(provider.get("a"));
 
 		Assert.assertTrue(a.isOne());
+	}
+
+	/**
+	 * Tests the {@link BDDs#getVariables(BDD)} method.
+	 */
+	@Test
+	public void testGetVariables() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		String var = "a";
+		BDD<String> bdd = provider.get(var);
+		Assert.assertEquals(BDDs.getVariables(bdd), Collections.singleton(var));
+	}
+
+	/**
+	 * Tests the {@link BDDs#getNodes(Object, BDD)} method.
+	 */
+	@Test
+	public void testGetNodes() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		String var = "a";
+		BDD<String> bdd = provider.get(var);
+		Assert.assertEquals(BDDs.getNodes(var, bdd), Collections.singleton(bdd));
+	}
+
+	/**
+	 * Tests the {@link BDDs#getNodes(BDD)} method.
+	 */
+	@Test
+	public void testCalculateTop() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		String var = "a";
+		BDD<String> bdd = provider.get(var);
+		Transformer<String, Double> t = new Transformer<String, Double>() {
+
+			@Override
+			public Double transform(String input) {
+				return 0.7;
+			}
+		};
+		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.7, 0.00001);
+	}
+
+	/**
+	 * Tests the {@link BDDs#getNodes(BDD)} method with a one terminal.
+	 */
+	@Test
+	public void testCalculateTopOne() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> bdd = provider.one();
+		Transformer<String, Double> t = new Transformer<String, Double>() {
+			@Override
+			public Double transform(String input) {
+				return 0.7;
+			}
+		};
+		Assert.assertEquals(BDDs.calculateTop(bdd, t), 1.0, 0.00001);
+	}
+
+	/**
+	 * Tests the {@link BDDs#getNodes(BDD)} method with zero terminal.
+	 */
+	@Test
+	public void testCalculateTopZero() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> bdd = provider.zero();
+		Transformer<String, Double> t = new Transformer<String, Double>() {
+			@Override
+			public Double transform(String input) {
+				return 0.7;
+			}
+		};
+		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.0, 0.00001);
+	}
+
+	/**
+	 * Tests the
+	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
+	 * method.
+	 */
+	@Test
+	public void testGetBDDGreaterEqual() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATEREQUAL, 2);
+
+		BDD<String> ref1 = a.and(b);
+		BDD<String> ref2 = b.and(c);
+		BDD<String> ref3 = a.and(c);
+		ref1.orWith(ref2);
+		ref1.orWith(ref3);
+		Assert.assertEquals(test, ref1);
 	}
 
 }

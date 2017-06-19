@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.booleanfunction;
 
@@ -21,10 +19,10 @@ import java.util.Set;
 
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LinearTerm;
+import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
-import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 
 /**
  * The {@code Terms} provides static methods for the {@code Term} class.
@@ -33,14 +31,6 @@ import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
  * 
  */
 public class Terms {
-
-	/**
-	 * Constructs a {@code Terms}.
-	 * 
-	 */
-	public Terms() {
-		super();
-	}
 
 	/**
 	 * Returns the variables included in a {@code Term}.
@@ -52,14 +42,13 @@ public class Terms {
 	 * @return the variables included in the term
 	 */
 	public static <T> Set<T> getVariables(Term term) {
-		Set<T> set = new HashSet<T>();
+		Set<T> set = new HashSet<>();
 		getVariables(term, set);
 		return set;
 	}
 
 	/**
-	 * Adds the variables included in a {@code Term} to a given set of
-	 * variables.
+	 * Adds the variables included in a {@code Term} to a given set of variables.
 	 * 
 	 * @param <T>
 	 *            the type of the variables
@@ -94,8 +83,8 @@ public class Terms {
 	}
 
 	/**
-	 * Parses a {@code Term} from a given helper {@code Object} that has been
-	 * derived from the original {@code String} encoding the {@code Term}.
+	 * Parses a {@code Term} from a given helper {@code Object} that has been derived from the original {@code String}
+	 * encoding the {@code Term}.
 	 * 
 	 * @param object
 	 *            the helper object
@@ -152,15 +141,14 @@ public class Terms {
 				return term;
 			}
 		} else { // Literal
-			LiteralTerm<Object> term = new LiteralTerm<Object>(object);
+			LiteralTerm<Object> term = new LiteralTerm<>(object);
 			return term;
 		}
 	}
 
 	/**
-	 * Transforms a given {@code String} to a helper {@code Object} that
-	 * represents {@code Terms} as {@code Lists} of helper {@code Objects} and
-	 * variables as {@code Strings}.
+	 * Transforms a given {@code String} to a helper {@code Object} that represents {@code Terms} as {@code Lists} of
+	 * helper {@code Objects} and variables as {@code Strings}.
 	 * 
 	 * @param string
 	 *            the string encoding the {@code Term}
@@ -170,7 +158,7 @@ public class Terms {
 		string.skipSpaces();
 		if (string.getCurrent() == '(') { // AND, OR, Linear, NOT
 			string.next();
-			List<Object> list = new ArrayList<Object>();
+			List<Object> list = new ArrayList<>();
 
 			// Operator
 			String operator = "";
@@ -212,8 +200,7 @@ public class Terms {
 	}
 
 	/**
-	 * The {@code ParseString} is a helper class to parse a helper
-	 * {@code Object} from a given {@code String}.
+	 * The {@code ParseString} is a helper class to parse a helper {@code Object} from a given {@code String}.
 	 * 
 	 * @author glass
 	 * 
@@ -285,8 +272,7 @@ public class Terms {
 		}
 
 		/**
-		 * Moves the pointer to the next character that is not a blank or
-		 * newline character.
+		 * Moves the pointer to the next character that is not a blank or newline character.
 		 */
 		public void skipSpaces() {
 			while (!this.isEnd() && (this.getCurrent() == ' ' || this.getCurrent() == '\n')) {
