@@ -14,10 +14,9 @@
  */
 package org.jreliability.test;
 
-import junit.framework.Assert;
-
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
