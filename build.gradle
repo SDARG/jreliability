@@ -24,15 +24,14 @@ dependencies {
 	testCompile 'junit:junit:4.12'
 }
 
-test {
-    jacoco {
-    	excludes += [ 'org.jreliability.gui.*' ] // excluding gui classes seems not to work
-    }
-}
-
 jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
         html.enabled = true
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['org/jreliability/gui/**', 'org/jreliability/tutorial/**', 'org/jreliability/tester/**']) // TODO: combine some of these in a common folder
+        })
     }
 }

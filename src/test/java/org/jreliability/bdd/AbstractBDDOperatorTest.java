@@ -10,15 +10,12 @@
  * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.jreliability.test;
+package org.jreliability.bdd;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.apache.commons.collections15.Transformer;
-import org.jreliability.bdd.BDD;
-import org.jreliability.bdd.BDDProvider;
-import org.jreliability.bdd.BDDs;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.junit.Assert;
 import org.junit.Before;

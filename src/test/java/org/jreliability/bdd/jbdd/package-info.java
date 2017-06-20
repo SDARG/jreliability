@@ -2,4 +2,4 @@
  * Provides the classes for the unit tests of {@code JBDD}.
  * 
  */
-package org.jreliability.test.jbdd;
+package org.jreliability.bdd.jbdd;
