@@ -242,6 +242,46 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
+	 * Tests the {@link BDDs#getNodes(BDD)} method with a one terminal.
+	 */
+	@Test
+	public void testCalculate2Top() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		String var = "a";
+		String var2 = "b";
+		BDD<String> bdd = provider.get(var).and(provider.get(var2));
+		Transformer<String, Double> t = new Transformer<String, Double>() {
+
+			@Override
+			public Double transform(String input) {
+				return 0.7;
+			}
+		};
+		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.49, 0.00001);
+	}
+
+	/**
+	 * Tests the {@link BDDs#getNodes(BDD)} method with a one terminal.
+	 */
+	@Test
+	public void testCalculate2TopNot() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		String var = "a";
+		String var2 = "b";
+		BDD<String> bdd = provider.get(var).not().and(provider.get(var2));
+		Transformer<String, Double> t = new Transformer<String, Double>() {
+
+			@Override
+			public Double transform(String input) {
+				return 0.7;
+			}
+		};
+		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.21, 0.00001);
+	}
+
+	/**
 	 * Tests the {@link BDDs#getNodes(BDD)} method with zero terminal.
 	 */
 	@Test
@@ -261,7 +301,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	/**
 	 * Tests the
 	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
-	 * method.
+	 * method with &ge; operator.
 	 */
 	@Test
 	public void testGetBDDGreaterEqual() {
@@ -280,4 +320,74 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		Assert.assertEquals(test, ref1);
 	}
 
+	/**
+	 * Tests the
+	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
+	 * method with &gt; operator.
+	 */
+	@Test
+	public void testGetBDDGreater() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATER, 2);
+
+		BDD<String> ref1 = a.and(b).and(c);
+		Assert.assertEquals(test, ref1);
+	}
+
+	/**
+	 * Tests the
+	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
+	 * method with &lt; operator.
+	 */
+	@Test
+	public void testGetBDDLess() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESS, 1);
+
+		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
+		Assert.assertEquals(test, ref1);
+	}
+
+	/**
+	 * Tests the
+	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
+	 * method with &lt; operator.
+	 */
+	@Test
+	public void testGetBDDLessEqual() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESSEQUAL, 0);
+
+		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
+		Assert.assertEquals(test, ref1);
+	}
+
+	/**
+	 * Tests the {@link BDDs#toDot(BDD)} method.
+	 */
+	@Test
+	public void testToDot() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+
+		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
+		String dot = BDDs.toDot(ref1);
+		System.out.println(dot);
+		Assert.assertTrue(!dot.isEmpty());
+	}
 }

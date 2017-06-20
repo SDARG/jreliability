@@ -1,8 +1,14 @@
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
+apply plugin: 'maven'
+apply plugin: 'jacoco'
 
 mainClassName = 'org.jreliability.tester.ReliabilityTester'
+group = 'org.jreliablity'
 version=1.3
 
 repositories {
@@ -16,4 +22,17 @@ dependencies {
 	compile files('lib/ptolemyplot-5.7.jar')
     
 	testCompile 'junit:junit:4.12'
+}
+
+test {
+    jacoco {
+    	excludes += [ 'org.jreliability.gui.*' ] // excluding gui classes seems not to work
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
