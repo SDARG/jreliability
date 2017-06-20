@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/felixreimann/jreliability.svg?branch=master)](https://travis-ci.org/felixreimann/jreliability)
+[![Coverage Status](https://coveralls.io/repos/github/felixreimann/jreliability/badge.svg?branch=master)](https://coveralls.io/github/felixreimann/jreliability?branch=master)
 
 # JReliability - The Java-based Reliability Library
 

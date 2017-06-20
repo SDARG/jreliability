@@ -12,6 +12,7 @@
  */
 package org.jreliability.bdd;
 
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
@@ -21,6 +22,8 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
+import org.jreliability.function.ConstantFailureFunction;
+import org.jreliability.function.ReliabilityFunction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -121,6 +124,22 @@ public class BDDTTRFTest {
 		BDD<String> ref = provider.get(var1).not();
 
 		Assert.assertEquals(result, ref);
+	}
+
+	/**
+	 * Tests the {@link BDDTTRF#convert(BDD, org.apache.commons.collections15.Transformer)}
+	 */
+	@Test
+	public void testConvert() {
+		BDDProvider<String> provider = factory.getProvider();
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		ReliabilityFunction f = ttrf.convert(provider.one(), new Transformer<String, ReliabilityFunction>() {
+			@Override
+			public ReliabilityFunction transform(String input) {
+				return new ConstantFailureFunction(0.5);
+			}
+		});
+		Assert.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
 	}
 
 }
