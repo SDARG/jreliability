@@ -10,23 +10,23 @@ JReliability is meant to be used as library. Nonetheless, there is a small demo 
 
 ### Linux/Unix
 Run:
-> ./start.sh
+	./start.sh
 
 ### Windows
 Run:
-> ./start.bat
+	./start.bat
 
 ## Developer
 JReliability uses Gradle. Run
-> ./gradlew tasks
+	./gradlew tasks
 to show all available tasks.
 
 Use
-> ./gradlew eclipse
+	./gradlew eclipse
 to create the required .project and .classpath files to import the project in Eclipse.
 
 Use
-> ./gradlew run
+	./gradlew run
 to execute the demo application.
 
 ## Contributing

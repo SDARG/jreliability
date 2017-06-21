@@ -1,14 +1,16 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -22,7 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code AbstractBDDOperatorTest} is the base class for tests of the operators for the {@code BDD}.
+ * The {@code AbstractBDDOperatorTest} is the base class for tests of the
+ * operators for the {@code BDD}.
  * 
  * @author lukasiewycz, reimann
  * 
@@ -102,7 +105,59 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code and} method on two variables and returning the result to the same object.
+	 * Tests the {@code andWith} method with a simple type.
+	 * 
+	 */
+	@Test
+	public void testAndWithString() {
+		BDD<String> a = provider.get("a");
+
+		a.andWith("b");
+
+		Assert.assertFalse(a.isOne());
+		Assert.assertFalse(a.isZero());
+
+		a.restrictWith(provider.get("a"));
+		a.restrictWith(provider.get("b"));
+
+		Assert.assertTrue(a.isOne());
+	}
+
+	/**
+	 * Tests the {@code andWith} method with a collection.
+	 * 
+	 */
+	@Test
+	public void testAndWithCollection() {
+		BDD<String> a = provider.get("a");
+
+		a.andWith(Collections.singleton("b"));
+
+		Assert.assertFalse(a.isOne());
+		Assert.assertFalse(a.isZero());
+
+		a.restrictWith(provider.get("a"));
+		a.restrictWith(provider.get("b"));
+
+		Assert.assertTrue(a.isOne());
+	}
+
+	/**
+	 * Tests the {@code nodeCount} method.
+	 * 
+	 */
+	@Test
+	public void testNodeCount() {
+		BDD<String> a = provider.get("a");
+
+		a.andWith("b");
+
+		Assert.assertEquals(2, a.nodeCount());
+	}
+
+	/**
+	 * Tests the {@code and} method on two variables and returning the result to
+	 * the same object.
 	 * 
 	 */
 	@Test
@@ -160,7 +215,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables and returning the result to the same object.
+	 * Tests the {@code or} method on two variables and returning the result to
+	 * the same object.
 	 * 
 	 */
 	@Test
@@ -384,7 +440,114 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
 		String dot = BDDs.toDot(ref1);
-		System.out.println(dot);
 		Assert.assertTrue(!dot.isEmpty());
+	}
+
+	/**
+	 * Tests the {@code andWith} method on two variables.
+	 * 
+	 */
+	@Test
+	public void testExist() {
+		String var = "b";
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get(var);
+		a.andWith(b);
+
+		BDD<String> result = a.exist(var);
+		String dot = BDDs.toDot(result);
+		System.out.println(dot);
+		Assert.assertEquals(result, provider.get("a"));
+	}
+
+	/**
+	 * Tests the {@code xor} method.
+	 * 
+	 */
+	@Test
+	public void testXor() {
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> result = a.xor(b);
+
+		BDD<String> ref = a.and(b.not());
+		ref.orWith(b.and(a.not()));
+
+		Assert.assertEquals(ref, result);
+	}
+
+	/**
+	 * Tests the {@code xorWith} method.
+	 * 
+	 */
+	@Test
+	public void testXorWith() {
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+
+		BDD<String> ref = a.and(b.not());
+		ref.orWith(b.and(a.not()));
+
+		a.xorWith(b);
+
+		Assert.assertEquals(ref, a);
+	}
+
+	/**
+	 * Tests the {@code xorWith} method.
+	 * 
+	 */
+	@Test
+	public void testXorWithCollection() {
+		String var = "b";
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get(var);
+
+		BDD<String> ref = a.and(b.not());
+		ref.orWith(b.and(a.not()));
+
+		a.xorWith(var);
+
+		Assert.assertEquals(ref, a);
+	}
+
+	/**
+	 * Tests the {@code replace} method.
+	 * 
+	 */
+	@Test
+	public void testReplace() {
+		String var1 = "b";
+		String var2 = "c";
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get(var1);
+		BDD<String> c = provider.get(var2);
+
+		BDD<String> ref = a.and(c);
+
+		BDD<String> bdd = a.and(b);
+		BDD<String> result = bdd.replace(var1, var2);
+
+		Assert.assertEquals(ref, result);
+	}
+
+	/**
+	 * Tests the {@code replaceWith} method.
+	 * 
+	 */
+	@Test
+	public void testReplaceWith() {
+		String var1 = "b";
+		String var2 = "c";
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get(var1);
+		BDD<String> c = provider.get(var2);
+
+		BDD<String> ref = a.and(c);
+
+		BDD<String> result = a.and(b);
+		result.replaceWith(var1, var2);
+
+		Assert.assertEquals(ref, result);
 	}
 }

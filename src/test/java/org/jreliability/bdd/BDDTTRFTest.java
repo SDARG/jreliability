@@ -1,14 +1,16 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -39,14 +41,15 @@ public class BDDTTRFTest {
 	/**
 	 * The used {@code BDDProvider}.
 	 */
-	protected BDDProviderFactory factory;
+	protected BDDProvider<String> provider;
 
 	/**
 	 * Initialize the specific factory.
 	 */
 	@Before
 	public void init() {
-		factory = new JBDDProviderFactory(Type.JAVABDD);
+		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		provider = factory.getProvider();
 	}
 
 	@Test
@@ -58,7 +61,6 @@ public class BDDTTRFTest {
 		ORTerm and = new ORTerm();
 		and.add(s1, s2);
 
-		BDDProvider<String> provider = factory.getProvider();
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(and);
 
@@ -78,7 +80,6 @@ public class BDDTTRFTest {
 		ANDTerm and = new ANDTerm();
 		and.add(s1, s2);
 
-		BDDProvider<String> provider = factory.getProvider();
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(and);
 
@@ -93,7 +94,6 @@ public class BDDTTRFTest {
 	public void testConvertToBDDTrueTerm() {
 		Term t = new TRUETerm();
 
-		BDDProvider<String> provider = factory.getProvider();
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(t);
 
@@ -104,7 +104,6 @@ public class BDDTTRFTest {
 	public void testConvertToBDDFalseTerm() {
 		Term t = new FALSETerm();
 
-		BDDProvider<String> provider = factory.getProvider();
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(t);
 
@@ -117,7 +116,6 @@ public class BDDTTRFTest {
 		Term s1 = new LiteralTerm<>(var1);
 		NOTTerm and = new NOTTerm(s1);
 
-		BDDProvider<String> provider = factory.getProvider();
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(and);
 
@@ -127,11 +125,11 @@ public class BDDTTRFTest {
 	}
 
 	/**
-	 * Tests the {@link BDDTTRF#convert(BDD, org.apache.commons.collections15.Transformer)}
+	 * Tests the
+	 * {@link BDDTTRF#convert(BDD, org.apache.commons.collections15.Transformer)}
 	 */
 	@Test
 	public void testConvert() {
-		BDDProvider<String> provider = factory.getProvider();
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		ReliabilityFunction f = ttrf.convert(provider.one(), new Transformer<String, ReliabilityFunction>() {
 			@Override
