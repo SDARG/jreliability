@@ -1,0 +1,6 @@
+signing.keyId=void
+signing.password=void
+signing.secretKeyRingFile=void/.gnupg/secring.gpg
+
+sonatypeUsername=void
+sonatypePassword=void

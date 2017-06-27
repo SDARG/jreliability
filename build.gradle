@@ -6,6 +6,7 @@ apply plugin: 'eclipse'
 apply plugin: 'application'
 apply plugin: 'maven'
 apply plugin: 'jacoco'
+apply plugin: 'signing'
 
 mainClassName = 'org.jreliability.tester.ReliabilityTester'
 group = 'org.jreliablity'
@@ -35,3 +36,82 @@ jacocoTestReport {
         })
     }
 }
+
+// maven central artifacts
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: sonatypeUsername, password: sonatypePassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: sonatypeUsername, password: sonatypePassword)
+      }
+
+      pom.project {
+        name 'JReliability'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'A Java-based reliability evaluation library.'
+        url 'https://felixreimann.github.io/jreliability/'
+
+        scm {
+          connection 'scm:git:https://github.com/felixreimann/jreliability.git'
+          url 'https://github.com/felixreimann/jreliability'
+        }
+
+        licenses {
+          license {
+            name 'GNU Lesser General Public License v3.0'
+            url 'http://www.gnu.org/licenses/lgpl-3.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'michaelhglass'
+            name 'Michael Glaß'
+            email 'michael.glass@uni-ulm.de'
+          }
+          developer {
+            id 'felixreimann'
+            name 'Felix Reimann'
+            email 'felix@fex-it.de'
+          }
+          developer {
+            id 'lukasiewycz'
+            name 'Martin Lukasiewycz'
+            email 'lukasiewycz@gmail.com'
+          }
+          developer {
+            id 'faramarzkhosravi'
+            name 'Faramarz Khosravi'
+            email 'faramarz.khosravi@fau.de'
+          }
+        }
+      }
+    }
+  }
+}
+
