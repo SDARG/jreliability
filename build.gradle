@@ -53,8 +53,12 @@ artifacts {
 }
 
 signing {
-    sign configurations.archives
+	required = { gradle.taskGraph.hasTask("uploadArchives") }
+	sign configurations.archives
 }
+
+def sonatypeUsernameUsed = project.hasProperty("sonatypeUsername") ? project.getProperty("sonatypeUsername"): "void"
+def sonatypePasswordUsed = project.hasProperty("sonatypePassword") ? project.getProperty("sonatypePassword"): "void"
 
 uploadArchives {
   repositories {
@@ -62,11 +66,11 @@ uploadArchives {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
+        authentication(userName: sonatypeUsernameUsed, password: sonatypePasswordUsed)
       }
 
       snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
+        authentication(userName: sonatypeUsernameUsed, password: sonatypePasswordUsed)
       }
 
       pom.project {
@@ -114,4 +118,3 @@ uploadArchives {
     }
   }
 }
-
