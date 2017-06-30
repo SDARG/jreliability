@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/felixreimann/jreliability.svg?branch=master)](https://travis-ci.org/felixreimann/jreliability)
 [![Coverage Status](https://coveralls.io/repos/github/felixreimann/jreliability/badge.svg?branch=master)](https://coveralls.io/github/felixreimann/jreliability?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability)
 [![Javadocs](https://javadoc.io/badge/org.jreliability/jreliability.svg)](https://javadoc.io/doc/org.jreliability/jreliability)
 
 # JReliability - The Java-based Reliability Library
