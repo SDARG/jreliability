@@ -4,6 +4,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The {@link NormalReliabilityFunctionTest} to test the
+ * {@link NormalReliabilityFunction}.
+ * 
+ * @author reimann
+ *
+ */
 public class NormalReliabilityFunctionTest {
 	NormalReliabilityFunction f;
 

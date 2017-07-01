@@ -12,13 +12,12 @@
  */
 package org.jreliability.function.common;
 
-import org.jreliability.booleanfunction.common.LinearTerm;
-import org.jreliability.booleanfunction.common.LiteralTermTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link LiteralTermTest} test the {@link LinearTerm}.
+ * The {@link ExponentialReliabilityFunctionTest} test the
+ * {@link ExponentialReliabilityFunction}.
  * 
  * @author reimann
  *

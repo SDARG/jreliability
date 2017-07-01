@@ -4,6 +4,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The {@link LognormalReliabilityFunctionTest} to test the
+ * {@link LognormalReliabilityFunction}.
+ * 
+ * @author reimann
+ *
+ */
 public class LognormalReliabilityFunctionTest {
 	LognormalReliabilityFunction f;
 

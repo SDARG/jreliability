@@ -7,6 +7,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The {@link SampledReliabilityFunctionTest} to test the
+ * {@link SampledReliabilityFunction}.
+ * 
+ * @author reimann
+ *
+ */
 public class SampledReliabilityFunctionTest {
 	SampledReliabilityFunction f;
 	List<Double> samples = Arrays.asList(0.0, 1.0);
