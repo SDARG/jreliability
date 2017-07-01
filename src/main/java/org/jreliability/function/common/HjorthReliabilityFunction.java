@@ -18,7 +18,7 @@ import org.jreliability.function.ReliabilityFunction;
  * The {@code HjorthReliabilityFunction} represents the {@code
  * ReliabilityFunction} of the {@code Hjorth reliabilityFunction}
  * <p>
- * {@code R(x) = 1 - F(x) = (e^-(delta * x^2)) / (1 + beta * x)^(theta / beta)}<br>
+ * {@code R(x) = 1 - F(x) = (e^-((delta * x^2)/2)) / ((1 + beta * x)^(theta / beta))}<br>
  * with {@code beta, delta, theta > 0}.
  * <p>
  * While the parameter {@code beta} scales the reliabilityFunction, the parameters {@code delta} and {@code theta}
