@@ -1,11 +1,9 @@
-package org.jreliability.function;
-
-import org.jreliability.function.common.ExponentialReliabilityFunction;
+package org.jreliability.function.common;
 
 /**
  * The {@code ExponentialFailureFunction} represents the exponential behavior of
  * cumulative failure probability {@code F(x) = 1 - e^-(alpha * x)} of a failure
- * cause with a fixed rate/probability of occurrence {@code alpha > 0}.
+ * caused with a fixed rate/probability of occurrence {@code alpha > 0}.
  * 
  * @author khosravi
  */
