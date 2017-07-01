@@ -67,11 +67,8 @@ public class ParallelReliabilityFunction implements ReliabilityFunction {
 		}
 		double y = 1;
 		for (ReliabilityFunction function : functions) {
-			System.out.println("GetY: "+function.getY(x));
 			y *= (1 - function.getY(x));
-			System.out.println(y);
 		}
-		System.out.println(y);
 		y = (1 - y);
 		return y;
 
