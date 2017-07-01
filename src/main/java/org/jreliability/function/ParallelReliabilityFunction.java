@@ -22,8 +22,8 @@ import java.util.Set;
  * {@code parallel-structure} of elements in a system as known from
  * {@code Serial-Parallel systems}. Basically, the
  * {@code ParallelReliabilityFunction} holds a set of
- * {@code ReliabilityFunctions} and multiplies of their {@code (1-y)}-values
- * and calculates the converse probability to derive the {@code y}-value of the
+ * {@code ReliabilityFunctions} and multiplies their {@code (1-y)}-values
+ * and calculates the counter probability to derive the {@code y}-value of the
  * whole {@code parallel-structure}.
  * 
  * @author glass
@@ -67,8 +67,11 @@ public class ParallelReliabilityFunction implements ReliabilityFunction {
 		}
 		double y = 1;
 		for (ReliabilityFunction function : functions) {
+			System.out.println("GetY: "+function.getY(x));
 			y *= (1 - function.getY(x));
+			System.out.println(y);
 		}
+		System.out.println(y);
 		y = (1 - y);
 		return y;
 
