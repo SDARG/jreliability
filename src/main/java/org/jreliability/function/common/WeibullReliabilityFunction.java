@@ -18,7 +18,7 @@ import org.jreliability.function.ReliabilityFunction;
  * The {@code WeibullReliabilityFunction} represents the {@code
  * ReliabilityFunction} of the {@code Weibull reliabilityFunction}
  * <p>
- * {@code R(x) = 1 - F(x) = e^-(alpha * (x^beta))}<br>
+ * {@code R(x) = 1 - F(x) = e^-((alpha * x)^beta))}<br>
  * with {@code alpha, beta > 0}.
  * <p>
  * While the parameter {@code alpha} scales the reliabilityFunction and, thus, somehow corresponds to the failure-rate,
@@ -64,7 +64,7 @@ public class WeibullReliabilityFunction implements ReliabilityFunction {
 	 */
 	@Override
 	public double getY(double x) {
-		double y = Math.exp(-(alpha * Math.pow(x, beta)));
+		double y = Math.exp(-(Math.pow((alpha * x), beta)));
 		return y;
 	}
 }
