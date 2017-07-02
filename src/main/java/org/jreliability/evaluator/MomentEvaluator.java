@@ -104,6 +104,10 @@ public class MomentEvaluator implements Evaluator {
 		super();
 		this.n = n;
 		this.epsilon = epsilon;
+		if (n < 1) {
+			throw new IllegalArgumentException(
+					"An n-th moment with n < 1 is undefined.");
+		}
 	}
 
 	/**
@@ -115,10 +119,6 @@ public class MomentEvaluator implements Evaluator {
 	 * @return the value derived from the integration of the reliabilityFunction
 	 */
 	public double evaluate(ReliabilityFunction reliabilityFunction) {
-		if (n < 1) {
-			throw new IllegalArgumentException(
-					"An n-th moment with n < 1 is undefined.");
-		}
 		double upperBound = getUpperBound(reliabilityFunction);
 		return integrate(reliabilityFunction, 0, upperBound);
 
@@ -134,10 +134,6 @@ public class MomentEvaluator implements Evaluator {
 	 *         process
 	 */
 	public double getUpperBound(ReliabilityFunction reliabilityFunction) {
-		if (n < 1) {
-			throw new IllegalArgumentException(
-					"An n-th moment with n < 1 is undefined.");
-		}
 		double upperBound = 0.5;
 		double diff;
 
