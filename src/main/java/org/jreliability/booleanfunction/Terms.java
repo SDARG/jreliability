@@ -110,7 +110,7 @@ public class Terms {
 				return term;
 			} else if ("NOT".equalsIgnoreCase(operator)) {
 				if (list.size() > 2) {
-					throw new RuntimeException("Too many arguments in NOT term: " + list);
+					throw new IllegalArgumentException("Too many arguments in NOT term: " + list);
 				}
 				NOTTerm term = new NOTTerm(parse(list.get(1)));
 				return term;
@@ -127,7 +127,7 @@ public class Terms {
 				} else if (operator.equalsIgnoreCase(LinearTerm.Comparator.LESSEQUAL.toString())) {
 					comparator = LinearTerm.Comparator.LESSEQUAL;
 				} else {
-					throw new RuntimeException("Unknown operator: " + operator);
+					throw new IllegalArgumentException("Unknown operator: " + operator);
 				}
 
 				int rhs = Integer.parseInt(list.get(1).toString());
@@ -179,8 +179,9 @@ public class Terms {
 					return list;
 				}
 			}
-			throw new RuntimeException("String is not in compliance with the regular expression to describe a Term."
-					+ "Missing ')' before EOF.");
+			throw new IllegalArgumentException(
+					"String is not in compliance with the regular expression to describe a Term."
+							+ "Missing ')' before EOF.");
 		} else if (string.getCurrent() == '"') {
 			String variable = "";
 			string.next();
@@ -192,10 +193,11 @@ public class Terms {
 					return variable;
 				}
 			}
-			throw new RuntimeException("No closing \" in: " + variable);
+			throw new IllegalArgumentException("No closing \" in: " + variable);
 		} else {
-			throw new RuntimeException("String is not in compliance with the regular expression to describe a Term."
-					+ "Operands must be enclosed in brackets (), variables must be enclosed in \"\".");
+			throw new IllegalArgumentException(
+					"String is not in compliance with the regular expression to describe a Term."
+							+ "Operands must be enclosed in brackets (), variables must be enclosed in \"\".");
 		}
 	}
 
