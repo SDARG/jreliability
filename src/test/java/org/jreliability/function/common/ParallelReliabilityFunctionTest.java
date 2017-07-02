@@ -12,45 +12,48 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.jreliability.function.common.SerialReliabilityFunction;
+import org.jreliability.function.common.ParallelReliabilityFunction;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link SerialReliabilityFunctionTest} to test the
- * {@link SerialReliabilityFunction}.
+ * The {@link ParallelReliabilityFunctionTest} to test the
+ * {@link ParallelReliabilityFunction}.
  * 
  * @author glass
  *
  */
-public class SerialReliabilityFunctionTest {
+public class ParallelReliabilityFunctionTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testNoFunctionsSpeficied() {
-		SerialReliabilityFunction function = new SerialReliabilityFunction();
+		ParallelReliabilityFunction function = new ParallelReliabilityFunction();
 		function.getY(5);
 	}
 
 	@Test
 	public void testGetY() {
-		SerialReliabilityFunction function = new SerialReliabilityFunction();
+		ParallelReliabilityFunction function = new ParallelReliabilityFunction();
 		ExponentialReliabilityFunction f1 = new ExponentialReliabilityFunction(0.005);
 		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
 		function.add(f1);
 		function.add(f2);
-		Assert.assertEquals(0.8352702, function.getY(20), 0.00001);
+		Assert.assertEquals(0.99268355, function.getY(20), 0.00001);
 	}
 	
 	@Test
 	public void testGetFunctions() {
-		SerialReliabilityFunction function = new SerialReliabilityFunction();
-		ExponentialReliabilityFunction f1 = new ExponentialReliabilityFunction(0.005);
-		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
-		function.add(f1);
-		function.add(f2);
+		Set<ReliabilityFunction> functions = new HashSet<ReliabilityFunction>();
+		functions.add(new ExponentialReliabilityFunction(0.005));
+		functions.add(new ExponentialReliabilityFunction(0.004));
+		ParallelReliabilityFunction function = new ParallelReliabilityFunction(functions);
 		Assert.assertEquals(function.getFunctions().size(),2);
 	}
 
