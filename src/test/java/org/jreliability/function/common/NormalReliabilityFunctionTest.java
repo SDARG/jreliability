@@ -39,6 +39,12 @@ public class NormalReliabilityFunctionTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
+	public void testNegativeMu() {
+		f = new NormalReliabilityFunction(-0.1, -1.0);
+		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeRho() {
 		f = new NormalReliabilityFunction(0.0, -1.0);
 		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
