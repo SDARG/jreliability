@@ -80,13 +80,13 @@ public class MomentEvaluator implements Evaluator {
 
 	/**
 	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment
-	 * and a maximum error / {@code epsilon} of {@code 0.01}.
+	 * and a maximum error / {@code epsilon} of {@code 1.0E-5}.
 	 * 
 	 * @param n
 	 *            the n value
 	 */
 	public MomentEvaluator(int n) {
-		this(n, 0.01);
+		this(n, 1.0E-5);
 	}
 
 	/**

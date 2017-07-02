@@ -35,9 +35,9 @@ public class MomentEvaluatorTest {
 	@Test
 	public void testFirstMomentEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
-		MomentEvaluator evaluator = new MomentEvaluator(1,1.0E-8);
+		MomentEvaluator evaluator = new MomentEvaluator(1);
 		double integral = evaluator.evaluate(f);
-		Assert.assertEquals(integral, 100.0, 1.0E-3);
+		Assert.assertEquals(integral, 100.0, 0.1);
 	}
 	
 	@Test
