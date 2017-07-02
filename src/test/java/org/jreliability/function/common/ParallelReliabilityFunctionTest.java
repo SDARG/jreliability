@@ -27,7 +27,7 @@ import org.junit.Test;
  */
 public class ParallelReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testNoFunctionsSpeficied() {
 		ParallelReliabilityFunction function = new ParallelReliabilityFunction();
 		function.getY(5);

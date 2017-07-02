@@ -20,14 +20,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link SerialReliabilityFunctionTest} to test the {@link SerialReliabilityFunction}.
+ * The {@link SerialReliabilityFunctionTest} to test the
+ * {@link SerialReliabilityFunction}.
  * 
  * @author glass
  *
  */
 public class SerialReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testNoFunctionsSpeficied() {
 		SerialReliabilityFunction function = new SerialReliabilityFunction();
 		function.getY(5);

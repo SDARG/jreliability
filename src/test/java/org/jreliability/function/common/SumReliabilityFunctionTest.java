@@ -27,7 +27,7 @@ import org.junit.Test;
  */
 public class SumReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testNoFunctionsSpeficied() {
 		SumReliabilityFunction function = new SumReliabilityFunction();
 		function.getY(5);
