@@ -20,6 +20,8 @@ import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
+import org.jreliability.booleanfunction.common.LinearTerm;
+import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
@@ -140,4 +142,27 @@ public class BDDTTRFTest {
 		Assert.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
 	}
 
+	@Test
+	public void testTransformLinearGE() {
+		Term literal = new LiteralTerm<>("a");
+		LinearTerm t1 = new LinearTerm(Comparator.GREATEREQUAL, 1);
+		t1.add(literal);
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		BDD<String> result = ttrf.transformLinear(t1);
+
+		Assert.assertEquals(provider.get("a"), result);
+	}
+
+	@Test
+	public void testTransformLinearEQ() {
+		Term literal = new LiteralTerm<>("a");
+		LinearTerm t1 = new LinearTerm(Comparator.EQUAL, 1);
+		t1.add(literal);
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		BDD<String> result = ttrf.transformLinear(t1);
+
+		Assert.assertEquals(provider.get("a"), result);
+	}
 }
