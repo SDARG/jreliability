@@ -19,7 +19,7 @@ import org.jreliability.function.ReliabilityFunction;
  * ReliabilityFunction} based on the {@code Weibull reliabilityFunction} with a third parameter:
  * <p>
  * {@code R(x) = 1 - F(x) = e^-(a * x^b * e^(lambda * x))}<br>
- * with {@code lambda, a, b > 0}.
+ * with {@code lambda, a > 0 and b >= 0}.
  * <p>
  * While the parameter {@code lambda} scales the reliabilityFunction, the {@code a} and {@code b} parameters determines
  * the {@code shape} of the reliabilityFunction. This function allows to model bathtub-shaped failure rates that can
@@ -63,8 +63,8 @@ public class NMWDReliabilityFunction implements ReliabilityFunction {
 		this.lambda = lambda;
 		this.a = a;
 		this.b = b;
-		if (!(lambda > 0) || !(a > 0) || !(b > 0)) {
-			throw new IllegalArgumentException("NMWDReliabilityFunction: Lambda, A, and B should be greater 0.");
+		if (!(lambda > 0) || !(a > 0) || !(b >= 0)) {
+			throw new IllegalArgumentException("NMWDReliabilityFunction: Lambda and A must be greater, B be greater equal 0.");
 		}
 	}
 
