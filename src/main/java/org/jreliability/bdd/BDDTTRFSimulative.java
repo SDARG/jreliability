@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -31,9 +29,8 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.SampledReliabilityFunction;
 
 /**
- * The {@code BDDTTRFSimulative} performs a {@code Monte-Carlo simulation} to
- * determine the {@code ReliabilityFunction} based on a {@code BDD}
- * representation of the system structure..
+ * The {@code BDDTTRFSimulative} performs a {@code Monte-Carlo simulation} to determine the {@code ReliabilityFunction}
+ * based on a {@code BDD} representation of the system structure.
  * 
  * @author glass
  * 
@@ -58,8 +55,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	protected final BDDProvider<T> provider;
 
 	/**
-	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider}
-	 * and a standard epsilon of {@code 0.001}.
+	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider} and a standard epsilon of {@code 0.001}.
 	 * 
 	 * @param provider
 	 *            the used bddProvider
@@ -69,8 +65,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider}
-	 * and an epsilon.
+	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider} and an epsilon.
 	 * 
 	 * @param provider
 	 *            the used bddProvider
@@ -87,13 +82,13 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	 * 
 	 * @see org.jreliability.booleanfunction.TTRF#convert(Term, Transformer)
 	 */
+	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
 		return convert(term, functionTransformer, null);
 	}
 
 	/**
-	 * Converts a given {@code Term} to a {@code ReliabilityFunction} based on
-	 * {@code j}-samples.
+	 * Converts a given {@code Term} to a {@code ReliabilityFunction} based on {@code j}-samples.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -110,9 +105,9 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(Term, Transformer,
-	 *      Transformer)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(Term, Transformer, Transformer)
 	 */
+	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
 			Predicate<T> existsPredicate) {
 		List<Double> samples = collectTimesToFailure(term, functionTransformer, existsPredicate);
@@ -120,8 +115,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@code Term} to a {@code ReliabilityFunction} based on
-	 * {@code j}-samples.
+	 * Converts a given {@code Term} to a {@code ReliabilityFunction} based on {@code j}-samples.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -140,8 +134,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Collects all times-to-failure to derive {@code 5000} samples needed to
-	 * calculate the {@code ReliabilityFunction}.
+	 * Collects all times-to-failure to derive {@code 5000} samples needed to calculate the {@code ReliabilityFunction}.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -157,8 +150,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Collects all times-to-failure to derive {@code n} samples needed to
-	 * calculate the {@code ReliabilityFunction}.
+	 * Collects all times-to-failure to derive {@code n} samples needed to calculate the {@code ReliabilityFunction}.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -172,8 +164,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	 */
 	public List<Double> collectTimesToFailure(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
 			Predicate<T> existsPredicate, int n) {
-		List<Double> times = new ArrayList<Double>();
-		BDDTTRF<T> bddTTRF = new BDDTTRF<T>(provider);
+		List<Double> times = new ArrayList<>();
+		BDDTTRF<T> bddTTRF = new BDDTTRF<>(provider);
 		BDD<T> bdd = bddTTRF.convertToBDD(term, existsPredicate);
 		for (int i = 0; i < n; i++) {
 			Double time = simulateTimeToFailure(bdd, functionTransformer);
@@ -208,9 +200,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Generates the {@code Failure} {@code Occurrences} for a single simulation
-	 * run based on the given {@code BDD} and the {@code ReliabilityFunctions}
-	 * of its elements.
+	 * Generates the {@code Failure} {@code Occurrences} for a single simulation run based on the given {@code BDD} and
+	 * the {@code ReliabilityFunctions} of its elements.
 	 * 
 	 * @param bdd
 	 *            the given bdd
@@ -219,13 +210,13 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	 * @return the failure occurrences for a single simulation run
 	 */
 	protected Set<Failure<T>> getFailures(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
-		SortedSet<Failure<T>> failureTimes = new TreeSet<Failure<T>>();
+		SortedSet<Failure<T>> failureTimes = new TreeSet<>();
 		Set<T> elements = bdd.getVariables();
 		for (T element : elements) {
 			ReliabilityFunction relFunction = functionTransformer.transform(element);
 			InverseFunction inverse = new InverseFunction(relFunction);
 			double x = inverse.getY(random.nextDouble());
-			Failure<T> failureTime = new Failure<T>(element, x);
+			Failure<T> failureTime = new Failure<>(element, x);
 			failureTimes.add(failureTime);
 		}
 		return failureTimes;

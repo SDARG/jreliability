@@ -46,19 +46,19 @@ public class TermsTest {
 		Assert.assertEquals(s, t.toString());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testParseIllegalNotLiteral() {
 		String s = "(NOT \"sensor1\" \"sensor2\")";
 		Terms.getTermFromString(s);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testParseIllegalTerm() {
 		String s = "(= 1 \"sensor1\")";
 		Terms.getTermFromString(s);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testParseMissingBracket() {
 		String s = "(AND \"sensor1\" \"sensor2\"";
 		Terms.getTermFromString(s);
@@ -70,13 +70,13 @@ public class TermsTest {
 		Terms.getTermFromString(s);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testParseIllegalEndAfterOperator() {
 		String s = "(AND";
 		Terms.getTermFromString(s);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testParseMissingQuote() {
 		String s = "(AND \"sensor1\" \"sensor2)";
 		Terms.getTermFromString(s);
@@ -128,7 +128,7 @@ public class TermsTest {
 		Assert.assertEquals(s, t.toString());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testParseTermUnknown() {
 		String s = "(? \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
 		Term t = Terms.getTermFromString(s);
