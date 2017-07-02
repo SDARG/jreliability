@@ -43,6 +43,12 @@ public class NormalReliabilityFunctionTest {
 		f = new NormalReliabilityFunction(0.0, -1.0);
 		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testZeroRho() {
+		f = new NormalReliabilityFunction(0.0, 0.0);
+		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
+	}
 
 	@Test
 	public void testGetYAtMu() {

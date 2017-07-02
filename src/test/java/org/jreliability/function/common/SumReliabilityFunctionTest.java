@@ -12,11 +12,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
 
-import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.jreliability.function.common.SerialReliabilityFunction;
-import org.jreliability.function.common.SumReliabilityFunction;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.jreliability.function.ReliabilityFunction;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -47,11 +48,10 @@ public class SumReliabilityFunctionTest {
 	
 	@Test
 	public void testGetFunctions() {
-		SumReliabilityFunction function = new SumReliabilityFunction();
-		ExponentialReliabilityFunction f1 = new ExponentialReliabilityFunction(0.005);
-		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
-		function.add(f1);
-		function.add(f2);
+		Set<ReliabilityFunction> functions = new HashSet<ReliabilityFunction>();
+		functions.add(new ExponentialReliabilityFunction(0.005));
+		functions.add(new ExponentialReliabilityFunction(0.004));
+		SumReliabilityFunction function = new SumReliabilityFunction(functions);
 		Assert.assertEquals(function.getFunctions().size(),2);
 	}
 
