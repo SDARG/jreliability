@@ -29,7 +29,7 @@ public class InverseEvaluatorTest {
 	public void testEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.005);
 		InverseEvaluator evaluator = new InverseEvaluator();
-		Assert.assertEquals(evaluator.evaluate(f,0.876), 26.4778, 1.0E-2);
+		Assert.assertEquals(evaluator.evaluate(f,0.876), 26.4778, 1.0E-4);
 	}
 
 }

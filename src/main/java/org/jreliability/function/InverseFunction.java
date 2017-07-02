@@ -30,14 +30,35 @@ public class InverseFunction implements Function {
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
+	 * The allowed error / {@code epsilon} for embedded bisection method.
+	 */
+	protected final double epsilon;
+
+	/**
 	 * Constructs an {@code InverseFunction} with a given {@code
-	 * ReliabilityFunction}.
+	 * ReliabilityFunction} and an error {@code epsilon} for the embedded
+	 * bisection method.
+	 * 
+	 * @param reliabilityFunction
+	 *            the reliabilityFunction
+	 * 
+	 * @param epsilon
+	 *            the error of the bisection method
+	 */
+	public InverseFunction(ReliabilityFunction reliabilityFunction, double epsilon) {
+		this.reliabilityFunction = reliabilityFunction;
+		this.epsilon = epsilon;
+	}
+
+	/**
+	 * Constructs an {@code InverseFunction} with a given {@code
+	 * ReliabilityFunction} and an acceptable error of 1.0E-5.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
 	 */
 	public InverseFunction(ReliabilityFunction reliabilityFunction) {
-		this.reliabilityFunction = reliabilityFunction;
+		this(reliabilityFunction,1.0E-7);
 	}
 
 	/*
@@ -46,7 +67,6 @@ public class InverseFunction implements Function {
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
 	public double getY(double x) {
-		double epsilon = 1.0 / 100000;
 		double y;
 		double diff;
 		double low = 0;
