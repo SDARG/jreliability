@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with Opt4J. If not, see http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -24,8 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code AbstractBDDOperatorTest} is the base class for tests of the
- * operators for the {@code BDD}.
+ * The {@code AbstractBDDOperatorTest} is the base class for tests of the operators for the {@code BDD}.
  * 
  * @author lukasiewycz, reimann
  * 
@@ -156,8 +153,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code and} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@code and} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -215,8 +211,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@code or} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -428,6 +423,28 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
+	 * Tests the
+	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
+	 * method with = operator.
+	 */
+	@Test
+	public void testGetBDDEqual() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> c = provider.get("c");
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.EQUAL, 1);
+
+		BDD<String> ref1 = a.and(b.not()).and(c.not());
+		BDD<String> ref2 = a.not().and(b).and(c.not());
+		BDD<String> ref3 = a.not().and(b.not()).and(c);
+		ref1.orWith(ref2);
+		ref1.orWith(ref3);
+		Assert.assertEquals(test, ref1);
+	}
+
+	/**
 	 * Tests the {@link BDDs#toDot(BDD)} method.
 	 */
 	@Test
@@ -455,8 +472,6 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.andWith(b);
 
 		BDD<String> result = a.exist(var);
-		String dot = BDDs.toDot(result);
-		System.out.println(dot);
 		Assert.assertEquals(result, provider.get("a"));
 	}
 

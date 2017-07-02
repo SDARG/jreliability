@@ -103,21 +103,7 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	 *            the right-hand-side
 	 */
 	public LinearTerm(Comparator comparator, int rhs) {
-		this(new ArrayList<Integer>(), new ArrayList<Term>(), comparator, rhs, true);
-	}
-
-	/**
-	 * Constructs a {@code LinearTerm} with a given {@code Comparator}, the right-hand-side, and the sign.
-	 * 
-	 * @param comparator
-	 *            the used comparator
-	 * @param rhs
-	 *            the right-hand-side
-	 * @param sign
-	 *            the sign
-	 */
-	public LinearTerm(Comparator comparator, int rhs, boolean sign) {
-		this(new ArrayList<Integer>(), new ArrayList<Term>(), comparator, rhs, sign);
+		this(new ArrayList<Integer>(), new ArrayList<Term>(), comparator, rhs);
 	}
 
 	/**
@@ -134,25 +120,6 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	 *            the right-hand-side
 	 */
 	public LinearTerm(List<Integer> coefficients, List<Term> terms, Comparator comparator, int rhs) {
-		this(coefficients, terms, comparator, rhs, true);
-	}
-
-	/**
-	 * Constructs a {@code LinearTerm} with a given list of coefficients, the embedded {@code Terms}, the
-	 * {@code Comparator}, the right-hand-side, and the sign.
-	 * 
-	 * @param coefficients
-	 *            the coefficients of the terms
-	 * @param terms
-	 *            the terms *
-	 * @param comparator
-	 *            the used comparator
-	 * @param rhs
-	 *            the right-hand-side
-	 * @param sign
-	 *            the sign
-	 */
-	public LinearTerm(List<Integer> coefficients, List<Term> terms, Comparator comparator, int rhs, boolean sign) {
 		this.coefficients = coefficients;
 		this.terms = terms;
 		this.comparator = comparator;

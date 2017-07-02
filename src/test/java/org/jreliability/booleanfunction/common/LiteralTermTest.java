@@ -27,9 +27,17 @@ public class LiteralTermTest {
 		String var = "1";
 		LiteralTerm<String> s1 = new LiteralTerm<>(var);
 		LiteralTerm<String> s2 = new LiteralTerm<>("2");
+		LiteralTerm<String> s3 = new LiteralTerm<>(var);
+		LiteralTerm<String> s4 = new LiteralTerm<>(null);
+		LiteralTerm<String> s5 = new LiteralTerm<>(null);
 
 		Assert.assertTrue(s1.equals(s1));
+		Assert.assertTrue(s1.equals(s3));
+		Assert.assertTrue(s4.equals(s5));
 		Assert.assertFalse(s1.equals(s2));
+		Assert.assertFalse(s1.equals(null));
+		Assert.assertFalse(s1.equals("something"));
+		Assert.assertFalse(s4.equals(s1));
 	}
 
 	@Test
