@@ -1,29 +1,35 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Opt4J. If not, see http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections15.Transformer;
+import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code AbstractBDDOperatorTest} is the base class for tests of the operators for the {@code BDD}.
+ * The {@code AbstractBDDOperatorTest} is the base class for tests of the
+ * operators for the {@code BDD}.
  * 
  * @author lukasiewycz, reimann
  * 
@@ -154,7 +160,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code and} method on two variables and returning the result to the same object.
+	 * Tests the {@code and} method on two variables and returning the result to
+	 * the same object.
 	 * 
 	 */
 	@Test
@@ -242,7 +249,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables and returning the result to the same object.
+	 * Tests the {@code or} method on two variables and returning the result to
+	 * the same object.
 	 * 
 	 */
 	@Test
@@ -700,5 +708,40 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		String result = bdd.toString();
 
 		Assert.assertEquals("<0:1>", result);
+	}
+
+	/**
+	 * Test the {@code trim} method. {code 2a &lte; 1} is trimmed to {code 1a
+	 * &lte; 1}.
+	 */
+	@Test
+	public void testTrim() {
+		BDD<String> bdd = provider.get("a");
+		BDDConstraint<String> c = new BDDConstraint<>(1, Arrays.asList(new Literal<String>(2, bdd)));
+		List<Literal<String>> lhs = c.getLhs();
+
+		Assert.assertEquals(1, lhs.size());
+		Iterator<Literal<String>> iter = lhs.iterator();
+		Assert.assertTrue(iter.hasNext());
+		Assert.assertEquals(1, iter.next().getCoefficient());
+		Assert.assertFalse(iter.hasNext());
+	}
+
+	/**
+	 * Test the {@code checkAndAddVariable} method. {code a + a &lte; 2} is
+	 * converted to {code a &lte; 1}.
+	 */
+	@Test
+	public void testCheckAndAddVariable() {
+		BDD<String> bdd = provider.get("a");
+		BDDConstraint<String> c = new BDDConstraint<>(2,
+				Arrays.asList(new Literal<String>(1, bdd), new Literal<String>(1, bdd)));
+		List<Literal<String>> lhs = c.getLhs();
+
+		Assert.assertEquals(1, lhs.size());
+		Iterator<Literal<String>> iter = lhs.iterator();
+		Assert.assertTrue(iter.hasNext());
+		Assert.assertEquals(1, iter.next().getCoefficient());
+		Assert.assertFalse(iter.hasNext());
 	}
 }
