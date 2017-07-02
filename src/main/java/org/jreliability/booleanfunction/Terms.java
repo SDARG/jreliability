@@ -174,7 +174,7 @@ public class Terms {
 				Object obj = toObject(string);
 				list.add(obj);
 				string.skipSpaces();
-				if (string.getCurrent() == ')') {
+				if (!string.isEnd() && string.getCurrent() == ')') {
 					string.next();
 					return list;
 				}
@@ -187,7 +187,7 @@ public class Terms {
 			while (!string.isEnd()) {
 				variable += string.getCurrent();
 				string.next();
-				if (string.getCurrent() == '"') {
+				if (!string.isEnd() && string.getCurrent() == '"') {
 					string.next();
 					return variable;
 				}

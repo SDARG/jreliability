@@ -13,8 +13,12 @@
 package org.jreliability.bdd.jdd;
 
 import org.jreliability.bdd.AbstractBDDOperatorTest;
+import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
+import org.junit.Test;
+
+import net.sf.javabdd.BDDException;
 
 /**
  * The {@code JDDOperatorTest} is a unit test operator class for the {@code JDD} class.
@@ -42,4 +46,13 @@ public class JDDOperatorTest extends AbstractBDDOperatorTest {
 		this.factory = new JBDDProviderFactory(Type.JDD);
 	}
 
+	/**
+	 * Tests the {@code allSat} method.
+	 * 
+	 */
+	@Test(expected = BDDException.class)
+	public void testAllSat() {
+		BDD<String> bdd = provider.get("a");
+		bdd.allsat();
+	}
 }

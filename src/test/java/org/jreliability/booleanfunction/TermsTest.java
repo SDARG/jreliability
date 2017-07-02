@@ -12,6 +12,8 @@
  */
 package org.jreliability.booleanfunction;
 
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,21 +29,21 @@ public class TermsTest {
 	public void testParseAndLiteral() {
 		String s = "(AND \"sensor1\" \"sensor2\")";
 		Term t = Terms.getTermFromString(s);
-		Assert.assertEquals(t.toString(), s);
+		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseOrLiteral() {
 		String s = "(OR \"sensor1\" \"sensor2\")";
 		Term t = Terms.getTermFromString(s);
-		Assert.assertEquals(t.toString(), s);
+		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseNotLiteral() {
 		String s = "(AND \"sensor1\" (NOT \"sensor2\"))";
 		Term t = Terms.getTermFromString(s);
-		Assert.assertEquals(t.toString(), s);
+		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -54,5 +56,82 @@ public class TermsTest {
 	public void testParseIllegalTerm() {
 		String s = "(= 1 \"sensor1\")";
 		Terms.getTermFromString(s);
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testParseMissingBracket() {
+		String s = "(AND \"sensor1\" \"sensor2\"";
+		Terms.getTermFromString(s);
+	}
+
+	@Test
+	public void testParseWithNewline() {
+		String s = "(AND\n\"sensor1\" \"sensor2\")";
+		Terms.getTermFromString(s);
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testParseIllegalEndAfterOperator() {
+		String s = "(AND";
+		Terms.getTermFromString(s);
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testParseMissingQuote() {
+		String s = "(AND \"sensor1\" \"sensor2)";
+		Terms.getTermFromString(s);
+	}
+
+	@Test
+	public void testGetVariables() {
+		String s = "(AND \"sensor1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Set<String> vars = Terms.getVariables(t);
+
+		Assert.assertEquals(2, vars.size());
+		Assert.assertTrue(vars.contains("sensor1"));
+		Assert.assertTrue(vars.contains("sensor2"));
+	}
+
+	@Test
+	public void testParseTermEqual() {
+		String s = "(= \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Assert.assertEquals(s, t.toString());
+	}
+
+	@Test
+	public void testParseTermGT() {
+		String s = "(>= \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Assert.assertEquals(s, t.toString());
+	}
+
+	@Test
+	public void testParseTermLT() {
+		String s = "(<= \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Assert.assertEquals(s, t.toString());
+	}
+
+	@Test
+	public void testParseTermG() {
+		String s = "(> \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Assert.assertEquals(s, t.toString());
+	}
+
+	@Test
+	public void testParseTermL() {
+		String s = "(< \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Assert.assertEquals(s, t.toString());
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testParseTermUnknown() {
+		String s = "(? \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
+		Term t = Terms.getTermFromString(s);
+		Assert.assertEquals(s, t.toString());
 	}
 }

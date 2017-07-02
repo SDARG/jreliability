@@ -14,6 +14,7 @@ package org.jreliability.bdd;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Set;
 
 import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
@@ -208,6 +209,36 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.restrictWith(provider.get("b"));
 
 		Assert.assertTrue(a.isOne());
+	}
+
+	/**
+	 * Tests the {@code orWith} method with a collection.
+	 * 
+	 */
+	@Test
+	public void testOrWithCollection() {
+		BDD<String> a1 = provider.get("a");
+		BDD<String> a2 = provider.get("a");
+		BDD<String> b = provider.get("b");
+		a1.orWith(b);
+		a2.orWith(Collections.singleton("b"));
+
+		Assert.assertEquals(a1, a2);
+	}
+
+	/**
+	 * Tests the {@code orWith} method with an object.
+	 * 
+	 */
+	@Test
+	public void testOrWithObject() {
+		BDD<String> a1 = provider.get("a");
+		BDD<String> a2 = provider.get("a");
+		BDD<String> b = provider.get("b");
+		a1.orWith(b);
+		a2.orWith("b");
+
+		Assert.assertEquals(a1, a2);
 	}
 
 	/**
@@ -461,7 +492,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code andWith} method on two variables.
+	 * Tests the {@code exist} method.
 	 * 
 	 */
 	@Test
@@ -473,6 +504,73 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		BDD<String> result = a.exist(var);
 		Assert.assertEquals(result, provider.get("a"));
+	}
+
+	/**
+	 * Tests the {@code forAll} method.
+	 * 
+	 */
+	@Test
+	public void testForAll() {
+		String var = "b";
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get(var);
+		a.andWith(b);
+
+		BDD<String> result = a.forAll(var);
+		Assert.assertEquals(result, provider.zero());
+	}
+
+	/**
+	 * Tests the {@code restrict} method.
+	 * 
+	 */
+	@Test
+	public void testRestrict() {
+		String var = "b";
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get(var);
+		a.andWith(b);
+
+		BDD<String> result = a.restrict(provider.get(var));
+		Assert.assertEquals(provider.get("a"), result);
+	}
+
+	/**
+	 * Tests the {@code imp} method.
+	 * 
+	 */
+	@Test
+	public void testImp() {
+		String var1 = "a";
+		String var2 = "b";
+		BDD<String> ref = provider.get(var1);
+		BDD<String> b = provider.get(var2);
+		ref.andWith(b);
+		ref.orWith(provider.get(var1).not());
+
+		BDD<String> result = provider.get(var1).imp(provider.get(var2));
+
+		Assert.assertEquals(ref, result);
+	}
+
+	/**
+	 * Tests the {@code impWith} method.
+	 * 
+	 */
+	@Test
+	public void testImpWith() {
+		String var1 = "a";
+		String var2 = "b";
+		BDD<String> ref = provider.get(var1);
+		BDD<String> b = provider.get(var2);
+		ref.andWith(b);
+		ref.orWith(provider.get(var1).not());
+
+		BDD<String> result = provider.get(var1);
+		result.impWith(var2);
+
+		Assert.assertEquals(ref, result);
 	}
 
 	/**
@@ -564,5 +662,43 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		result.replaceWith(var1, var2);
 
 		Assert.assertEquals(ref, result);
+	}
+
+	/**
+	 * Tests the {@code sat} method.
+	 * 
+	 */
+	@Test
+	public void testSat() {
+		BDD<String> result = provider.get("a");
+		result.sat();
+
+		BDD<String> ref = provider.get("a");
+		Assert.assertEquals(ref, result);
+	}
+
+	/**
+	 * Tests the {@code getVariables} method.
+	 * 
+	 */
+	@Test
+	public void testGetVariablesSat() {
+		BDD<String> result = provider.get("a");
+		Set<String> vars = result.getVariables();
+
+		Assert.assertEquals(1, vars.size());
+		Assert.assertEquals("a", vars.iterator().next());
+	}
+
+	/**
+	 * Tests the {@code toString} method.
+	 * 
+	 */
+	@Test
+	public void testToString() {
+		BDD<String> bdd = provider.get("a");
+		String result = bdd.toString();
+
+		Assert.assertEquals("<0:1>", result);
 	}
 }

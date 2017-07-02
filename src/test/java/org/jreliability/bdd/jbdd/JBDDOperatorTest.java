@@ -12,10 +12,15 @@
  */
 package org.jreliability.bdd.jbdd;
 
+import java.util.Iterator;
+
 import org.jreliability.bdd.AbstractBDDOperatorTest;
+import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.javabdd.JBDD;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * The {@code JBDDOperatorTest} is a unit test operator class for the {@link JBDD} class.
@@ -44,4 +49,18 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 		this.factory = new JBDDProviderFactory(Type.JAVABDD);
 	}
 
+	/**
+	 * Tests the {@code allSat} method.
+	 * 
+	 */
+	@Test
+	public void testAllSat() {
+		BDD<String> bdd = provider.get("a");
+		Iterator<BDD<String>> it = bdd.allsat();
+		BDD<String> ref = provider.get("a");
+
+		Assert.assertTrue(it.hasNext());
+		Assert.assertEquals(ref, it.next());
+		Assert.assertFalse(it.hasNext());
+	}
 }
