@@ -18,17 +18,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * The {@code SerialReliabilityFunction} corresponds to a
- * {@code serial-structure} of elements in a system as known from
- * {@code Serial-Parallel systems}. Basically, the
- * {@code SerialReliabilityFunction} holds a set of {@code ReliabilityFunctions}
- * and multiplies their {@code y}-values to derive the {@code y}-value of the
- * whole {@code serial-structure}.
+ * The {@code ReliabilityFunctionSet} is the basic class for functions defined
+ * over a set of {@link ReliabilityFunction}s.
  * 
  * @author glass
- * 
+ *
  */
-public class SerialReliabilityFunction implements ReliabilityFunction {
+public abstract class ReliabilityFunctionSet implements ReliabilityFunction {
 
 	/**
 	 * The set of {@code ReliabilityFunctions}.
@@ -36,40 +32,21 @@ public class SerialReliabilityFunction implements ReliabilityFunction {
 	protected Set<ReliabilityFunction> functions;
 
 	/**
-	 * Constructs a {@code SerialReliabilityFunction}.
-	 * 
+	 * Constructs a {@code ReliabilityFunctionSet}.
 	 */
-	public SerialReliabilityFunction() {
+	public ReliabilityFunctionSet() {
 		this(new HashSet<ReliabilityFunction>());
 	}
 
 	/**
-	 * Constructs a {@code SerialReliabilityFunction} with a given set of
+	 * Constructs a {@code ParallelReliabilityFunction} with a given set of
 	 * {@code ReliabilityFunctions}.
 	 * 
 	 * @param functions
 	 *            the reliability functions
 	 */
-	public SerialReliabilityFunction(Set<ReliabilityFunction> functions) {
-		super();
+	public ReliabilityFunctionSet(Set<ReliabilityFunction> functions) {
 		this.functions = functions;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.function.Function#getY(double)
-	 */
-	public double getY(double x) {
-		if (functions.size() == 0) {
-			throw new RuntimeException("Trying to evaluate empty SerialReliabilityFunction.");
-		}
-		double y = 1;
-		for (ReliabilityFunction function : functions) {
-			y *= function.getY(x);
-		}
-		return y;
-
 	}
 
 	/**

@@ -12,36 +12,33 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
  */
-package org.jreliability.function;
+package org.jreliability.function.common;
 
-import java.util.HashSet;
 import java.util.Set;
+
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.ReliabilityFunctionSet;
 
 /**
  * The {@code ParallelReliabilityFunction} corresponds to a
  * {@code parallel-structure} of elements in a system as known from
  * {@code Serial-Parallel systems}. Basically, the
  * {@code ParallelReliabilityFunction} holds a set of
- * {@code ReliabilityFunctions} and multiplies their {@code (1-y)}-values
- * and calculates the counter probability to derive the {@code y}-value of the
- * whole {@code parallel-structure}.
+ * {@code ReliabilityFunctions} and multiplies their {@code (1-y)}-values and
+ * calculates the counter probability to derive the {@code y}-value of the whole
+ * {@code parallel-structure}.
  * 
  * @author glass
  * 
  */
-public class ParallelReliabilityFunction implements ReliabilityFunction {
+public class ParallelReliabilityFunction extends ReliabilityFunctionSet {
 
 	/**
-	 * The set of {@code ReliabilityFunctions}.
-	 */
-	protected Set<ReliabilityFunction> functions;
-
-	/**
-	 * Constructs a {@code  ParallelReliabilityFunction}.
+	 * Constructs a {@code ParallelReliabilityFunction}.
 	 * 
 	 */
 	public ParallelReliabilityFunction() {
-		this(new HashSet<ReliabilityFunction>());
+		super();
 	}
 
 	/**
@@ -52,8 +49,7 @@ public class ParallelReliabilityFunction implements ReliabilityFunction {
 	 *            the reliability functions
 	 */
 	public ParallelReliabilityFunction(Set<ReliabilityFunction> functions) {
-		super();
-		this.functions = functions;
+		super(functions);
 	}
 
 	/*
@@ -72,25 +68,6 @@ public class ParallelReliabilityFunction implements ReliabilityFunction {
 		y = (1 - y);
 		return y;
 
-	}
-
-	/**
-	 * Returns the set of {@code ReliabilityFunctions}.
-	 * 
-	 * @return the reliability functions
-	 */
-	public Set<ReliabilityFunction> getFunctions() {
-		return functions;
-	}
-
-	/**
-	 * Adds a {@code ReliabilityFunction}.
-	 * 
-	 * @param function
-	 *            the function to set
-	 */
-	public void add(ReliabilityFunction function) {
-		functions.add(function);
 	}
 
 }
