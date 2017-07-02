@@ -28,5 +28,15 @@ public class SerialReliabilityFunctionTest {
 		function.add(f2);
 		Assert.assertEquals(0.8352702, function.getY(20), 0.00001);
 	}
+	
+	@Test
+	public void testGetFunctions() {
+		SerialReliabilityFunction function = new SerialReliabilityFunction();
+		ExponentialReliabilityFunction f1 = new ExponentialReliabilityFunction(0.005);
+		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
+		function.add(f1);
+		function.add(f2);
+		Assert.assertEquals(function.getFunctions().size(),2);
+	}
 
 }

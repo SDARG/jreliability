@@ -28,5 +28,15 @@ public class ParallelReliabilityFunctionTest {
 		function.add(f2);
 		Assert.assertEquals(0.99268355, function.getY(20), 0.00001);
 	}
+	
+	@Test
+	public void testGetFunctions() {
+		ParallelReliabilityFunction function = new ParallelReliabilityFunction();
+		ExponentialReliabilityFunction f1 = new ExponentialReliabilityFunction(0.005);
+		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
+		function.add(f1);
+		function.add(f2);
+		Assert.assertEquals(function.getFunctions().size(),2);
+	}
 
 }
