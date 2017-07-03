@@ -165,4 +165,24 @@ public class BDDTTRFTest {
 
 		Assert.assertEquals(provider.get("a"), result);
 	}
+
+	@Test
+	public void testTransformLinearConstantTrue() {
+		LinearTerm t1 = new LinearTerm(Comparator.LESSEQUAL, 1);
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		BDD<String> result = ttrf.transformLinear(t1);
+
+		Assert.assertEquals(provider.one(), result);
+	}
+
+	@Test
+	public void testTransformLinearConstantFalse() {
+		LinearTerm t1 = new LinearTerm(Comparator.EQUAL, 1);
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		BDD<String> result = ttrf.transformLinear(t1);
+
+		Assert.assertEquals(provider.zero(), result);
+	}
 }
