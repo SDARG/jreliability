@@ -35,5 +35,15 @@ public class FailureRateTest {
 		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.005));
 		Assert.assertEquals(0.005, failureRate.getY(10), 1.0E-5);
 	}
+	
+	@Test
+	public void testGetYAtZero() {
+		/*
+		 * FailureRate for ExponentialDistribution equals the lambda parameter
+		 * and is constant"
+		 */
+		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.1));
+		Assert.assertEquals(Double.NaN, failureRate.getY(1.0E12), 1.0E-5);
+	}
 
 }

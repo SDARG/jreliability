@@ -60,6 +60,11 @@ public class FailureRate {
 		double density = densityFunction.getY(x);
 		double reliability = reliabilityFunction.getY(x);
 		double y = density / reliability;
+		/*
+		 * This case results from e.g. very large y-values with reliability
+		 * being almost 0. There, the approximation via the DensityFunction
+		 * might suffer from rounding the density to 0.
+		 */
 		if (density == 0 && reliability != 1) {
 			return Double.NaN;
 		}
