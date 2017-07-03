@@ -63,4 +63,50 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 		Assert.assertEquals(ref, it.next());
 		Assert.assertFalse(it.hasNext());
 	}
+
+	/**
+	 * Tests the {@code allSat} method.
+	 * 
+	 */
+	@Test(expected = AssertionError.class)
+	public void testAllSatIteratorNoNext() {
+		BDD<String> bdd = provider.get("a");
+		Iterator<BDD<String>> it = bdd.allsat();
+
+		Assert.assertTrue(it.hasNext());
+		it.next();
+		Assert.assertFalse(it.hasNext());
+		it.next();
+	}
+
+	/**
+	 * Tests the {@code allSat} method with a negated variable.
+	 * 
+	 */
+	@Test
+	public void testAllSatIteratorNegatedVar() {
+		BDD<String> bdd = provider.get("a").not();
+		Iterator<BDD<String>> it = bdd.allsat();
+
+		BDD<String> ref = provider.get("a").not();
+
+		Assert.assertTrue(it.hasNext());
+		Assert.assertEquals(ref, it.next());
+		Assert.assertFalse(it.hasNext());
+	}
+
+	/**
+	 * Tests the {@code remove} method.
+	 * 
+	 */
+	@Test
+	public void testAllSatIteratorRemove() {
+		BDD<String> bdd = provider.get("a").not();
+		Iterator<BDD<String>> it = bdd.allsat();
+
+		Assert.assertTrue(it.hasNext());
+		it.next();
+		it.remove();
+		Assert.assertFalse(it.hasNext());
+	}
 }
