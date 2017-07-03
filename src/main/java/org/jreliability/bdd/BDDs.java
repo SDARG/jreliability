@@ -113,8 +113,22 @@ public abstract class BDDs {
 				BDD<T> v = vars.get(i);
 				lits.add(new Literal<>(c, v));
 			}
+			
 			BDDConstraint<T> constraint = new BDDConstraint<>(rhs, lits);
-			result = getConstraintBDD(constraint);
+			
+			/* Handle the case that the lhs is empty and is, thus, 0!
+			 * If 0 >= rhs, return true BDD; else return false BDD
+			*/
+			if(constraint.getLhs().isEmpty()) {
+				BDDProvider<T> provider = lits.get(0).getVariable().getProvider();
+				if(0 >= constraint.getRhs()) {
+					result = provider.one();
+				} else {
+					result = provider.zero();
+				}
+			} else{ 
+			 result = getConstraintBDD(constraint);
+			}
 			break;
 		case LESS:
 			result = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs - 1);

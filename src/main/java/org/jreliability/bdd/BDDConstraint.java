@@ -46,8 +46,8 @@ class BDDConstraint<T> {
 	protected Set<BDD<T>> variables = new HashSet<BDD<T>>();
 
 	/**
-	 * Constructs a {@code BDDConstraint} with a given right-hand-side {@code rhs}
-	 * and left-hand-side {@code lhs}.
+	 * Constructs a {@code BDDConstraint} with a given right-hand-side
+	 * {@code rhs} and left-hand-side {@code lhs}.
 	 * 
 	 * @param rhs
 	 *            the right-hand-side
@@ -61,7 +61,8 @@ class BDDConstraint<T> {
 
 	/**
 	 * Initializes the {@code BDDConstraint} with the normalizing operations
-	 * proposed by {@code Een & Soerrensson 2006}.
+	 * proposed by {@code Een & Soerrensson 2006} plus zero coefficient
+	 * elimination.
 	 * 
 	 * @param literals
 	 *            the literals
@@ -72,6 +73,7 @@ class BDDConstraint<T> {
 			checkAndAddVariable(literal);
 		}
 		trim();
+		eliminateZeroCoefficients();
 		gcd();
 	}
 
@@ -136,23 +138,44 @@ class BDDConstraint<T> {
 	}
 
 	/**
+	 * Eliminates variables on the {@code lhs} with a zero coefficient.
+	 */
+	protected void eliminateZeroCoefficients() {
+		Set<Literal<T>> zeroCoefficients = new HashSet<Literal<T>>();
+		for (Literal<T> literal : lhs) {
+			int coefficient = literal.getCoefficient();
+			if (coefficient == 0) {
+				zeroCoefficients.add(literal);
+			}
+		}
+		lhs.removeAll(zeroCoefficients);
+
+	}
+
+	/**
 	 * Determines the greatest-common-divisor ({@code gcd}) of all {@code
 	 * coefficients} of the {@code lhs} and the {@code rhs} and updates the
 	 * values.
 	 */
 	protected void gcd() {
-		int gcd = lhs.get(0).getCoefficient();
-		for (Literal<T> literal : lhs) {
-			int coefficient = literal.getCoefficient();
-			gcd = gcdRec(gcd, coefficient);
-		}
-		gcd = gcdRec(gcd, rhs);
-		rhs = rhs / gcd;
+		try {
+			int gcd = lhs.get(0).getCoefficient();
+			for (Literal<T> literal : lhs) {
+				int coefficient = literal.getCoefficient();
+				gcd = gcdRec(gcd, coefficient);
+			}
+			gcd = gcdRec(gcd, rhs);
+			assert gcd != 0;
+			rhs = rhs / gcd;
 
-		for (Literal<T> literal : lhs) {
-			int coefficient = literal.getCoefficient();
-			int newCoefficient = coefficient / gcd;
-			literal.setCoefficient(newCoefficient);
+			for (Literal<T> literal : lhs) {
+				int coefficient = literal.getCoefficient();
+				int newCoefficient = coefficient / gcd;
+				literal.setCoefficient(newCoefficient);
+			}
+		} catch (IndexOutOfBoundsException e) {
+			// do unless lhs is empty, i.e., 0
+			// this may be a result of applying eliminateZeroCoefficients()
 		}
 
 	}
@@ -266,7 +289,9 @@ class BDDConstraint<T> {
 			this.variable = variable;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#toString()
 		 */
 		@Override
