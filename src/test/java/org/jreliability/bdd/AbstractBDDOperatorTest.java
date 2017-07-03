@@ -397,7 +397,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATEREQUAL, 2);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATEREQUAL, 2, provider);
 
 		BDD<String> ref1 = a.and(b);
 		BDD<String> ref2 = b.and(c);
@@ -419,7 +419,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATER, 2);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATER, 2, provider);
 
 		BDD<String> ref1 = a.and(b).and(c);
 		Assert.assertEquals(test, ref1);
@@ -437,7 +437,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESS, 1);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESS, 1, provider);
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
 		Assert.assertEquals(test, ref1);
@@ -455,7 +455,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESSEQUAL, 0);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESSEQUAL, 0, provider);
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
 		Assert.assertEquals(test, ref1);
@@ -473,7 +473,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.EQUAL, 1);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.EQUAL, 1, provider);
 
 		BDD<String> ref1 = a.and(b.not()).and(c.not());
 		BDD<String> ref2 = a.not().and(b).and(c.not());

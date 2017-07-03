@@ -91,20 +91,20 @@ public abstract class BDDs {
 	 *            the right hand side value
 	 * @return the BDD representing this linear constraint
 	 */
-	public static <T> BDD<T> getBDD(List<Integer> coeffs, List<BDD<T>> vars, LinearTerm.Comparator comp, int rhs) {
+	public static <T> BDD<T> getBDD(List<Integer> coeffs, List<BDD<T>> vars, LinearTerm.Comparator comp, int rhs, BDDProvider<T> provider) {
 		assert (coeffs.size() == vars.size());
 
 		BDD<T> result;
 
 		switch (comp) {
 		case EQUAL:
-			BDD<T> ge = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs);
-			BDD<T> le = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs);
+			BDD<T> ge = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs, provider);
+			BDD<T> le = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs, provider);
 			ge.andWith(le);
 			result = ge;
 			break;
 		case GREATER:
-			result = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs + 1);
+			result = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs + 1, provider);
 			break;
 		case GREATEREQUAL:
 			List<Literal<T>> lits = new ArrayList<>();
@@ -120,25 +120,24 @@ public abstract class BDDs {
 			 * If 0 >= rhs, return true BDD; else return false BDD
 			*/
 			if(constraint.getLhs().isEmpty()) {
-				BDDProvider<T> provider = lits.get(0).getVariable().getProvider();
 				if(0 >= constraint.getRhs()) {
 					result = provider.one();
 				} else {
 					result = provider.zero();
 				}
 			} else{ 
-			 result = getConstraintBDD(constraint);
+			 result = getConstraintBDD(constraint, provider);
 			}
 			break;
 		case LESS:
-			result = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs - 1);
+			result = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs - 1, provider);
 			break;
 		case LESSEQUAL:
 			List<Integer> negativeCoeffs = new ArrayList<>();
 			for (int c : coeffs) {
 				negativeCoeffs.add(-c);
 			}
-			result = getBDD(negativeCoeffs, vars, LinearTerm.Comparator.GREATEREQUAL, -rhs);
+			result = getBDD(negativeCoeffs, vars, LinearTerm.Comparator.GREATEREQUAL, -rhs, provider);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown comparator in LinearTerm: " + comp);
@@ -156,7 +155,7 @@ public abstract class BDDs {
 	 *            the greater-equal constraint
 	 * @return the bdd representation of the given constraint
 	 */
-	protected static <T> BDD<T> getConstraintBDD(BDDConstraint<T> constraint) {
+	protected static <T> BDD<T> getConstraintBDD(BDDConstraint<T> constraint, BDDProvider<T> provider) {
 		List<Literal<T>> literals = constraint.getLhs();
 
 		Collections.sort(literals, new Comparator<Literal<T>>() {
@@ -167,7 +166,6 @@ public abstract class BDDs {
 		});
 
 		int materialLeft = 0;
-		BDDProvider<T> provider = literals.get(0).getVariable().getProvider();
 		for (Literal<T> literal : literals) {
 			int coefficient = literal.getCoefficient();
 			materialLeft += coefficient;

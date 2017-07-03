@@ -158,7 +158,7 @@ class BDDConstraint<T> {
 	 * values.
 	 */
 	protected void gcd() {
-		try {
+		if(!lhs.isEmpty()){
 			int gcd = lhs.get(0).getCoefficient();
 			for (Literal<T> literal : lhs) {
 				int coefficient = literal.getCoefficient();
@@ -173,11 +173,7 @@ class BDDConstraint<T> {
 				int newCoefficient = coefficient / gcd;
 				literal.setCoefficient(newCoefficient);
 			}
-		} catch (IndexOutOfBoundsException e) {
-			// do unless lhs is empty, i.e., 0
-			// this may be a result of applying eliminateZeroCoefficients()
 		}
-
 	}
 
 	/**

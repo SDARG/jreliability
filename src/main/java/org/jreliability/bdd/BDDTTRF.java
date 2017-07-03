@@ -67,8 +67,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 * booleanfunction.Term, org.apache.commons.collections15.Transformer)
 	 */
 	@Override
-	public ReliabilityFunction convert(Term term,
-			Transformer<T, ReliabilityFunction> functionTransformer) {
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
 		return convert(term, functionTransformer, null);
 	}
 
@@ -80,8 +79,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 * org.apache.commons.collections15.Predicate)
 	 */
 	@Override
-	public ReliabilityFunction convert(Term term,
-			Transformer<T, ReliabilityFunction> functionTransformer,
+	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
 			Predicate<T> existsPredicate) {
 		BDD<T> bdd = convertToBDD(term, existsPredicate);
 		return convert(bdd, functionTransformer);
@@ -98,10 +96,8 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 * @return a reliability function from the given bdd and function
 	 *         functionTransformer
 	 */
-	public ReliabilityFunction convert(BDD<T> bdd,
-			Transformer<T, ReliabilityFunction> functionTransformer) {
-		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd,
-				functionTransformer);
+	public ReliabilityFunction convert(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
+		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
 		bdd.free();
 		return function;
 	}
@@ -174,8 +170,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 			NOTTerm notTerm = (NOTTerm) term;
 			bdd = transformNOT(notTerm);
 		} else {
-			throw new IllegalArgumentException(
-					"Unknown Term class in boolean function.");
+			throw new IllegalArgumentException("Unknown Term class in boolean function.");
 		}
 		return bdd;
 	}
@@ -232,7 +227,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 		}
 		Comparator comparator = term.getComparator();
 		int rhs = term.getRHS();
-		return BDDs.getBDD(coefficients, bdds, comparator, rhs);
+		return BDDs.getBDD(coefficients, bdds, comparator, rhs, provider);
 	}
 
 	/**
