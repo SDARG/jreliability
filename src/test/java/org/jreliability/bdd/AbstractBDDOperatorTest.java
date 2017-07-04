@@ -14,6 +14,7 @@ package org.jreliability.bdd;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -268,13 +269,18 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	 */
 	@Test
 	public void testGetVariables() {
+		Set<String> variables = new HashSet<String>();
+		variables.add("a");
+		variables.add("b");
+		variables.add("c");
 		BDDProvider<String> provider = factory.getProvider();
 
-		String var = "a";
-		BDD<String> bdd = provider.get(var);
-		Assert.assertEquals(BDDs.getVariables(bdd), Collections.singleton(var));
+		BDD<String> bdd = provider.get("a");
+		bdd = bdd.or(provider.get("b"));
+		bdd = bdd.or(provider.get("c"));
+		Assert.assertEquals(BDDs.getVariables(bdd), variables);
 	}
-
+	
 	/**
 	 * Tests the {@link BDDs#getNodes(Object, BDD)} method.
 	 */

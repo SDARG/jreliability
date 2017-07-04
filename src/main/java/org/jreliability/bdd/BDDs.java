@@ -535,9 +535,7 @@ public abstract class BDDs {
 	 *            the already considered bdds
 	 */
 	protected static <T> void collectVariables(BDD<T> bdd, Set<T> variables, Set<BDD<T>> considered) {
-		if (bdd.isOne() || bdd.isZero()) {
-			return;
-		} else if (considered.contains(bdd)) {
+		if (bdd.isOne() || bdd.isZero() || considered.contains(bdd)) {
 			return;
 		}
 		BDD<T> high = bdd.high();
