@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -20,9 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * The {@code BDDConstraint} is used to model {@code greater-equal} constraints
- * with a left-hand-side ({@code lhs}) consisting of {@code Literals} and the
- * right-hand-side ({@code rhs}) being an {@code Integer}.
+ * The {@code BDDConstraint} is used to model {@code greater-equal} constraints with a left-hand-side ({@code lhs})
+ * consisting of {@code Literals} and the right-hand-side ({@code rhs}) being an {@code Integer}.
  * 
  * @author glass, lukasiewycz
  * 
@@ -39,15 +36,14 @@ class BDDConstraint<T> {
 	 * The left-hand-side of the constraint as a {@code List} of {@code
 	 * Literals}.
 	 */
-	protected List<Literal<T>> lhs = new ArrayList<Literal<T>>();
+	protected List<Literal<T>> lhs = new ArrayList<>();
 	/**
 	 * A map to deal with {@code Literals} including the same variables.
 	 */
-	protected Set<BDD<T>> variables = new HashSet<BDD<T>>();
+	protected Set<BDD<T>> variables = new HashSet<>();
 
 	/**
-	 * Constructs a {@code BDDConstraint} with a given right-hand-side
-	 * {@code rhs} and left-hand-side {@code lhs}.
+	 * Constructs a {@code BDDConstraint} with a given right-hand-side {@code rhs} and left-hand-side {@code lhs}.
 	 * 
 	 * @param rhs
 	 *            the right-hand-side
@@ -60,9 +56,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Initializes the {@code BDDConstraint} with the normalizing operations
-	 * proposed by {@code Een & Soerrensson 2006} plus zero coefficient
-	 * elimination.
+	 * Initializes the {@code BDDConstraint} with the normalizing operations proposed by {@code Een & Soerrensson 2006}
+	 * plus zero coefficient elimination.
 	 * 
 	 * @param literals
 	 *            the literals
@@ -78,8 +73,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Ensures a positive {@code coefficient} of the {@code Literal} by a
-	 * negotiation of the variable and an update of the {@code rhs}.
+	 * Ensures a positive {@code coefficient} of the {@code Literal} by a negotiation of the variable and an update of
+	 * the {@code rhs}.
 	 * 
 	 * @param literal
 	 *            the literal
@@ -97,8 +92,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Checks the {@code Literal} if it includes a variable that is already
-	 * present in the {@code BDDConstraint} and adds it correctly.
+	 * Checks the {@code Literal} if it includes a variable that is already present in the {@code BDDConstraint} and
+	 * adds it correctly.
 	 * 
 	 * @param literal
 	 */
@@ -124,8 +119,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Trims all {@code coefficients} that are greater than the {@code rhs} to
-	 * {@code rhs}.
+	 * Trims all {@code coefficients} that are greater than the {@code rhs} to {@code rhs}.
 	 */
 	protected void trim() {
 		for (Literal<T> literal : lhs) {
@@ -141,7 +135,7 @@ class BDDConstraint<T> {
 	 * Eliminates variables on the {@code lhs} with a zero coefficient.
 	 */
 	protected void eliminateZeroCoefficients() {
-		Set<Literal<T>> zeroCoefficients = new HashSet<Literal<T>>();
+		Set<Literal<T>> zeroCoefficients = new HashSet<>();
 		for (Literal<T> literal : lhs) {
 			int coefficient = literal.getCoefficient();
 			if (coefficient == 0) {
@@ -154,11 +148,10 @@ class BDDConstraint<T> {
 
 	/**
 	 * Determines the greatest-common-divisor ({@code gcd}) of all {@code
-	 * coefficients} of the {@code lhs} and the {@code rhs} and updates the
-	 * values.
+	 * coefficients} of the {@code lhs} and the {@code rhs} and updates the values.
 	 */
 	protected void gcd() {
-		if(!lhs.isEmpty()){
+		if (!lhs.isEmpty()) {
 			int gcd = lhs.get(0).getCoefficient();
 			for (Literal<T> literal : lhs) {
 				int coefficient = literal.getCoefficient();
@@ -177,8 +170,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Returns the {@code gcd} of two {@code Integers} by a simple recursive
-	 * procedure.
+	 * Returns the {@code gcd} of two {@code Integers} by a simple recursive procedure.
 	 * 
 	 * @param a
 	 *            integer a
@@ -213,8 +205,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * The {@code Literal} represents a variable using a {@code BDD} and its
-	 * {@code coefficient}.
+	 * The {@code Literal} represents a variable using a {@code BDD} and its {@code coefficient}.
 	 * 
 	 * @author glass
 	 * 
@@ -234,8 +225,7 @@ class BDDConstraint<T> {
 		BDD<T> variable = null;
 
 		/**
-		 * Constructs a {@code Literal} with a given coefficient and variable as
-		 * a {@code BDD}.
+		 * Constructs a {@code Literal} with a given coefficient and variable as a {@code BDD}.
 		 * 
 		 * @param coefficient
 		 *            the coefficient
@@ -297,8 +287,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * The {@code Pair} represents a tuple of two {@code Objects} {@code A} and
-	 * {@code B}.
+	 * The {@code Pair} represents a tuple of two {@code Objects} {@code A} and {@code B}.
 	 * 
 	 * @author glass
 	 * 
@@ -348,11 +337,6 @@ class BDDConstraint<T> {
 			return b;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -362,23 +346,33 @@ class BDDConstraint<T> {
 			return result;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@SuppressWarnings("unchecked")
 		@Override
 		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
 			if (obj == null) {
 				return false;
 			}
 			if (getClass() != obj.getClass()) {
 				return false;
 			}
-			Pair<A, B> other = (Pair<A, B>) obj;
-
-			return a.equals(other.a) && b.equals(other.b);
+			Pair other = (Pair) obj;
+			if (a == null) {
+				if (other.a != null) {
+					return false;
+				}
+			} else if (!a.equals(other.a)) {
+				return false;
+			}
+			if (b == null) {
+				if (other.b != null) {
+					return false;
+				}
+			} else if (!b.equals(other.b)) {
+				return false;
+			}
+			return true;
 		}
 
 	}
