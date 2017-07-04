@@ -91,56 +91,50 @@ public abstract class BDDs {
 	 *            the right hand side value
 	 * @return the BDD representing this linear constraint
 	 */
-	public static <T> BDD<T> getBDD(List<Integer> coeffs, List<BDD<T>> vars, LinearTerm.Comparator comp, int rhs, BDDProvider<T> provider) {
+	public static <T> BDD<T> getBDD(List<Integer> coeffs, List<BDD<T>> vars, LinearTerm.Comparator comp, int rhs,
+			BDDProvider<T> provider) {
 		assert (coeffs.size() == vars.size());
 
-		BDD<T> result;
+		BDD<T> result = null;
 
-		switch (comp) {
-		case EQUAL:
+		if (comp == org.jreliability.booleanfunction.common.LinearTerm.Comparator.EQUAL) {
 			BDD<T> ge = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs, provider);
 			BDD<T> le = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs, provider);
 			ge.andWith(le);
 			result = ge;
-			break;
-		case GREATER:
+		} else if (comp == org.jreliability.booleanfunction.common.LinearTerm.Comparator.GREATER) {
 			result = getBDD(coeffs, vars, LinearTerm.Comparator.GREATEREQUAL, rhs + 1, provider);
-			break;
-		case GREATEREQUAL:
+		} else if (comp == org.jreliability.booleanfunction.common.LinearTerm.Comparator.GREATEREQUAL) {
 			List<Literal<T>> lits = new ArrayList<>();
 			for (int i = 0; i < coeffs.size(); i++) {
 				int c = coeffs.get(i);
 				BDD<T> v = vars.get(i);
 				lits.add(new Literal<>(c, v));
 			}
-			
+
 			BDDConstraint<T> constraint = new BDDConstraint<>(rhs, lits);
-			
-			/* Handle the case that the lhs is empty and is, thus, 0!
-			 * If 0 >= rhs, return true BDD; else return false BDD
-			*/
-			if(constraint.getLhs().isEmpty()) {
-				if(0 >= constraint.getRhs()) {
+
+			/*
+			 * Handle the case that the lhs is empty and is, thus, 0! If 0 >=
+			 * rhs, return true BDD; else return false BDD
+			 */
+			if (constraint.getLhs().isEmpty()) {
+				if (0 >= constraint.getRhs()) {
 					result = provider.one();
 				} else {
 					result = provider.zero();
 				}
-			} else{ 
-			 result = getConstraintBDD(constraint, provider);
+			} else {
+				result = getConstraintBDD(constraint, provider);
 			}
-			break;
-		case LESS:
+		} else if (comp == org.jreliability.booleanfunction.common.LinearTerm.Comparator.LESS) {
 			result = getBDD(coeffs, vars, LinearTerm.Comparator.LESSEQUAL, rhs - 1, provider);
-			break;
-		case LESSEQUAL:
+		} else if (comp == org.jreliability.booleanfunction.common.LinearTerm.Comparator.LESSEQUAL) {
 			List<Integer> negativeCoeffs = new ArrayList<>();
 			for (int c : coeffs) {
 				negativeCoeffs.add(-c);
 			}
 			result = getBDD(negativeCoeffs, vars, LinearTerm.Comparator.GREATEREQUAL, -rhs, provider);
-			break;
-		default:
-			throw new IllegalArgumentException("Unknown comparator in LinearTerm: " + comp);
 		}
 
 		return result;
@@ -178,7 +172,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a graphical representation of the {@code BDD} in the {@code DOT} input format.
+	 * Returns a graphical representation of the {@code BDD} in the {@code DOT}
+	 * input format.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -206,8 +201,9 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@code BDD} based on a functionTransformer that delivers for each variable
-	 * {@code T} a double value.
+	 * Calculates the top event of the {@code BDD} based on a
+	 * functionTransformer that delivers for each variable {@code T} a double
+	 * value.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -322,8 +318,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a {@code greater-equal} constraint represented as a {@code BDD} via a recursive procedure proposed by
-	 * {@code Een & Soerrensson 2006}.
+	 * Returns a {@code greater-equal} constraint represented as a {@code BDD}
+	 * via a recursive procedure proposed by {@code Een & Soerrensson 2006}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -369,7 +365,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT} representation.
+	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT}
+	 * representation.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -415,7 +412,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all edges for the {@code DOT} representation.
+	 * Traverses the {@code BDD} to collects all edges for the {@code DOT}
+	 * representation.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -451,7 +449,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
+	 * Traverses the {@code BDD} to setup the correct ranks of all nodes
+	 * belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -490,7 +489,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
+	 * Traverses the {@code BDD} to setup the correct ranks of all nodes
+	 * belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -555,7 +555,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all variables in the current variable order of the {@code BDD}.
+	 * Traverses the {@code BDD} to collect all variables in the current
+	 * variable order of the {@code BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -582,7 +583,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all nodes for a given variable {@code T}.
+	 * Traverses the {@code BDD} to collect all nodes for a given variable
+	 * {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variables

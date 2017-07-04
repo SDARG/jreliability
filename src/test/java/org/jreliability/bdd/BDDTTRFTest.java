@@ -185,4 +185,17 @@ public class BDDTTRFTest {
 
 		Assert.assertEquals(provider.zero(), result);
 	}
+
+	@Test
+	public void testTransformLinearUnsupportedComparator() {
+
+		for (Comparator comparator : Comparator.values()) {
+			LinearTerm t = new LinearTerm(comparator, 1);
+			BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+			BDD<String> result = ttrf.transformLinear(t);
+
+			Assert.assertNotNull(comparator+" in LinearTerm not supported for BDD conversion.", result);
+
+		}
+	}
 }
