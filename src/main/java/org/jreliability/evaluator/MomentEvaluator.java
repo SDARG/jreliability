@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.evaluator;
 
@@ -18,15 +16,14 @@ import org.jreliability.function.Function;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code MomentEvaluator} determines the {@code n}-th {@code Moment} of a
- * density function {@code f(x)} given a {@code ReliabilityFunction} {@code
+ * The {@code MomentEvaluator} determines the {@code n}-th {@code Moment} of a density function {@code f(x)} given a
+ * {@code ReliabilityFunction} {@code
  * R(x)}.
  * <p>
  * E(X^n)={@code integral_0^infinity x^n f(x) dx}.
  * <p>
- * It performs an integration from {@code 0} to {@code infinity} using Rombergs
- * integration. This is commonly used to derived measures like, e.g., Mean Time
- * To Failure (MTTF) (E(X)) and its variance (E(X^2)-E(X)^2).
+ * It performs an integration from {@code 0} to {@code infinity} using Rombergs integration. This is commonly used to
+ * derived measures like, e.g., Mean Time To Failure (MTTF) (E(X)) and its variance (E(X^2)-E(X)^2).
  * 
  * @author glass, lukasiewycz
  * 
@@ -39,7 +36,7 @@ public class MomentEvaluator implements Evaluator {
 	 * @author lukasiewycz
 	 * 
 	 */
-	class MomentFunction implements Function {
+	static class MomentFunction implements Function {
 
 		private ReliabilityFunction reliabilityFunction;
 		private int n;
@@ -62,6 +59,7 @@ public class MomentEvaluator implements Evaluator {
 		 * 
 		 * @see org.jreliability.function.Function#getY(double)
 		 */
+		@Override
 		public double getY(double x) {
 			return n * Math.pow(x, n - 1) * reliabilityFunction.getY(x);
 		}
@@ -79,8 +77,8 @@ public class MomentEvaluator implements Evaluator {
 	protected final int n;
 
 	/**
-	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment
-	 * and a maximum error / {@code epsilon} of {@code 1.0E-5}.
+	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment and a maximum error / {@code epsilon} of
+	 * {@code 1.0E-5}.
 	 * 
 	 * @param n
 	 *            the n value
@@ -90,8 +88,7 @@ public class MomentEvaluator implements Evaluator {
 	}
 
 	/**
-	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment
-	 * and a maximum error {@code epsilon}.
+	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment and a maximum error {@code epsilon}.
 	 * 
 	 * @param n
 	 *            the n value
@@ -105,8 +102,7 @@ public class MomentEvaluator implements Evaluator {
 		this.n = n;
 		this.epsilon = epsilon;
 		if (n < 1) {
-			throw new IllegalArgumentException(
-					"An n-th moment with n < 1 is undefined.");
+			throw new IllegalArgumentException("An n-th moment with n < 1 is undefined.");
 		}
 	}
 
@@ -125,13 +121,11 @@ public class MomentEvaluator implements Evaluator {
 	}
 
 	/**
-	 * Returns the calculated upper bound that will be used in the integration
-	 * process.
+	 * Returns the calculated upper bound that will be used in the integration process.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
-	 * @return the calculated upper bound that will be used in the integration
-	 *         process
+	 * @return the calculated upper bound that will be used in the integration process
 	 */
 	public double getUpperBound(ReliabilityFunction reliabilityFunction) {
 		double upperBound = 0.5;
@@ -159,8 +153,7 @@ public class MomentEvaluator implements Evaluator {
 	 *            the upper bound
 	 * @return the value of the integral between a and b
 	 */
-	protected double integrate(ReliabilityFunction reliabilityFunction,
-			double a, double b) {
+	protected double integrate(ReliabilityFunction reliabilityFunction, double a, double b) {
 		Function f = new MomentFunction(reliabilityFunction, n);
 
 		IntegralEvaluator integral = new IntegralEvaluator(epsilon);

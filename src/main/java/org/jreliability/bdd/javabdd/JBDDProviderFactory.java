@@ -50,7 +50,7 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	/**
 	 * The number of initially allocated variables.
 	 */
-	protected static int INITIAL_VARIABLES = 10;
+	protected static final int INITIAL_VARIABLES = 10;
 	/**
 	 * A map that provides each requested {@code Type} of real {@code BDD} implementation with its specific
 	 * {@code JBDDProvider}.

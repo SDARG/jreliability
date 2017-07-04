@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.gui;
 
@@ -24,8 +22,8 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -41,8 +39,7 @@ import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@code MeasuresPanel2} collects a {@code MeasurePanel} for each {@code
- * ReliabilityFunction} that shall be shown in the GUI and adds them to a
- * {@code JTabbedPane}.
+ * ReliabilityFunction} that shall be shown in the GUI and adds them to a {@code JTabbedPane}.
  * 
  * @author glass
  * 
@@ -82,45 +79,40 @@ public class MeasuresPanel extends JPanel {
 	 */
 	protected void initialize() {
 		tabs = new JTabbedPane();
-		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
-				.entrySet()) {
+		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions.entrySet()) {
 			String name = entry.getKey();
 			ReliabilityFunction function = entry.getValue();
 			MeasurePanel measurePanel = new MeasurePanel(function);
 			tabs.addTab(name, measurePanel);
 		}
 		this.add(tabs);
-		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createTitledBorder("Reliability-related Measures"),
-				BorderFactory.createEmptyBorder(5, 0, 0, 0)));
+		this.setBorder(
+				BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Reliability-related Measures"),
+						BorderFactory.createEmptyBorder(5, 0, 0, 0)));
 	}
 
 	/**
-	 * The {@code MeasurePanel} shows some common reliability-related measures
-	 * that are derived from the {@code ReliabilityFunctions}. Currently, these
-	 * are related directly to the {@code ReliabilityFunction}, i.e., the
-	 * expected value, the variance, and the standard deviation, as well as some
-	 * familiar reliability measures like Mean-Time-To-Failure and Mission-Time.
+	 * The {@code MeasurePanel} shows some common reliability-related measures that are derived from the
+	 * {@code ReliabilityFunctions}. Currently, these are related directly to the {@code ReliabilityFunction}, i.e., the
+	 * expected value, the variance, and the standard deviation, as well as some familiar reliability measures like
+	 * Mean-Time-To-Failure and Mission-Time.
 	 * 
 	 * @author glass
 	 * 
 	 */
-	protected class MeasurePanel extends JPanel implements ActionListener {
+	protected static class MeasurePanel extends JPanel implements ActionListener {
 
 		/**
-		 * The {@code Evaluator} to determine the first moment, i.e., the
-		 * expected value.
+		 * The {@code Evaluator} to determine the first moment, i.e., the expected value.
 		 */
 		protected MomentEvaluator firstMoment = new MomentEvaluator(1);
 		/**
-		 * The {@code Evaluator} to determine the second moment, used to derive
-		 * the variance and deviation.
+		 * The {@code Evaluator} to determine the second moment, used to derive the variance and deviation.
 		 */
 		protected MomentEvaluator secondMoment = new MomentEvaluator(2);
 		/**
 		 * The {@code Evaluator} to calculate the inverse of the {@code
-		 * Distribution} of the {@code ReliabilityFunction}, used to derive the
-		 * Mission-Time.
+		 * Distribution} of the {@code ReliabilityFunction}, used to derive the Mission-Time.
 		 */
 		protected InverseEvaluator inverse = new InverseEvaluator();
 		/**
@@ -128,8 +120,8 @@ public class MeasuresPanel extends JPanel {
 		 */
 		protected final ReliabilityFunction reliabilityFunction;
 		/**
-		 * The {code JLabel} that is used to display the Mission-Time {@code MT}
-		 * for the user specified probability {@code p} in {@code p = P[MT]}.
+		 * The {code JLabel} that is used to display the Mission-Time {@code MT} for the user specified probability
+		 * {@code p} in {@code p = P[MT]}.
 		 */
 		protected JLabel mt;
 		/**
@@ -137,8 +129,7 @@ public class MeasuresPanel extends JPanel {
 		 */
 		protected JFormattedTextField mtProbability;
 		/**
-		 * The used {@code NumberFormat} for the {@code mtProbability} text
-		 * field.
+		 * The used {@code NumberFormat} for the {@code mtProbability} text field.
 		 */
 		protected NumberFormat mtFieldFormat;
 		/**
@@ -178,10 +169,8 @@ public class MeasuresPanel extends JPanel {
 			Double expected = firstMoment.evaluate(reliabilityFunction);
 
 			JLabel expectedLabel = new JLabel("Expected Value:");
-			JPanel propertiesPanel = createPropertiesPanel(expected,
-					expectedLabel);
-			JPanel mttfPanel = createMttfPanel(expected, expectedLabel
-					.getPreferredSize());
+			JPanel propertiesPanel = createPropertiesPanel(expected, expectedLabel);
+			JPanel mttfPanel = createMttfPanel(expected, expectedLabel.getPreferredSize());
 			JPanel mtPanel = createMtPanel(expectedLabel.getPreferredSize());
 
 			this.add(propertiesPanel);
@@ -195,10 +184,9 @@ public class MeasuresPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
-		 * )
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
 		 */
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Double value = ((Number) mtProbability.getValue()).doubleValue();
 			if (value <= 0 || value >= 1.0) {
@@ -218,10 +206,8 @@ public class MeasuresPanel extends JPanel {
 		 *            the "expected" label, i.e. the longest
 		 * @return the JPanel showing the properties
 		 */
-		private JPanel createPropertiesPanel(Double expected,
-				JLabel expectedLabel) {
-			Double variance = secondMoment.evaluate(reliabilityFunction)
-					- Math.pow(expected, 2);
+		private JPanel createPropertiesPanel(Double expected, JLabel expectedLabel) {
+			Double variance = secondMoment.evaluate(reliabilityFunction) - Math.pow(expected, 2);
 			Double deviation = Math.sqrt(variance);
 
 			JLabel expectedValue = new JLabel(expected.toString());
@@ -232,9 +218,8 @@ public class MeasuresPanel extends JPanel {
 			JLabel deviationLabel = new JLabel("Deviation:");
 			JLabel deviationValue = new JLabel(deviation.toString());
 
-			return createSubPanel("Properties", expectedLabel, expectedValue,
-					varianceLabel, varianceValue, deviationLabel,
-					deviationValue);
+			return createSubPanel("Properties", expectedLabel, expectedValue, varianceLabel, varianceValue,
+					deviationLabel, deviationValue);
 		}
 
 		/**
@@ -252,8 +237,7 @@ public class MeasuresPanel extends JPanel {
 
 			JLabel expectedValue = new JLabel(mttf.toString());
 
-			return createSubPanel("Mean-Time-To-Failure", mttfLabel,
-					expectedValue);
+			return createSubPanel("Mean-Time-To-Failure", mttfLabel, expectedValue);
 		}
 
 		/**
@@ -280,35 +264,29 @@ public class MeasuresPanel extends JPanel {
 
 			mt = new JLabel(mtVal.toString());
 
-			return createSubPanel("Mission-Time", pmtLabel, mtProbability,
-					mtLabel, mt);
+			return createSubPanel("Mission-Time", pmtLabel, mtProbability, mtLabel, mt);
 		}
 
 		/**
 		 * Creates a {@code JPanel} with a title and a set of label/value pairs.
 		 * 
-		 * Each label must be followed by its corresponding value. Therefore the
-		 * number of components must be even.
+		 * Each label must be followed by its corresponding value. Therefore the number of components must be even.
 		 * 
 		 * @param title
 		 *            the title of the panel
 		 * @param components
-		 *            the alternating array of labels and their corresponding
-		 *            values
+		 *            the alternating array of labels and their corresponding values
 		 * @return
 		 */
 		private JPanel createSubPanel(String title, JComponent... components) {
 			if (components.length % 2 == 1) {
-				throw new IllegalArgumentException(
-						"Number of components is odd (" + components.length
-								+ ").");
+				throw new IllegalArgumentException("Number of components is odd (" + components.length + ").");
 			}
 
 			JPanel subPanel = new JPanel();
 
-			subPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-					.createTitledBorder(title), BorderFactory
-					.createEmptyBorder(5, 5, 5, 5)));
+			subPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(title),
+					BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 			subPanel.setLayout(new GridLayout(0, 2, 10, 10));
 
@@ -326,14 +304,12 @@ public class MeasuresPanel extends JPanel {
 			if (subPanel.getPreferredSize().width > LARGEStWIDTH) {
 				LARGEStWIDTH = subPanel.getPreferredSize().width;
 				for (JPanel other : SUBPANELS) {
-					other.setPreferredSize(new Dimension(LARGEStWIDTH, other
-							.getPreferredSize().height));
+					other.setPreferredSize(new Dimension(LARGEStWIDTH, other.getPreferredSize().height));
 					other.revalidate();
 					other.repaint();
 				}
 			} else {
-				subPanel.setPreferredSize(new Dimension(LARGEStWIDTH, subPanel
-						.getPreferredSize().height));
+				subPanel.setPreferredSize(new Dimension(LARGEStWIDTH, subPanel.getPreferredSize().height));
 			}
 			SUBPANELS.add(subPanel);
 			return subPanel;
@@ -347,5 +323,5 @@ public class MeasuresPanel extends JPanel {
 	/**
 	 * The set of subpanels
 	 */
-	private final static Set<JPanel> SUBPANELS = new HashSet<JPanel>();
+	private final static Set<JPanel> SUBPANELS = new HashSet<>();
 }

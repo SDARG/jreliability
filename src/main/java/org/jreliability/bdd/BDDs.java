@@ -40,7 +40,7 @@ public abstract class BDDs {
 	/**
 	 * The platform-independent newline symbol.
 	 */
-	protected static String newline = System.getProperty("line.separator");
+	protected static final String newline = System.getProperty("line.separator");
 
 	/**
 	 * Returns all variables (elements) {@code T} included in the {@code BDD}.
@@ -89,6 +89,8 @@ public abstract class BDDs {
 	 *            the comparator ("&lt;","&lt;=","=","&gt;=","&gt;")
 	 * @param rhs
 	 *            the right hand side value
+	 * @param provider
+	 *            the bdd provider
 	 * @return the BDD representing this linear constraint
 	 */
 	public static <T> BDD<T> getBDD(List<Integer> coeffs, List<BDD<T>> vars, LinearTerm.Comparator comp, int rhs,
@@ -115,8 +117,8 @@ public abstract class BDDs {
 			BDDConstraint<T> constraint = new BDDConstraint<>(rhs, lits);
 
 			/*
-			 * Handle the case that the lhs is empty and is, thus, 0! If 0 >=
-			 * rhs, return true BDD; else return false BDD
+			 * Handle the case that the lhs is empty and is, thus, 0! If 0 >= rhs, return true BDD; else return false
+			 * BDD
 			 */
 			if (constraint.getLhs().isEmpty()) {
 				if (0 >= constraint.getRhs()) {
@@ -147,6 +149,8 @@ public abstract class BDDs {
 	 *            the type of variables
 	 * @param constraint
 	 *            the greater-equal constraint
+	 * @param provider
+	 *            the bdd provider
 	 * @return the bdd representation of the given constraint
 	 */
 	protected static <T> BDD<T> getConstraintBDD(BDDConstraint<T> constraint, BDDProvider<T> provider) {
@@ -172,8 +176,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a graphical representation of the {@code BDD} in the {@code DOT}
-	 * input format.
+	 * Returns a graphical representation of the {@code BDD} in the {@code DOT} input format.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -201,9 +204,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@code BDD} based on a
-	 * functionTransformer that delivers for each variable {@code T} a double
-	 * value.
+	 * Calculates the top event of the {@code BDD} based on a functionTransformer that delivers for each variable
+	 * {@code T} a double value.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -318,8 +320,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a {@code greater-equal} constraint represented as a {@code BDD}
-	 * via a recursive procedure proposed by {@code Een & Soerrensson 2006}.
+	 * Returns a {@code greater-equal} constraint represented as a {@code BDD} via a recursive procedure proposed by
+	 * {@code Een & Soerrensson 2006}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -365,8 +367,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT}
-	 * representation.
+	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT} representation.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -385,14 +386,14 @@ public abstract class BDDs {
 			return;
 		} else if (bdd.isOne()) {
 			dot.append(
-					"one [label = \"1\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];"
-							+ newline);
+					"one [label = \"1\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];")
+					.append(newline);
 			variables.put(bdd, "one");
 			return;
 		} else if (bdd.isZero()) {
 			dot.append(
-					"zero [label = \"0\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];"
-							+ newline);
+					"zero [label = \"0\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];")
+					.append(newline);
 			variables.put(bdd, "zero");
 			return;
 		}
@@ -404,16 +405,15 @@ public abstract class BDDs {
 		id = id.replaceAll(" |-", "_");
 		String variable = "n" + id + count;
 		variables.put(bdd, variable);
-		dot.append(variable + " [label = \"" + t.toString() + "\", style = filled, fillcolor = gray95, color = black];"
-				+ newline);
+		dot.append(variable).append(" [label = \"").append(t.toString())
+				.append("\", style = filled, fillcolor = gray95, color = black];").append(newline);
 
 		collectDotNodes(bdd.high(), dot, variables, counters);
 		collectDotNodes(bdd.low(), dot, variables, counters);
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all edges for the {@code DOT}
-	 * representation.
+	 * Traverses the {@code BDD} to collects all edges for the {@code DOT} representation.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -439,8 +439,10 @@ public abstract class BDDs {
 		String highVariable = variables.get(high);
 		String lowVariable = variables.get(low);
 
-		dot.append(variable + " -> " + highVariable + " [style = solid, arrowsize = 0.8];" + newline);
-		dot.append(variable + " -> " + lowVariable + " [style = dashed, arrowsize = 0.8];" + newline);
+		dot.append(variable).append(" -> ").append(highVariable).append(" [style = solid, arrowsize = 0.8];")
+				.append(newline);
+		dot.append(variable).append(" -> ").append(lowVariable).append(" [style = dashed, arrowsize = 0.8];")
+				.append(newline);
 
 		considered.add(bdd);
 
@@ -449,8 +451,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes
-	 * belonging to the same variable.
+	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -471,7 +472,8 @@ public abstract class BDDs {
 				String id = t.toString();
 				id = id.replaceAll(" |-", "_");
 				String variable = "marker" + id;
-				dot.append(variable + " [label = \"" + t.toString() + "\", shape = plaintext];" + newline);
+				dot.append(variable).append(" [label = \"").append(t.toString()).append("\", shape = plaintext];")
+						.append(newline);
 				tmpList.add(t);
 				markers.put(t, variable);
 			}
@@ -483,14 +485,13 @@ public abstract class BDDs {
 			T next = iterator.next();
 			String currentVariable = markers.get(current);
 			String nextVariable = markers.get(next);
-			dot.append(currentVariable + " -> " + nextVariable + " [style = invis];" + newline);
+			dot.append(currentVariable).append(" -> ").append(nextVariable).append(" [style = invis];").append(newline);
 			current = next;
 		}
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes
-	 * belonging to the same variable.
+	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -511,14 +512,13 @@ public abstract class BDDs {
 			String variable = entry.getValue();
 			Set<BDD<T>> nodes = getNodes(t, bdd);
 
-			String tmpDot = "{ rank = same; " + variable + "; ";
+			dot.append("{ rank = same; ").append(variable).append("; ");
 			for (BDD<T> nodeBDD : nodes) {
 				String nodeVariable = variables.get(nodeBDD);
-				tmpDot += nodeVariable + "; ";
+				dot.append(nodeVariable).append("; ");
 			}
 
-			tmpDot += "}" + newline;
-			dot.append(tmpDot);
+			dot.append("}").append(newline);
 		}
 	}
 
@@ -555,8 +555,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all variables in the current
-	 * variable order of the {@code BDD}.
+	 * Traverses the {@code BDD} to collect all variables in the current variable order of the {@code BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -583,8 +582,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all nodes for a given variable
-	 * {@code T}.
+	 * Traverses the {@code BDD} to collect all nodes for a given variable {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variables

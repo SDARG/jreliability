@@ -38,10 +38,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * The offset of the variables.
 	 */
 	protected int variableOffset = 0;
-	/**
-	 * The used {@code Type} of real {@code BDD} implementation.
-	 */
-	protected Type type;
+
 	/**
 	 * The used {@code BDDFactory}.
 	 */
@@ -69,8 +66,6 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 *            the number of variables
 	 */
 	public JBDDProvider(Type type, int vars) {
-		this.type = type;
-
 		switch (type) {
 		case JDD:
 			factory = JDDFactory.init(200000, 200000);
