@@ -14,8 +14,11 @@ package org.jreliability.bdd.jbdd;
 
 import org.jreliability.bdd.AbstractBDDProviderTest;
 import org.jreliability.bdd.javabdd.JBDD;
+import org.jreliability.bdd.javabdd.JBDDProvider;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
+import org.junit.Assert;
+
+import net.sf.javabdd.JFactory;
 
 /**
  * 
@@ -41,7 +44,10 @@ public class JBDDProviderTest extends AbstractBDDProviderTest {
 	 */
 	@Override
 	public void init() {
-		this.factory = new JBDDProviderFactory(Type.JAVABDD);
+		// Type.JAVABDD should be the standard BDD Factory
+		this.factory = new JBDDProviderFactory();
+		JBDDProvider<Object> provider = (JBDDProvider) factory.getProvider();
+		Assert.assertTrue("JavaBDD should be the standard JBDDProviderFactory.", provider.getFactory() instanceof JFactory);
 	}
 
 }
