@@ -12,25 +12,30 @@
  */
 package org.jreliability.bdd;
 
+import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections15.functors.AllPredicate;
+import org.apache.commons.collections15.functors.EqualPredicate;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
+import org.jreliability.function.common.SampledReliabilityFunction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code BDDTTRFTest} tests the {@code BDDReliabilityFunction}.
+ * The {@code BDDTTRFTest} tests the {@code BDDTTRFSimulative}.
  * 
  * @author glass
  * 
  */
-public class BDDReliabilityFunctionTest {
+public class BDDTTRFSimulativeTest {
 
 	class TestTransformer implements Transformer<String, ReliabilityFunction> {
 
@@ -66,7 +71,7 @@ public class BDDReliabilityFunctionTest {
 	}
 
 	@Test
-	public void testGetY() {
+	public void testConvertStandardSamples() {
 		String var1 = "sensor1";
 		String var2 = "sensor2";
 		Term s1 = new LiteralTerm<>(var1);
@@ -74,37 +79,45 @@ public class BDDReliabilityFunctionTest {
 		ANDTerm and = new ANDTerm();
 		and.add(s1, s2);
 
-		BDDTTRF<String> ttrf = new BDDTTRF<String>(provider);
-		BDD<String> bdd = ttrf.convertToBDD(and);
+		BDDTTRFSimulative<String> ttrf = new BDDTTRFSimulative<>(provider);
+		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(and, new TestTransformer());
 
-		BDDReliabilityFunction<String> function = new BDDReliabilityFunction<String>(bdd, new TestTransformer());
-
-		/* http://www.wolframalpha.com/input/?i=(e%5E(-0.005*10))%5E2 */
-		Assert.assertEquals(0.9048374, function.getY(10), 1.0E-5);
+		Assert.assertEquals(5000, function.getSamples().size(), 1.0E-5);
 	}
 
 	@Test
-	public void testGetBDD() {
+	public void testConvertGivenSamples() {
+		String var1 = "sensor1";
+		String var2 = "sensor2";
+		Term s1 = new LiteralTerm<>(var1);
+		Term s2 = new LiteralTerm<>(var2);
+		ORTerm or = new ORTerm();
+		or.add(s1, s2);
+
+		BDDTTRFSimulative<String> ttrf = new BDDTTRFSimulative<>(provider, 0.005);
+		int samples = 4000;
+		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(or, new TestTransformer(),
+				samples);
+
+		Assert.assertEquals(samples, function.getSamples().size(), 1.0E-5);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
+	public void testConvertOneBDD() {
 		String var1 = "sensor1";
 		Term s1 = new LiteralTerm<>(var1);
 		ANDTerm and = new ANDTerm();
 		and.add(s1);
+		Predicate p1[] = { new EqualPredicate<>(var1) };
+		Predicate<String> p = new AllPredicate<String>(p1);
 
-		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
-		BDD<String> bdd = ttrf.convertToBDD(and);
-
-		BDDReliabilityFunction<String> function = new BDDReliabilityFunction<String>(bdd, new TestTransformer());
-
-		Assert.assertEquals(bdd, function.getBdd());
-
-	}
-
-	@Test
-	public void testGetTransformer() {
-		Transformer<String, ReliabilityFunction> transformer = new TestTransformer();
-		BDDReliabilityFunction<String> function = new BDDReliabilityFunction<String>(provider.one(), transformer);
-
-		Assert.assertEquals(transformer, function.getTransformer());
+		BDDTTRFSimulative<String> ttrf = new BDDTTRFSimulative<>(provider);
+		int samples = 10;
+		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(and, new TestTransformer(), p, samples);
+		for(int i = 0; i < samples; i++) {
+			Assert.assertEquals(0.0, function.getSamples().get(i), 1.0E-5);
+		}
 	}
 
 }

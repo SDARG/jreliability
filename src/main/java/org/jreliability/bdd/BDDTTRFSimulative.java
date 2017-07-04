@@ -102,10 +102,9 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 		return convert(term, functionTransformer, null, j);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(Term, Transformer, Transformer)
+	
+	/* (non-Javadoc)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term, org.apache.commons.collections15.Transformer, org.apache.commons.collections15.Predicate)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
