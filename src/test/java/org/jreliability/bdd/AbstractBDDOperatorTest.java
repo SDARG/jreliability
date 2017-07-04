@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with Opt4J. If not, see http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -28,8 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code AbstractBDDOperatorTest} is the base class for tests of the
- * operators for the {@code BDD}.
+ * The {@code AbstractBDDOperatorTest} is the base class for tests of the operators for the {@code BDD}.
  * 
  * @author lukasiewycz, reimann
  * 
@@ -160,8 +157,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code and} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@code and} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -249,8 +245,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@code or} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -308,7 +303,26 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.7, 0.00001);
+		Assert.assertEquals(0.7, BDDs.calculateTop(bdd, t), 0.00001);
+	}
+
+	/**
+	 * Tests the {@link BDDs#getNodes(BDD)} method.
+	 */
+	@Test
+	public void testCalculateTopNot() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		String var = "a";
+		BDD<String> bdd = provider.get(var).not();
+		Transformer<String, Double> t = new Transformer<String, Double>() {
+
+			@Override
+			public Double transform(String input) {
+				return 0.7;
+			}
+		};
+		Assert.assertEquals(0.3, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -325,7 +339,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(BDDs.calculateTop(bdd, t), 1.0, 0.00001);
+		Assert.assertEquals(1.0, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -345,7 +359,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.49, 0.00001);
+		Assert.assertEquals(0.49, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -365,7 +379,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.21, 0.00001);
+		Assert.assertEquals(0.21, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -382,7 +396,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(BDDs.calculateTop(bdd, t), 0.0, 0.00001);
+		Assert.assertEquals(0.0, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -397,7 +411,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATEREQUAL, 2, provider);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATEREQUAL, 2,
+				provider);
 
 		BDD<String> ref1 = a.and(b);
 		BDD<String> ref2 = b.and(c);
@@ -455,7 +470,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
 		BDD<String> c = provider.get("c");
-		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESSEQUAL, 0, provider);
+		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESSEQUAL, 0,
+				provider);
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
 		Assert.assertEquals(test, ref1);
@@ -481,6 +497,20 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		ref1.orWith(ref2);
 		ref1.orWith(ref3);
 		Assert.assertEquals(test, ref1);
+	}
+
+	/**
+	 * Tests the
+	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
+	 * method with not the same number of variables and coefficients.
+	 */
+	@Test(expected = AssertionError.class)
+	public void testGetBDDWrongNumberOfArgs() {
+		BDDProvider<String> provider = factory.getProvider();
+
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b), Comparator.EQUAL, 1, provider);
 	}
 
 	/**
@@ -582,6 +612,25 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
+	 * Tests the {@code impWith} method with a BDD.
+	 * 
+	 */
+	@Test
+	public void testImpWithBdd() {
+		String var1 = "a";
+		String var2 = "b";
+		BDD<String> ref = provider.get(var1);
+		BDD<String> b = provider.get(var2);
+		ref.andWith(b);
+		ref.orWith(provider.get(var1).not());
+
+		BDD<String> result = provider.get(var1);
+		result.impWith(provider.get(var2));
+
+		Assert.assertEquals(ref, result);
+	}
+
+	/**
 	 * Tests the {@code xor} method.
 	 * 
 	 */
@@ -630,6 +679,17 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.xorWith(var);
 
 		Assert.assertEquals(ref, a);
+	}
+
+	/**
+	 * Tests the {@code getProvider} method.
+	 * 
+	 */
+	@Test
+	public void testGetProvider() {
+		BDD<String> a = provider.get("a");
+
+		Assert.assertEquals(provider, a.getProvider());
 	}
 
 	/**
@@ -711,13 +771,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Test the {@code trim} method. {code 2a &lte; 1} is trimmed to {code 1a
-	 * &lte; 1}.
+	 * Test the {@code trim} method. {code 2a &lte; 1} is trimmed to {code 1a &lte; 1}.
 	 */
 	@Test
 	public void testTrim() {
 		BDD<String> bdd = provider.get("a");
-		BDDConstraint<String> c = new BDDConstraint<>(1, Arrays.asList(new Literal<String>(2, bdd)));
+		BDDConstraint<String> c = new BDDConstraint<>(1, Arrays.asList(new Literal<>(2, bdd)));
 		List<Literal<String>> lhs = c.getLhs();
 
 		Assert.assertEquals(1, lhs.size());
@@ -728,14 +787,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Test the {@code checkAndAddVariable} method. {code a + a &lte; 2} is
-	 * converted to {code a &lte; 1}.
+	 * Test the {@code checkAndAddVariable} method. {code a + a &lte; 2} is converted to {code a &lte; 1}.
 	 */
 	@Test
 	public void testCheckAndAddVariable() {
 		BDD<String> bdd = provider.get("a");
-		BDDConstraint<String> c = new BDDConstraint<>(2,
-				Arrays.asList(new Literal<String>(1, bdd), new Literal<String>(1, bdd)));
+		BDDConstraint<String> c = new BDDConstraint<>(2, Arrays.asList(new Literal<>(1, bdd), new Literal<>(1, bdd)));
 		List<Literal<String>> lhs = c.getLhs();
 
 		Assert.assertEquals(1, lhs.size());

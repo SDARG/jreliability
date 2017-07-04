@@ -1,20 +1,21 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with Opt4J. If not, see http://www.gnu.org/licenses/.
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
+import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections15.functors.AllPredicate;
+import org.apache.commons.collections15.functors.EqualPredicate;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
@@ -92,6 +93,26 @@ public class BDDTTRFTest {
 		Assert.assertEquals(result, ref);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
+	public void testConvertToBDDExistsPredicate() {
+		String var1 = "sensor1";
+		String var2 = "sensor2";
+		Term s1 = new LiteralTerm<>(var1);
+		Term s2 = new LiteralTerm<>(var2);
+		ANDTerm and = new ANDTerm();
+		and.add(s1, s2);
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		Predicate p2[] = { new EqualPredicate<>(var2) };
+		Predicate<String> p = new AllPredicate<String>(p2);
+		BDD<String> result = ttrf.convertToBDD(and, p);
+
+		BDD<String> ref = provider.get(var1);
+
+		Assert.assertEquals(result, ref);
+	}
+
 	@Test
 	public void testConvertToBDDTrueTerm() {
 		Term t = new TRUETerm();
@@ -142,6 +163,22 @@ public class BDDTTRFTest {
 		Assert.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
 	}
 
+	/**
+	 * Tests the {@link BDDTTRF#convert(Term, Transformer)}
+	 */
+	@Test
+	public void testConvertTerm() {
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		ReliabilityFunction f = ttrf.convert(new LinearTerm(Comparator.LESSEQUAL, 1),
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
+	}
+
 	@Test
 	public void testTransformLinearGE() {
 		Term literal = new LiteralTerm<>("a");
@@ -187,6 +224,16 @@ public class BDDTTRFTest {
 	}
 
 	@Test
+	public void testTransformWithLinear() {
+		LinearTerm t1 = new LinearTerm(Comparator.EQUAL, 1);
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		BDD<String> result = ttrf.transform(t1);
+
+		Assert.assertEquals(provider.zero(), result);
+	}
+	
+	@Test
 	public void testTransformLinearUnsupportedComparator() {
 
 		for (Comparator comparator : Comparator.values()) {
@@ -194,8 +241,17 @@ public class BDDTTRFTest {
 			BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 			BDD<String> result = ttrf.transformLinear(t);
 
-			Assert.assertNotNull(comparator+" in LinearTerm not supported for BDD conversion.", result);
+			Assert.assertNotNull(comparator + " in LinearTerm not supported for BDD conversion.", result);
 
 		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testTransformWithUnknownTerm() {
+		Term t = new Term() {
+		};
+
+		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+		ttrf.transform(t);
 	}
 }
