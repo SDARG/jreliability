@@ -5,6 +5,12 @@ import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * The {@link LinearTermTest} test the {@link LinearTerm}.
+ * 
+ * @author reimann
+ *
+ */
 public class LinearTermTest {
 	@Test
 	public void testAdd() {

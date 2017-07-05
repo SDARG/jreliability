@@ -49,20 +49,20 @@ public class JDDProviderTest extends AbstractBDDProviderTest {
 
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testVariableGrowthRate() {
-		BDDProvider<String> provider = new JBDDProvider<String>(Type.JDD, 10, Integer.MAX_VALUE/10, 20000);
+		BDDProvider<String> provider = new JBDDProvider<>(Type.JDD, 10, Integer.MAX_VALUE / 10, 20000);
 		for (int i = 0; i < 200; i++) {
 			@SuppressWarnings("unused")
 			BDD<String> a = provider.get("" + i);
 		}
 	}
-	
+
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testVariableNotFound() {
-		BDDProvider<String> provider = new JBDDProvider<String>(Type.JDD, 10, Integer.MAX_VALUE, 20000);
+		BDDProvider<String> provider = new JBDDProvider<>(Type.JDD, 10, Integer.MAX_VALUE, 20000);
 		for (int i = 0; i < 20; i++) {
 			@SuppressWarnings("unused")
 			BDD<String> a = provider.get("" + i);
 		}
 	}
-	
+
 }

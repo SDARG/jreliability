@@ -1,30 +1,28 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.gui.aspect;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.jreliability.common.Samples;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code SampleCollector} is used to generate the {@code Samples} of a set of
- * {@code ReliabilityFunction} under a given {@code Aspect}.
+ * The {@link SampleCollector} is used to generate the {@link Samples} of a set of {@link ReliabilityFunction} under a
+ * given {@link Aspect}.
  * 
  * @author glass
  * 
@@ -32,7 +30,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class SampleCollector {
 
 	/**
-	 * Constructs a {@code SampleCollector}.
+	 * Constructs a {@link SampleCollector}.
 	 * 
 	 */
 	public SampleCollector() {
@@ -40,8 +38,8 @@ public class SampleCollector {
 	}
 
 	/**
-	 * Returns the {@code Samples} (with a {@code number} of points each) of a
-	 * set of {@code ReliabilityFunction} under a given {@code Aspect}
+	 * Returns the {@link Samples} (with a {@code number} of points each) of a set of {@link ReliabilityFunction} under
+	 * a given {@link Aspect}
 	 * 
 	 * @param reliabilityFunctions
 	 *            the reliabilityFunctions
@@ -51,13 +49,11 @@ public class SampleCollector {
 	 *            the number of points per samples
 	 * @return the samples of a set of reliabilityFunctions under a given aspect
 	 */
-	public Map<String, Samples> getSamples(
-			Map<String, ReliabilityFunction> reliabilityFunctions,
-			Aspect aspect, int number) {
+	public Map<String, Samples> getSamples(Map<String, ReliabilityFunction> reliabilityFunctions, Aspect aspect,
+			int number) {
 		Double lower = null;
 		Double upper = null;
-		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
-				.entrySet()) {
+		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions.entrySet()) {
 			ReliabilityFunction reliabilityFunction = entry.getValue();
 			double tmpLow = aspect.getLower(reliabilityFunction);
 			double tmpUp = aspect.getUpper(reliabilityFunction);
@@ -69,12 +65,10 @@ public class SampleCollector {
 			}
 		}
 
-		SortedMap<String, Samples> samples = new TreeMap<String, Samples>();
-		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions
-				.entrySet()) {
+		SortedMap<String, Samples> samples = new TreeMap<>();
+		for (Entry<String, ReliabilityFunction> entry : reliabilityFunctions.entrySet()) {
 			ReliabilityFunction reliabilityFunction = entry.getValue();
-			Samples sample = getSamples(reliabilityFunction, aspect, lower,
-					upper, number);
+			Samples sample = getSamples(reliabilityFunction, aspect, lower, upper, number);
 			samples.put(entry.getKey(), sample);
 		}
 
@@ -82,9 +76,8 @@ public class SampleCollector {
 	}
 
 	/**
-	 * Returns {@code number} {@code Samples} of a {@code ReliabilityFunction}
-	 * under a given {@code Aspect}, ranging from the {@code lower} to the
-	 * {@code upper} bound.
+	 * Returns {@code number} {@link Samples} of a {@link ReliabilityFunction} under a given {@link Aspect}, ranging
+	 * from the {@code lower} to the {@code upper} bound.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
@@ -96,11 +89,10 @@ public class SampleCollector {
 	 *            the upper bound
 	 * @param number
 	 *            the number of points per samples
-	 * @return the samples of a reliabilityFunction under an aspect ranging from
-	 *         lower to upper
+	 * @return the samples of a reliabilityFunction under an aspect ranging from lower to upper
 	 */
-	protected Samples getSamples(ReliabilityFunction reliabilityFunction,
-			Aspect aspect, double lower, double upper, int number) {
+	protected Samples getSamples(ReliabilityFunction reliabilityFunction, Aspect aspect, double lower, double upper,
+			int number) {
 		Samples samples = new Samples();
 
 		double step = (upper - lower) / number;

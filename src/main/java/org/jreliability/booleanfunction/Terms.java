@@ -161,12 +161,12 @@ public class Terms {
 			List<Object> list = new ArrayList<>();
 
 			// Operator
-			String operator = "";
+			StringBuffer operator = new StringBuffer();
 			while (!string.isEnd() && string.getCurrent() != ' ' && string.getCurrent() != '\n') {
-				operator += string.getCurrent();
+				operator.append(string.getCurrent());
 				string.next();
 			}
-			list.add(operator);
+			list.add(operator.toString());
 
 			// Arguments
 			while (!string.isEnd()) {
@@ -183,17 +183,17 @@ public class Terms {
 					"String is not in compliance with the regular expression to describe a Term."
 							+ "Missing ')' before EOF.");
 		} else if (string.getCurrent() == '"') {
-			String variable = "";
+			StringBuffer variable = new StringBuffer();
 			string.next();
 			while (!string.isEnd()) {
-				variable += string.getCurrent();
+				variable.append(string.getCurrent());
 				string.next();
 				if (!string.isEnd() && string.getCurrent() == '"') {
 					string.next();
-					return variable;
+					return variable.toString();
 				}
 			}
-			throw new IllegalArgumentException("No closing \" in: " + variable);
+			throw new IllegalArgumentException("No closing \" in: " + variable.toString());
 		} else {
 			throw new IllegalArgumentException(
 					"String is not in compliance with the regular expression to describe a Term."

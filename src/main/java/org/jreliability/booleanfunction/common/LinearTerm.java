@@ -19,7 +19,7 @@ import org.jreliability.booleanfunction.AbstractHierarchicalTerm;
 import org.jreliability.booleanfunction.Term;
 
 /**
- * The {@code LinearTerm} represents a {@code linear constraint} of the form:
+ * The {@link LinearTerm} represents a linear constraint of the form:
  * <p>
  * {@code left-hand-side comparator right-hand-side}
  * 
@@ -29,8 +29,7 @@ import org.jreliability.booleanfunction.Term;
 public class LinearTerm extends AbstractHierarchicalTerm {
 
 	/**
-	 * The {@code Comparator} determines the comparator in the {@code
-	 * LinearTerm}, i.e. =, &gt;, &gt;=, &lt;, &lt;=.
+	 * The {@link Comparator} determines the comparator in the {@link LinearTerm}, i.e. =, &gt;, &gt;=, &lt;, &lt;=.
 	 * 
 	 * @author glass
 	 * 
@@ -85,17 +84,17 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	protected final List<Integer> coefficients;
 
 	/**
-	 * The used {@code Comparator}.
+	 * The used {@link Comparator}.
 	 */
 	protected final Comparator comparator;
 
 	/**
-	 * The right-hand-side of the {@code LinearTerm}.
+	 * The right-hand-side of the {@link LinearTerm}.
 	 */
 	protected int rhs;
 
 	/**
-	 * Constructs a {@code LinearTerm} with a given {@code Comparator}, and the right-hand-side.
+	 * Constructs a {@link LinearTerm} with a given {@link Comparator}, and the right-hand-side.
 	 * 
 	 * @param comparator
 	 *            the used comparator
@@ -107,8 +106,8 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Constructs a {@code LinearTerm} with a given list of coefficients, the embedded {@code Terms}, the
-	 * {@code Comparator}, and the right-hand-side.
+	 * Constructs a {@link LinearTerm} with a given list of coefficients, the embedded {@link Term}s, the
+	 * {@link Comparator}, and the right-hand-side.
 	 * 
 	 * @param coefficients
 	 *            the coefficients of the terms
@@ -127,7 +126,7 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Returns the coefficients of the {@code Terms}.
+	 * Returns the coefficients of the {@link Term}s.
 	 * 
 	 * @return the coefficients of the terms
 	 */
@@ -155,7 +154,7 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Adds a {@code Term} and its coefficient.
+	 * Adds a {@link Term} and its coefficient.
 	 * 
 	 * @param coefficient
 	 *            the coefficient
@@ -168,7 +167,7 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Returns the {@code Comparator} of the {@code LinearTerm}.
+	 * Returns the {@link Comparator} of the {@link LinearTerm}.
 	 * 
 	 * @return the comparator of the linear term
 	 */
@@ -183,14 +182,14 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	 */
 	@Override
 	public String toString() {
-		String s = "(";
-		s += comparator + " ";
-		s += "\"" + rhs + "\"";
+		StringBuffer s = new StringBuffer("(");
+		s.append(comparator).append(" ");
+		s.append("\"").append(rhs).append("\"");
 		for (int i = 0; i < size(); i++) {
-			s += " " + "\"" + coefficients.get(i) + "\"" + " " + terms.get(i);
+			s.append(" ").append("\"").append(coefficients.get(i)).append("\"").append(" ").append(terms.get(i));
 		}
-		s += ")";
-		return s;
+		s.append(")");
+		return s.toString();
 	}
 
 }

@@ -148,8 +148,7 @@ public class BDDTTRFTest {
 	}
 
 	/**
-	 * Tests the
-	 * {@link BDDTTRF#convert(BDD, org.apache.commons.collections15.Transformer)}
+	 * Tests the {@link BDDTTRF#convert(BDD, org.apache.commons.collections15.Transformer)}.
 	 */
 	@Test
 	public void testConvert() {
@@ -164,7 +163,7 @@ public class BDDTTRFTest {
 	}
 
 	/**
-	 * Tests the {@link BDDTTRF#convert(Term, Transformer)}
+	 * Tests the {@link BDDTTRF#convert(Term, Transformer)}.
 	 */
 	@Test
 	public void testConvertTerm() {
@@ -232,7 +231,7 @@ public class BDDTTRFTest {
 
 		Assert.assertEquals(provider.zero(), result);
 	}
-	
+
 	@Test
 	public void testTransformLinearUnsupportedComparator() {
 

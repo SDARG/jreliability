@@ -40,7 +40,7 @@ public abstract class BDDs {
 	/**
 	 * The platform-independent newline symbol.
 	 */
-	protected static final String newline = System.getProperty("line.separator");
+	protected static final String NEWLINE = System.getProperty("line.separator");
 
 	/**
 	 * Returns all variables (elements) {@code T} included in the {@code BDD}.
@@ -193,13 +193,13 @@ public abstract class BDDs {
 		for (T t : elements) {
 			counters.put(t, 0);
 		}
-		dot.append("digraph bdd {" + newline);
+		dot.append("digraph bdd {" + NEWLINE);
 		collectDotMarkers(bdd, dot, markers);
 		collectDotNodes(bdd, dot, variables, counters);
 		Set<BDD<T>> considered = new HashSet<>();
 		collectDotEdges(bdd, dot, variables, considered);
 		collectDotRanks(bdd, dot, variables, markers);
-		dot.append("}" + newline);
+		dot.append("}" + NEWLINE);
 		return dot.toString();
 	}
 
@@ -387,13 +387,13 @@ public abstract class BDDs {
 		} else if (bdd.isOne()) {
 			dot.append(
 					"one [label = \"1\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];")
-					.append(newline);
+					.append(NEWLINE);
 			variables.put(bdd, "one");
 			return;
 		} else if (bdd.isZero()) {
 			dot.append(
 					"zero [label = \"0\", rank = sink, shape = box, style = filled, color = black, fontcolor = white];")
-					.append(newline);
+					.append(NEWLINE);
 			variables.put(bdd, "zero");
 			return;
 		}
@@ -406,7 +406,7 @@ public abstract class BDDs {
 		String variable = "n" + id + count;
 		variables.put(bdd, variable);
 		dot.append(variable).append(" [label = \"").append(t.toString())
-				.append("\", style = filled, fillcolor = gray95, color = black];").append(newline);
+				.append("\", style = filled, fillcolor = gray95, color = black];").append(NEWLINE);
 
 		collectDotNodes(bdd.high(), dot, variables, counters);
 		collectDotNodes(bdd.low(), dot, variables, counters);
@@ -440,9 +440,9 @@ public abstract class BDDs {
 		String lowVariable = variables.get(low);
 
 		dot.append(variable).append(" -> ").append(highVariable).append(" [style = solid, arrowsize = 0.8];")
-				.append(newline);
+				.append(NEWLINE);
 		dot.append(variable).append(" -> ").append(lowVariable).append(" [style = dashed, arrowsize = 0.8];")
-				.append(newline);
+				.append(NEWLINE);
 
 		considered.add(bdd);
 
@@ -473,7 +473,7 @@ public abstract class BDDs {
 				id = id.replaceAll(" |-", "_");
 				String variable = "marker" + id;
 				dot.append(variable).append(" [label = \"").append(t.toString()).append("\", shape = plaintext];")
-						.append(newline);
+						.append(NEWLINE);
 				tmpList.add(t);
 				markers.put(t, variable);
 			}
@@ -485,7 +485,7 @@ public abstract class BDDs {
 			T next = iterator.next();
 			String currentVariable = markers.get(current);
 			String nextVariable = markers.get(next);
-			dot.append(currentVariable).append(" -> ").append(nextVariable).append(" [style = invis];").append(newline);
+			dot.append(currentVariable).append(" -> ").append(nextVariable).append(" [style = invis];").append(NEWLINE);
 			current = next;
 		}
 	}
@@ -518,7 +518,7 @@ public abstract class BDDs {
 				dot.append(nodeVariable).append("; ");
 			}
 
-			dot.append("}").append(newline);
+			dot.append("}").append(NEWLINE);
 		}
 	}
 

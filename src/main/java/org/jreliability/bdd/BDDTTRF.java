@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -34,9 +32,8 @@ import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code BDDTTRF} transforms a {@code Boolean function} represented as a
- * {@code Term} into a {@code ReliabilityFunction} or, if needed, into a
- * {@code BDD}.
+ * The {@link BDDTTRF} transforms a Boolean function represented as a {@link Term} into a {@link ReliabilityFunction}
+ * or, if needed, into a {@link BDD}.
  * 
  * @author glass
  * 
@@ -46,12 +43,12 @@ import org.jreliability.function.ReliabilityFunction;
 public class BDDTTRF<T> implements TTRF<T> {
 
 	/**
-	 * The {@code BDDProvider}.
+	 * The {@link BDDProvider}.
 	 */
 	protected final BDDProvider<T> provider;
 
 	/**
-	 * Constructs a {@code BDDTTRF} with a given {@code BDDProvider}.
+	 * Constructs a {@link BDDTTRF} with a given {@link BDDProvider}.
 	 * 
 	 * @param provider
 	 *            the bdd provider
@@ -63,8 +60,8 @@ public class BDDTTRF<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
-	 * booleanfunction.Term, org.apache.commons.collections15.Transformer)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability. booleanfunction.Term,
+	 * org.apache.commons.collections15.Transformer)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
@@ -74,9 +71,8 @@ public class BDDTTRF<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
-	 * booleanfunction.Term, org.apache.commons.collections15.Transformer,
-	 * org.apache.commons.collections15.Predicate)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability. booleanfunction.Term,
+	 * org.apache.commons.collections15.Transformer, org.apache.commons.collections15.Predicate)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
@@ -86,24 +82,22 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@code BDD} and a {@code Transformer} to a
-	 * {@code ReliabilityFunction.}
+	 * Converts a given {@link BDD} and a {@link Transformer} to a {@link ReliabilityFunction}.
 	 * 
 	 * @param bdd
 	 *            the bdd
 	 * @param functionTransformer
 	 *            the function functionTransformer
-	 * @return a reliability function from the given bdd and function
-	 *         functionTransformer
+	 * @return a reliability function from the given bdd and function functionTransformer
 	 */
 	public ReliabilityFunction convert(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
-		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<T>(bdd, functionTransformer);
+		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<>(bdd, functionTransformer);
 		bdd.free();
 		return function;
 	}
 
 	/**
-	 * Returns a {@code BDD} representing the given {@code Term}.
+	 * Returns a {@link BDD} representing the given {@link Term}.
 	 * 
 	 * @param term
 	 *            the term
@@ -114,8 +108,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Returns a {@code BDD} representing the given {@code Term} while
-	 * respecting the exists-variables.
+	 * Returns a {@link BDD} representing the given {@link Term} while respecting the exists-variables.
 	 * 
 	 * @param term
 	 *            the term
@@ -139,7 +132,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms a {@code Term} to a {@code BDD}.
+	 * Transforms a {@link Term} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -176,7 +169,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms an {@code ANDTerm} to a {@code BDD}.
+	 * Transforms an {@link ANDTerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -194,7 +187,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms an {@code ORTerm} to a {@code BDD}.
+	 * Transforms an {@link ORTerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -211,7 +204,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms a {@code LinearTerm} to a {@code BDD}.
+	 * Transforms a {@link LinearTerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -219,7 +212,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 */
 	protected BDD<T> transformLinear(LinearTerm term) {
 		List<Integer> coefficients = term.getCoefficients();
-		List<BDD<T>> bdds = new ArrayList<BDD<T>>();
+		List<BDD<T>> bdds = new ArrayList<>();
 		List<Term> terms = term.getTerms();
 		for (Term element : terms) {
 			BDD<T> elementBDD = transform(element);
@@ -231,7 +224,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms a {@code LiteralTerm} to a {@code BDD}.
+	 * Transforms a {@link LiteralTerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -243,7 +236,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms a {@code TRUETerm} to a {@code BDD}.
+	 * Transforms a {@link TRUETerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -254,7 +247,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms a {@code FALSETerm} to a {@code BDD}.
+	 * Transforms a {@link FALSETerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform
@@ -265,7 +258,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Transforms a {@code NOTTerm} to a {@code BDD}.
+	 * Transforms a {@link NOTTerm} to a {@link BDD}.
 	 * 
 	 * @param term
 	 *            the term to transform

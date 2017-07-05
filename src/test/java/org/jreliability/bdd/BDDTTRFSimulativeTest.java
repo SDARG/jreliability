@@ -50,6 +50,7 @@ public class BDDTTRFSimulativeTest {
 		 * 
 		 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 		 */
+		@Override
 		public ReliabilityFunction transform(String a) {
 			return function;
 		}
@@ -101,7 +102,7 @@ public class BDDTTRFSimulativeTest {
 
 		Assert.assertEquals(samples, function.getSamples().size(), 1.0E-5);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test
 	public void testConvertOneBDD() {
@@ -114,8 +115,9 @@ public class BDDTTRFSimulativeTest {
 
 		BDDTTRFSimulative<String> ttrf = new BDDTTRFSimulative<>(provider);
 		int samples = 10;
-		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(and, new TestTransformer(), p, samples);
-		for(int i = 0; i < samples; i++) {
+		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(and, new TestTransformer(), p,
+				samples);
+		for (int i = 0; i < samples; i++) {
 			Assert.assertEquals(0.0, function.getSamples().get(i), 1.0E-5);
 		}
 	}

@@ -16,8 +16,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link WeibullReliabilityFunctionTest} test the
- * {@link WeibullReliabilityFunction}.
+ * The {@link WeibullReliabilityFunctionTest} test the {@link WeibullReliabilityFunction}.
  * 
  * @author glass
  *
@@ -26,27 +25,27 @@ public class WeibullReliabilityFunctionTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalAlpha() {
-		new WeibullReliabilityFunction(-0.7,2);
+		new WeibullReliabilityFunction(-0.7, 2);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalBeta() {
-		new WeibullReliabilityFunction(0.7,-2);
+		new WeibullReliabilityFunction(0.7, -2);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalNullAlpha() {
-		new WeibullReliabilityFunction(0.0,2);
+		new WeibullReliabilityFunction(0.0, 2);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalNullBeta() {
-		new WeibullReliabilityFunction(0.7,0.0);
+		new WeibullReliabilityFunction(0.7, 0.0);
 	}
-	
+
 	@Test
 	public void testGetY() {
-		WeibullReliabilityFunction f = new WeibullReliabilityFunction(0.01,2);
+		WeibullReliabilityFunction f = new WeibullReliabilityFunction(0.01, 2);
 		Assert.assertEquals(0.99750312, f.getY(5), 0.0001);
 	}
 }

@@ -7,6 +7,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The {@link BDDTopEventTest} test the {@link BDDTopEvent}.
+ * 
+ * @author reimann
+ *
+ */
 public class BDDTopEventTest {
 	/**
 	 * The used {@code BDDProvider}.
@@ -28,7 +34,7 @@ public class BDDTopEventTest {
 		BDD<String> b = provider.get("b");
 		BDD<String> and = a.and(b);
 
-		BDDTopEvent<String> event = new BDDTopEvent<String>(and);
+		BDDTopEvent<String> event = new BDDTopEvent<>(and);
 		double result = event.calculate(new Transformer<String, Double>() {
 			@Override
 			public Double transform(String input) {

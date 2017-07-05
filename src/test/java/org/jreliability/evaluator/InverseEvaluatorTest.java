@@ -17,8 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link InverseEvaluatorTest} to test the
- * {@link InverseEvaluator}.
+ * The {@link InverseEvaluatorTest} to test the {@link InverseEvaluator}.
  * 
  * @author glass
  *
@@ -29,7 +28,7 @@ public class InverseEvaluatorTest {
 	public void testEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.005);
 		InverseEvaluator evaluator = new InverseEvaluator();
-		Assert.assertEquals(evaluator.evaluate(f,0.876), 26.4778, 1.0E-4);
+		Assert.assertEquals(evaluator.evaluate(f, 0.876), 26.4778, 1.0E-4);
 	}
 
 }

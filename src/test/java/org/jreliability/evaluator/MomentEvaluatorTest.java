@@ -17,8 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link MomentEvaluatorTest} to test the
- * {@link MomentEvaluator}.
+ * The {@link MomentEvaluatorTest} to test the {@link MomentEvaluator}.
  * 
  * @author glass
  *
@@ -28,10 +27,10 @@ public class MomentEvaluatorTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalAlpha() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
-		MomentEvaluator evaluator = new MomentEvaluator(0,1.0E-8);
+		MomentEvaluator evaluator = new MomentEvaluator(0, 1.0E-8);
 		evaluator.evaluate(f);
 	}
-	
+
 	@Test
 	public void testFirstMomentEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
@@ -39,11 +38,11 @@ public class MomentEvaluatorTest {
 		double integral = evaluator.evaluate(f);
 		Assert.assertEquals(integral, 100.0, 0.1);
 	}
-	
+
 	@Test
 	public void testThirdMomentEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
-		MomentEvaluator evaluator = new MomentEvaluator(3,1.0E-8);
+		MomentEvaluator evaluator = new MomentEvaluator(3, 1.0E-8);
 		double integral = evaluator.evaluate(f);
 		Assert.assertEquals(integral, 6.0E6, 1.0E-3);
 	}

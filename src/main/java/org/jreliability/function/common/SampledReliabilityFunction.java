@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.function.common;
 
@@ -33,7 +31,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 	/**
 	 * Sorted list of all samples.
 	 */
-	protected List<Double> sortedSamples = new ArrayList<Double>();
+	protected List<Double> sortedSamples = new ArrayList<>();
 
 	/**
 	 * Array from the x values (as positions) to the y values.
@@ -58,7 +56,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 
 		int n = sortedSamples.size();
 
-		int size = (int) Math.sqrt(n);// Math.pow(n, 1.0 / Math.sqrt(3));
+		int size = (int) Math.sqrt(n); // Math.pow(n, 1.0 / Math.sqrt(3));
 
 		yarray = new double[size + 2];
 
@@ -69,7 +67,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 		int k = 0;
 
 		for (int i = 0; i < size + 1; i++) {
-			double x = step * (i);
+			double x = step * i;
 			while (k < n && sortedSamples.get(k) <= x) {
 				k++;
 			}
@@ -92,6 +90,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
+	@Override
 	public double getY(double x) {
 		double pos = x / step;
 
@@ -110,7 +109,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 
 			double xoff = x - xa;
 
-			double yoff = xa == xb ? 0 : ((ya - yb) / (xb - xa)) * xoff;
+			double yoff = (xa == xb) ? 0.0 : ((ya - yb) / (xb - xa)) * xoff;
 
 			y = ya - yoff;
 		}
