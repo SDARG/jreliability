@@ -45,20 +45,30 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected BDDFactory factory;
 
 	/**
-	 * A translation of the variable to an {@code Integer} for the real {@code BDD}.
+	 * A translation of the variable to an {@code Integer} for the real
+	 * {@code BDD}.
 	 */
 	protected Map<T, Integer> variableToInt = new HashMap<>();
 	/**
-	 * A translation of the {@code Integer} in the real {@code BDD} to the variable.
+	 * A translation of the {@code Integer} in the real {@code BDD} to the
+	 * variable.
 	 */
 	protected Map<Integer, T> intToVariable = new HashMap<>();
+
 	/**
 	 * The number of variables.
 	 */
 	protected int vars;
 
 	/**
-	 * Constructs a {@code JDDProvider} with the {@code Type} of real {@code BDDs} and a given number of variables.
+	 * The factor to extend the number of variables in case more variables are
+	 * required.
+	 */
+	protected int variableGrowthFactor;
+
+	/**
+	 * Constructs a {@code JDDProvider} with the {@code Type} of real
+	 * {@code BDDs} and a given number of variables.
 	 * 
 	 * @param type
 	 *            the type of the real bdd implementation
@@ -66,17 +76,37 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 *            the number of variables
 	 */
 	public JBDDProvider(Type type, int vars) {
+		this(type, vars, 2, 20000);
+	}
+
+	/**
+	 * Constructs a {@code JDDProvider} with the {@code Type} of real
+	 * {@code BDDs}, a given number of variables, the growth rate of the number
+	 * of variables, and the initial number of nodes.
+	 * 
+	 * @param type
+	 *            the type of the real bdd implementation
+	 * @param vars
+	 *            the number of variables
+	 * @param variableGrowthFactor
+	 *            the factor by which to extend the number of variables if
+	 *            required
+	 * @param initialNumberofNodes
+	 *            the initial number of nodes reserved in the BDD factory
+	 */
+	public JBDDProvider(Type type, int vars, int variableGrowthFactor, int initialNumberofNodes) {
 		switch (type) {
 		case JDD:
-			factory = JDDFactory.init(200000, 200000);
+			factory = JDDFactory.init(initialNumberofNodes, initialNumberofNodes);
 			break;
 		default:
-			factory = JFactory.init(200000, 200000);
+			factory = JFactory.init(initialNumberofNodes, initialNumberofNodes);
 			factory.autoReorder(BDDFactory.REORDER_SIFT);
 		}
 
 		factory.setVarNum(vars);
 		this.vars = vars;
+		this.variableGrowthFactor = variableGrowthFactor;
 	}
 
 	/*
@@ -150,7 +180,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 		}
 
 		if (variableToInt.size() > vars) {
-			vars *= 2;
+			vars *= variableGrowthFactor;
 			try {
 				factory.setVarNum(vars);
 			} catch (BDDException e) {

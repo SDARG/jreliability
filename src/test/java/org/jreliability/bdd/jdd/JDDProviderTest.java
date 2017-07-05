@@ -13,8 +13,12 @@
 package org.jreliability.bdd.jdd;
 
 import org.jreliability.bdd.AbstractBDDProviderTest;
+import org.jreliability.bdd.BDD;
+import org.jreliability.bdd.BDDProvider;
+import org.jreliability.bdd.javabdd.JBDDProvider;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
+import org.junit.Test;
 
 /**
  * 
@@ -43,4 +47,22 @@ public class JDDProviderTest extends AbstractBDDProviderTest {
 		this.factory = new JBDDProviderFactory(Type.JDD);
 	}
 
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testVariableGrowthRate() {
+		BDDProvider<String> provider = new JBDDProvider<String>(Type.JDD, 10, Integer.MAX_VALUE/10, 20000);
+		for (int i = 0; i < 200; i++) {
+			@SuppressWarnings("unused")
+			BDD<String> a = provider.get("" + i);
+		}
+	}
+	
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testVariableNotFound() {
+		BDDProvider<String> provider = new JBDDProvider<String>(Type.JDD, 10, Integer.MAX_VALUE, 20000);
+		for (int i = 0; i < 20; i++) {
+			@SuppressWarnings("unused")
+			BDD<String> a = provider.get("" + i);
+		}
+	}
+	
 }
