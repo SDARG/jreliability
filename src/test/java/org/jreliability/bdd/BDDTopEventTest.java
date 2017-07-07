@@ -44,4 +44,23 @@ public class BDDTopEventTest {
 
 		Assert.assertEquals(0.25, result, 0.000001);
 	}
+	
+	@Test
+	public void testCalculateSeriesParallel() {
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		BDD<String> bdd = a.or(b);
+		BDD<String> c = provider.get("c");
+		bdd = bdd.and(c);
+		
+		BDDTopEvent<String> event = new BDDTopEvent<>(bdd);
+		double result = event.calculate(new Transformer<String, Double>() {
+			@Override
+			public Double transform(String input) {
+				return 0.9;
+			}
+		});
+
+		Assert.assertEquals(0.891, result, 0.000001);
+	}
 }
