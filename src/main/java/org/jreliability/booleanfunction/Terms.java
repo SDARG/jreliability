@@ -180,7 +180,7 @@ public class Terms {
 				}
 			}
 			throw new IllegalArgumentException(
-					"String is not in compliance with the regular expression to describe a Term."
+					"String "+string+" is not in compliance with the regular expression to describe a Term."
 							+ "Missing ')' before EOF.");
 		} else if (string.getCurrent() == '"') {
 			StringBuffer variable = new StringBuffer();
@@ -196,7 +196,7 @@ public class Terms {
 			throw new IllegalArgumentException("No closing \" in: " + variable.toString());
 		} else {
 			throw new IllegalArgumentException(
-					"String is not in compliance with the regular expression to describe a Term."
+					"String "+string+" is not in compliance with the regular expression to describe a Term."
 							+ "Operands must be enclosed in brackets (), variables must be enclosed in \"\".");
 		}
 	}
@@ -241,7 +241,7 @@ public class Terms {
 		 * Moves the pointer to the next character.
 		 */
 		public void next() {
-			current++;
+			next(1);
 		}
 
 		/**

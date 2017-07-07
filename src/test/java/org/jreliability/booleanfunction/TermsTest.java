@@ -14,6 +14,8 @@ package org.jreliability.booleanfunction;
 
 import java.util.Set;
 
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.TRUETerm;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -91,6 +93,18 @@ public class TermsTest {
 		Assert.assertEquals(2, vars.size());
 		Assert.assertTrue(vars.contains("sensor1"));
 		Assert.assertTrue(vars.contains("sensor2"));
+	}
+
+	@Test
+	public void testGetVariablesTRUETerm() {
+		Term t = new TRUETerm();
+		Assert.assertTrue(Terms.getVariables(t).isEmpty());
+	}
+
+	@Test
+	public void testGetVariablesLIteralTerm() {
+		Term t = new LiteralTerm<String>("sensor");
+		Assert.assertTrue(Terms.getVariables(t).contains("sensor"));
 	}
 
 	@Test
