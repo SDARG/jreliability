@@ -12,6 +12,8 @@
  */
 package org.jreliability.booleanfunction;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import org.jreliability.booleanfunction.common.LiteralTerm;
@@ -22,10 +24,31 @@ import org.junit.Test;
 /**
  * The {@link TermsTest} test the {@link Terms}.
  * 
- * @author reimann
+ * @author reimann, glass
  *
  */
 public class TermsTest {
+
+	@Test
+	public void testIllagelConstructor() {
+		final Class<?> termsClass = Terms.class;
+		final Constructor<?> termsConstructor = termsClass.getDeclaredConstructors()[0];
+		termsConstructor.setAccessible(true);
+		Throwable targetException = null;
+		try {
+			termsConstructor.newInstance((Object[]) null);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			if (e instanceof InvocationTargetException) {
+				targetException = ((InvocationTargetException) e).getTargetException();
+			} else {
+				targetException = e;
+			}
+		}
+
+		Assert.assertNotNull(targetException);
+		Assert.assertEquals(InstantiationException.class, targetException.getClass());
+	}
 
 	@Test
 	public void testParseAndLiteral() {

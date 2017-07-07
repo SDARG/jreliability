@@ -33,6 +33,13 @@ import org.jreliability.booleanfunction.common.ORTerm;
 public class Terms {
 
 	/**
+	 * @throws InstantiationException
+	 */
+	private Terms() throws InstantiationException {
+		throw new InstantiationException("Instances of this type are forbidden.");
+	}
+
+	/**
 	 * Returns the variables included in a {@code Term}.
 	 * 
 	 * @param <T>
@@ -48,7 +55,8 @@ public class Terms {
 	}
 
 	/**
-	 * Adds the variables included in a {@code Term} to a given set of variables.
+	 * Adds the variables included in a {@code Term} to a given set of
+	 * variables.
 	 * 
 	 * @param <T>
 	 *            the type of the variables
@@ -83,8 +91,8 @@ public class Terms {
 	}
 
 	/**
-	 * Parses a {@code Term} from a given helper {@code Object} that has been derived from the original {@code String}
-	 * encoding the {@code Term}.
+	 * Parses a {@code Term} from a given helper {@code Object} that has been
+	 * derived from the original {@code String} encoding the {@code Term}.
 	 * 
 	 * @param object
 	 *            the helper object
@@ -147,8 +155,9 @@ public class Terms {
 	}
 
 	/**
-	 * Transforms a given {@code String} to a helper {@code Object} that represents {@code Terms} as {@code Lists} of
-	 * helper {@code Objects} and variables as {@code Strings}.
+	 * Transforms a given {@code String} to a helper {@code Object} that
+	 * represents {@code Terms} as {@code Lists} of helper {@code Objects} and
+	 * variables as {@code Strings}.
 	 * 
 	 * @param string
 	 *            the string encoding the {@code Term}
@@ -180,7 +189,7 @@ public class Terms {
 				}
 			}
 			throw new IllegalArgumentException(
-					"String "+string+" is not in compliance with the regular expression to describe a Term."
+					"String " + string + " is not in compliance with the regular expression to describe a Term."
 							+ "Missing ')' before EOF.");
 		} else if (string.getCurrent() == '"') {
 			StringBuffer variable = new StringBuffer();
@@ -196,13 +205,14 @@ public class Terms {
 			throw new IllegalArgumentException("No closing \" in: " + variable.toString());
 		} else {
 			throw new IllegalArgumentException(
-					"String "+string+" is not in compliance with the regular expression to describe a Term."
+					"String " + string + " is not in compliance with the regular expression to describe a Term."
 							+ "Operands must be enclosed in brackets (), variables must be enclosed in \"\".");
 		}
 	}
 
 	/**
-	 * The {@code ParseString} is a helper class to parse a helper {@code Object} from a given {@code String}.
+	 * The {@code ParseString} is a helper class to parse a helper
+	 * {@code Object} from a given {@code String}.
 	 * 
 	 * @author glass
 	 * 
@@ -274,7 +284,8 @@ public class Terms {
 		}
 
 		/**
-		 * Moves the pointer to the next character that is not a blank or newline character.
+		 * Moves the pointer to the next character that is not a blank or
+		 * newline character.
 		 */
 		public void skipSpaces() {
 			while (!this.isEnd() && (this.getCurrent() == ' ' || this.getCurrent() == '\n')) {
