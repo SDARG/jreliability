@@ -15,6 +15,7 @@
 package org.jreliability.function.common;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
@@ -25,12 +26,12 @@ import org.junit.Test;
  * The {@link SampledReliabilityFunctionTest} to test the
  * {@link SampledReliabilityFunction}.
  * 
- * @author reimann
+ * @author reimann, glass
  *
  */
 public class SampledReliabilityFunctionTest {
 	SampledReliabilityFunction f;
-	List<Double> samples = Arrays.asList(0.0, 1.0);
+	List<Double> samples = Arrays.asList(1.5, 0.5, 1.0);
 
 	@Before
 	public void init() {
@@ -39,11 +40,23 @@ public class SampledReliabilityFunctionTest {
 
 	@Test
 	public void testGetY() {
-		Assert.assertEquals(0.25, f.getY(0.5), 0.0001);
+		Assert.assertEquals(0.33333333333, f.getY(1.0), 0.0001);
 	}
 
 	@Test
+	public void testGetYAtZero() {
+		Assert.assertEquals(1.0, f.getY(0.0), 0.0001);
+	}
+	
+	@Test
+	public void testGetYAtYLargerThanSample() {
+		Assert.assertEquals(0.0, f.getY(1.0E5), 0.0001);
+	}
+	
+	@Test
 	public void testGetSamples() {
+		Collections.sort(samples);
 		Assert.assertEquals(samples, f.getSamples());
 	}
+	
 }
