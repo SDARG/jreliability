@@ -15,13 +15,11 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link ExponentialReliabilityFunction} represents the {@link ReliabilityFunction} of the Exponential
- * reliabilityFunction
- * <p>
+ * The {@link ExponentialReliabilityFunction} represents<br>
  * {@code R(x) = 1 - F(x) = e^-(alpha * x)}<br>
  * with {@code alpha > 0}.
  * <p>
- * Typical for this reliabilityFunction is the constant failure-rate {@code lambda} that equals the parameter
+ * Typical for this {@link ReliabilityFunction} is the constant failure-rate {@code lambda} that equals the parameter
  * {@code alpha}.
  * 
  * @author glass

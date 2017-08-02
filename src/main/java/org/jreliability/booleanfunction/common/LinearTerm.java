@@ -19,9 +19,8 @@ import org.jreliability.booleanfunction.AbstractHierarchicalTerm;
 import org.jreliability.booleanfunction.Term;
 
 /**
- * The {@link LinearTerm} represents a linear constraint of the form:
- * <p>
- * {@code left-hand-side comparator right-hand-side}
+ * The {@link LinearTerm} represents a linear constraint of the form: <br>
+ * {@code left-hand-side comparator right-hand-side}.
  * 
  * @author glass
  * 

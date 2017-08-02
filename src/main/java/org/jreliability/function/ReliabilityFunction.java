@@ -1,26 +1,25 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.function;
 
 /**
- * The {@code ReliabilityFunction} represents a {@code Reliability} reliabilityFunction
- * {@code R(x)} that is commonly defined as
- * <p>
- * {@code R(x) = 1 - F(x)},
- * <p>
+ * The {@code ReliabilityFunction} represents a reliability or survival function {@code R(x)} that is commonly defined
+ * as<br>
+ * {@code R(x) = 1 - F(x)},<br>
  * with {@code F(x)} being a {@code Distribution} {@code F(x)}.
+ * <p>
+ * The reliability function gives at time {@code x} the probability that the object of interest survives beyond
+ * {@code x}.
  * 
  * @author glass
  * 

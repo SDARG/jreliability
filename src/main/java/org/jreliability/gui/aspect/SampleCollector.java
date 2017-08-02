@@ -38,8 +38,8 @@ public class SampleCollector {
 	}
 
 	/**
-	 * Returns the {@link Samples} (with a {@code number} of points each) of a set of {@link ReliabilityFunction} under
-	 * a given {@link Aspect}
+	 * Returns the {@link Samples} (with a {@code number} of points each) of a set of {@link ReliabilityFunction}s under
+	 * a given {@link Aspect}.
 	 * 
 	 * @param reliabilityFunctions
 	 *            the reliabilityFunctions
