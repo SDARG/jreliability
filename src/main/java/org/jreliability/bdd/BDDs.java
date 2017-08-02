@@ -240,7 +240,7 @@ public abstract class BDDs {
 	 * @param bdd
 	 *            the bdd
 	 * @param upSort
-	 *            the sorted bdd ndes
+	 *            the sorted bdd nodes
 	 */
 	protected static <T> void traverseBDD(BDD<T> bdd, Set<BDD<T>> upSort) {
 		if (bdd.isOne() || bdd.isZero() || upSort.contains(bdd)) {
