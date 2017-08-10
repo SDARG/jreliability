@@ -1,6 +1,5 @@
 plugins {
 	id 'com.github.kt3k.coveralls' version '2.6.3'
-	id 'net.researchgate.release' version '2.4.0'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -125,4 +124,8 @@ uploadArchives {
       }
     }
   }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
 }
