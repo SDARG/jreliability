@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.gui;
 
@@ -40,8 +38,8 @@ import org.jreliability.gui.aspect.SampleCollector;
 import ptolemy.plot.Plot;
 
 /**
- * The {@code ReliabilityFunctionPlotPanel} is a basic GUI to visualize the
- * reliability {@code Aspects} for given {@code Functions}.
+ * The {@code ReliabilityFunctionPlotPanel} is a basic GUI to visualize the reliability {@code Aspects} for given
+ * {@code Functions}.
  * 
  * @author glass
  * 
@@ -92,7 +90,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	/**
 	 * The map keeps track of the aspect and its index in the picker.
 	 */
-	protected final Map<Aspect, Integer> indices = new HashMap<Aspect, Integer>();
+	protected final Map<Aspect, Integer> indices = new HashMap<>();
 
 	/**
 	 * The {@code SamplerPicker} is used to choose between the different {@code
@@ -112,7 +110,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		/**
 		 * The box for the different {@code Aspects}.
 		 */
-		protected JComboBox comboBox = new JComboBox();
+		protected JComboBox<String> comboBox = new JComboBox<>();
 		/**
 		 * The currently shown {@code Aspect}.
 		 */
@@ -123,21 +121,19 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		protected ReliabilityFunctionPlotPanel panel;
 
 		/**
-		 * Constructs an {@code SamplerPicker} with a given {@code JPanel} and
-		 * the {@code Aspects}.
+		 * Constructs an {@code SamplerPicker} with a given {@code JPanel} and the {@code Aspects}.
 		 * 
 		 * @param panel
 		 *            the panel
 		 * @param aspects
 		 *            the aspects
 		 */
-		public AspectPicker(ReliabilityFunctionPlotPanel panel,
-				List<Aspect> aspects) {
+		public AspectPicker(ReliabilityFunctionPlotPanel panel, List<Aspect> aspects) {
 			super();
 			this.panel = panel;
 			this.aspects = aspects;
 
-			List<String> strings = new ArrayList<String>();
+			List<String> strings = new ArrayList<>();
 
 			int i = 0;
 			for (Aspect aspect : aspects) {
@@ -149,7 +145,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 
 			String[] e = new String[strings.size()];
 			final String[] elements = strings.toArray(e);
-			comboBox = new JComboBox(elements);
+			comboBox = new JComboBox<>(elements);
 
 			comboBox.addActionListener(AspectPicker.this);
 			comboBox.setMaximumSize(comboBox.getPreferredSize());
@@ -173,10 +169,9 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
-		 * )
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			boolean changed = false;
 			Aspect aspect = aspects.get(comboBox.getSelectedIndex());
@@ -232,7 +227,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	 */
 	protected JPanel get(Map<String, ReliabilityFunction> reliabilityFunctions) {
 		this.reliabilityFunctions = reliabilityFunctions;
-		names = new ArrayList<String>(reliabilityFunctions.keySet());
+		names = new ArrayList<>(reliabilityFunctions.keySet());
 		Collections.sort(names);
 
 		plot = new Plot();
@@ -241,8 +236,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		picker = new AspectPicker(ReliabilityFunctionPlotPanel.this, aspects);
 		Aspect currentAspect = picker.get();
 
-		Color[] colors = { Color.BLACK, Color.RED, Color.BLUE, Color.YELLOW,
-				Color.GREEN, Color.ORANGE };
+		Color[] colors = { Color.BLACK, Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.ORANGE };
 		plot.setColors(colors);
 
 		int i = 0;
@@ -260,9 +254,9 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 
 		panel.setPreferredSize(new Dimension(600, 300));
 
-		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-				.createTitledBorder("ReliabilityFunction Plots"), BorderFactory
-				.createEmptyBorder(5, 0, 0, 0)));
+		panel.setBorder(
+				BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("ReliabilityFunction Plots"),
+						BorderFactory.createEmptyBorder(5, 0, 0, 0)));
 
 		panel.revalidate();
 		panel.repaint();
@@ -295,8 +289,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		double max = 0.0;
 		int i = 0;
 		setLabels(aspect.getXAxis(), aspect.getYAxis());
-		Map<String, Samples> samples = sampleCollector.getSamples(
-				reliabilityFunctions, aspect, 500);
+		Map<String, Samples> samples = sampleCollector.getSamples(reliabilityFunctions, aspect, 500);
 
 		for (String name : names) {
 			Samples sample = samples.get(name);

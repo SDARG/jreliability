@@ -19,8 +19,6 @@ import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
-import org.jreliability.booleanfunction.common.LinearTerm;
-import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -102,24 +100,25 @@ public class BDDConstraintTest {
 	@Test
 	public void testCheckAndAdd() {
 		JBDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
-		BDDProvider<String> provider = factory.getProvider();;
+		BDDProvider<String> provider = factory.getProvider();
+		;
 		Literal<String> la = new Literal<>(1, provider.get("a"));
 		Literal<String> lb = new Literal<>(1, provider.get("b"));
 		Literal<String> lc = new Literal<>(1, provider.get("d"));
-		
-		List<Literal<String>> lhsOne = new LinkedList<Literal<String>>();
+
+		List<Literal<String>> lhsOne = new LinkedList<>();
 		lhsOne.add(la);
 		lhsOne.add(lb);
 		lhsOne.add(lc);
 		lhsOne.add(lb);
-		BDDConstraint<String> constraintOne = new BDDConstraint<String>(2, lhsOne); 
-		
+		BDDConstraint<String> constraintOne = new BDDConstraint<>(2, lhsOne);
+
 		Literal<String> lbTwo = new Literal<>(2, provider.get("b"));
-		List<Literal<String>> lhsTwo = new LinkedList<Literal<String>>();
+		List<Literal<String>> lhsTwo = new LinkedList<>();
 		lhsTwo.add(la);
 		lhsTwo.add(lbTwo);
 		lhsTwo.add(lc);
-		BDDConstraint<String> constraintTwo = new BDDConstraint<String>(2, lhsTwo);
+		BDDConstraint<String> constraintTwo = new BDDConstraint<>(2, lhsTwo);
 
 		Assert.assertEquals(constraintOne.getLhs().toString(), constraintTwo.getLhs().toString());
 	}
