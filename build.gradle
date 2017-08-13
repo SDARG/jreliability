@@ -1,6 +1,5 @@
 plugins {
 	id 'com.github.kt3k.coveralls' version '2.6.3'
-	id 'nebula.release' version '6.0.0'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
