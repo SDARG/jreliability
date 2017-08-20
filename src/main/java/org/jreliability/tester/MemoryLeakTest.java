@@ -15,7 +15,7 @@ import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 
 /**
- * The {@code MemoryLeakTest}.
+ * The {@link MemoryLeakTest}.
  * 
  * @author lukasiewycz
  * 

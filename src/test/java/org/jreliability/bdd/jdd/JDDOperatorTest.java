@@ -21,7 +21,7 @@ import org.junit.Test;
 import net.sf.javabdd.BDDException;
 
 /**
- * The {@code JDDOperatorTest} is a unit test operator class for the {@code JDD} class.
+ * The {@link JDDOperatorTest} is a unit test operator class for the {@link JDD} class.
  * 
  * @author lukasiewycz
  * 
@@ -29,7 +29,7 @@ import net.sf.javabdd.BDDException;
 public class JDDOperatorTest extends AbstractBDDOperatorTest {
 
 	/**
-	 * Constructs a {@code JDDOperatorTest}.
+	 * Constructs a {@link JDDOperatorTest}.
 	 * 
 	 */
 	public JDDOperatorTest() {
@@ -47,7 +47,7 @@ public class JDDOperatorTest extends AbstractBDDOperatorTest {
 	}
 
 	/**
-	 * Tests the {@code allSat} method.
+	 * Tests the {@link allSat} method.
 	 * 
 	 */
 	@Test(expected = BDDException.class)

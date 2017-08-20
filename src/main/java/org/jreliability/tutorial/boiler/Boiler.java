@@ -14,20 +14,15 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code Boiler} models a boiler that is responsible for keeping the water
- * in a tank at the desired temperature and pumping it to a destination if
- * needed.
+ * The {@link Boiler} models a boiler that is responsible for keeping the water in a tank at the desired temperature and
+ * pumping it to a destination if needed.
  * <p>
- * The {@code Boiler} consists of two {@code Sensors} that measure the water
- * temperature, a {@code Controller} that activates and deactivates a {@code
- * Heater} to control the water temperature as well as it activates and
- * deactivates one of two available {@code Pumps} to pump the water to its
- * destination if needed.
+ * The {@link Boiler} consists of two {@link Sensor}s that measure the water temperature, a {@link Controller} that
+ * activates and deactivates a {@link Heater} to control the water temperature as well as it activates and deactivates
+ * one of two available {@link Pump}s to pump the water to its destination if needed.
  * <p>
- * The non-minimized boolean function that describes whether this system works
- * correctly (evaluates to {@code 1}) or fails (evaluates to {@code 0}) is as
- * follows:
- * <p>
+ * The non-minimized boolean function that describes whether this system works correctly (evaluates to {@code 1}) or
+ * fails (evaluates to {@code 0}) is as follows:<br>
  * {@code ((Sensor1 AND Sensor2) AND Controller) AND (Controller AND Heater) AND
  * (Controller AND (Pump1 OR Pump2))}
  * 
@@ -62,16 +57,16 @@ public class Boiler {
 	protected Pump pump2 = new Pump("Pump2");
 
 	/**
-	 * All components that are included in the {@code Boiler}.
+	 * All components that are included in the {@link Boiler}.
 	 */
-	protected List<BoilerComponent> components = new ArrayList<BoilerComponent>();
+	protected List<BoilerComponent> components = new ArrayList<>();
 	/**
-	 * The used {@code FunctionTransformer}.
+	 * The used {@link BoilerTransformer}.
 	 */
 	protected BoilerTransformer transformer;
 
 	/**
-	 * Constructs a {@code Boiler}.
+	 * Constructs a {@link Boiler}.
 	 * 
 	 */
 	public Boiler() {
@@ -81,7 +76,7 @@ public class Boiler {
 	}
 
 	/**
-	 * Initializes the list of components of the {@code Boiler}.
+	 * Initializes the list of components of the {@link Boiler}.
 	 */
 	private void initialize() {
 		components.add(sensor1);
@@ -93,17 +88,17 @@ public class Boiler {
 	}
 
 	/**
-	 * Returns a model of the {@code Boiler} as a {@code Term}.
+	 * Returns a model of the {@link Boiler} as a {@link Term}.
 	 * 
 	 * @return the term representation of the boiler
 	 */
 	public Term getTerm() {
-		LiteralTerm sensor1Literal = new LiteralTerm(sensor1);
-		LiteralTerm sensor2Literal = new LiteralTerm(sensor2);
-		LiteralTerm controllerLiteral = new LiteralTerm(controller);
-		LiteralTerm heaterLiteral = new LiteralTerm(heater);
-		LiteralTerm pump1Literal = new LiteralTerm(pump1);
-		LiteralTerm pump2Literal = new LiteralTerm(pump2);
+		LiteralTerm<BoilerComponent> sensor1Literal = new LiteralTerm<>(sensor1);
+		LiteralTerm<BoilerComponent> sensor2Literal = new LiteralTerm<>(sensor2);
+		LiteralTerm<BoilerComponent> controllerLiteral = new LiteralTerm<>(controller);
+		LiteralTerm<BoilerComponent> heaterLiteral = new LiteralTerm<>(heater);
+		LiteralTerm<BoilerComponent> pump1Literal = new LiteralTerm<>(pump1);
+		LiteralTerm<BoilerComponent> pump2Literal = new LiteralTerm<>(pump2);
 
 		ANDTerm sensorSubSystem = new ANDTerm();
 		sensorSubSystem.add(sensor1Literal);
@@ -134,21 +129,20 @@ public class Boiler {
 	}
 
 	/**
-	 * Returns the {@code ReliabilityFunction} that represents the
-	 * {@code Boiler}.
+	 * Returns the {@link ReliabilityFunction} that represents the {@link Boiler}.
 	 * 
 	 * @return the reliability function of the boiler
 	 */
 	public ReliabilityFunction get() {
 		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
+		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<BoilerComponent> bddTTRF = new BDDTTRF<>(bddProvider);
 		return bddTTRF.convert(term, transformer);
 	}
 
 	/**
-	 * Returns the components of the {@code Boiler}.
+	 * Returns the components of the {@link Boiler}.
 	 * 
 	 * @return the components
 	 */
@@ -157,7 +151,7 @@ public class Boiler {
 	}
 
 	/**
-	 * Returns the {@code BoilerTransformer}.
+	 * Returns the {@link BoilerTransformer}.
 	 * 
 	 * @return the transformer
 	 */

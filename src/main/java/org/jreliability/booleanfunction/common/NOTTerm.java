@@ -17,8 +17,8 @@ package org.jreliability.booleanfunction.common;
 import org.jreliability.booleanfunction.Term;
 
 /**
- * The {@code NOTTerm} is used to model Boolean negation by embedding a {@code
- * Term} that shall be negated in a {@code NOTTerm}.
+ * The {@link NOTTerm} is used to model Boolean negation by embedding a {@link
+ * Term} that shall be negated in a {@link NOTTerm}.
  * 
  * @author glass
  * 
@@ -31,7 +31,7 @@ public class NOTTerm implements Term {
 	protected final Term term;
 
 	/**
-	 * Constructs a {@code NOTTerm} with a given term.
+	 * Constructs a {@link NOTTerm} with a given term.
 	 * 
 	 * @param term
 	 *            the term

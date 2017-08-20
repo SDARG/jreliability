@@ -13,10 +13,10 @@
 package org.jreliability.function;
 
 /**
- * The {@code ReliabilityFunction} represents a reliability or survival function {@code R(x)} that is commonly defined
+ * The {@link ReliabilityFunction} represents a reliability or survival function {@code R(x)} that is commonly defined
  * as<br>
  * {@code R(x) = 1 - F(x)},<br>
- * with {@code F(x)} being a {@code Distribution} {@code F(x)}.
+ * with {@code F(x)} being a {@link Distribution} {@code F(x)}.
  * <p>
  * The reliability function gives at time {@code x} the probability that the object of interest survives beyond
  * {@code x}.

@@ -1,25 +1,24 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
 import org.apache.commons.collections15.Transformer;
+import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code BDDReliabilityFunction} represents the {@code ReliabilityFunction}
- * that is inherently included in a {@code BDD}.
+ * The {@link BDDReliabilityFunction} represents the {@link ReliabilityFunction} that is inherently included in a
+ * {@link BDD}.
  * 
  * @author glass
  * 
@@ -29,13 +28,12 @@ import org.jreliability.function.ReliabilityFunction;
 public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 
 	/**
-	 * The BDD representing the {@code Distribution}.
+	 * The BDD representing the {@link Distribution}.
 	 */
 	protected final BDD<T> bdd;
 
 	/**
-	 * The used {@code Transformer} to get the {@code Function} of each element
-	 * of the {@code BDD}.
+	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each element of the {@link BDD}.
 	 */
 	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
@@ -45,37 +43,38 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	protected final BDDTopEvent<T> topEvent;
 
 	/**
-	 * Constructs a {@code BDDReliabilityFunction} with a given {@code BDD} and
-	 * {@code Transformer}.
+	 * Constructs a {@link BDDReliabilityFunction} with a given {@link BDD} and {@link Transformer}.
 	 * 
 	 * @param bdd
 	 *            the bdd representing the reliabilityFunction
 	 * 
 	 * @param functionTransformer
-	 *            the functionTransformer to transform bdd elements to
-	 *            reliabilityFunction
+	 *            the functionTransformer to transform bdd elements to reliabilityFunction
 	 */
-	public BDDReliabilityFunction(BDD<T> bdd,
-			Transformer<T, ReliabilityFunction> functionTransformer) {
+	public BDDReliabilityFunction(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		super();
 		this.bdd = bdd;
 		this.functionTransformer = functionTransformer;
-		this.topEvent = new BDDTopEvent<T>(bdd);
+		this.topEvent = new BDDTopEvent<>(bdd);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 */
+	@Override
 	public double getY(final double x) {
 
 		final Transformer<T, Double> t = new Transformer<T, Double>() {
 			/**
-			 * Default {@code Transformer}.
+			 * Default {@link Transformer}.
 			 * 
 			 * @param a
 			 *            parameter a
 			 * @return the double value of a
 			 */
+			@Override
 			public Double transform(T a) {
 				return functionTransformer.transform(a).getY(x);
 			}
@@ -85,7 +84,7 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	}
 
 	/**
-	 * Returns the {@code BDD}.
+	 * Returns the {@link BDD}.
 	 * 
 	 * @return the bdd
 	 */
@@ -94,7 +93,7 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	}
 
 	/**
-	 * Returns the used {@code Transformer}.
+	 * Returns the used {@link Transformer}.
 	 * 
 	 * @return the used functionTransformer
 	 */

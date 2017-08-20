@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.evaluator;
 
@@ -20,8 +18,7 @@ import java.util.List;
 import org.jreliability.function.Function;
 
 /**
- * The {@code IntegralEvaluator} determines the integral of a {@code Function}
- * using Romberg's method.
+ * The {@link IntegralEvaluator} determines the integral of a {@link Function} using Romberg's method.
  * 
  * @author lukasiewycz
  * 
@@ -34,15 +31,14 @@ public class IntegralEvaluator {
 	protected final double epsilon;
 
 	/**
-	 * Constructs the {@code IntegralEvaluator} with the epsilon value
-	 * {@code 1.0E-8}.
+	 * Constructs the {@link IntegralEvaluator} with the epsilon value {@code 1.0E-8}.
 	 */
 	public IntegralEvaluator() {
 		this(1.0E-8);
 	}
 
 	/**
-	 * Constructs the {@code IntegralEvaluator}.
+	 * Constructs the {@link IntegralEvaluator}.
 	 * 
 	 * @param epsilon
 	 *            the allowed error for Romberg's method.
@@ -67,7 +63,7 @@ public class IntegralEvaluator {
 		double error, r;
 
 		class Table {
-			List<List<Double>> tab = new ArrayList<List<Double>>();
+			List<List<Double>> tab = new ArrayList<>();
 
 			public double get(int n, int m) {
 				return tab.get(n).get(m);
@@ -106,8 +102,7 @@ public class IntegralEvaluator {
 			R.set(n, 0, r);
 
 			for (int m = 1; m <= n; m++) {
-				r = R.get(n, m - 1) + (R.get(n, m - 1) - R.get(n - 1, m - 1))
-						/ Math.pow(4, m - 1);
+				r = R.get(n, m - 1) + (R.get(n, m - 1) - R.get(n - 1, m - 1)) / Math.pow(4, m - 1);
 				R.set(n, m, r);
 			}
 

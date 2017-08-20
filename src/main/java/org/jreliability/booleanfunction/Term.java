@@ -15,9 +15,9 @@
 package org.jreliability.booleanfunction;
 
 /**
- * The {@code Term} represents a mathematical {@code Term} in a
- * {@code Boolean Function}. A {@code Term} can consist of other {@code Terms}.
- * In JReliability, each {@code Term} interrelates its embedded {@code Term}
+ * The {@link Term} represents a mathematical {@link Term} in a
+ * {@link Boolean Function}. A {@link Term} can consist of other {@link Terms}.
+ * In JReliability, each {@link Term} interrelates its embedded {@link Term}
  * elements via the same mathematical operator.
  * 
  * @author glass

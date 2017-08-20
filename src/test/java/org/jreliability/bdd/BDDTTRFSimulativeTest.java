@@ -30,7 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code BDDTTRFTest} tests the {@code BDDTTRFSimulative}.
+ * The {@link BDDTTRFTest} tests the {@link BDDTTRFSimulative}.
  * 
  * @author glass
  * 
@@ -58,7 +58,7 @@ public class BDDTTRFSimulativeTest {
 	}
 
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected BDDProvider<String> provider;
 

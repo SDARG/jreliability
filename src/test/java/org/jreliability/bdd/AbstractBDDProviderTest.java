@@ -15,7 +15,7 @@ package org.jreliability.bdd;
 import org.junit.Test;
 
 /**
- * The {@code AbstractBDDProviderTest} is the abstract class for all tests of the {@code BDDProvider}.
+ * The {@link AbstractBDDProviderTest} is the abstract class for all tests of the {@link BDDProvider}.
  * 
  * @author lukasiewycz
  * 
@@ -23,7 +23,7 @@ import org.junit.Test;
 public abstract class AbstractBDDProviderTest extends AbstractBDDTest {
 
 	/**
-	 * Tests the {@code get} method of the provider.
+	 * Tests the {@link get} method of the provider.
 	 */
 	@Test
 	public void testGet() {
@@ -34,7 +34,7 @@ public abstract class AbstractBDDProviderTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code getProvider} method with no arguments.
+	 * Tests the {@link getProvider} method with no arguments.
 	 */
 	@Test
 	public void testGetProviderEmpty() {
@@ -47,7 +47,7 @@ public abstract class AbstractBDDProviderTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code get} method of the provider and if the number of variables is automatically increased.
+	 * Tests the {@link get} method of the provider and if the number of variables is automatically increased.
 	 */
 	@Test
 	public void testGetAutoIncreased() {

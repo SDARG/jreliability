@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * The {@code BDD} is an interface containing the very basic functionality of a {@code BDD}. Thus, it is used as a front
+ * The {@link BDD} is an interface containing the very basic functionality of a {@link BDD}. Thus, it is used as a front
  * end for the various available BDD packages.
  * 
  * @author glass, reimann
@@ -28,7 +28,7 @@ import java.util.Set;
 public interface BDD<T> {
 
 	/**
-	 * Returns a {@code BDDAllSatIterator} containing all satisfying variable assignments.
+	 * Returns a {@link BDD} {@link Iterator} containing all satisfying variable assignments.
 	 * 
 	 * @return all satisfying variable assignments
 	 */
@@ -44,7 +44,7 @@ public interface BDD<T> {
 	public BDD<T> and(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code and} of this and {@code that} BDD. Note: {@code That} BDD is
+	 * Makes this BDD the logical {@code and} of this and {@code that} {@link BDD}. Note: {@code That} BDD is
 	 * consumed(!) within this operation and invalid afterwards.
 	 * 
 	 * @param that
@@ -53,7 +53,7 @@ public interface BDD<T> {
 	public void andWith(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code and} of this and {@code that} variables.
+	 * Makes this BDD the logical {@code and} of this and {@code that} variables.
 	 * 
 	 * @param that
 	 *            the variables to and with this BDD
@@ -61,7 +61,7 @@ public interface BDD<T> {
 	public void andWith(Collection<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code and} of this and {@code that} variable.
+	 * Makes this BDD the logical {@code and} of this and {@code that} variable.
 	 * 
 	 * @param that
 	 *            the variable to and with this BDD
@@ -71,7 +71,7 @@ public interface BDD<T> {
 	/**
 	 * TODO
 	 * 
-	 * Returns {@code true} if {@code this} BDD equals {@code that} BDD.
+	 * Returns {@code true} if this BDD equals {@code that} BDD.
 	 * 
 	 * @param that
 	 *            the BDD to compare with this BDD
@@ -81,7 +81,7 @@ public interface BDD<T> {
 	public boolean equals(Object that);
 
 	/**
-	 * Returns this {@code BDD} after an existential quantification of the specified variable.
+	 * Returns this {@link BDD} after an existential quantification of the specified variable.
 	 * 
 	 * @param variable
 	 *            the variable for the existential quantification
@@ -90,7 +90,7 @@ public interface BDD<T> {
 	public BDD<T> exist(T variable);
 
 	/**
-	 * Returns this {@code BDD} after a universal quantification of the specified variable.
+	 * Returns this {@link BDD} after a universal quantification of the specified variable.
 	 * 
 	 * @param variable
 	 *            the variable for the universal quantification
@@ -99,43 +99,43 @@ public interface BDD<T> {
 	public BDD<T> forAll(T variable);
 
 	/**
-	 * Returns one satisfying variable assignment as a {@code BDD}.
+	 * Returns one satisfying variable assignment as a {@link BDD}.
 	 * 
 	 * @return one satisfying variable assignment as a BDD
 	 */
 	public BDD<T> sat();
 
 	/**
-	 * Returns the {@code true} or {@code 1} branch of {@code this} BDD.
+	 * Returns the {@code true} or {@code 1} branch of this BDD.
 	 * 
 	 * @return the true or 1 branch of this BDD
 	 */
 	public BDD<T> high();
 
 	/**
-	 * Returns the used {@code BDDProvider}.
+	 * Returns the used {@link BDDProvider}.
 	 * 
 	 * @return the used bdd provider
 	 */
 	public BDDProvider<T> getProvider();
 
 	/**
-	 * Returns {@code true} if {@code this} BDD is the {@code one} BDD.
+	 * Returns {@code true} if this BDD is the {@code one} BDD.
 	 * 
 	 * @return true if this BDD is the one BDD
 	 */
 	public boolean isOne();
 
 	/**
-	 * Returns {@code true} if {@code this} BDD is the {@code zero} BDD.
+	 * Returns {@code true} if this BDD is the {@code zero} BDD.
 	 * 
 	 * @return true if this BDD is the zero BDD
 	 */
 	public boolean isZero();
 
 	/**
-	 * Returns the {@code if-then-else} {@code BDD} with {@code this} BDD being the if, {@code thenBDD} being the then
-	 * and {@code elseBDD} being the else statement.
+	 * Returns the if-then-else} {@link BDD} with this {@link BDD} being the if, the {@code thenBDD} being the then and
+	 * {@code elseBDD} being the else statement.
 	 * 
 	 * @param thenBDD
 	 *            the BDD for the then statement
@@ -146,35 +146,35 @@ public interface BDD<T> {
 	public BDD<T> ite(BDD<T> thenBDD, BDD<T> elseBDD);
 
 	/**
-	 * Returns the level of {@code this} BDD.
+	 * Returns the level of this {@link BDD}.
 	 * 
 	 * @return the level of this BDD
 	 */
 	public int level();
 
 	/**
-	 * Returns the {@code false} or {@code 0} branch of {@code this} BDD.
+	 * Returns the {@code false} or {@code 0} branch of this {@link BDD}.
 	 * 
 	 * @return the false or 0 branch of this BDD
 	 */
 	public BDD<T> low();
 
 	/**
-	 * Returns a {@code BDD} that is the negation of {@code this} BDD.
+	 * Returns a {@link BDD} that is the negation of this {@link BDD}.
 	 * 
 	 * @return a BDD that is the negation of this BDD
 	 */
 	public BDD<T> not();
 
 	/**
-	 * Returns the number of node in {@code this} BDD.
+	 * Returns the number of node in this {@link BDD}.
 	 * 
 	 * @return the number of nodes in this bdd
 	 */
 	public int nodeCount();
 
 	/**
-	 * Returns the logical {code or} of two BDDs. Note: Both BDDs remain unchanged after this or-operation.
+	 * Returns the logical or of two {@link BDD}s. Note: Both BDDs remain unchanged after this or-operation.
 	 * 
 	 * @param that
 	 *            the BDD to or with this BDD
@@ -183,8 +183,8 @@ public interface BDD<T> {
 	public BDD<T> or(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code or} of this and {@code that} BDD. Note: {@code That} BDD is consumed(!)
-	 * within this operation and invalid afterwards.
+	 * Makes this BDD the logical or of this and {@code that} {@link BDD}. Note: {@code That} BDD is consumed(!) within
+	 * this operation and invalid afterwards.
 	 * 
 	 * @param that
 	 *            the BDD to or with this BDD
@@ -192,7 +192,7 @@ public interface BDD<T> {
 	public void orWith(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code or} of this and {@code that} variables.
+	 * Makes this {@link BDD} the logical or of this and {@code that} variables.
 	 * 
 	 * @param that
 	 *            the variables to or with this BDD
@@ -200,7 +200,7 @@ public interface BDD<T> {
 	public void orWith(Collection<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code or} of this and {@code that} variable.
+	 * Makes this BDD the logical or of this and {@code that} variable.
 	 * 
 	 * @param that
 	 *            the variable to or with this BDD
@@ -208,7 +208,7 @@ public interface BDD<T> {
 	public void orWith(T that);
 
 	/**
-	 * Returns a {@code BDD} where the variable for {@code variable1} is replaced with the variable of
+	 * Returns a {@link BDD} where the variable for {@code variable1} is replaced with the variable of
 	 * {@code variable2}.
 	 * 
 	 * @param variable1
@@ -220,7 +220,7 @@ public interface BDD<T> {
 	public BDD<T> replace(T variable1, T variable2);
 
 	/**
-	 * Replaces the variable for {@code variable1} with the variable of {@code variable2} in {@code this} {@code BDD}.
+	 * Replaces the variable for {@code variable1} with the variable of {@code variable2} in this {@link BDD}.
 	 * 
 	 * @param variable1
 	 *            the first variable
@@ -230,8 +230,8 @@ public interface BDD<T> {
 	public void replaceWith(T variable1, T variable2);
 
 	/**
-	 * Returns a BDD where the variables of {@code that} BDD are set to constant reliabilityFunctions in {@code this}
-	 * BDD. Note: Both BDDs remain unchanged after this or-operation.
+	 * Returns a {@link BDD} where the variables of {@code that} {@link BDD} are set to constant reliabilityFunctions in
+	 * this BDD. Note: Both BDDs remain unchanged after this or-operation.
 	 * 
 	 * @param that
 	 *            the BDD to restrict this BDD with
@@ -240,8 +240,8 @@ public interface BDD<T> {
 	public BDD<T> restrict(BDD<T> that);
 
 	/**
-	 * Restricts the variables of {@code that} to constant reliabilityFunctions in {@code this} BDD. Note: {@code That}
-	 * BDD is consumed(!) within this operation and invalid afterwards.
+	 * Restricts the variables of {@code that} to constant reliabilityFunctions in this BDD. Note: {@code That} BDD is
+	 * consumed(!) within this operation and invalid afterwards.
 	 * 
 	 * @param that
 	 *            the BDD to restrict this BDD with
@@ -249,14 +249,14 @@ public interface BDD<T> {
 	public void restrictWith(BDD<T> that);
 
 	/**
-	 * Returns the variable labeling the {@code BDD}.
+	 * Returns the variable labeling the {@link BDD}.
 	 * 
 	 * @return the variable labeling the BDD
 	 */
 	public T var();
 
 	/**
-	 * Returns the logical {@code xor} of two BDDs. Note: Both BDDs remain unchanged after this xor-operation.
+	 * Returns the logical xor of two {@link BDD}s. Note: Both BDDs remain unchanged after this xor-operation.
 	 * 
 	 * @param that
 	 *            the BDD to xor with this BDD
@@ -265,8 +265,8 @@ public interface BDD<T> {
 	public BDD<T> xor(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code xor} of this and {@code that} BDD. Note: {@code That} BDD is
-	 * consumed(!) within this operation and invalid afterwards.
+	 * Makes this {@link BDD} the logical xor of this and {@code that} BDD. Note: {@code That} BDD is consumed(!) within
+	 * this operation and invalid afterwards.
 	 * 
 	 * @param that
 	 *            the BDD to xor with this BDD
@@ -274,7 +274,7 @@ public interface BDD<T> {
 	public void xorWith(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code xor} of this and {@code that} variable.
+	 * Makes this {@link BDD} the logical xor of this and {@code that} variable.
 	 * 
 	 * @param that
 	 *            the variable to or with this BDD
@@ -282,7 +282,7 @@ public interface BDD<T> {
 	public void xorWith(T that);
 
 	/**
-	 * Returns the logical {@code implication} of two BDDs. Note: Both BDDs remain unchanged after this and-operation.
+	 * Returns the logical implication of two {@link BDD}s. Note: Both BDDs remain unchanged after this and-operation.
 	 * 
 	 * @param that
 	 *            the BDD to implicate with this BDD
@@ -291,7 +291,7 @@ public interface BDD<T> {
 	public BDD<T> imp(BDD<T> that);
 
 	/**
-	 * Returns the logical {@code implication} of two BDDs. Note: {@code That} BDD is consumed(!) within this operation
+	 * Returns the logical implication of two {@link BDD}s. Note: {@code That} BDD is consumed(!) within this operation
 	 * and invalid afterwards.
 	 * 
 	 * @param that
@@ -300,7 +300,7 @@ public interface BDD<T> {
 	public void impWith(BDD<T> that);
 
 	/**
-	 * Makes {@code this} BDD the logical {@code implication} of this and {@code that} variable.
+	 * Makes this BDD the logical implication of this and {@code that} variable.
 	 * 
 	 * @param that
 	 *            the variable to implicate with this BDD
@@ -308,21 +308,21 @@ public interface BDD<T> {
 	public void impWith(T that);
 
 	/**
-	 * Returns a copy of this object.
+	 * Returns a copy of this {@link BDD}.
 	 * 
 	 * @return a copy of this object
 	 */
 	public BDD<T> copy();
 
 	/**
-	 * Returns the set of variables that are used in this {@code BDD}.
+	 * Returns the set of variables that are used in this {@link BDD}.
 	 * 
 	 * @return the set of variables that are used in this bdd
 	 */
 	public Set<T> getVariables();
 
 	/**
-	 * Destroys this {@code BDD}.
+	 * Destroys this {@link BDD}.
 	 */
 	public void free();
 }

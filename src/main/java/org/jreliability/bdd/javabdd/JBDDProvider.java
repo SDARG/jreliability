@@ -27,7 +27,7 @@ import net.sf.javabdd.JDDFactory;
 import net.sf.javabdd.JFactory;
 
 /**
- * The {@code JBDDProvider} used to get {@code JBDD} BDDs.
+ * The {@link JBDDProvider} used to get {@link JBDD} BDDs.
  * 
  * @author glass, reimann
  * @param <T>
@@ -40,18 +40,16 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected int variableOffset = 0;
 
 	/**
-	 * The used {@code BDDFactory}.
+	 * The used {@link BDDFactory}.
 	 */
 	protected BDDFactory factory;
 
 	/**
-	 * A translation of the variable to an {@code Integer} for the real
-	 * {@code BDD}.
+	 * A translation of the variable to an {@link Integer} for the real {@link BDD}.
 	 */
 	protected Map<T, Integer> variableToInt = new HashMap<>();
 	/**
-	 * A translation of the {@code Integer} in the real {@code BDD} to the
-	 * variable.
+	 * A translation of the {@link Integer} in the real {@link BDD} to the variable.
 	 */
 	protected Map<Integer, T> intToVariable = new HashMap<>();
 
@@ -61,14 +59,13 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected int vars;
 
 	/**
-	 * The factor to extend the number of variables in case more variables are
-	 * required.
+	 * The factor to extend the number of variables in case more variables are required.
 	 */
 	protected int variableGrowthFactor;
 
 	/**
-	 * Constructs a {@code JDDProvider} with the {@code Type} of real
-	 * {@code BDDs} and a given number of variables.
+	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD library to use and a given number of
+	 * variables.
 	 * 
 	 * @param type
 	 *            the type of the real bdd implementation
@@ -80,17 +77,15 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	}
 
 	/**
-	 * Constructs a {@code JDDProvider} with the {@code Type} of real
-	 * {@code BDDs}, a given number of variables, the growth rate of the number
-	 * of variables, and the initial number of nodes.
+	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD library to use, a given number of variables,
+	 * the growth rate of the number of variables, and the initial number of nodes.
 	 * 
 	 * @param type
-	 *            the type of the real bdd implementation
+	 *            the type of the BDD library
 	 * @param vars
 	 *            the number of variables
 	 * @param variableGrowthFactor
-	 *            the factor by which to extend the number of variables if
-	 *            required
+	 *            the factor by which to extend the number of variables if required
 	 * @param initialNumberofNodes
 	 *            the initial number of nodes reserved in the BDD factory
 	 */
@@ -211,7 +206,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	}
 
 	/**
-	 * Returns the used {@code BDDFactory}.
+	 * Returns the used {@link BDDFactory}.
 	 * 
 	 * @return the used bdd factory
 	 */

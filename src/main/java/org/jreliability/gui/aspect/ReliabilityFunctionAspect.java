@@ -16,7 +16,7 @@ import org.jreliability.evaluator.MomentEvaluator;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code ReliabilityFunctionAspect} plots the {@link ReliabilityFunction} itself.
+ * The {@link ReliabilityFunctionAspect} plots the {@link ReliabilityFunction} itself.
  * 
  * @author glass
  * 
@@ -24,7 +24,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class ReliabilityFunctionAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@code DistributionAspect}.
+	 * Constructs a {@link DistributionAspect}.
 	 * 
 	 */
 	public ReliabilityFunctionAspect() {

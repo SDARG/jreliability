@@ -15,8 +15,7 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code LognormalReliabilityFunction} represents the {@code ReliabilityFunction} of the
- * {@code Lognormal reliabilityFunction}
+ * The {@link LognormalReliabilityFunction} represents the lognormal {@link ReliabilityFunction}
  * <p>
  * {@code R(x) = 1 - F(x) = 0.5 - 0.5 * (Math.log(x) - mu) / (rho * Math.sqrt(2))} <br>
  * with {@code mu => 0, rho > 0}.
@@ -40,7 +39,7 @@ public class LognormalReliabilityFunction implements ReliabilityFunction {
 	protected final double rho;
 
 	/**
-	 * Constructs a {@code LognormalReliabilityFunction} with a given {@code mu} and {@code rho}.
+	 * Constructs a {@link LognormalReliabilityFunction} with a given {@code mu} and {@code rho}.
 	 * 
 	 * @param mu
 	 *            the mean of the variable's natural logarithm
@@ -51,7 +50,8 @@ public class LognormalReliabilityFunction implements ReliabilityFunction {
 		this.mu = mu;
 		this.rho = rho;
 		if (!(rho > 0.0) || !(mu >= 0.0)) {
-			throw new IllegalArgumentException("LognormalReliabilityFunction: Mu must be greater equal 0, rho must be greater 0.");
+			throw new IllegalArgumentException(
+					"LognormalReliabilityFunction: Mu must be greater equal 0, rho must be greater 0.");
 		}
 	}
 

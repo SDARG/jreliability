@@ -15,15 +15,14 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code HjorthReliabilityFunction} represents the {@code
- * ReliabilityFunction} of the {@code Hjorth reliabilityFunction}
+ * The {@link HjorthReliabilityFunction} represents the Hjorth {@link ReliabilityFunction}
  * <p>
  * {@code R(x) = 1 - F(x) = (e^-((delta * x^2)/2)) / ((1 + beta * x)^(theta / beta))}<br>
  * with {@code beta, delta, theta > 0}.
  * <p>
  * While the parameter {@code beta} scales the reliabilityFunction, the parameters {@code delta} and {@code theta}
- * determine the {@code shape} of the reliabilityFunction. This function is especially interesting since bathtub-shaped
- * failue rates can be modeled.
+ * determine the shape of the reliabilityFunction. This function is especially interesting since bathtub-shaped failure
+ * rates can be modeled.
  * 
  * @author glass
  * 
@@ -31,22 +30,22 @@ import org.jreliability.function.ReliabilityFunction;
 public class HjorthReliabilityFunction implements ReliabilityFunction {
 
 	/**
-	 * The {@code beta} parameter scales the {@code HjorthReliabilityFunction}.
+	 * The {@code beta} parameter scales the {@link HjorthReliabilityFunction}.
 	 */
 	protected final double beta;
 
 	/**
-	 * The {@code delta} parameter shapes the {@code HjorthReliabilityFunction}.
+	 * The {@code delta} parameter shapes the {@link HjorthReliabilityFunction}.
 	 */
 	protected final double delta;
 
 	/**
-	 * The {@code theta} parameter shapes the {@code HjorthReliabilityFunction}.
+	 * The {@code theta} parameter shapes the {@link HjorthReliabilityFunction}.
 	 */
 	protected final double theta;
 
 	/**
-	 * Constructs a {@code HjorthReliabilityFunction} with a given {@code beta}, {@code delta}, and {@code theta}.
+	 * Constructs a {@link HjorthReliabilityFunction} with a given {@code beta}, {@code delta}, and {@code theta}.
 	 * 
 	 * @param beta
 	 *            the scale value

@@ -15,7 +15,7 @@
 package org.jreliability.evaluator;
 
 /**
- * The {@code Evaluator} is a marker interface for all evaluators.
+ * The {@link Evaluator} is a marker interface for all evaluators.
  * 
  * @author glass
  * 

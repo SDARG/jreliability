@@ -15,7 +15,7 @@ package org.jreliability.booleanfunction;
 import java.util.List;
 
 /**
- * The {@code AbstractHierarchicalTerm} is the basic class for {@code Terms} that consist of other {@code Terms}.
+ * The {@link AbstractHierarchicalTerm} is the basic class for {@link Terms} that consist of other {@link Terms}.
  * 
  * @author glass
  * 
@@ -23,12 +23,12 @@ import java.util.List;
 public abstract class AbstractHierarchicalTerm implements Term {
 
 	/**
-	 * The embedded {@code Terms}.
+	 * The embedded {@link Terms}.
 	 */
 	protected List<Term> terms;
 
 	/**
-	 * Returns a list of the embedded {@code Terms}.
+	 * Returns a list of the embedded {@link Terms}.
 	 * 
 	 * @return a list of the embedded terms
 	 */
@@ -37,7 +37,7 @@ public abstract class AbstractHierarchicalTerm implements Term {
 	}
 
 	/**
-	 * Adds a {@code Term} to the list of embedded {@code Terms}.
+	 * Adds a {@link Term} to the list of embedded {@link Terms}.
 	 * 
 	 * @param term
 	 *            the term to add
@@ -47,7 +47,7 @@ public abstract class AbstractHierarchicalTerm implements Term {
 	}
 
 	/**
-	 * Adds {@code Term}s to the list of embedded {@code Terms}.
+	 * Adds {@link Term}s to the list of embedded {@link Terms}.
 	 * 
 	 * @param terms
 	 *            the terms to add
@@ -59,7 +59,7 @@ public abstract class AbstractHierarchicalTerm implements Term {
 	}
 
 	/**
-	 * Returns the number of embedded {@code Terms}.
+	 * Returns the number of embedded {@link Terms}.
 	 * 
 	 * @return the number of embedded terms
 	 */

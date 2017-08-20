@@ -8,24 +8,22 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.WeibullReliabilityFunction;
 
 /**
- * The {@code BoilerTransformer} provides a {@code ReliabilityFunction} for each
- * {@code BoilerComponent} in the {@code Boiler}. In this implementation, each
- * component is assigned a {@code WeibulllReliabilityFunction} with a scale of
- * {@code 0.5} and a shape of {@code 2}.
+ * The {@link BoilerTransformer} provides a {@link ReliabilityFunction} for each {@link BoilerComponent} in the
+ * {@link Boiler}. In this implementation, each component is assigned a {@link WeibullReliabilityFunction} with a scale
+ * of {@code 0.5} and a shape of {@code 2}.
  * 
  * @author glass
  * 
  */
-public class BoilerTransformer implements Transformer<Object, ReliabilityFunction> {
+public class BoilerTransformer implements Transformer<BoilerComponent, ReliabilityFunction> {
 
 	/**
-	 * The used {@code ReliabilityFunction} for each component of the {@code
-	 * Boiler}.
+	 * The used {@link ReliabilityFunction} for each component of the {@link Boiler}.
 	 */
-	Map<BoilerComponent, ReliabilityFunction> reliabilityFunctions = new HashMap<BoilerComponent, ReliabilityFunction>();
+	Map<BoilerComponent, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 
 	/**
-	 * Constructs a {@code BoilerTransformer} with a given {@code Boiler}.
+	 * Constructs a {@link BoilerTransformer} with a given {@link Boiler}.
 	 * 
 	 * @param boiler
 	 *            the boiler
@@ -35,8 +33,7 @@ public class BoilerTransformer implements Transformer<Object, ReliabilityFunctio
 	}
 
 	/**
-	 * Initializes the {@code ReliabilityFunction} for each component of the
-	 * {@code Boiler}.
+	 * Initializes the {@link ReliabilityFunction} for each component of the {@link Boiler}.
 	 * 
 	 * @param boiler
 	 *            the boiler
@@ -49,14 +46,15 @@ public class BoilerTransformer implements Transformer<Object, ReliabilityFunctio
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.commons.collections15.Transformer#transform(java.lang.Object)
 	 */
 	@Override
-	public ReliabilityFunction transform(Object element) {
+	public ReliabilityFunction transform(BoilerComponent element) {
 		ReliabilityFunction reliabilityFunction = reliabilityFunctions.get(element);
 		return reliabilityFunction;
 	}
-
 
 }

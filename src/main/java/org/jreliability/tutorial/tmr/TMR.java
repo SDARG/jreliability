@@ -17,9 +17,8 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.function.common.SimpleFunctionTransformer;
 
 /**
- * The {@code TMR} models a {@code 2-out-of-3} majority voter commonly known as {@code TripleModularRedundancy}. This
- * behavior can be expressed as a linear constrained as follows:
- * <p>
+ * The {@link TMR} models a 2-out-of-3 majority voter commonly known as Triple Modular Redundancy. This behavior can be
+ * expressed as a linear constrained as follows:<br>
  * {@code 1*component1 + 1*component2 + 1* component3 >= 2}
  * <p>
  * The needed comparator to perform the voting is commonly not modeled explicitly due to its extremely high reliability.
@@ -43,12 +42,12 @@ public class TMR {
 	protected String component3 = "component3";
 
 	/**
-	 * The used {@code FunctionTransformer}.
+	 * The used {@link ReliabilityFunction} {@link Transformer}.
 	 */
-	protected Transformer<Object, ReliabilityFunction> transformer;
+	protected Transformer<String, ReliabilityFunction> transformer;
 
 	/**
-	 * Constructs a {@code TMR}.
+	 * Constructs a {@link TMR}.
 	 * 
 	 */
 	public TMR() {
@@ -57,10 +56,10 @@ public class TMR {
 	}
 
 	/**
-	 * Initializes the {@code Transformer} of the TMR.
+	 * Initializes the {@link Transformer} of the TMR.
 	 */
 	private void initialize() {
-		Map<Object, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
+		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 		ReliabilityFunction function = new ExponentialReliabilityFunction(0.1);
 		reliabilityFunctions.put(component1, function);
 		reliabilityFunctions.put(component2, function);
@@ -69,7 +68,7 @@ public class TMR {
 	}
 
 	/**
-	 * Returns a model of the {@code TMR} as a {@code Term}.
+	 * Returns a model of the {@link TMR} as a {@link Term}.
 	 * 
 	 * @return the term representation of the TMR
 	 */
@@ -77,32 +76,32 @@ public class TMR {
 
 		LinearTerm term = new LinearTerm(Comparator.GREATEREQUAL, 2);
 
-		term.add(1, new LiteralTerm(component1));
-		term.add(1, new LiteralTerm(component2));
-		term.add(1, new LiteralTerm(component3));
+		term.add(1, new LiteralTerm<>(component1));
+		term.add(1, new LiteralTerm<>(component2));
+		term.add(1, new LiteralTerm<>(component3));
 
 		return term;
 	}
 
 	/**
-	 * Returns {@code ReliabilityFunction} describing the {@code TMR} using the {@code BDDTTRF}.
+	 * Returns {@link ReliabilityFunction} describing the {@link TMR} using the {@link BDDTTRF}.
 	 * 
 	 * @return the reliabilityFunction of the TMR
 	 */
 	public ReliabilityFunction get() {
 		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProvider);
 		return bddTTRF.convert(term, transformer);
 	}
 
 	/**
-	 * Returns a {@code Transformer} for each element of the system to its {@code ReliabilityFunction}.
+	 * Returns a {@link Transformer} for each element of the system to its {@link ReliabilityFunction}.
 	 * 
 	 * @return the transformer
 	 */
-	public Transformer<Object, ReliabilityFunction> getTransformer() {
+	public Transformer<String, ReliabilityFunction> getTransformer() {
 		return transformer;
 	}
 

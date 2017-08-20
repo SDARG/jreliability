@@ -25,8 +25,8 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
- * The {@code ReliabilityTester} is a basic tester that uses the {@code
- * TestExample} to launch the {@code ReliabilityViewer}.
+ * The {@link ReliabilityTester} is a basic tester that uses the {@link
+ * TestExample} to launch the {@link ReliabilityViewer}.
  * 
  * @author glass
  * 
@@ -34,7 +34,7 @@ import org.jreliability.gui.ReliabilityViewer;
 public class ReliabilityTester {
 
 	/**
-	 * Constructs a {@code ReliabilityTester}.
+	 * Constructs a {@link ReliabilityTester}.
 	 */
 	public ReliabilityTester() {
 		super();

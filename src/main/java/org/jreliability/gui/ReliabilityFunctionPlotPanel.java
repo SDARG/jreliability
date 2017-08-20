@@ -38,8 +38,8 @@ import org.jreliability.gui.aspect.SampleCollector;
 import ptolemy.plot.Plot;
 
 /**
- * The {@code ReliabilityFunctionPlotPanel} is a basic GUI to visualize the reliability {@code Aspects} for given
- * {@code Functions}.
+ * The {@link ReliabilityFunctionPlotPanel} is a basic GUI to visualize the reliability {@link Aspect}s for given
+ * {@link ReliabilityFunction}s.
  * 
  * @author glass
  * 
@@ -52,13 +52,13 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * The used {@code Ptolemy} plot.
+	 * The used Ptolemy {@link Plot}.
 	 */
 	protected Plot plot;
 
 	/**
-	 * The used sampleCollector to determine the {@code Samples} of a {@code
-	 * ReliabilityFunction} under a given {@code Aspect}.
+	 * The used sampleCollector to determine the {@link Samples} of a {@link ReliabilityFunction} under a given
+	 * {@link Aspect}.
 	 */
 	protected SampleCollector sampleCollector;
 
@@ -93,8 +93,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	protected final Map<Aspect, Integer> indices = new HashMap<>();
 
 	/**
-	 * The {@code SamplerPicker} is used to choose between the different {@code
-	 * Aspects}.
+	 * The {@link AspectPicker} is used to choose between the different {@link Aspect}s.
 	 * 
 	 * @author lukasiewycz, glass
 	 * 
@@ -104,24 +103,24 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * The different {@code Aspects}.
+		 * The different {@link Aspect}s.
 		 */
 		protected final List<Aspect> aspects;
 		/**
-		 * The box for the different {@code Aspects}.
+		 * The box for the different {@link Aspect}s.
 		 */
 		protected JComboBox<String> comboBox = new JComboBox<>();
 		/**
-		 * The currently shown {@code Aspect}.
+		 * The currently shown {@link Aspect}.
 		 */
 		protected Aspect currentAspect;
 		/**
-		 * The used {@code ReliabilityFunctionPlotPanel}.
+		 * The used {@link ReliabilityFunctionPlotPanel}.
 		 */
 		protected ReliabilityFunctionPlotPanel panel;
 
 		/**
-		 * Constructs an {@code SamplerPicker} with a given {@code JPanel} and the {@code Aspects}.
+		 * Constructs an {@link AspectPicker} with a given {@link JPanel} and the {@link Aspect}s.
 		 * 
 		 * @param panel
 		 *            the panel
@@ -186,7 +185,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		}
 
 		/**
-		 * Returns the current {@code Aspect}.
+		 * Returns the current {@link Aspect}.
 		 * 
 		 * @return the current aspect
 		 */
@@ -195,7 +194,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		}
 
 		/**
-		 * Sets the current {@code Aspect}.
+		 * Sets the current {@link Aspect}.
 		 * 
 		 * @param aspect
 		 *            the aspect to be set
@@ -207,8 +206,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	}
 
 	/**
-	 * Constructs a {@code ReliabilityFunctionPlotPanel} with the given {@code
-	 * Aspects}.
+	 * Constructs a {@link ReliabilityFunctionPlotPanel} with the given {@link Aspect}s.
 	 * 
 	 * @param aspects
 	 *            the aspects
@@ -218,8 +216,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	}
 
 	/**
-	 * Returns the {@code JPanel} for a given set of {@code
-	 * ReliabilityFunctions}.
+	 * Returns the {@link JPanel} for a given set of {@link ReliabilityFunction}s.
 	 * 
 	 * @param reliabilityFunctions
 	 *            the reliabilityFunctions
@@ -278,7 +275,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	}
 
 	/**
-	 * Repaints the diagram under a given {@code Aspect}.
+	 * Repaints the diagram under a given {@link Aspect}.
 	 * 
 	 * @param aspect
 	 *            the aspect

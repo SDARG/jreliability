@@ -1,5 +1,5 @@
 /**
- * Provides the classes for the unit tests of {@code JDD}.
+ * Provides the classes for the unit tests of {@link JDD}.
  * 
  */
 package org.jreliability.bdd.jdd;

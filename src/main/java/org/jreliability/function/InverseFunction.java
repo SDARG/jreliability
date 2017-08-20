@@ -13,8 +13,8 @@
 package org.jreliability.function;
 
 /**
- * The {@code InverseFunction} determines the inverse reliability {@code
- * R^-1(x)}. It calculates a {@code y} in {@code x = R(y)} for a given {@code x} and the {@code ReliabilityFunction}
+ * The {@link InverseFunction} determines the inverse reliability {@code
+ * R^-1(x)}. It calculates a {@code y} in {@code x = R(y)} for a given {@code x} and the {@link ReliabilityFunction}
  * {@code R(x)} via a bisection approach.
  * 
  * @author glass
@@ -23,18 +23,18 @@ package org.jreliability.function;
 public class InverseFunction implements Function {
 
 	/**
-	 * The {@code ReliabilityFunction} for which the inverse is to determine.
+	 * The {@link ReliabilityFunction} for which the inverse is to determine.
 	 */
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * The allowed error / {@code epsilon} for embedded bisection method.
+	 * The allowed error / {@link epsilon} for embedded bisection method.
 	 */
 	protected final double epsilon;
 
 	/**
-	 * Constructs an {@code InverseFunction} with a given {@code
-	 * ReliabilityFunction} and an error {@code epsilon} for the embedded bisection method.
+	 * Constructs an {@link InverseFunction} with a given {@link ReliabilityFunction} and an error {@link epsilon} for
+	 * the embedded bisection method.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
@@ -48,8 +48,7 @@ public class InverseFunction implements Function {
 	}
 
 	/**
-	 * Constructs an {@code InverseFunction} with a given {@code
-	 * ReliabilityFunction} and an acceptable error of 1.0E-5.
+	 * Constructs an {@link InverseFunction} with a given {@link ReliabilityFunction} and an acceptable error of 1.0E-5.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction

@@ -25,8 +25,7 @@ import org.jreliability.booleanfunction.common.LinearTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 
 /**
- * The {@code ConstraintTester} can be used to test the {@code
- * BDDs.getConstraintBDD()} function.
+ * The {@link ConstraintTester} can be used to test the {@link BDDTTRF#convertToBDD(Term)} function.
  * 
  * @author glass
  * 
@@ -34,7 +33,7 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 public class ConstraintTester {
 
 	/**
-	 * Constructs a {@code ConstraintTester}.
+	 * Constructs a {@link ConstraintTester}.
 	 * 
 	 */
 	public ConstraintTester() {

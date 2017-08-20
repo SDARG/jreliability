@@ -34,7 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code BDDTTRFTest} tests the {@code BDDTTRF}.
+ * The {@link BDDTTRFTest} tests the {@link BDDTTRF}.
  * 
  * @author reimann
  * 
@@ -42,7 +42,7 @@ import org.junit.Test;
 public class BDDTTRFTest {
 
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected BDDProvider<String> provider;
 

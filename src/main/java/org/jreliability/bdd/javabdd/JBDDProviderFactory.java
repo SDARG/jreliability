@@ -15,11 +15,12 @@ package org.jreliability.bdd.javabdd;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 
 /**
- * The {@code JDDProviderFactory} is a {@code BDDProviderFactory} for the JavaBDD library.
+ * The {@link JBDDProviderFactory} is a {@link BDDProviderFactory} for the JavaBDD library.
  * 
  * @author reimann, lukasiewycz
  * 
@@ -27,7 +28,7 @@ import org.jreliability.bdd.BDDProviderFactory;
 public class JBDDProviderFactory implements BDDProviderFactory {
 
 	/**
-	 * The {@code Type} of real {@code BDD} implementation.
+	 * The {@link Type} of real {@link BDD} implementation.
 	 * 
 	 * @author lukasiewycz
 	 * 
@@ -44,7 +45,7 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	}
 
 	/**
-	 * The used {@code Type} of real {@code BDD} implementation.
+	 * The used {@link Type} of real {@link BDD} implementation.
 	 */
 	protected final Type type;
 	/**
@@ -52,20 +53,20 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	 */
 	protected static final int INITIAL_VARIABLES = 10;
 	/**
-	 * A map that provides each requested {@code Type} of real {@code BDD} implementation with its specific
-	 * {@code JBDDProvider}.
+	 * A map that provides each requested {@link Type} of real {@link BDD} implementation with its specific
+	 * {@link JBDDProvider}.
 	 */
 	protected static Map<Type, JBDDProvider<?>> staticProviders = new HashMap<>();
 
 	/**
-	 * Constructs a {@code JDDProviderFactory}.
+	 * Constructs a {@link JBDDProviderFactory}.
 	 */
 	public JBDDProviderFactory() {
 		this(Type.JAVABDD);
 	}
 
 	/**
-	 * Constructs a {@code JDDProviderFactory}.
+	 * Constructs a {@link JBDDProviderFactory}.
 	 * 
 	 * @param type
 	 *            the type of bdd library

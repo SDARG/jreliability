@@ -16,7 +16,7 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
- * The {@code TMRTester} performs some common actions that are done with a modeled system.
+ * The {@link TMRTester} performs some common actions that are done with a modeled system.
  * 
  * @author glass
  * 
@@ -40,9 +40,9 @@ public class TMRTester {
 		// For this example, a BDD is generated first to visualizing the BDD of
 		// an MTTR
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
-		BDD<Object> bdd = bddTTRF.convertToBDD(term);
+		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProvider);
+		BDD<String> bdd = bddTTRF.convertToBDD(term);
 		String dot = BDDs.toDot(bdd);
 		System.out.println(dot);
 		System.out.println("***");

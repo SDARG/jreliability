@@ -15,7 +15,7 @@
 package org.jreliability.common;
 
 /**
- * The {@code Failure} represents the occurrence of a failure of an object and
+ * The {@link Failure} represents the occurrence of a failure of an object and
  * delivers the time of the failure as the information.
  * 
  * @author glass
@@ -26,7 +26,7 @@ package org.jreliability.common;
 public class Failure<T> extends Occurrence<T> {
 
 	/**
-	 * Constructs a {@code Failure} with a given object and a time.
+	 * Constructs a {@link Failure} with a given object and a time.
 	 * 
 	 * @param t
 	 *            the object

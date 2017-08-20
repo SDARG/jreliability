@@ -14,7 +14,7 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 
 /**
- * The {@code BoilerTester} performs some common actions that are done with a modeled system.
+ * The {@link BoilerTester} performs some common actions that are done with a modeled system.
  * 
  * @author glass
  * 
@@ -37,9 +37,9 @@ public class BoilerTester {
 		// For this example, a BDD is generated first to visualize the BDD of
 		// the Boiler
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
-		BDDProvider<Object> bddProvider = bddProviderFactory.getProvider();
-		BDDTTRF bddTTRF = new BDDTTRF(bddProvider);
-		BDD<Object> bdd = bddTTRF.convertToBDD(term);
+		BDDProvider<BoilerComponent> bddProvider = bddProviderFactory.getProvider();
+		BDDTTRF<BoilerComponent> bddTTRF = new BDDTTRF<>(bddProvider);
+		BDD<BoilerComponent> bdd = bddTTRF.convertToBDD(term);
 		String dot = BDDs.toDot(bdd);
 		System.out.println(dot);
 		ReliabilityFunction reliabilityFunctionBoiler = boiler.get();

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 /**
  * 
- * The {@code JDDProviderTest} is the {@code AbstractBDDProviderTest} for the {@code JDD}.
+ * The {@link JDDProviderTest} is the {@link AbstractBDDProviderTest} for the {@link JDD}.
  * 
  * @author lukasiewycz
  * 
@@ -30,7 +30,7 @@ import org.junit.Test;
 public class JDDProviderTest extends AbstractBDDProviderTest {
 
 	/**
-	 * Constructs a {@code JDDProviderTest}.
+	 * Constructs a {@link JDDProviderTest}.
 	 * 
 	 */
 	public JDDProviderTest() {

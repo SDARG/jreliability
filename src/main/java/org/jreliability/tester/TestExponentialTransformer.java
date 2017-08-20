@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.tester;
 
@@ -22,9 +20,8 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 
 /**
- * The {@code TestExponentialTransformer} is a {@code Transformer} for the
- * {@code TestExample} that uses {@code ExponentialReliabilityFunction} as
- * {@code ReliabilityFunctions}.
+ * The {@link TestExponentialTransformer} is a {@link Transformer} for the {@link TestExample} that uses
+ * {@link ExponentialReliabilityFunction} as {@link ReliabilityFunction}s.
  * 
  * @author glass
  * 
@@ -45,24 +42,24 @@ public class TestExponentialTransformer implements Transformer<String, Reliabili
 	protected final String pump2 = "Pump 2";
 
 	/**
-	 * Maps each element to its {@code ReliabilityFunction}.
+	 * Maps each element to its {@link ReliabilityFunction}.
 	 */
-	protected Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<String, ReliabilityFunction>();
+	protected Map<String, ReliabilityFunction> reliabilityFunction = new HashMap<>();
 	/**
-	 * The {@code ReliabilityFunction} of the heater.
+	 * The {@link ReliabilityFunction} of the heater.
 	 */
 	protected ReliabilityFunction heaterReliabilityFunction = new ExponentialReliabilityFunction(0.5);
 	/**
-	 * The {@code ReliabilityFunction} of the first pump.
+	 * The {@link ReliabilityFunction} of the first pump.
 	 */
 	protected ReliabilityFunction pump1ReliabilityFunction = new ExponentialReliabilityFunction(1);
 	/**
-	 * The {@code ReliabilityFunction} of the second pump.
+	 * The {@link ReliabilityFunction} of the second pump.
 	 */
 	protected ReliabilityFunction pump2ReliabilityFunction = new ExponentialReliabilityFunction(1);
 
 	/**
-	 * Constructs a {@code TestExponentialTransformer}.
+	 * Constructs a {@link TestExponentialTransformer}.
 	 * 
 	 */
 	public TestExponentialTransformer() {
@@ -76,6 +73,7 @@ public class TestExponentialTransformer implements Transformer<String, Reliabili
 	 * 
 	 * @see org.jreliability.common.Transformer#transform(java.lang.Object)
 	 */
+	@Override
 	public ReliabilityFunction transform(String a) {
 		return reliabilityFunction.get(a);
 	}

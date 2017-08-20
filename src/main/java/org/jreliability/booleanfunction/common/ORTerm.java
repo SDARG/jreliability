@@ -17,10 +17,11 @@ import java.util.List;
 
 import org.jreliability.booleanfunction.AbstractHierarchicalTerm;
 import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.Terms;
 
 /**
- * The {@code ORTerm} is a {@code Term} that interrelates its embedded {@code
- * Terms} with the {@code OR-Operator}.
+ * The {@link ORTerm} is a {@link Term} that interrelates its embedded {@link Terms} with the OR operator.<br>
+ * {@code(OR term1 ... termN)}
  * 
  * @author glass
  * 
@@ -28,7 +29,7 @@ import org.jreliability.booleanfunction.Term;
 public class ORTerm extends AbstractHierarchicalTerm {
 
 	/**
-	 * Constructs an {@code ORTerm}.
+	 * Constructs an {@link ORTerm}.
 	 * 
 	 */
 	public ORTerm() {
@@ -36,7 +37,7 @@ public class ORTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Constructs an {@code ORTerm} with a given list of embedded {@code Terms}.
+	 * Constructs an {@link ORTerm} with a given list of embedded {@link Terms}.
 	 * 
 	 * @param terms
 	 *            the embedded terms

@@ -1,7 +1,7 @@
 package org.jreliability.tutorial.boiler;
 
 /**
- * The {@code Sensor} models a sensor component in the boiler that measures and
+ * The {@link Sensor} models a sensor component in the boiler that measures and
  * collects the data of the water temperature.
  * 
  * @author glass
@@ -10,7 +10,7 @@ package org.jreliability.tutorial.boiler;
 public class Sensor extends BoilerComponent {
 
 	/**
-	 * Constructs a {@code Sensor} with a given name.
+	 * Constructs a {@link Sensor} with a given name.
 	 * 
 	 * @param name
 	 *            the name of the sensor

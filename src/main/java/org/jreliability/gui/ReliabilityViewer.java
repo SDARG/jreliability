@@ -35,8 +35,8 @@ import org.jreliability.gui.aspect.FailureRateAspect;
 import org.jreliability.gui.aspect.ReliabilityFunctionAspect;
 
 /**
- * The {@code ReliabilityViewer} is a basic GUI that shows the {@code
- * MeasuresPanel}, the {@code ReliabilityFunctionPlotPanel} and, if desired, the {@code SamplerHistogramPanel}.
+ * The {@link ReliabilityViewer} is a basic GUI that shows the {@link MeasuresPanel} and the
+ * {@link ReliabilityFunctionPlotPanel}.
  * 
  * @author glass
  * 
@@ -54,7 +54,7 @@ public abstract class ReliabilityViewer extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructs a {@code ReliabilityViewer}.
+	 * Constructs a {@link ReliabilityViewer}.
 	 * 
 	 */
 	public ReliabilityViewer() {
@@ -62,8 +62,7 @@ public abstract class ReliabilityViewer extends JFrame {
 	}
 
 	/**
-	 * Constructs and views {@code JFrame} with a given title and a list of {@code ReliabilityFunctions}. This standard
-	 * {@code view()} does not show the {@code SampleHistogramPanel}.
+	 * Constructs and views {@link JFrame} with a given title and a list of {@link ReliabilityFunction}s.
 	 * 
 	 * @param title
 	 *            the title
@@ -119,14 +118,14 @@ public abstract class ReliabilityViewer extends JFrame {
 		c.weighty = 0.0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_END;
-		content.add(new JLabel(" \u00A9 JReliability.org 2008 - 2009"), c);
+		content.add(new JLabel(" \u00A9 JReliability.org 2008-2017"), c);
 
 		frame.pack();
 		frame.setVisible(true);
 	}
 
 	/**
-	 * Returns the {@code ImageIcon}.
+	 * Returns the {@link ImageIcon}.
 	 * 
 	 * @return the image icon
 	 */
@@ -144,7 +143,7 @@ public abstract class ReliabilityViewer extends JFrame {
 	}
 
 	/**
-	 * Returns the GUI as a {@code JPanel} with a given title and a map of {@code ReliabilityFunctions}.
+	 * Returns the GUI as a {@link JPanel} with a given title and a map of {@link ReliabilityFunction}s.
 	 * 
 	 * @param title
 	 *            the title of the panel

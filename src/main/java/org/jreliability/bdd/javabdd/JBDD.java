@@ -24,7 +24,7 @@ import org.jreliability.bdd.BDDs;
 import net.sf.javabdd.BDDPairing;
 
 /**
- * The {@code JBDD} is a {@code BDD} based on the {@code JavaBDD} standard java implementation.
+ * The {@link JBDD} is a {@link BDD} based on the JavaBDD standard java implementation.
  * 
  * @author glass, reimann
  * @param <T>
@@ -37,7 +37,7 @@ public class JBDD<T> implements BDD<T> {
 	net.sf.javabdd.BDD bdd;
 
 	/**
-	 * The {@code AllSatIterator} is used as the {@code Iterator}.
+	 * The {@link AllSatIterator} is used as the {@link Iterator}.
 	 * 
 	 * @author glass, reimann
 	 * 
@@ -47,7 +47,7 @@ public class JBDD<T> implements BDD<T> {
 		Iterator<T> iterator;
 
 		/**
-		 * Constructs a {@code BDDIterator} with a given javabdd JDD iterator.
+		 * Constructs a {@link Iterator} with a given JavaBDD JDD iterator.
 		 * 
 		 * @param provider
 		 *            the used JDDProvider
@@ -104,8 +104,8 @@ public class JBDD<T> implements BDD<T> {
 	}
 
 	/**
-	 * Constructs a {@code JDD} with a {@code JDDProvider} and the BDD implementation used in the {@code JBBFactory} of
-	 * the {@code JavaBDD} library.
+	 * Constructs a {@link JDD} with a {@link JDDProvider} and the BDD implementation used in the {@link JBBFactory} of
+	 * the {@link JavaBDD} library.
 	 * 
 	 * @param provider
 	 *            the used JDDProvider

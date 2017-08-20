@@ -27,7 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code AbstractBDDOperatorTest} is the base class for tests of the operators for the {@code BDD}.
+ * The {@link AbstractBDDOperatorTest} is the base class for tests of the operators for the {@link BDD}.
  * 
  * @author lukasiewycz, reimann
  * 
@@ -35,7 +35,7 @@ import org.junit.Test;
 public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected BDDProvider<String> provider;
 
@@ -49,7 +49,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 	/**
 	 * 
-	 * Tests the {@code and} method on {@code 100} variables.
+	 * Tests the {@link and} method on {@link 100} variables.
 	 * 
 	 */
 	@Test
@@ -67,7 +67,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 	/**
 	 * 
-	 * Tests the {@code and} method on two variables.
+	 * Tests the {@link and} method on two variables.
 	 * 
 	 */
 	@Test
@@ -87,7 +87,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code andWith} method on two variables.
+	 * Tests the {@link andWith} method on two variables.
 	 * 
 	 */
 	@Test
@@ -107,7 +107,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code andWith} method with a simple type.
+	 * Tests the {@link andWith} method with a simple type.
 	 * 
 	 */
 	@Test
@@ -126,7 +126,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code andWith} method with a collection.
+	 * Tests the {@link andWith} method with a collection.
 	 * 
 	 */
 	@Test
@@ -145,7 +145,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code nodeCount} method.
+	 * Tests the {@link nodeCount} method.
 	 * 
 	 */
 	@Test
@@ -158,7 +158,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code and} method on two variables and returning the result to the same object.
+	 * Tests the {@link and} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -178,7 +178,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables.
+	 * Tests the {@link or} method on two variables.
 	 * 
 	 */
 	@Test
@@ -197,7 +197,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code orWith} method on two variables.
+	 * Tests the {@link orWith} method on two variables.
 	 * 
 	 */
 	@Test
@@ -216,7 +216,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code orWith} method with a collection.
+	 * Tests the {@link orWith} method with a collection.
 	 * 
 	 */
 	@Test
@@ -231,7 +231,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code orWith} method with an object.
+	 * Tests the {@link orWith} method with an object.
 	 * 
 	 */
 	@Test
@@ -246,7 +246,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code or} method on two variables and returning the result to the same object.
+	 * Tests the {@link or} method on two variables and returning the result to the same object.
 	 * 
 	 */
 	@Test
@@ -536,7 +536,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code exist} method.
+	 * Tests the {@link exist} method.
 	 * 
 	 */
 	@Test
@@ -551,7 +551,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code forAll} method.
+	 * Tests the {@link forAll} method.
 	 * 
 	 */
 	@Test
@@ -566,7 +566,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code restrict} method.
+	 * Tests the {@link restrict} method.
 	 * 
 	 */
 	@Test
@@ -581,7 +581,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code imp} method.
+	 * Tests the {@link imp} method.
 	 * 
 	 */
 	@Test
@@ -599,7 +599,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code impWith} method.
+	 * Tests the {@link impWith} method.
 	 * 
 	 */
 	@Test
@@ -618,7 +618,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code impWith} method with a BDD.
+	 * Tests the {@link impWith} method with a BDD.
 	 * 
 	 */
 	@Test
@@ -637,7 +637,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code xor} method.
+	 * Tests the {@link xor} method.
 	 * 
 	 */
 	@Test
@@ -653,7 +653,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code xorWith} method.
+	 * Tests the {@link xorWith} method.
 	 * 
 	 */
 	@Test
@@ -670,7 +670,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code xorWith} method.
+	 * Tests the {@link xorWith} method.
 	 * 
 	 */
 	@Test
@@ -688,7 +688,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code getProvider} method.
+	 * Tests the {@link getProvider} method.
 	 * 
 	 */
 	@Test
@@ -699,7 +699,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code replace} method.
+	 * Tests the {@link replace} method.
 	 * 
 	 */
 	@Test
@@ -719,7 +719,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code replaceWith} method.
+	 * Tests the {@link replaceWith} method.
 	 * 
 	 */
 	@Test
@@ -739,7 +739,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code sat} method.
+	 * Tests the {@link sat} method.
 	 * 
 	 */
 	@Test
@@ -752,7 +752,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code getVariables} method.
+	 * Tests the {@link getVariables} method.
 	 * 
 	 */
 	@Test
@@ -765,7 +765,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Tests the {@code toString} method.
+	 * Tests the {@link toString} method.
 	 * 
 	 */
 	@Test
@@ -777,7 +777,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Test the {@code trim} method. {code 2a &lte; 1} is trimmed to {code 1a &lte; 1}.
+	 * Test the {@link trim} method. {code 2a &lte; 1} is trimmed to {code 1a &lte; 1}.
 	 */
 	@Test
 	public void testTrim() {
@@ -793,7 +793,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	}
 
 	/**
-	 * Test the {@code checkAndAddVariable} method. {code a + a &lte; 2} is converted to {code a &lte; 1}.
+	 * Test the {@link checkAndAddVariable} method. {code a + a &lte; 2} is converted to {code a &lte; 1}.
 	 */
 	@Test
 	public void testCheckAndAddVariable() {

@@ -30,7 +30,7 @@ import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.booleanfunction.common.LinearTerm;
 
 /**
- * The {@code BDDs} contains common reliabilityFunctions for/on {@code BDD}s.
+ * The {@link BDDs} contains common reliabilityFunctions for/on {@link BDD}s.
  * 
  * @author glass, reimann
  * 
@@ -43,7 +43,7 @@ public abstract class BDDs {
 	protected static final String NEWLINE = System.getProperty("line.separator");
 
 	/**
-	 * Returns all variables (elements) {@code T} included in the {@code BDD}.
+	 * Returns all variables (elements) {@code T} included in the {@link BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -58,8 +58,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns all nodes of the {@code BDD} that represent the variable {@code
-	 * T}.
+	 * Returns all nodes of the {@link BDD} that represent the variable {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -77,7 +76,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Converts a linear constraint to a BDD.
+	 * Converts a linear constraint to a {@link BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables of the BDD
@@ -143,7 +142,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a {@code greater-equal} constraint represented as a {@code BDD}.
+	 * Returns a greater-equal constraint represented as a {@link BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -176,7 +175,9 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a graphical representation of the {@code BDD} in the {@code DOT} input format.
+	 * Returns a graphical representation of the {@link BDD} in the DOT input format.
+	 * 
+	 * @see <a href="http://www.graphviz.org/content/dot-language">Graphviz &ndash; The DOT language</a>
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -204,7 +205,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@code BDD} based on a functionTransformer that delivers for each variable
+	 * Calculates the top event of the {@link BDD} based on a functionTransformer that delivers for each variable
 	 * {@code T} a double value.
 	 * 
 	 * @param <T>
@@ -320,8 +321,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a {@code greater-equal} constraint represented as a {@code BDD} via a recursive procedure proposed by
-	 * {@code Een & Soerrensson 2006}.
+	 * Returns a greater-equal constraint represented as a {@link BDD} via a recursive procedure proposed by Een &amp;
+	 * Soerrensson 2006.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -367,7 +368,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all nodes for the {@code DOT} representation.
+	 * Traverses the {@link BDD} to collects all nodes for the DOT representation.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -413,7 +414,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collects all edges for the {@code DOT} representation.
+	 * Traverses the {@link BDD} to collects all edges for the DOT representation.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -451,7 +452,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
+	 * Traverses the {@link BDD} to setup the correct ranks of all nodes belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -491,7 +492,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to setup the correct ranks of all nodes belonging to the same variable.
+	 * Traverses the {@link BDD} to setup the correct ranks of all nodes belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -523,7 +524,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all variables.
+	 * Traverses the {@link BDD} to collect all variables.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -553,7 +554,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all variables in the current variable order of the {@code BDD}.
+	 * Traverses the {@link BDD} to collect all variables in the current variable order of the {@link BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -580,7 +581,7 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@code BDD} to collect all nodes for a given variable {@code T}.
+	 * Traverses the {@link BDD} to collect all nodes for a given variable {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variables

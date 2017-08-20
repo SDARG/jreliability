@@ -19,7 +19,7 @@ import org.jreliability.function.DensityFunction;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code DensityAspect} represents the density of a {@code
+ * The {@link DensityAspect} represents the density of a {@link
  * ReliabilityFunction}.
  * 
  * @author glass
@@ -28,7 +28,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class DensityAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@code DensityAspect}.
+	 * Constructs a {@link DensityAspect}.
 	 */
 	public DensityAspect() {
 		super("DensityFunction", "time t", "density function f(t)");

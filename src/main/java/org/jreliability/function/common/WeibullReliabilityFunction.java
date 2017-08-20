@@ -15,14 +15,13 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code WeibullReliabilityFunction} represents the {@code
- * ReliabilityFunction} of the {@code Weibull reliabilityFunction}
+ * The {@link WeibullReliabilityFunction} represents the Weibull reliability function
  * <p>
  * {@code R(x) = 1 - F(x) = e^-((alpha * x)^beta))}<br>
  * with {@code alpha, beta > 0}.
  * <p>
- * While the parameter {@code alpha} scales the reliabilityFunction and, thus, somehow corresponds to the failure-rate,
- * the {@code beta} parameter determines the {@code shape} of the reliabilityFunction.
+ * While the parameter {@code alpha} scales the {@link ReliabilityFunction} and, thus, somehow corresponds to the
+ * failure-rate, the {@code beta} parameter determines the shape of the {@link ReliabilityFunction}.
  * 
  * @author glass
  * 
@@ -30,19 +29,17 @@ import org.jreliability.function.ReliabilityFunction;
 public class WeibullReliabilityFunction implements ReliabilityFunction {
 
 	/**
-	 * The {@code alpha} parameter somehow resembles the failure-rate {@code
-	 * lambda}.
+	 * The {@link alpha} parameter somehow resembles the failure-rate {@code lambda}.
 	 */
 	protected final double alpha;
 
 	/**
-	 * The used shape of the {@code WeibullReliabilityFunction}.
+	 * The used shape of the {@link WeibullReliabilityFunction}.
 	 */
 	protected final double beta;
 
 	/**
-	 * Constructs a {@code WeibullReliabilityFunction} with a given {@code
-	 * alpha} and {code beta}.
+	 * Constructs a {@link WeibullReliabilityFunction} with a given {@code alpha} and {@code beta}.
 	 * 
 	 * @param alpha
 	 *            the scale value

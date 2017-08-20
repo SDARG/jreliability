@@ -16,14 +16,12 @@ import org.jreliability.function.Function;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code MomentEvaluator} determines the {@code n}-th {@code Moment} of a density function {@code f(x)} given a
- * {@code ReliabilityFunction} {@code
- * R(x)}.
+ * The {@link MomentEvaluator} determines the {@code n}-th moment of a density function {@code f(x)} given a
+ * {@link ReliabilityFunction} {@code R(x)}.<br>
+ * {@code E(X^n) = integral_0^infinity x^n f(x) dx}.
  * <p>
- * E(X^n)={@code integral_0^infinity x^n f(x) dx}.
- * <p>
- * It performs an integration from {@code 0} to {@code infinity} using Rombergs integration. This is commonly used to
- * derived measures like, e.g., Mean Time To Failure (MTTF) (E(X)) and its variance (E(X^2)-E(X)^2).
+ * It performs an integration from {@code 0} to {@code infinity} using Romberg's integration. This is commonly used to
+ * derived measures like, e.g., Mean Time To Failure (MTTF) ({@code E(X)}) and its variance ({@code E(X^2)-E(X)^2}).
  * 
  * @author glass, lukasiewycz
  * 
@@ -31,7 +29,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class MomentEvaluator implements Evaluator {
 
 	/**
-	 * The moment function.
+	 * The {@link MomentFunction}.
 	 * 
 	 * @author lukasiewycz
 	 * 
@@ -42,7 +40,7 @@ public class MomentEvaluator implements Evaluator {
 		private int n;
 
 		/**
-		 * Constructs the moment function.
+		 * Constructs the {@link MomentFunction}.
 		 * 
 		 * @param reliabilityFunction
 		 *            the reliability function
@@ -67,17 +65,17 @@ public class MomentEvaluator implements Evaluator {
 	}
 
 	/**
-	 * The allowed error / {@code epsilon} for Rombergs integration.
+	 * The allowed error {@code epsilon} for Romberg's integration.
 	 */
 	protected final double epsilon;
 
 	/**
-	 * The {@code n}-th moment.
+	 * The {@link n}-th moment.
 	 */
 	protected final int n;
 
 	/**
-	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment and a maximum error / {@code epsilon} of
+	 * Constructs a {@link MomentEvaluator} for the given {@code n}-th moment and a maximum error {@code epsilon} of
 	 * {@code 1.0E-5}.
 	 * 
 	 * @param n
@@ -88,7 +86,7 @@ public class MomentEvaluator implements Evaluator {
 	}
 
 	/**
-	 * Constructs a {@code MomentEvaluator} for the given {@code n}-th moment and a maximum error {@code epsilon}.
+	 * Constructs a {@link MomentEvaluator} for the given {@code n}-th moment and a maximum error {@code epsilon}.
 	 * 
 	 * @param n
 	 *            the n value
@@ -107,8 +105,7 @@ public class MomentEvaluator implements Evaluator {
 	}
 
 	/**
-	 * Returns the value derived from an integration of the {@code
-	 * ReliabilityFunction}.
+	 * Returns the value derived from an integration of the {@link ReliabilityFunction}.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
@@ -143,7 +140,7 @@ public class MomentEvaluator implements Evaluator {
 	}
 
 	/**
-	 * Calculates the integral between a and b using Rombergs integration.
+	 * Calculates the integral between a and b using Romberg's integration.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction

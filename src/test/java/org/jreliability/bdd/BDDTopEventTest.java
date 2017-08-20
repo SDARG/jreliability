@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class BDDTopEventTest {
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected BDDProvider<String> provider;
 

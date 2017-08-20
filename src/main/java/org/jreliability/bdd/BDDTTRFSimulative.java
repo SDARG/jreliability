@@ -29,8 +29,8 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.SampledReliabilityFunction;
 
 /**
- * The {@code BDDTTRFSimulative} performs a {@code Monte-Carlo simulation} to determine the {@code ReliabilityFunction}
- * based on a {@code BDD} representation of the system structure.
+ * The {@link BDDTTRFSimulative} performs a Monte-Carlo simulation to determine the {@link ReliabilityFunction} based on
+ * a {@link BDD} representation of the system structure.
  * 
  * @author glass
  * 
@@ -40,7 +40,7 @@ import org.jreliability.function.common.SampledReliabilityFunction;
 public class BDDTTRFSimulative<T> implements TTRF<T> {
 
 	/**
-	 * The used maximum error / {@code epsilon} value for the simulation.
+	 * The used maximum error {@code epsilon} value for the simulation.
 	 */
 	protected final double epsilon;
 
@@ -50,12 +50,12 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	protected final Random random = new Random(System.currentTimeMillis());
 
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected final BDDProvider<T> provider;
 
 	/**
-	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider} and a standard epsilon of {@code 0.001}.
+	 * Constructs a {@link BDDTTRFSimulative} with a given {@link BDDProvider} and a standard epsilon of {@code 0.001}.
 	 * 
 	 * @param provider
 	 *            the used bddProvider
@@ -65,7 +65,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Constructs a {@code BDDTTRFSimulative} with a given {@code BDDProvider} and an epsilon.
+	 * Constructs a {@link BDDTTRFSimulative} with a given {@link BDDProvider} and an epsilon.
 	 * 
 	 * @param provider
 	 *            the used bddProvider
@@ -88,7 +88,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@code Term} to a {@code ReliabilityFunction} based on {@code j}-samples.
+	 * Converts a given {@link Term} to a {@link ReliabilityFunction} based on {@code j}-samples.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -102,9 +102,11 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 		return convert(term, functionTransformer, null, j);
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term, org.apache.commons.collections15.Transformer, org.apache.commons.collections15.Predicate)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
+	 * org.apache.commons.collections15.Transformer, org.apache.commons.collections15.Predicate)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
@@ -114,7 +116,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@code Term} to a {@code ReliabilityFunction} based on {@code j}-samples.
+	 * Converts a given {@link Term} to a {@link ReliabilityFunction} based on {@code j}-samples.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -133,7 +135,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Collects all times-to-failure to derive {@code 5000} samples needed to calculate the {@code ReliabilityFunction}.
+	 * Collects all times-to-failure to derive {@code 5000} samples needed to calculate the {@link ReliabilityFunction}.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -149,7 +151,7 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Collects all times-to-failure to derive {@code n} samples needed to calculate the {@code ReliabilityFunction}.
+	 * Collects all times-to-failure to derive {@code n} samples needed to calculate the {@link ReliabilityFunction}.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -199,8 +201,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Generates the {@code Failure} {@code Occurrences} for a single simulation run based on the given {@code BDD} and
-	 * the {@code ReliabilityFunctions} of its elements.
+	 * Generates the {@link Failure} occurrences for a single simulation run based on the given {@link BDD} and the
+	 * {@link ReliabilityFunction}s of its elements.
 	 * 
 	 * @param bdd
 	 *            the given bdd

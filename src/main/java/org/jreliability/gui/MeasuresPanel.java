@@ -120,8 +120,8 @@ public class MeasuresPanel extends JPanel {
 		 */
 		protected final ReliabilityFunction reliabilityFunction;
 		/**
-		 * The {@link JLabel} that is used to display the Mission-Time {@code MT} for the user specified probability
-		 * {@code p} in {@code p = P[MT]}.
+		 * The {@link JLabel} that is used to display the Mission-Time MT for the user specified probability {@code p}
+		 * in {@code p = P[MT]}.
 		 */
 		protected JLabel mt;
 		/**

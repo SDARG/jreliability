@@ -23,7 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@code BDDConstraintTest} tests the {@code BDDConstraint}.
+ * The {@link BDDConstraintTest} tests the {@link BDDConstraint}.
  * 
  * @author reimann
  *

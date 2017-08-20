@@ -1,5 +1,5 @@
 /**
- * Provides the classes for the {@code BDDs} used for the evaluation.
+ * Provides the classes for the {@link BDDs} used for the evaluation.
  * 
  */
 package org.jreliability.bdd;

@@ -19,8 +19,8 @@ import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code DistributionAspect} represents the {@code Distribution} of a
- * {@code ReliabilityFunction}.
+ * The {@link DistributionAspect} represents the {@link Distribution} of a
+ * {@link ReliabilityFunction}.
  * 
  * @author glass
  * 
@@ -28,7 +28,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class DistributionAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@code DistributionAspect}.
+	 * Constructs a {@link DistributionAspect}.
 	 * 
 	 */
 	public DistributionAspect() {

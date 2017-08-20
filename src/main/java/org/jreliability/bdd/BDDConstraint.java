@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * The {@code BDDConstraint} is used to model {@code greater-equal} constraints with a left-hand-side ({@code lhs})
- * consisting of {@code Literals} and the right-hand-side ({@code rhs}) being an {@code Integer}.
+ * The {@link BDDConstraint} is used to model {@link greater-equal} constraints with a left-hand-side ({@link lhs})
+ * consisting of {@link Literals} and the right-hand-side ({@link rhs}) being an {@link Integer}.
  * 
  * @author glass, lukasiewycz
  * 
@@ -33,22 +33,22 @@ class BDDConstraint<T> {
 	 */
 	protected int rhs;
 	/**
-	 * The left-hand-side of the constraint as a {@code List} of {@code
+	 * The left-hand-side of the constraint as a {@link List} of {@link
 	 * Literals}.
 	 */
 	protected List<Literal<T>> lhs = new ArrayList<>();
 	/**
-	 * A map to deal with {@code Literals} including the same variables.
+	 * A map to deal with {@link Literals} including the same variables.
 	 */
 	protected Set<BDD<T>> variables = new HashSet<>();
 
 	/**
-	 * Constructs a {@code BDDConstraint} with a given right-hand-side {@code rhs} and left-hand-side {@code lhs}.
+	 * Constructs a {@link BDDConstraint} with a given right-hand-side {@link rhs} and left-hand-side {@link lhs}.
 	 * 
 	 * @param rhs
 	 *            the right-hand-side
 	 * @param lhs
-	 *            the left-hand-side as a {@code List} of {@code Literals}.
+	 *            the left-hand-side as a {@link List} of {@link Literals}.
 	 */
 	public BDDConstraint(int rhs, List<Literal<T>> lhs) {
 		this.rhs = rhs;
@@ -56,7 +56,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Initializes the {@code BDDConstraint} with the normalizing operations proposed by {@code Een & Soerrensson 2006}
+	 * Initializes the {@link BDDConstraint} with the normalizing operations proposed by {@link Een & Soerrensson 2006}
 	 * plus zero coefficient elimination.
 	 * 
 	 * @param literals
@@ -73,8 +73,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Ensures a positive {@code coefficient} of the {@code Literal} by a negotiation of the variable and an update of
-	 * the {@code rhs}.
+	 * Ensures a positive {@link coefficient} of the {@link Literal} by a negotiation of the variable and an update of
+	 * the {@link rhs}.
 	 * 
 	 * @param literal
 	 *            the literal
@@ -92,7 +92,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Checks the {@code Literal} if it includes a variable that is already present in the {@code BDDConstraint} and
+	 * Checks the {@link Literal} if it includes a variable that is already present in the {@link BDDConstraint} and
 	 * adds it correctly.
 	 * 
 	 * @param literal
@@ -119,7 +119,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Trims all {@code coefficients} that are greater than the {@code rhs} to {@code rhs}.
+	 * Trims all {@link coefficients} that are greater than the {@link rhs} to {@link rhs}.
 	 */
 	protected void trim() {
 		for (Literal<T> literal : lhs) {
@@ -132,7 +132,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Eliminates variables on the {@code lhs} with a zero coefficient.
+	 * Eliminates variables on the {@link lhs} with a zero coefficient.
 	 */
 	protected void eliminateZeroCoefficients() {
 		Set<Literal<T>> zeroCoefficients = new HashSet<>();
@@ -147,8 +147,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Determines the greatest-common-divisor ({@code gcd}) of all {@code
-	 * coefficients} of the {@code lhs} and the {@code rhs} and updates the values.
+	 * Determines the greatest-common-divisor ({@link gcd}) of all {@link
+	 * coefficients} of the {@link lhs} and the {@link rhs} and updates the values.
 	 */
 	protected void gcd() {
 		if (!lhs.isEmpty()) {
@@ -170,7 +170,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Returns the {@code gcd} of two {@code Integers} by a simple recursive procedure.
+	 * Returns the {@link gcd} of two {@link Integers} by a simple recursive procedure.
 	 * 
 	 * @param a
 	 *            integer a
@@ -186,7 +186,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Returns the right-hand-side ({@code rhs}) of the constraint.
+	 * Returns the right-hand-side ({@link rhs}) of the constraint.
 	 * 
 	 * @return the rhs of the constraint
 	 */
@@ -195,8 +195,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Returns the left-hand-side ({@code lhs}) of the constraint as a {@code
-	 * List} of {@code Literals}.
+	 * Returns the left-hand-side ({@link lhs}) of the constraint as a {@link
+	 * List} of {@link Literals}.
 	 * 
 	 * @return the lhs of the constraint
 	 */
@@ -205,7 +205,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * The {@code Literal} represents a variable using a {@code BDD} and its {@code coefficient}.
+	 * The {@link Literal} represents a variable using a {@link BDD} and its {@link coefficient}.
 	 * 
 	 * @author glass
 	 * 
@@ -225,7 +225,7 @@ class BDDConstraint<T> {
 		BDD<T> variable = null;
 
 		/**
-		 * Constructs a {@code Literal} with a given coefficient and variable as a {@code BDD}.
+		 * Constructs a {@link Literal} with a given coefficient and variable as a {@link BDD}.
 		 * 
 		 * @param coefficient
 		 *            the coefficient
@@ -247,7 +247,7 @@ class BDDConstraint<T> {
 		}
 
 		/**
-		 * Returns the variable as a {@code BDD}.
+		 * Returns the variable as a {@link BDD}.
 		 * 
 		 * @return the variable
 		 */
@@ -287,7 +287,7 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * The {@code Pair} represents a tuple of two {@code Objects} {@code A} and {@code B}.
+	 * The {@link Pair} represents a tuple of two {@link Objects} {@link A} and {@link B}.
 	 * 
 	 * @author glass
 	 * 
@@ -307,7 +307,7 @@ class BDDConstraint<T> {
 		protected final B b;
 
 		/**
-		 * Constructs a {@code Pair} with two objects {@code a} and {@code b}.
+		 * Constructs a {@link Pair} with two objects {@link a} and {@link b}.
 		 * 
 		 * @param a
 		 *            the object a
@@ -320,7 +320,7 @@ class BDDConstraint<T> {
 		}
 
 		/**
-		 * Returns the {@code A} object.
+		 * Returns the {@link A} object.
 		 * 
 		 * @return the a object
 		 */
@@ -329,7 +329,7 @@ class BDDConstraint<T> {
 		}
 
 		/**
-		 * Returns the {@code B} object.
+		 * Returns the {@link B} object.
 		 * 
 		 * @return the b object
 		 */

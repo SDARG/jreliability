@@ -1,7 +1,7 @@
 package org.jreliability.tutorial.boiler;
 
 /**
- * The {@code Pump} models a pump that is used to pump water from the {@code
+ * The {@link Pump} models a pump that is used to pump water from the {@link
  * Boiler} to its destination.
  * 
  * @author glass
@@ -10,7 +10,7 @@ package org.jreliability.tutorial.boiler;
 public class Pump extends BoilerComponent {
 
 	/**
-	 * Constructs a {@code Pump} with a given name.
+	 * Constructs a {@link Pump} with a given name.
 	 * 
 	 * @param name
 	 *            the name of the pump

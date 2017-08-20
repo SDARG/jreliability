@@ -15,7 +15,7 @@ package org.jreliability.bdd;
 import org.junit.Before;
 
 /**
- * The {@code AbstractBDDTest} is the base class for all tests on {@code BDD}s.
+ * The {@link AbstractBDDTest} is the base class for all tests on {@link BDD}s.
  * 
  * @author lukasiewycz
  * 
@@ -23,7 +23,7 @@ import org.junit.Before;
 public abstract class AbstractBDDTest {
 
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected BDDProviderFactory factory;
 

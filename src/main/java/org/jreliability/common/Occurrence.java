@@ -15,7 +15,7 @@
 package org.jreliability.common;
 
 /**
- * The {@code Occurrence} represents an occurrence or event, e.g., the failure
+ * The {@link Occurrence} represents an occurrence or event, e.g., the failure
  * or repair of an object at a given time.
  * 
  * @author glass
@@ -26,7 +26,7 @@ package org.jreliability.common;
 public abstract class Occurrence<T> implements Comparable<Occurrence<T>> {
 
 	/**
-	 * The element {@code T}.
+	 * The element {@link T}.
 	 */
 	protected final T t;
 	/**
@@ -35,7 +35,7 @@ public abstract class Occurrence<T> implements Comparable<Occurrence<T>> {
 	protected final Double time;
 
 	/**
-	 * Constructs an {@code Occurrence} with a given object and the time.
+	 * Constructs an {@link Occurrence} with a given object and the time.
 	 * 
 	 * @param t
 	 *            the object

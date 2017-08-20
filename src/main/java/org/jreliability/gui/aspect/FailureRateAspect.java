@@ -19,8 +19,8 @@ import org.jreliability.function.FailureRate;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code FailureRateAspect} represents the {@code FailureRate} of a given
- * {@code ReliabilityFunction}.
+ * The {@link FailureRateAspect} represents the {@link FailureRate} of a given
+ * {@link ReliabilityFunction}.
  * 
  * @author glass
  * 
@@ -28,7 +28,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class FailureRateAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@code FailureRateAspect}.
+	 * Constructs a {@link FailureRateAspect}.
 	 */
 	public FailureRateAspect() {
 		super("Failure Rate", "time t", "failure rate lambda(t)");

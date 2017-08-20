@@ -23,7 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@code JBDDOperatorTest} is a unit test operator class for the {@link JBDD} class.
+ * The {@link JBDDOperatorTest} is a unit test operator class for the {@link JBDD} class.
  * 
  * 
  * @author lukasiewycz
@@ -32,7 +32,7 @@ import org.junit.Test;
 public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 
 	/**
-	 * Constructs a {@code JBDDOperatorTest}.
+	 * Constructs a {@link JBDDOperatorTest}.
 	 * 
 	 */
 	public JBDDOperatorTest() {
@@ -50,7 +50,7 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 	}
 
 	/**
-	 * Tests the {@code allSat} method.
+	 * Tests the {@link allSat} method.
 	 * 
 	 */
 	@Test
@@ -65,7 +65,7 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 	}
 
 	/**
-	 * Tests the {@code allSat} method.
+	 * Tests the {@link allSat} method.
 	 * 
 	 */
 	@Test(expected = AssertionError.class)
@@ -80,7 +80,7 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 	}
 
 	/**
-	 * Tests the {@code allSat} method with a negated variable.
+	 * Tests the {@link allSat} method with a negated variable.
 	 * 
 	 */
 	@Test
@@ -96,7 +96,7 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 	}
 
 	/**
-	 * Tests the {@code remove} method.
+	 * Tests the {@link remove} method.
 	 * 
 	 */
 	@Test

@@ -1,7 +1,7 @@
 package org.jreliability.tutorial.boiler;
 
 /**
- * The {@code Heater} models an actor component of the boiler that is
+ * The {@link Heater} models an actor component of the boiler that is
  * responsible for increasing the water temperature.
  * 
  * @author glass
@@ -10,7 +10,7 @@ package org.jreliability.tutorial.boiler;
 public class Heater extends BoilerComponent {
 
 	/**
-	 * Constructs a {@code Heater} with a given name.
+	 * Constructs a {@link Heater} with a given name.
 	 * 
 	 * @param name
 	 *            the name of the heater

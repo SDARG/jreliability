@@ -20,7 +20,7 @@ import java.util.List;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@code SampledReliabilityFunction} approximates a {@code
+ * The {@link SampledReliabilityFunction} approximates a {@link
  * ReliabilityFunction} from a set of Samples.
  * 
  * @author glass, lukasiewycz
@@ -44,7 +44,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 	protected final double step;
 
 	/**
-	 * Constructs a {@code SampledReliabilityFunction}.
+	 * Constructs a {@link SampledReliabilityFunction}.
 	 * 
 	 * @param samples
 	 *            the collection of samples
@@ -77,7 +77,7 @@ public class SampledReliabilityFunction implements ReliabilityFunction {
 	}
 
 	/**
-	 * Returns all samples in an ordered {@code List}.
+	 * Returns all samples in an ordered {@link List}.
 	 * 
 	 * @return all samples
 	 */

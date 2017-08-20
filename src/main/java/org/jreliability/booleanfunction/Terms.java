@@ -25,7 +25,7 @@ import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 
 /**
- * The {@code Terms} provides static methods for the {@code Term} class.
+ * The {@link Terms} provides static methods for the {@link Term} class.
  * 
  * @author glass
  * 
@@ -40,7 +40,7 @@ public class Terms {
 	}
 
 	/**
-	 * Returns the variables included in a {@code Term}.
+	 * Returns the variables included in a {@link Term}.
 	 * 
 	 * @param <T>
 	 *            the type of the variables
@@ -55,8 +55,7 @@ public class Terms {
 	}
 
 	/**
-	 * Adds the variables included in a {@code Term} to a given set of
-	 * variables.
+	 * Adds the variables included in a {@link Term} to a given set of variables.
 	 * 
 	 * @param <T>
 	 *            the type of the variables
@@ -79,7 +78,7 @@ public class Terms {
 	}
 
 	/**
-	 * Derives a {@code Term} from a given {@code String}.
+	 * Derives a {@link Term} from a given {@link String}.
 	 * 
 	 * @param string
 	 *            the string encoding the term
@@ -91,8 +90,8 @@ public class Terms {
 	}
 
 	/**
-	 * Parses a {@code Term} from a given helper {@code Object} that has been
-	 * derived from the original {@code String} encoding the {@code Term}.
+	 * Parses a {@link Term} from a given helper {@link Object} that has been derived from the original {@link String}
+	 * encoding the {@link Term}.
 	 * 
 	 * @param object
 	 *            the helper object
@@ -155,12 +154,11 @@ public class Terms {
 	}
 
 	/**
-	 * Transforms a given {@code String} to a helper {@code Object} that
-	 * represents {@code Terms} as {@code Lists} of helper {@code Objects} and
-	 * variables as {@code Strings}.
+	 * Transforms a given {@link String} to a helper {@link Object} that represents {@link Term}s as {@link List}s of
+	 * helper {@link Object}s and variables as {@link String}s.
 	 * 
 	 * @param string
-	 *            the string encoding the {@code Term}
+	 *            the string encoding the {@link Term}
 	 * @return a helper object to parse the given string
 	 */
 	protected static Object toObject(ParseString string) {
@@ -211,15 +209,14 @@ public class Terms {
 	}
 
 	/**
-	 * The {@code ParseString} is a helper class to parse a helper
-	 * {@code Object} from a given {@code String}.
+	 * The {@link ParseString} is a helper class to parse a helper {@link Object} from a given {@link String}.
 	 * 
 	 * @author glass
 	 * 
 	 */
 	protected static class ParseString {
 		/**
-		 * The original {@code String}.
+		 * The original {@link String}.
 		 */
 		protected String string;
 		/**
@@ -228,7 +225,7 @@ public class Terms {
 		protected int current = 0;
 
 		/**
-		 * Constructs a {@code ParseString} with a given {@code String}.
+		 * Constructs a {@link ParseString} with a given {@link String}.
 		 * 
 		 * @param string
 		 *            the original string
@@ -265,7 +262,7 @@ public class Terms {
 		}
 
 		/**
-		 * Returns {@code true} if the end of the {@code String} is reached.
+		 * Returns {@code true} if the end of the {@link String} is reached.
 		 * 
 		 * @return true if the end of the string is reached
 		 */
@@ -284,8 +281,7 @@ public class Terms {
 		}
 
 		/**
-		 * Moves the pointer to the next character that is not a blank or
-		 * newline character.
+		 * Moves the pointer to the next character that is not a blank or newline character.
 		 */
 		public void skipSpaces() {
 			while (!this.isEnd() && (this.getCurrent() == ' ' || this.getCurrent() == '\n')) {

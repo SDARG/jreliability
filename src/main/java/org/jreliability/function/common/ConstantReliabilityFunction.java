@@ -3,9 +3,7 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link ConstantReliabilityFunction} returns a constant success
- * probability for which it must hold that 
- * <p>
+ * The {@link ConstantReliabilityFunction} returns a constant success probability for which it must hold that <br>
  * {@code 0 =< failure probability =< 1}.
  * 
  * @author glass

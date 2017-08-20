@@ -1,16 +1,14 @@
 /**
- * JReliability is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with Opt4J. If not, see http://www.gnu.org/licenses/. 
+ * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
+ * http://www.gnu.org/licenses/.
  */
 package org.jreliability.bdd;
 
@@ -23,10 +21,10 @@ import java.util.Map.Entry;
 import org.apache.commons.collections15.Transformer;
 
 /**
- * The {@code BDDTopEvent} allows the fast calculation of the top event for a
- * given {@code BDD}. Here, the {@code BDD} is copied to an internal structure
- * such that the {@code free} method of the {@code BDD} does not interfere with
- * this class.
+ * The {@link BDDTopEvent} allows the fast calculation of the top event for a given {@link BDD}.
+ * <p>
+ * Here, the {@link BDD} is copied to an internal structure such that the {@link BDD#free()} method does not interfere
+ * with this class.
  * 
  * @author lukasiewycz
  * 
@@ -37,7 +35,7 @@ public class BDDTopEvent<T> {
 
 	/**
 	 * 
-	 * The {@code Var} is an internal variable class.
+	 * The {@link Var} is an internal variable class.
 	 * 
 	 * @author lukasiewycz
 	 * 
@@ -55,7 +53,7 @@ public class BDDTopEvent<T> {
 		protected double value;
 
 		/**
-		 * Constructs a {@code Var}.
+		 * Constructs a {@link Var}.
 		 * 
 		 * @param variable
 		 *            the original variable
@@ -86,7 +84,7 @@ public class BDDTopEvent<T> {
 	}
 
 	/**
-	 * The {@code Node} is an internal BDD node.
+	 * The {@link Node} is an internal BDD node.
 	 * 
 	 * @author lukasiewycz
 	 * 
@@ -103,7 +101,7 @@ public class BDDTopEvent<T> {
 	}
 
 	/**
-	 * The {@code VarNode} is an internal variable BDD node.
+	 * The {@link VarNode} is an internal variable BDD node.
 	 * 
 	 * @author lukasiewycz
 	 * 
@@ -128,7 +126,7 @@ public class BDDTopEvent<T> {
 		protected Node lo = null;
 
 		/**
-		 * Constructs a {@code VarNode}.
+		 * Constructs a {@link VarNode}.
 		 * 
 		 * @param var
 		 *            the variable of this node
@@ -142,6 +140,7 @@ public class BDDTopEvent<T> {
 		 * 
 		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
+		@Override
 		public double getValue() {
 			return value;
 		}
@@ -157,38 +156,38 @@ public class BDDTopEvent<T> {
 		}
 
 		/**
-		 * Returns the {@code Node} of the high-branch.
+		 * Returns the {@link Node} of the high-branch.
 		 * 
-		 * @return the {@code Node} of the high-branch
+		 * @return the {@link Node} of the high-branch
 		 */
 		public Node getHi() {
 			return hi;
 		}
 
 		/**
-		 * Sets the {@code Node} of the high-branch.
+		 * Sets the {@link Node} of the high-branch.
 		 * 
 		 * @param hi
-		 *            the {@code Node} of the high-branch
+		 *            the {@link Node} of the high-branch
 		 */
 		public void setHi(Node hi) {
 			this.hi = hi;
 		}
 
 		/**
-		 * Returns the {@code Node} of the low-branch.
+		 * Returns the {@link Node} of the low-branch.
 		 * 
-		 * @return the {@code Node} of the low-branch
+		 * @return the {@link Node} of the low-branch
 		 */
 		public Node getLo() {
 			return lo;
 		}
 
 		/**
-		 * Sets the {@code Node} of the low-branch.
+		 * Sets the {@link Node} of the low-branch.
 		 * 
 		 * @param lo
-		 *            the {@code Node} of the low-branch
+		 *            the {@link Node} of the low-branch
 		 */
 		public void setLo(Node lo) {
 			this.lo = lo;
@@ -218,6 +217,7 @@ public class BDDTopEvent<T> {
 		 * 
 		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
+		@Override
 		public double getValue() {
 			return 1;
 		}
@@ -236,6 +236,7 @@ public class BDDTopEvent<T> {
 		 * 
 		 * @see org.jreliability.bdd.BDDTopEvent.Node#getValue()
 		 */
+		@Override
 		public double getValue() {
 			return 0;
 		}
@@ -244,12 +245,12 @@ public class BDDTopEvent<T> {
 	/**
 	 * Map of the original variables to the internal structure of the variables.
 	 */
-	Map<T, Var> variables = new HashMap<T, Var>();
+	Map<T, Var> variables = new HashMap<>();
 
 	/**
 	 * A list of all variables nodes (ordered from bottom to the root).
 	 */
-	List<VarNode> nodes = new ArrayList<VarNode>();
+	List<VarNode> nodes = new ArrayList<>();
 
 	/**
 	 * The instance of the zero node.
@@ -267,14 +268,14 @@ public class BDDTopEvent<T> {
 	Node root;
 
 	/**
-	 * Constructs the {@code BDDTopEvent} calculator for a given {@code BDD}.
+	 * Constructs the {@link BDDTopEvent} calculator for a given {@link BDD}.
 	 * 
 	 * @param bdd
-	 *            the given bdd
+	 *            the given BDD
 	 */
 	public BDDTopEvent(BDD<T> bdd) {
 
-		Map<BDD<T>, VarNode> map = new HashMap<BDD<T>, VarNode>();
+		Map<BDD<T>, VarNode> map = new HashMap<>();
 		root = build(bdd, map);
 		for (BDD<T> b : map.keySet()) {
 			b.free();
@@ -289,7 +290,7 @@ public class BDDTopEvent<T> {
 	 * 
 	 * @param transformer
 	 *            the transformer from the variables to the values
-	 * @return the top event as a {@code double} value
+	 * @return the top event
 	 */
 	public double calculate(Transformer<T, Double> transformer) {
 
@@ -316,10 +317,10 @@ public class BDDTopEvent<T> {
 	}
 
 	/**
-	 * Returns the internal variable for a bdd.
+	 * Returns the internal variable for a {@link BDD}.
 	 * 
 	 * @param bdd
-	 *            the bdd
+	 *            the BDD
 	 * @return the corresponding internal variable
 	 */
 	protected Var getVariable(BDD<T> bdd) {
@@ -334,12 +335,12 @@ public class BDDTopEvent<T> {
 	}
 
 	/**
-	 * Builds the internal node from a bdd node.
+	 * Builds the internal node from a {@link BDD} node.
 	 * 
 	 * @param bdd
-	 *            the original bdd node
+	 *            the original BDD node
 	 * @param map
-	 *            a map from the internal node to the bdd node
+	 *            a map from the internal node to the BDD node
 	 * @return the internal node
 	 */
 	protected Node build(BDD<T> bdd, Map<BDD<T>, VarNode> map) {

@@ -26,7 +26,7 @@ import net.sf.javabdd.JFactory;
 
 /**
  * 
- * The {@code JBDDProviderTest} is the {@code AbstractBDDProviderTest} for the {@link JBDD}.
+ * The {@link JBDDProviderTest} is the {@link AbstractBDDProviderTest} for the {@link JBDD}.
  * 
  * @author lukasiewycz
  * 
@@ -34,7 +34,7 @@ import net.sf.javabdd.JFactory;
 public class JBDDProviderTest extends AbstractBDDProviderTest {
 
 	/**
-	 * Constructs a {@code JBDDProviderTest}.
+	 * Constructs a {@link JBDDProviderTest}.
 	 * 
 	 */
 	public JBDDProviderTest() {

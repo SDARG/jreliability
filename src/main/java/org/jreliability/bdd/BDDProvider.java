@@ -15,7 +15,7 @@ package org.jreliability.bdd;
 import java.util.List;
 
 /**
- * The {@code BDDProvider} provides the actual {@code BDDs} for each component.
+ * The {@link BDDProvider} provides the actual {@link BDD}s for each component.
  * 
  * @author glass, reimann
  * @param <T>
@@ -54,7 +54,7 @@ public interface BDDProvider<T> {
 	public BDD<T> one();
 
 	/**
-	 * Returns the {@code BDD} that represents the {@code variable}.
+	 * Returns the {@link BDD} that represents the {@code variable}.
 	 * 
 	 * @param variable
 	 *            the variable
@@ -63,7 +63,7 @@ public interface BDDProvider<T> {
 	public BDD<T> get(T variable);
 
 	/**
-	 * Returns the {@code variable} that is represented by the {@code BDD}.
+	 * Returns the {@code variable} that is represented by the {@link BDD}.
 	 * 
 	 * @param bdd
 	 *            the bdd

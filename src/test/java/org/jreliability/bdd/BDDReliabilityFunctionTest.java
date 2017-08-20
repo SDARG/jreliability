@@ -25,7 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The {@code BDDTTRFTest} tests the {@code BDDReliabilityFunction}.
+ * The {@link BDDTTRFTest} tests the {@link BDDReliabilityFunction}.
  * 
  * @author glass
  * 
@@ -52,7 +52,7 @@ public class BDDReliabilityFunctionTest {
 	}
 
 	/**
-	 * The used {@code BDDProvider}.
+	 * The used {@link BDDProvider}.
 	 */
 	protected BDDProvider<String> provider;
 

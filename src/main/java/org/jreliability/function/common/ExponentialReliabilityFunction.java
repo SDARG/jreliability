@@ -15,7 +15,7 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link ExponentialReliabilityFunction} represents<br>
+ * The {@link ExponentialReliabilityFunction} represents the exponential {@link ReliabilityFunction}<br>
  * {@code R(x) = 1 - F(x) = e^-(alpha * x)}<br>
  * with {@code alpha > 0}.
  * <p>
@@ -33,7 +33,7 @@ public class ExponentialReliabilityFunction implements ReliabilityFunction {
 	protected final double alpha;
 
 	/**
-	 * Constructs an {@link ExponentialReliabilityFunction} with a given {@code alpha}
+	 * Constructs an {@link ExponentialReliabilityFunction} with a given {@code alpha}.
 	 * 
 	 * @param alpha
 	 *            the alpha value
@@ -56,6 +56,11 @@ public class ExponentialReliabilityFunction implements ReliabilityFunction {
 		return y;
 	}
 
+	/**
+	 * The {@code alpha} parameter.
+	 * 
+	 * @return the alpha value
+	 */
 	public double getAlpha() {
 		return alpha;
 	}
