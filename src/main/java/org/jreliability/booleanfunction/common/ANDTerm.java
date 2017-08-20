@@ -21,7 +21,7 @@ import org.jreliability.booleanfunction.Terms;
 
 /**
  * The {@link ANDTerm} is a {@link Term} that interrelates its embedded {@link Terms} with the AND operator}. <br>
- * {@code(AND term1 ... termN)}
+ * {@code (AND term1 ... termN)}
  * 
  * 
  * @author glass

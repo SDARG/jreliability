@@ -70,7 +70,7 @@ public class MomentEvaluator implements Evaluator {
 	protected final double epsilon;
 
 	/**
-	 * The {@link n}-th moment.
+	 * The {@code n}-th moment.
 	 */
 	protected final int n;
 

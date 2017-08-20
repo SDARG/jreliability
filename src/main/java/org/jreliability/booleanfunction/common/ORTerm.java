@@ -21,7 +21,7 @@ import org.jreliability.booleanfunction.Terms;
 
 /**
  * The {@link ORTerm} is a {@link Term} that interrelates its embedded {@link Terms} with the OR operator.<br>
- * {@code(OR term1 ... termN)}
+ * {@code (OR term1 ... termN)}
  * 
  * @author glass
  * 

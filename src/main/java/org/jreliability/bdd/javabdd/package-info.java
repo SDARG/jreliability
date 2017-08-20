@@ -1,5 +1,5 @@
 /**
- * Provides the classes for a {@link org.jreliability.bdd.BDD} implementation based on {@link net.sf.javabdd}.
+ * Provides the classes for a {@link org.jreliability.bdd.BDD} implementation based on {@code net.sf.javabdd}.
  * 
  */
 package org.jreliability.bdd.javabdd;

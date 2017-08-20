@@ -28,12 +28,12 @@ public class InverseFunction implements Function {
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * The allowed error / {@link epsilon} for embedded bisection method.
+	 * The allowed error {@code epsilon} for embedded bisection method.
 	 */
 	protected final double epsilon;
 
 	/**
-	 * Constructs an {@link InverseFunction} with a given {@link ReliabilityFunction} and an error {@link epsilon} for
+	 * Constructs an {@link InverseFunction} with a given {@link ReliabilityFunction} and an error {@code epsilon} for
 	 * the embedded bisection method.
 	 * 
 	 * @param reliabilityFunction

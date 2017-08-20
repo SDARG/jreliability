@@ -29,7 +29,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class WeibullReliabilityFunction implements ReliabilityFunction {
 
 	/**
-	 * The {@link alpha} parameter somehow resembles the failure-rate {@code lambda}.
+	 * The {@code alpha} parameter somehow resembles the failure-rate {@code lambda}.
 	 */
 	protected final double alpha;
 
