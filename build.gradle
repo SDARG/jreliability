@@ -128,3 +128,19 @@ uploadArchives {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.1'
 }
+
+/*
+ * Gets the version name from the latest Git tag
+ */
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    version=stdout.toString().trim()
+    if (version.indexOf('-') >= 0)
+    	version += '-SNAPSHOT'
+    return version
+}
+version=getVersionName()
