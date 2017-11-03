@@ -12,6 +12,8 @@ import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
+import org.jreliability.sl.SLTTRF;
+import org.jreliability.sl.SimpleComponent;
 
 /**
  * The {@link BoilerTester} performs some common actions that are done with a modeled system.
@@ -49,7 +51,11 @@ public class BoilerTester {
 		reliabilityFunctions.put("Boiler", reliabilityFunctionBoiler);
 
 		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial", reliabilityFunctions);
-
+		
+		// Stochastic Logic...
+		System.out.println("The SL: ");
+		SLTTRF<BoilerComponent> SLTTRF = new SLTTRF<>(boiler.getTransformer());
+		SLTTRF.convertToSL(term);
 	}
 
 }
