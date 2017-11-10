@@ -26,7 +26,7 @@ public class SLProbabilityBitstream {
 		probabilityArray = new int[arrayLength];
 		setProbabilityArray(pValue);
 	}
-
+	
 	// Generate a probability (as an array of bitstream) randomly
 	public void setProbabilityArray() {
 		Random randomValue = new Random();
@@ -40,7 +40,7 @@ public class SLProbabilityBitstream {
 		}
 	}
 	
-	// a Probability Value as Integer type...
+	// Probability Value as Integer type...
 	public void setProbabilityArray(int pValue) {
 		ArrayList<Integer> randomIndex = new ArrayList<>();
 		for (int i = 0; i < probabilityArray.length; i++) {
@@ -53,7 +53,7 @@ public class SLProbabilityBitstream {
 		}
 	}
 	
-	// a Probability Value as Double type...
+	// Probability Value as Double type...
 	public void setProbabilityArray(double pValue) {
 		int rValue = 0;
 		
@@ -83,6 +83,7 @@ public class SLProbabilityBitstream {
 				getProbabilityValue++;
 			}
 		}
+		
 		return (double) getProbabilityValue / probabilityArray.length;
 	}
 	
@@ -97,11 +98,13 @@ public class SLProbabilityBitstream {
 	public String toString() {		
 		StringBuffer s = new StringBuffer();
 		
-		s.append(getProbability()).append(" [");
-		for (int i = 0; i < probabilityArray.length; i++) {
-			s.append(probabilityArray[i]);
-		}
-		s.append("]");
+//		s.append(getProbability()).append(" [");
+//		for (int i = 0; i < probabilityArray.length; i++) {
+//			s.append(probabilityArray[i]);
+//		}
+//		s.append("]");
+		
+		s.append(getProbability());
 		
 		return s.toString();
 	}

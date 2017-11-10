@@ -19,7 +19,7 @@ public class SL<T> {
 	
 	// for checking...
 	protected int debugStage = 0;
-	protected Stack operandsComponent = new Stack();
+//	protected Stack operandsComponent = new Stack();
 	
 	public SL(List<Term> term, List<Integer> numberOfOperands, SLProbabilityBitstreamConverter<T> converter) {
 		this.term = term;
@@ -28,9 +28,9 @@ public class SL<T> {
 	}
 	
 	public SLProbabilityBitstream operate() {
-		System.out.println("- Probability of each component as bitstream: ");
-		converter.printBitstreams();
-		System.out.println();
+//		System.out.println("- Probability of each component as bitstream: ");
+//		converter.printBitstreams();
+//		System.out.println();
 		
 		// To rearrange the oder of elements in List 'numberOfOperands'
 		numberOfOperands.add(numberOfOperands.remove(0));
@@ -39,7 +39,7 @@ public class SL<T> {
 			if (element instanceof LiteralTerm) {
 				LiteralTerm<T> component = (LiteralTerm<T>) element;
 				operands.add(converter.bitstreams.get(component.get()));
-				operandsComponent.add(component); // for checking...
+//				operandsComponent.add(component); // for checking...
 			} else if (element instanceof ANDTerm) {
 				operateAND();
 			} else if (element instanceof ORTerm) {
@@ -62,20 +62,20 @@ public class SL<T> {
 		
 		// for checking...
 		List<SLProbabilityBitstream> operandsAND = new ArrayList<>();
-		List operandsANDComponent = new ArrayList();
+//		List operandsANDComponent = new ArrayList();
 		int index = numberOfOperands.remove(0);
 
 		for (int i = 0; i < index; i++) {
 			operandsAND.add(operands.pop());
-			operandsANDComponent.add(operandsComponent.pop());
+//			operandsANDComponent.add(operandsComponent.pop());
 		}
 
-		debugStage++;
-		System.out.print("- [Stage " + debugStage + "] Operate AND: " + operandsANDComponent + "\n");
-		for (int i = 0; i < index; i++) {
-			System.out.print(operandsANDComponent.get(i) + ": ");
-			System.out.println(operandsAND.get(i));
-		}
+//		debugStage++;
+//		System.out.print("- [Stage " + debugStage + "] Operate AND: " + operandsANDComponent + "\n");
+//		for (int i = 0; i < index; i++) {
+//			System.out.print(operandsANDComponent.get(i) + ": ");
+//			System.out.println(operandsAND.get(i));
+//		}
 		
 		SLProbabilityBitstream resultOfOperateAND = new SLProbabilityBitstream(operandsAND.get(0).arrayLength);
 		for (int i = 0; i < resultOfOperateAND.probabilityArray.length; i++) {
@@ -91,10 +91,10 @@ public class SL<T> {
 		operands.push(resultOfOperateAND);
 
 		// for checking...
-		operandsComponent.push("Temp" + debugStage);
-		System.out.println("- [Stage " + debugStage + "] Result:");
-		System.out.print(operandsComponent.peek() + ": ");
-		System.out.println(resultOfOperateAND + "\n");
+//		operandsComponent.push("Temp" + debugStage);
+//		System.out.println("- [Stage " + debugStage + "] Result:");
+//		System.out.print(operandsComponent.peek() + ": ");
+//		System.out.println(resultOfOperateAND + "\n");
 	}
 	
 	public void operateOR() {
@@ -108,20 +108,20 @@ public class SL<T> {
 		
 		// for checking...
 		List<SLProbabilityBitstream> operandsOR = new ArrayList<>();
-		List operandsORComponent = new ArrayList();
+//		List operandsORComponent = new ArrayList();
 		int index = numberOfOperands.remove(0);
 
 		for (int i = 0; i < index; i++) {
 			operandsOR.add(operands.pop());
-			operandsORComponent.add(operandsComponent.pop());
+//			operandsORComponent.add(operandsComponent.pop());
 		}
 
-		debugStage++;
-		System.out.print("- [Stage " + debugStage + "] Operate OR: " + operandsORComponent + "\n");
-		for (int i = 0; i < index; i++) {
-			System.out.print(operandsORComponent.get(i) + ": ");
-			System.out.println(operandsOR.get(i));
-		}
+//		debugStage++;
+//		System.out.print("- [Stage " + debugStage + "] Operate OR: " + operandsORComponent + "\n");
+//		for (int i = 0; i < index; i++) {
+//			System.out.print(operandsORComponent.get(i) + ": ");
+//			System.out.println(operandsOR.get(i));
+//		}
 	
 		SLProbabilityBitstream resultOfOperateOR = new SLProbabilityBitstream(operandsOR.get(0).arrayLength);
 		for (int i = 0; i < resultOfOperateOR.probabilityArray.length; i++) {
@@ -137,10 +137,10 @@ public class SL<T> {
 		operands.push(resultOfOperateOR);
 		
 		// for checking...
-		operandsComponent.push("Temp" + debugStage);
-		System.out.println("- [Stage " + debugStage + "] Result:");
-		System.out.print(operandsComponent.peek() + ": ");
-		System.out.println(resultOfOperateOR + "\n");
+//		operandsComponent.push("Temp" + debugStage);
+//		System.out.println("- [Stage " + debugStage + "] Result:");
+//		System.out.print(operandsComponent.peek() + ": ");
+//		System.out.println(resultOfOperateOR + "\n");
 	}
 	
 }

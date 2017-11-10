@@ -12,7 +12,7 @@ import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
-import org.jreliability.sl.SLTTRF;
+import org.jreliability.sl.SLReliabilityFunction;
 import org.jreliability.sl.SimpleComponent;
 
 /**
@@ -54,8 +54,9 @@ public class BoilerTester {
 		
 		// Stochastic Logic...
 		System.out.println("The SL: ");
-		SLTTRF<BoilerComponent> SLTTRF = new SLTTRF<>(boiler.getTransformer());
-		SLTTRF.convertToSL(term);
+		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(term, boiler.getTransformer(), 10);
+		slReliabilityFunction.getY(1.0);
+		// It works until numberOfBits = 10,000,000 (But it takes a few seconds.)
 	}
 
 }
