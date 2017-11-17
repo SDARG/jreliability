@@ -7,6 +7,7 @@ import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.function.ReliabilityFunction;
 
@@ -47,6 +48,9 @@ public class SLReliabilityFunction<T> implements ReliabilityFunction {
 		} else if (term instanceof ORTerm) {
 			ORTerm orTerm = (ORTerm) term;
 			transformOR(orTerm, x);
+		} else if (term instanceof NOTTerm) {
+			NOTTerm notTerm = (NOTTerm) term;
+			transformNOT(notTerm, x);
 		} else if (term instanceof LiteralTerm) {
 			LiteralTerm<T> literalTerm = (LiteralTerm<T>) term;
 			transformLiteral(literalTerm, x);
@@ -56,7 +60,7 @@ public class SLReliabilityFunction<T> implements ReliabilityFunction {
 		return termToPostfix;
 	}
 	
-	public void transformAND(ANDTerm term,double x) {
+	public void transformAND(ANDTerm term, double x) {
 		List<Term> terms = term.getTerms();
 		numberOfOperands.add(terms.size());
 		for (Term element : terms) {
@@ -64,15 +68,20 @@ public class SLReliabilityFunction<T> implements ReliabilityFunction {
 		}
 	}
 	
-	public void transformOR(ORTerm term,double x) {
+	public void transformOR(ORTerm term, double x) {
 		List<Term> terms = term.getTerms();
 		numberOfOperands.add(terms.size());
 		for (Term element : terms) {
 			transform(element, x);
 		}
 	}
+	
+	public void transformNOT(NOTTerm term, double x) {		
+		Term element = term.get();
+		transform(element, x);
+	}
 		
-	public void transformLiteral(LiteralTerm<T> term, double x) {
+	public void transformLiteral(LiteralTerm<T> term, double x) {		
 		T component = term.get();
 		ReliabilityFunction reliabilityFunction = transformer.transform(component);
 

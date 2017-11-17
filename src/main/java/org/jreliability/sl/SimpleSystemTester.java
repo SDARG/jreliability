@@ -18,8 +18,8 @@ public class SimpleSystemTester {
 		System.out.println();
 						
 		System.out.println("The Stochastic Logic: ");
-		SLReliabilityFunction<SimpleComponent> slReliabilityFunction = new SLReliabilityFunction<>(term, simpleSystem.getTransformer(), 10000000);
-		System.out.println(slReliabilityFunction.getY(1.0));
+		SLReliabilityFunction<SimpleComponent> slReliabilityFunction = new SLReliabilityFunction<>(term, simpleSystem.getTransformer(), 1000);
+		slReliabilityFunction.getY(1.0);
 		// It works until numberOfBits = 10,000,000 (But it takes a few seconds.)
 		// If numberOfBits >= 100,000,000, Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 	}

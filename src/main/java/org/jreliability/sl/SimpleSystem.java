@@ -7,6 +7,7 @@ import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.function.ReliabilityFunction;
 
 public class SimpleSystem {
@@ -55,8 +56,10 @@ public class SimpleSystem {
 		LiteralTerm<SimpleComponent> C9Literal = new LiteralTerm<>(C9);
 		
 		ANDTerm subSystem1 = new ANDTerm();
-		subSystem1.add(C1Literal);
-		subSystem1.add(C2Literal);
+		subSystem1.add(new NOTTerm(C1Literal));
+		subSystem1.add(new NOTTerm(C2Literal));
+//		subSystem1.add(C1Literal);
+//		subSystem1.add(C2Literal);
 		
 		ANDTerm subSystem2 = new ANDTerm();
 		subSystem2.add(C3Literal);
@@ -72,7 +75,7 @@ public class SimpleSystem {
 		system.add(subSystem2);
 		system.add(subSystem3);
 		system.add(C8Literal);
-		system.add(C9Literal);
+		system.add(new NOTTerm(C9Literal));
 		
 		return system;
 	}
