@@ -84,7 +84,7 @@ public class SLReliabilityFunction<T> implements ReliabilityFunction {
 	public void transformLiteral(LiteralTerm<T> term, double x) {		
 		T component = term.get();
 		ReliabilityFunction reliabilityFunction = transformer.transform(component);
-
+		
 		bitstreamConverter.convertToBitstream(component, numberOfBits, reliabilityFunction.getY(x));
 	}
 

@@ -24,13 +24,5 @@ public class SLProbabilityBitstreamConverter<T> {
 		SLProbabilityBitstream bitstream = new SLProbabilityBitstream(arrayLength, pValue);
 		bitstreams.put(component, bitstream);
 	}
-	
-	public void printBitstreams() {
-		Set<T> keySet = bitstreams.keySet();
-		for(T tempKey : keySet) {
-			System.out.println(tempKey + " = " + bitstreams.get(tempKey));
-		}
-	}
-
 }
 

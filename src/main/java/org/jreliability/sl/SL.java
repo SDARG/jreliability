@@ -12,6 +12,8 @@ import org.jreliability.booleanfunction.common.NOTTerm;
 
 public class SL<T> {
 	
+	protected double result = 0;
+	
 	protected List<Term> term = new ArrayList<>();
 	protected List<Integer> numberOfOperands = new ArrayList<>();	
 	protected SLProbabilityBitstreamConverter<T> converter;
@@ -31,9 +33,9 @@ public class SL<T> {
 		for (Term element : term) {
 			if (element instanceof LiteralTerm) {
 				LiteralTerm<T> component = (LiteralTerm<T>) element;
-				operands.add(converter.bitstreams.get(component.get()));
+				operands.add(converter.bitstreams.get(component.get()));				
 			} else if (element instanceof ANDTerm) {
-				operateAND();
+				operateAND();				
 			} else if (element instanceof ORTerm) {
 				operateOR();
 			} else if (element instanceof NOTTerm) {
@@ -46,65 +48,77 @@ public class SL<T> {
 		return operands.pop();
 	}
 	
-	public void operateAND() {
+	public double operateAND() {
 		// Operate AND
-		List<SLProbabilityBitstream> operandsAND = new ArrayList<>();
-		int index = numberOfOperands.remove(0);
-
-		for (int i = 0; i < index; i++) {
-			operandsAND.add(operands.pop());
-		}
-		
-		SLProbabilityBitstream resultOfOperateAND = new SLProbabilityBitstream(operandsAND.get(0).arrayLength);
-		for (int i = 0; i < resultOfOperateAND.probabilityArray.length; i++) {
-			int checkBit = 0;
-			for (SLProbabilityBitstream element : operandsAND) {
-				checkBit += element.probabilityArray[i];
-			}
+		if (!numberOfOperands.isEmpty()) {
+			List<SLProbabilityBitstream> operandsAND = new ArrayList<>();
+			int index = numberOfOperands.remove(0);
 			
-			resultOfOperateAND.probabilityArray[i] 
-					= (checkBit == operandsAND.size()) ? 1 : 0;
-		}
+			for (int i = 0; i < index; i++) {
+				operandsAND.add(operands.pop());
+			}
+		
+			SLProbabilityBitstream resultOfOperateAND = new SLProbabilityBitstream(operandsAND.get(0).arrayLength);
+			for (int i = 0; i < resultOfOperateAND.probabilityArray.length; i++) {
+				int checkBit = 0;
+				for (SLProbabilityBitstream element : operandsAND) {
+					checkBit += element.probabilityArray[i];
+				}
 				
-		operands.push(resultOfOperateAND);
+				resultOfOperateAND.probabilityArray[i] 
+						= (checkBit == operandsAND.size()) ? 1 : 0;
+			}
+			operands.push(resultOfOperateAND);
+			result = resultOfOperateAND.getProbability();
+		}
+		
+		return result;
 	}
 	
-	public void operateOR() {
+	public double operateOR() {
 		// Operate OR
-		List<SLProbabilityBitstream> operandsOR = new ArrayList<>();
-		int index = numberOfOperands.remove(0);
-	
-		for (int i = 0; i < index; i++) {
-			operandsOR.add(operands.pop());
-		}
-	
-		SLProbabilityBitstream resultOfOperateOR = new SLProbabilityBitstream(operandsOR.get(0).arrayLength);
-		for (int i = 0; i < resultOfOperateOR.probabilityArray.length; i++) {
-			int checkBit = 0;
-			for (SLProbabilityBitstream element : operandsOR) {
-				checkBit += element.probabilityArray[i];
-			}
-			
-			resultOfOperateOR.probabilityArray[i] 
-					= (checkBit == 0) ? 0 : 1;
-		}
+		if (!numberOfOperands.isEmpty()) {
+			List<SLProbabilityBitstream> operandsOR = new ArrayList<>();
+			int index = numberOfOperands.remove(0);
 		
-		operands.push(resultOfOperateOR);
+			for (int i = 0; i < index; i++) {
+				operandsOR.add(operands.pop());
+			}
+		
+			SLProbabilityBitstream resultOfOperateOR = new SLProbabilityBitstream(operandsOR.get(0).arrayLength);
+			for (int i = 0; i < resultOfOperateOR.probabilityArray.length; i++) {
+				int checkBit = 0;
+				for (SLProbabilityBitstream element : operandsOR) {
+					checkBit += element.probabilityArray[i];
+				}
+				
+				resultOfOperateOR.probabilityArray[i] 
+						= (checkBit == 0) ? 0 : 1;
+			}
+			operands.push(resultOfOperateOR);
+			result = resultOfOperateOR.getProbability();
+		}
+			
+		return result;
 	}
 	
-	public void operateNOT() {
+	public double operateNOT() {
 		// Operate NOT
-		SLProbabilityBitstream operandsNOT = operands.pop(); // because NOT is an unary operator.
-		SLProbabilityBitstream resultOfOperateNOT = new SLProbabilityBitstream(operandsNOT.arrayLength);
-		for (int i = 0; i < resultOfOperateNOT.probabilityArray.length; i++) {
-			if (operandsNOT.probabilityArray[i] == 0) {
-				resultOfOperateNOT.probabilityArray[i] = 1;
-			} else if (operandsNOT.probabilityArray[i] == 1) {
-				resultOfOperateNOT.probabilityArray[i] = 0;
+		if (!operands.isEmpty()) {
+			SLProbabilityBitstream operandsNOT = operands.pop(); // because NOT is an unary operator.
+			SLProbabilityBitstream resultOfOperateNOT = new SLProbabilityBitstream(operandsNOT.arrayLength);
+			for (int i = 0; i < resultOfOperateNOT.probabilityArray.length; i++) {
+				if (operandsNOT.probabilityArray[i] == 0) {
+					resultOfOperateNOT.probabilityArray[i] = 1;
+				} else if (operandsNOT.probabilityArray[i] == 1) {
+					resultOfOperateNOT.probabilityArray[i] = 0;
+				}
 			}
+			operands.push(resultOfOperateNOT);
+			result = resultOfOperateNOT.getProbability();
 		}
 		
-		operands.push(resultOfOperateNOT);
+		return result;
 	}
 	
 }

@@ -8,7 +8,7 @@ public class SLProbabilityBitstream {
 	
 	protected final int arrayLength;
 	protected int[] probabilityArray;
-	
+		
 	public SLProbabilityBitstream(int arrayLength) {
 		this.arrayLength = arrayLength;
 		probabilityArray = new int[arrayLength];
