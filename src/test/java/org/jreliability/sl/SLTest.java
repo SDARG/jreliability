@@ -43,7 +43,6 @@ public class SLTest {
 		SL.operate();
 		
 		double result = SL.operateAND();
-		System.out.println("Result Of Operate AND: " + result);
 		
 		Assert.assertEquals(0.02, result, 0.05);
 	}
@@ -57,7 +56,6 @@ public class SLTest {
 		SL.operate();
 		
 		double result = SL.operateOR();
-		System.out.println("Result Of Operate OR : " + result);
 		
 		Assert.assertEquals(0.30, result, 0.05);
 	}
@@ -77,10 +75,8 @@ public class SLTest {
 		numberOfOperands.add(1);
 
 		SL<String> SL = new SL<>(term, numberOfOperands, converter);		
-		SL.operate();
-		
+		SL.operate();		
 		double result = SL.operateNOT();
-		System.out.println("Result Of Operate NOT: " + result);
 		
 		Assert.assertEquals(0.70, result, 0);
 	}
