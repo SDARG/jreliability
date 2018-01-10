@@ -49,13 +49,16 @@ public class BoilerTester {
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 		reliabilityFunctions.put("Boiler", reliabilityFunctionBoiler);
 
-		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial", reliabilityFunctions);
+		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial - BDD", reliabilityFunctions);
 		
 		// Stochastic Logic...
 		System.out.println("The SL: ");
-		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(term, boiler.getTransformer(), 100);
-		slReliabilityFunction.getY(1.0);
-		// It works until numberOfBits = 10,000,000 (But it takes a few seconds.)
+		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(term, boiler.getTransformer(), 100000);
+		// Using the GUI
+		Map<String, ReliabilityFunction> reliabilityFunctionsSL = new HashMap<>();
+		reliabilityFunctionsSL.put("Boiler", slReliabilityFunction);
+
+		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial - SL", reliabilityFunctionsSL);
 	}
 
 }

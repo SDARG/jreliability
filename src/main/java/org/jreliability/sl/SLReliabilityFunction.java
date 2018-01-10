@@ -37,7 +37,7 @@ public class SLReliabilityFunction<T> implements ReliabilityFunction {
 		SL<T> SL = new SL<>(termToPostfix, numberOfOperands, bitstreamConverter);
 		SLProbabilityBitstream result = SL.operate();
 		
-		return 0.0;
+		return result.getProbability();
 	}
 	
 	public List<Term> transform(Term term, double x) {
