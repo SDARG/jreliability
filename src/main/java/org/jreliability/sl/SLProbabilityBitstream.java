@@ -87,25 +87,15 @@ public class SLProbabilityBitstream {
 		return (double) getProbabilityValue / probabilityArray.length;
 	}
 	
-	public void printProbabilityBitstream() {
-		System.out.print("[");
-		for (int i = 0; i < probabilityArray.length; i++) {
-			System.out.print(i);
-		}
-		System.out.print("]");
-	}
-	
-	public String toString() {		
+	public String toString() {
 		StringBuffer s = new StringBuffer();
 		
-//		s.append(getProbability()).append(" [");
-//		for (int i = 0; i < probabilityArray.length; i++) {
-//			s.append(probabilityArray[i]);
-//		}
-//		s.append("]");
-		
-		s.append(getProbability());
-		
+		s.append("[");
+		for (int i = 0; i < probabilityArray.length; i++) {
+			s.append(probabilityArray[i]);
+		}
+		s.append("]");
+	
 		return s.toString();
 	}
 	

@@ -41,7 +41,6 @@ public class SL<T> {
 			} else if (element instanceof NOTTerm) {
 				operateNOT();
 			}
-			System.out.println("In Stack: " + operands);
 		}
 				
 		// The last element of Stack 'operands' is the result value.
