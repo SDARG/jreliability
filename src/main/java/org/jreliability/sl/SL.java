@@ -1,123 +1,161 @@
 package org.jreliability.sl;
 
 import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
+import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.Term;
-import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ANDTerm;
-import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.booleanfunction.common.FALSETerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.NOTTerm;
+import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.booleanfunction.common.TRUETerm;
 
+/**
+ * @author glass, jlee
+ *
+ * @param <T>
+ */
 public class SL<T> {
-	
-	protected double result = 0;
-	
-	protected List<Term> term = new ArrayList<>();
-	protected List<Integer> numberOfOperands = new ArrayList<>();	
-	protected SLProbabilityBitstreamConverter<T> converter;
-	
-	protected Stack<SLProbabilityBitstream> operands = new Stack<>();
-		
-	public SL(List<Term> term, List<Integer> numberOfOperands, SLProbabilityBitstreamConverter<T> converter) {
+
+	protected Term term;
+	protected final int bitStreamLength;
+
+	// Order the terms to enable stack-based processing
+	protected Map<Term, Integer> numberOfOperands = new HashMap<>();
+	protected List<Term> termsForStackProcessing = new ArrayList<>();
+
+	protected Stack<BitSet> operandsStack = new Stack<>();
+	protected Map<Term, BitSet> termCache = new HashMap<>();
+
+	public SL(Term term) {
+		this(term, 10000);
+	}
+
+	public SL(Term term, int bitStreamLength) {
 		this.term = term;
-		this.numberOfOperands = numberOfOperands;
-		this.converter = converter;
+		this.bitStreamLength = bitStreamLength;
+		this.initialize(term);
 	}
-	
-	public SLProbabilityBitstream operate() {	
-		// To rearrange the oder of elements in List 'numberOfOperands'
-		numberOfOperands.add(numberOfOperands.remove(0));
-		
-		for (Term element : term) {
-			if (element instanceof LiteralTerm) {
-				LiteralTerm<T> component = (LiteralTerm<T>) element;
-				operands.add(converter.bitstreams.get(component.get()));				
-			} else if (element instanceof ANDTerm) {
-				operateAND();				
-			} else if (element instanceof ORTerm) {
-				operateOR();
-			} else if (element instanceof NOTTerm) {
-				operateNOT();
+
+	protected void initialize(Term term) {
+		if (term instanceof NOTTerm) {
+			initialize(((NOTTerm) term).get());
+			numberOfOperands.put(term, 1);
+		} else {
+			List<Term> terms = new ArrayList<Term>();
+			if (term instanceof ANDTerm) {
+				terms = ((ANDTerm) term).getTerms();
+				numberOfOperands.put(term, terms.size());
+			} else if (term instanceof ORTerm) {
+				terms = ((ORTerm) term).getTerms();
+				numberOfOperands.put(term, terms.size());
+			}
+			for (Term subTerm : terms) {
+				initialize(subTerm);
 			}
 		}
-				
-		// The last element of Stack 'operands' is the result value.
-		return operands.pop();
+		termsForStackProcessing.add(term);
 	}
-	
-	public double operateAND() {
-		// Operate AND
-		if (!numberOfOperands.isEmpty()) {
-			List<SLProbabilityBitstream> operandsAND = new ArrayList<>();
-			int index = numberOfOperands.remove(0);
-			
-			for (int i = 0; i < index; i++) {
-				operandsAND.add(operands.pop());
-			}
-		
-			SLProbabilityBitstream resultOfOperateAND = new SLProbabilityBitstream(operandsAND.get(0).arrayLength);
-			for (int i = 0; i < resultOfOperateAND.probabilityArray.length; i++) {
-				int checkBit = 0;
-				for (SLProbabilityBitstream element : operandsAND) {
-					checkBit += element.probabilityArray[i];
+
+	public double getProbabiliy(Transformer<T, Double> transformer) {
+		operandsStack.clear();
+		termCache.clear();
+		evaluate(transformer);
+		BitSet bitstream = operandsStack.pop();
+		double probability = (double) bitstream.cardinality() / bitstream.size();
+		return probability;
+	}
+
+	public void evaluate(Transformer<T, Double> transformer) {
+		for (Term term : termsForStackProcessing) {
+			if (term instanceof LiteralTerm) {
+				BitSet bitstream = termCache.get(term);
+				if (bitstream == null) {
+					LiteralTerm<T> component = (LiteralTerm<T>) term;
+					bitstream = generateRandomBitstream(transformer.transform(component.get()));
+					termCache.put(term, bitstream);
 				}
-				
-				resultOfOperateAND.probabilityArray[i] 
-						= (checkBit == operandsAND.size()) ? 1 : 0;
+				operandsStack.push(bitstream);
+			} else if (term instanceof FALSETerm) {
+				BitSet bitstream = new BitSet(bitStreamLength);
+				bitstream.clear();
+				operandsStack.push(bitstream);
+			} else if (term instanceof TRUETerm) {
+				BitSet bitstream = new BitSet(bitStreamLength);
+				bitstream.set(0, bitstream.size(), true);
+				operandsStack.push(bitstream);
+			} else if (term instanceof ANDTerm) {
+				evaluateAND(term);
+			} else if (term instanceof ORTerm) {
+				evaluateOR(term);
+			} else if (term instanceof NOTTerm) {
+				evaluateNOT(term);
 			}
-			operands.push(resultOfOperateAND);
-			result = resultOfOperateAND.getProbability();
 		}
-		
-		return result;
 	}
-	
-	public double operateOR() {
-		// Operate OR
-		if (!numberOfOperands.isEmpty()) {
-			List<SLProbabilityBitstream> operandsOR = new ArrayList<>();
-			int index = numberOfOperands.remove(0);
-		
-			for (int i = 0; i < index; i++) {
-				operandsOR.add(operands.pop());
-			}
-		
-			SLProbabilityBitstream resultOfOperateOR = new SLProbabilityBitstream(operandsOR.get(0).arrayLength);
-			for (int i = 0; i < resultOfOperateOR.probabilityArray.length; i++) {
-				int checkBit = 0;
-				for (SLProbabilityBitstream element : operandsOR) {
-					checkBit += element.probabilityArray[i];
-				}
-				
-				resultOfOperateOR.probabilityArray[i] 
-						= (checkBit == 0) ? 0 : 1;
-			}
-			operands.push(resultOfOperateOR);
-			result = resultOfOperateOR.getProbability();
+
+	public void evaluateAND(Term term) {
+		int myNumberOfOperands = numberOfOperands.get(term);
+		List<BitSet> operands = new ArrayList<>();
+		while (myNumberOfOperands > 0) {
+			operands.add(operandsStack.pop());
+			myNumberOfOperands--;
 		}
-			
-		return result;
-	}
-	
-	public double operateNOT() {
-		// Operate NOT
-		if (!operands.isEmpty()) {
-			SLProbabilityBitstream operandsNOT = operands.pop(); // because NOT is an unary operator.
-			SLProbabilityBitstream resultOfOperateNOT = new SLProbabilityBitstream(operandsNOT.arrayLength);
-			for (int i = 0; i < resultOfOperateNOT.probabilityArray.length; i++) {
-				if (operandsNOT.probabilityArray[i] == 0) {
-					resultOfOperateNOT.probabilityArray[i] = 1;
-				} else if (operandsNOT.probabilityArray[i] == 1) {
-					resultOfOperateNOT.probabilityArray[i] = 0;
-				}
-			}
-			operands.push(resultOfOperateNOT);
-			result = resultOfOperateNOT.getProbability();
+
+		// Initialize result with a TRUE bitstream and then AND
+		BitSet result = new BitSet(bitStreamLength);
+		result.set(0, result.size(), true);
+		for (BitSet operand : operands) {
+			result.and(operand);
 		}
-		
-		return result;
+		operandsStack.push(result);
 	}
-	
+
+	public void evaluateOR(Term term) {
+		int myNumberOfOperands = numberOfOperands.get(term);
+		List<BitSet> operands = new ArrayList<>();
+		while (myNumberOfOperands > 0) {
+			operands.add(operandsStack.pop());
+			myNumberOfOperands--;
+		}
+
+		// Initialize result with a FALSE bitstream and then OR
+		BitSet result = new BitSet(bitStreamLength);
+		result.clear();
+		for (BitSet operand : operands) {
+			result.or(operand);
+		}
+		operandsStack.push(result);
+	}
+
+	public void evaluateNOT(Term term) {
+		BitSet operand = operandsStack.pop();
+		BitSet result = (BitSet) operand.clone();
+		result.flip(0, result.size());
+		operandsStack.push(result);
+	}
+
+	protected BitSet generateRandomBitstream(double probability) {
+		BitSet bitstream = new BitSet(bitStreamLength);
+		int rValue = (int) Math.round(probability * bitstream.size());
+
+		ArrayList<Integer> randomIndex = new ArrayList<>();
+		for (int i = 0; i < bitstream.size(); i++) {
+			randomIndex.add(i);
+		}
+		Collections.shuffle(randomIndex);
+
+		for (int i = 0; i < rValue; i++) {
+			bitstream.set(randomIndex.get(i), true);
+		}
+		return bitstream;
+	}
+
 }

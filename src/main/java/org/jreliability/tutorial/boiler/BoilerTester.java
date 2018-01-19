@@ -10,8 +10,10 @@ import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.BDDs;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
+import org.jreliability.evaluator.MomentEvaluator;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
+import org.jreliability.sl.SL;
 import org.jreliability.sl.SLReliabilityFunction;
 
 /**
@@ -53,12 +55,18 @@ public class BoilerTester {
 		
 		// Stochastic Logic...
 		System.out.println("The SL: ");
-		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(term, boiler.getTransformer(), 100000);
+		SL<BoilerComponent> stochasticLogic = new SL<BoilerComponent>(term, 1000000);
+		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(stochasticLogic, boiler.getTransformer());
 		// Using the GUI
 		Map<String, ReliabilityFunction> reliabilityFunctionsSL = new HashMap<>();
 		reliabilityFunctionsSL.put("Boiler", slReliabilityFunction);
-
+		System.out.println("BDD: "+reliabilityFunctionBoiler.getY(2)+", SL: "+slReliabilityFunction.getY(2));
 		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial - SL", reliabilityFunctionsSL);
+		
+		MomentEvaluator moment = new MomentEvaluator(1);
+		System.out.println(moment.evaluate(reliabilityFunctionBoiler));
+		System.out.println(moment.evaluate(slReliabilityFunction));
+		
 	}
 
 }
