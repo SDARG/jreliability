@@ -14,8 +14,8 @@ package org.jreliability.function;
 
 /**
  * The {@link InverseFunction} determines the inverse reliability {@code
- * R^-1(x)}. It calculates a {@code y} in {@code x = R(y)} for a given {@code x} and the {@link ReliabilityFunction}
- * {@code R(x)} via a bisection approach.
+ * R^-1(x)}. It calculates a {@code y} in {@code x = R(y)} for a given {@code x}
+ * and the {@link ReliabilityFunction} {@code R(x)} via a bisection approach.
  * 
  * @author glass
  * 
@@ -33,8 +33,9 @@ public class InverseFunction implements Function {
 	protected final double epsilon;
 
 	/**
-	 * Constructs an {@link InverseFunction} with a given {@link ReliabilityFunction} and an error {@code epsilon} for
-	 * the embedded bisection method.
+	 * Constructs an {@link InverseFunction} with a given
+	 * {@link ReliabilityFunction} and an error {@code epsilon} for the embedded
+	 * bisection method.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
@@ -48,7 +49,8 @@ public class InverseFunction implements Function {
 	}
 
 	/**
-	 * Constructs an {@link InverseFunction} with a given {@link ReliabilityFunction} and an acceptable error of 1.0E-5.
+	 * Constructs an {@link InverseFunction} with a given
+	 * {@link ReliabilityFunction} and an acceptable error of 1.0E-5.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
@@ -64,6 +66,7 @@ public class InverseFunction implements Function {
 	 */
 	@Override
 	public double getY(double x) {
+		System.out.println("**************************************************************");
 		double y;
 		double diff;
 		double low = 0;
@@ -76,6 +79,7 @@ public class InverseFunction implements Function {
 		}
 
 		// Bisection
+		double lastX = 0;
 		do {
 			y = high - ((high - low) / 2);
 			double tmpX = reliabilityFunction.getY(y);
@@ -84,7 +88,12 @@ public class InverseFunction implements Function {
 			} else {
 				low = y;
 			}
-			diff = Math.abs(x - tmpX);
+			if (lastX == tmpX) { // no progress by bisection possible
+				diff = 0;
+			} else {
+				diff = Math.abs(x - tmpX);
+			}
+			lastX = tmpX;
 		} while (diff > epsilon);
 
 		return y;
