@@ -1,79 +1,130 @@
 package org.jreliability.sl;
 
+import org.apache.commons.collections15.Transformer;
+import org.jreliability.booleanfunction.common.ANDTerm;
+import org.jreliability.booleanfunction.common.FALSETerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.NOTTerm;
+import org.jreliability.booleanfunction.common.ORTerm;
+import org.jreliability.booleanfunction.common.TRUETerm;
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.ConstantFailureFunction;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.jreliability.booleanfunction.Term;
-import org.jreliability.booleanfunction.common.ANDTerm;
-import org.jreliability.booleanfunction.common.ORTerm;
-import org.jreliability.booleanfunction.common.NOTTerm;
-import org.jreliability.booleanfunction.common.LiteralTerm;
+/**
+ * The The {@link SLTestTest} tests the {@link SL}.
+ * 
+ * @author glass, jlee
+ *
+ */
+public class SLTest {
 
-public class SLTest {	
+	String C1 = "Component C1";
+	String C2 = "Component C2";
+	String C3 = "Component C3";
+	LiteralTerm<String> C1Literal = new LiteralTerm<>(C1);
+	LiteralTerm<String> C2Literal = new LiteralTerm<>(C2);
+	LiteralTerm<String> C3Literal = new LiteralTerm<>(C3);
 
-	List<Term> term = new ArrayList<>();
-	List<Integer> numberOfOperands = new ArrayList<>();
-	
-	@Before
-	public void init() {				
-		// Initialize Components and Term
-		String C1 = "Component C1";
-		String C2 = "Component C2";
-		LiteralTerm<String> C1Literal = new LiteralTerm<>(C1);
-		LiteralTerm<String> C2Literal = new LiteralTerm<>(C2);
-
+	@Test
+	public void testConstructor() {
+		ANDTerm term = new ANDTerm();
 		term.add(C1Literal);
 		term.add(C2Literal);
+
+		SL<String> SL = new SL<>(term); // Assume standard bitstreamLength is
+										// set to suitable value (10k)
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
 	}
-	
-//	@Test
-//	public void testOperateAND() {
-//		term.add(new ANDTerm());
-//		numberOfOperands.add(2);
-//
-//		SL<String> SL = new SL<>(term, numberOfOperands, converter);		
-//		SL.getProbabiliy();
-//		
-//		double result = SL.evaluateAND();
-//		
-//		Assert.assertEquals(0.02, result, 0.05);
-//	}
-//	
-//	@Test
-//	public void testOperateOR() {
-//		term.add(new ORTerm());
-//		numberOfOperands.add(2);
-//
-//		SL<String> SL = new SL<>(term, numberOfOperands, converter);		
-//		SL.getProbabiliy();
-//		
-//		double result = SL.evaluateOR();
-//		
-//		Assert.assertEquals(0.30, result, 0.05);
-//	}
-//
-//	@Test
-//	public void testOperateNOT() {
-//		// because NOT is an unary operator.
-//		term.clear();
-//		numberOfOperands.clear();
-//		
-//		String C3 = "Component C3";
-//		LiteralTerm<String> C3Literal = new LiteralTerm<>(C3);
-//		converter.convertToBitstream(C3, 100, 0.3);
-//		
-//		term.add(C3Literal);
-//		term.add(new NOTTerm(C3Literal));
-//		numberOfOperands.add(1);
-//
-//		SL<String> SL = new SL<>(term, numberOfOperands, converter);		
-//		SL.getProbabiliy();		
-//		double result = SL.operateNOT();
-//		
-//		Assert.assertEquals(0.70, result, 0);
-//	}
-	
+
+	@Test
+	public void testOperateAND() {
+		ANDTerm term = new ANDTerm();
+		term.add(C1Literal);
+		term.add(C2Literal);
+
+		SL<String> SL = new SL<>(term, 100000);
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
+	}
+
+	@Test
+	public void testOperateOR() {
+		ORTerm term = new ORTerm();
+		term.add(C1Literal);
+		term.add(C2Literal);
+
+		SL<String> SL = new SL<>(term, 100000);
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.75, 0.01);
+	}
+
+	@Test
+	public void testOperateNOT() {
+		ORTerm orTermR = new ORTerm();
+		orTermR.add(C1Literal);
+		orTermR.add(C2Literal);
+		NOTTerm term = new NOTTerm(orTermR);
+
+		SL<String> SL = new SL<>(term, 100000);
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
+	}
+
+	@Test
+	public void testOperateTrue() {
+		TRUETerm term = new TRUETerm();
+
+		SL<String> SL = new SL<>(term, 100000);
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(reliabilityFunction.getY(1.0), 1.0, 0.01);
+	}
+
+	@Test
+	public void testOperateFalse() {
+		FALSETerm term = new FALSETerm();
+
+		SL<String> SL = new SL<>(term, 100000);
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ConstantFailureFunction(0.5);
+					}
+				});
+		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.0, 0.01);
+	}
+
 }

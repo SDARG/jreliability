@@ -73,7 +73,7 @@ public class SL<T> {
 		return probability;
 	}
 
-	public void evaluate(Transformer<T, Double> transformer) {
+	protected void evaluate(Transformer<T, Double> transformer) {
 		for (Term term : termsForStackProcessing) {
 			if (term instanceof LiteralTerm) {
 				BitSet bitstream = termCache.get(term);
@@ -101,7 +101,7 @@ public class SL<T> {
 		}
 	}
 
-	public void evaluateAND(Term term) {
+	protected void evaluateAND(Term term) {
 		int myNumberOfOperands = numberOfOperands.get(term);
 		List<BitSet> operands = new ArrayList<>();
 		while (myNumberOfOperands > 0) {
@@ -118,7 +118,7 @@ public class SL<T> {
 		operandsStack.push(result);
 	}
 
-	public void evaluateOR(Term term) {
+	protected void evaluateOR(Term term) {
 		int myNumberOfOperands = numberOfOperands.get(term);
 		List<BitSet> operands = new ArrayList<>();
 		while (myNumberOfOperands > 0) {
@@ -135,7 +135,7 @@ public class SL<T> {
 		operandsStack.push(result);
 	}
 
-	public void evaluateNOT(Term term) {
+	protected void evaluateNOT(Term term) {
 		BitSet operand = operandsStack.pop();
 		BitSet result = (BitSet) operand.clone();
 		result.flip(0, result.size());
