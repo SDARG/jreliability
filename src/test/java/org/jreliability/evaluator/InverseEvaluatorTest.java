@@ -12,7 +12,14 @@
  */
 package org.jreliability.evaluator;
 
+import org.apache.commons.collections15.Transformer;
+import org.jreliability.booleanfunction.common.ANDTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.common.ConstantFailureFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
+import org.jreliability.sl.SL;
+import org.jreliability.sl.SLReliabilityFunction;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,6 +36,30 @@ public class InverseEvaluatorTest {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.005);
 		InverseEvaluator evaluator = new InverseEvaluator();
 		Assert.assertEquals(evaluator.evaluate(f, 0.876), 26.4778, 1.0E-4);
+	}
+
+	/**
+	 * If the analysis is not sufficiently accurate, bisection may run into an
+	 * endless loop if accurracy is set too high. The evaluator should take care
+	 * of this with the next reasonable value.
+	 */
+	@Test
+	public void testEvaluateNoImprovement() {
+		String C1 = "Component C1";
+		LiteralTerm<String> C1Literal = new LiteralTerm<>(C1);
+		ANDTerm term = new ANDTerm();
+		term.add(C1Literal);
+		
+		SL<String> SL = new SL<>(term, 1000); // use low number of bits for low accurracy 
+		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+					new Transformer<String, ReliabilityFunction>() {
+						@Override
+						public ReliabilityFunction transform(String input) {
+							return new ExponentialReliabilityFunction(0.1);
+						}
+					});
+		InverseEvaluator evaluator = new InverseEvaluator();
+		Assert.assertEquals(evaluator.evaluate(reliabilityFunction, 0.905), 1.0, 0.1);	
 	}
 
 }
