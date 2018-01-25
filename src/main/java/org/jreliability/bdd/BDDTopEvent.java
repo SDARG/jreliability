@@ -280,9 +280,6 @@ public class BDDTopEvent<T> {
 		for (BDD<T> b : map.keySet()) {
 			b.free();
 		}
-
-		// System.out.println("Size "+nodes.size()+" | "+variables.values());
-
 	}
 
 	/**
