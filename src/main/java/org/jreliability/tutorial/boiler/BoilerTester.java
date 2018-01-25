@@ -17,7 +17,9 @@ import org.jreliability.sl.SL;
 import org.jreliability.sl.SLReliabilityFunction;
 
 /**
- * The {@link BoilerTester} performs some common actions that are done with a modeled system.
+ * The {@link BoilerTester} performs some common actions that are done with a
+ * modeled system. It uses both, an evaluation based on BDDs as well as using
+ * stochastic logic.
  * 
  * @author glass
  * 
@@ -46,27 +48,21 @@ public class BoilerTester {
 		String dot = BDDs.toDot(bdd);
 		System.out.println(dot);
 		ReliabilityFunction reliabilityFunctionBoiler = boiler.get();
-
 		// Using the GUI
 		Map<String, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 		reliabilityFunctions.put("Boiler", reliabilityFunctionBoiler);
 
 		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial - BDD", reliabilityFunctions);
-		
+
 		// Stochastic Logic...
-		System.out.println("The SL: ");
-		SL<BoilerComponent> stochasticLogic = new SL<BoilerComponent>(term, 1000000);
-		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(stochasticLogic, boiler.getTransformer());
+		SL<BoilerComponent> stochasticLogic = new SL<BoilerComponent>(term, 100000);
+		SLReliabilityFunction<BoilerComponent> slReliabilityFunction = new SLReliabilityFunction<>(stochasticLogic,
+				boiler.getTransformer());
 		// Using the GUI
 		Map<String, ReliabilityFunction> reliabilityFunctionsSL = new HashMap<>();
 		reliabilityFunctionsSL.put("Boiler", slReliabilityFunction);
-		System.out.println("BDD: "+reliabilityFunctionBoiler.getY(2)+", SL: "+slReliabilityFunction.getY(2));
 		ReliabilityViewer.view("JReliability Viewer - Boiler Tutorial - SL", reliabilityFunctionsSL);
-		
-		MomentEvaluator moment = new MomentEvaluator(1);
-		System.out.println(moment.evaluate(reliabilityFunctionBoiler));
-		System.out.println(moment.evaluate(slReliabilityFunction));
-		
+
 	}
 
 }

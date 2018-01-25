@@ -66,7 +66,6 @@ public class InverseFunction implements Function {
 	 */
 	@Override
 	public double getY(double x) {
-		System.out.println("**************************************************************");
 		double y;
 		double diff;
 		double low = 0;
