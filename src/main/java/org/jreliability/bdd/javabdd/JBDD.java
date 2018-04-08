@@ -32,9 +32,9 @@ import net.sf.javabdd.BDDPairing;
  */
 public class JBDD<T> implements BDD<T> {
 
-	JBDDProvider<T> provider;
+	protected JBDDProvider<T> provider;
 
-	net.sf.javabdd.BDD bdd;
+	protected net.sf.javabdd.BDD bdd;
 
 	/**
 	 * The {@link AllSatIterator} is used as the {@link Iterator}.
@@ -44,7 +44,7 @@ public class JBDD<T> implements BDD<T> {
 	 */
 	private class AllSatIterator implements Iterator<BDD<T>> {
 
-		Iterator<T> iterator;
+		protected Iterator<T> iterator;
 
 		/**
 		 * Constructs a {@link Iterator} with a given JavaBDD JDD iterator.

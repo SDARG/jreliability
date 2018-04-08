@@ -22,14 +22,6 @@ import org.jreliability.booleanfunction.Term;
  */
 public class TRUETerm implements Term {
 
-	/**
-	 * Constructs a {@link TRUETerm}.
-	 * 
-	 */
-	public TRUETerm() {
-		super();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

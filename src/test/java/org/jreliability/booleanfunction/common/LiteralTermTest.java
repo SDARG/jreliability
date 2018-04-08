@@ -35,8 +35,8 @@ public class LiteralTermTest {
 		Assert.assertTrue(s1.equals(s3));
 		Assert.assertTrue(s4.equals(s5));
 		Assert.assertFalse(s1.equals(s2));
-		Assert.assertFalse(s1.equals(null));
-		Assert.assertFalse(s1.equals("something"));
+		Assert.assertFalse(s1 == null);
+		Assert.assertFalse("something".equals(s1));
 		Assert.assertFalse(s4.equals(s1));
 	}
 

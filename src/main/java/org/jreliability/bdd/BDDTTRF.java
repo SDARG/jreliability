@@ -32,8 +32,9 @@ import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link BDDTTRF} transforms a Boolean function represented as a {@link Term} into a {@link ReliabilityFunction}
- * or, if needed, into a {@link BDD}.
+ * The {@link BDDTTRF} transforms a Boolean function represented as a
+ * {@link Term} into a {@link ReliabilityFunction} or, if needed, into a
+ * {@link BDD}.
  * 
  * @author glass
  * 
@@ -60,8 +61,8 @@ public class BDDTTRF<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability. booleanfunction.Term,
-	 * org.apache.commons.collections15.Transformer)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
+	 * booleanfunction.Term, org.apache.commons.collections15.Transformer)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer) {
@@ -71,8 +72,9 @@ public class BDDTTRF<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability. booleanfunction.Term,
-	 * org.apache.commons.collections15.Transformer, org.apache.commons.collections15.Predicate)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
+	 * booleanfunction.Term, org.apache.commons.collections15.Transformer,
+	 * org.apache.commons.collections15.Predicate)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
@@ -82,13 +84,15 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@link BDD} and a {@link Transformer} to a {@link ReliabilityFunction}.
+	 * Converts a given {@link BDD} and a {@link Transformer} to a
+	 * {@link ReliabilityFunction}.
 	 * 
 	 * @param bdd
 	 *            the bdd
 	 * @param functionTransformer
 	 *            the function functionTransformer
-	 * @return a reliability function from the given bdd and function functionTransformer
+	 * @return a reliability function from the given bdd and function
+	 *         functionTransformer
 	 */
 	public ReliabilityFunction convert(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		BDDReliabilityFunction<T> function = new BDDReliabilityFunction<>(bdd, functionTransformer);
@@ -108,7 +112,8 @@ public class BDDTTRF<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Returns a {@link BDD} representing the given {@link Term} while respecting the exists-variables.
+	 * Returns a {@link BDD} representing the given {@link Term} while
+	 * respecting the exists-variables.
 	 * 
 	 * @param term
 	 *            the term
@@ -118,7 +123,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	 */
 	public BDD<T> convertToBDD(Term term, Predicate<T> existsPredicate) {
 		BDD<T> bdd = transform(term);
-		if (!(existsPredicate == null)) {
+		if (existsPredicate != null) {
 			Set<T> variables = Terms.getVariables(term);
 			for (T variable : variables) {
 				if (existsPredicate.evaluate(variable)) {

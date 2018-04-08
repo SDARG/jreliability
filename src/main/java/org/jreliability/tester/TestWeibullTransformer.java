@@ -48,15 +48,15 @@ public class TestWeibullTransformer implements Transformer<String, ReliabilityFu
 	/**
 	 * The {@link ReliabilityFunction} of the heater.
 	 */
-	ReliabilityFunction heaterReliabilityFunction = new WeibullReliabilityFunction(3, 5);
+	protected ReliabilityFunction heaterReliabilityFunction = new WeibullReliabilityFunction(3, 5);
 	/**
 	 * The {@link ReliabilityFunction} of the first pump.
 	 */
-	ReliabilityFunction pump1ReliabilityFunction = new WeibullReliabilityFunction(1, 3);
+	protected ReliabilityFunction pump1ReliabilityFunction = new WeibullReliabilityFunction(1, 3);
 	/**
 	 * The {@link ReliabilityFunction} of the second pump.
 	 */
-	ReliabilityFunction pump2ReliabilityFunction = new WeibullReliabilityFunction(1.2, 3);
+	protected ReliabilityFunction pump2ReliabilityFunction = new WeibullReliabilityFunction(1.2, 3);
 
 	/**
 	 * Constructs a {@link TestWeibullTransformer}.

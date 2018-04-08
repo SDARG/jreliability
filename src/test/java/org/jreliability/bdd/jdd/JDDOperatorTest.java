@@ -21,20 +21,13 @@ import org.junit.Test;
 import net.sf.javabdd.BDDException;
 
 /**
- * The {@link JDDOperatorTest} is a unit test operator class for the {@link JDD} class.
+ * The {@link JDDOperatorTest} is a unit test operator class for the {@link JDD}
+ * class.
  * 
  * @author lukasiewycz
  * 
  */
 public class JDDOperatorTest extends AbstractBDDOperatorTest {
-
-	/**
-	 * Constructs a {@link JDDOperatorTest}.
-	 * 
-	 */
-	public JDDOperatorTest() {
-		super();
-	}
 
 	/*
 	 * (non-Javadoc)

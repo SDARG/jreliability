@@ -40,13 +40,23 @@ import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link MeasuresPanel} collects a {@link MeasurePanel} for each {@link ReliabilityFunction} that shall be shown in
- * the GUI and adds them to a {@link JTabbedPane}.
+ * The {@link MeasuresPanel} collects a {@link MeasurePanel} for each
+ * {@link ReliabilityFunction} that shall be shown in the GUI and adds them to a
+ * {@link JTabbedPane}.
  * 
  * @author glass
  * 
  */
 public class MeasuresPanel extends JPanel {
+
+	/**
+	 * The width of the widest subpanel.
+	 */
+	private static int largestWidth = 0;
+	/**
+	 * The set of subpanels.
+	 */
+	private static final Set<JPanel> SUBPANELS = new HashSet<>();
 
 	/**
 	 * The standard serialVersionUID.
@@ -64,7 +74,8 @@ public class MeasuresPanel extends JPanel {
 	protected final Map<String, ReliabilityFunction> reliabilityFunctions;
 
 	/**
-	 * Constructs a {@link MeasuresPanel} with given {@link ReliabilityFunction}s and their identifiers.
+	 * Constructs a {@link MeasuresPanel} with given
+	 * {@link ReliabilityFunction}s and their identifiers.
 	 * 
 	 * @param reliabilityFunctions
 	 *            the reliability functions and their identifiers.
@@ -75,7 +86,8 @@ public class MeasuresPanel extends JPanel {
 	}
 
 	/**
-	 * Initializes the {@link MeasuresPanel} by adding all single {@link MeasurePanel}s to a {@link JTabbedPane}.
+	 * Initializes the {@link MeasuresPanel} by adding all single
+	 * {@link MeasurePanel}s to a {@link JTabbedPane}.
 	 */
 	protected void initialize() {
 		tabs = new JTabbedPane();
@@ -92,10 +104,11 @@ public class MeasuresPanel extends JPanel {
 	}
 
 	/**
-	 * The {@link MeasurePanel} shows some common reliability-related measures that are derived from the
-	 * {@link ReliabilityFunction}s. Currently, these are related directly to the {@link ReliabilityFunction}, i.e., the
-	 * expected value, the variance, and the standard deviation, as well as some familiar reliability measures like
-	 * Mean-Time-To-Failure and Mission-Time.
+	 * The {@link MeasurePanel} shows some common reliability-related measures
+	 * that are derived from the {@link ReliabilityFunction}s. Currently, these
+	 * are related directly to the {@link ReliabilityFunction}, i.e., the
+	 * expected value, the variance, and the standard deviation, as well as some
+	 * familiar reliability measures like Mean-Time-To-Failure and Mission-Time.
 	 * 
 	 * @author glass
 	 * 
@@ -103,16 +116,19 @@ public class MeasuresPanel extends JPanel {
 	protected static class MeasurePanel extends JPanel implements ActionListener {
 
 		/**
-		 * The {@link Evaluator} to determine the first moment, i.e., the expected value.
+		 * The {@link Evaluator} to determine the first moment, i.e., the
+		 * expected value.
 		 */
 		protected MomentEvaluator firstMoment = new MomentEvaluator(1);
 		/**
-		 * The {@link Evaluator} to determine the second moment, used to derive the variance and deviation.
+		 * The {@link Evaluator} to determine the second moment, used to derive
+		 * the variance and deviation.
 		 */
 		protected MomentEvaluator secondMoment = new MomentEvaluator(2);
 		/**
-		 * The {@link Evaluator} to calculate the inverse of the {@link Distribution} of the
-		 * {@link ReliabilityFunction}, used to derive the Mission-Time.
+		 * The {@link Evaluator} to calculate the inverse of the
+		 * {@link Distribution} of the {@link ReliabilityFunction}, used to
+		 * derive the Mission-Time.
 		 */
 		protected InverseEvaluator inverse = new InverseEvaluator();
 		/**
@@ -120,8 +136,8 @@ public class MeasuresPanel extends JPanel {
 		 */
 		protected final ReliabilityFunction reliabilityFunction;
 		/**
-		 * The {@link JLabel} that is used to display the Mission-Time MT for the user specified probability {@code p}
-		 * in {@code p = P[MT]}.
+		 * The {@link JLabel} that is used to display the Mission-Time MT for
+		 * the user specified probability {@code p} in {@code p = P[MT]}.
 		 */
 		protected JLabel mt;
 		/**
@@ -129,7 +145,8 @@ public class MeasuresPanel extends JPanel {
 		 */
 		protected JFormattedTextField mtProbability;
 		/**
-		 * The used {@link NumberFormat} for the {@code mtProbability} text field.
+		 * The used {@link NumberFormat} for the {@code mtProbability} text
+		 * field.
 		 */
 		protected NumberFormat mtFieldFormat;
 		/**
@@ -142,7 +159,8 @@ public class MeasuresPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Constructs a {@link MeasurePanel} with a given {@link ReliabilityFunction}.
+		 * Constructs a {@link MeasurePanel} with a given
+		 * {@link ReliabilityFunction}.
 		 * 
 		 * @param reliabilityFunction
 		 *            the reliability function
@@ -183,7 +201,8 @@ public class MeasuresPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.
+		 * ActionEvent )
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -269,12 +288,14 @@ public class MeasuresPanel extends JPanel {
 		/**
 		 * Creates a {@link JPanel} with a title and a set of label/value pairs.
 		 * 
-		 * Each label must be followed by its corresponding value. Therefore the number of components must be even.
+		 * Each label must be followed by its corresponding value. Therefore the
+		 * number of components must be even.
 		 * 
 		 * @param title
 		 *            the title of the panel
 		 * @param components
-		 *            the alternating array of labels and their corresponding values
+		 *            the alternating array of labels and their corresponding
+		 *            values
 		 * @return
 		 */
 		private JPanel createSubPanel(String title, JComponent... components) {
@@ -315,12 +336,4 @@ public class MeasuresPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * The width of the widest subpanel.
-	 */
-	private static int largestWidth = 0;
-	/**
-	 * The set of subpanels.
-	 */
-	private static final Set<JPanel> SUBPANELS = new HashSet<>();
 }

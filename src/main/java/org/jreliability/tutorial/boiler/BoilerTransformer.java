@@ -8,9 +8,10 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.WeibullReliabilityFunction;
 
 /**
- * The {@link BoilerTransformer} provides a {@link ReliabilityFunction} for each {@link BoilerComponent} in the
- * {@link Boiler}. In this implementation, each component is assigned a {@link WeibullReliabilityFunction} with a scale
- * of {@code 0.5} and a shape of {@code 2}.
+ * The {@link BoilerTransformer} provides a {@link ReliabilityFunction} for each
+ * {@link BoilerComponent} in the {@link Boiler}. In this implementation, each
+ * component is assigned a {@link WeibullReliabilityFunction} with a scale of
+ * {@code 0.5} and a shape of {@code 2}.
  * 
  * @author glass
  * 
@@ -18,9 +19,10 @@ import org.jreliability.function.common.WeibullReliabilityFunction;
 public class BoilerTransformer implements Transformer<BoilerComponent, ReliabilityFunction> {
 
 	/**
-	 * The used {@link ReliabilityFunction} for each component of the {@link Boiler}.
+	 * The used {@link ReliabilityFunction} for each component of the
+	 * {@link Boiler}.
 	 */
-	Map<BoilerComponent, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
+	protected Map<BoilerComponent, ReliabilityFunction> reliabilityFunctions = new HashMap<>();
 
 	/**
 	 * Constructs a {@link BoilerTransformer} with a given {@link Boiler}.
@@ -33,7 +35,8 @@ public class BoilerTransformer implements Transformer<BoilerComponent, Reliabili
 	}
 
 	/**
-	 * Initializes the {@link ReliabilityFunction} for each component of the {@link Boiler}.
+	 * Initializes the {@link ReliabilityFunction} for each component of the
+	 * {@link Boiler}.
 	 * 
 	 * @param boiler
 	 *            the boiler
@@ -49,7 +52,8 @@ public class BoilerTransformer implements Transformer<BoilerComponent, Reliabili
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apache.commons.collections15.Transformer#transform(java.lang.Object)
+	 * @see
+	 * org.apache.commons.collections15.Transformer#transform(java.lang.Object)
 	 */
 	@Override
 	public ReliabilityFunction transform(BoilerComponent element) {

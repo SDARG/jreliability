@@ -22,12 +22,12 @@ import org.junit.Test;
  */
 public class SLTest {
 
-	String C1 = "Component C1";
-	String C2 = "Component C2";
-	String C3 = "Component C3";
-	LiteralTerm<String> C1Literal = new LiteralTerm<>(C1);
-	LiteralTerm<String> C2Literal = new LiteralTerm<>(C2);
-	LiteralTerm<String> C3Literal = new LiteralTerm<>(C3);
+	protected String C1 = "Component C1";
+	protected String C2 = "Component C2";
+	protected String C3 = "Component C3";
+	protected LiteralTerm<String> C1Literal = new LiteralTerm<>(C1);
+	protected LiteralTerm<String> C2Literal = new LiteralTerm<>(C2);
+	protected LiteralTerm<String> C3Literal = new LiteralTerm<>(C3);
 
 	@Test
 	public void testConstructor() {

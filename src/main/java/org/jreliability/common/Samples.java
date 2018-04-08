@@ -24,11 +24,4 @@ public class Samples extends TreeMap<Double, Double> {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructs a {@link Samples}.
-	 */
-	public Samples() {
-		super();
-	}
-
 }

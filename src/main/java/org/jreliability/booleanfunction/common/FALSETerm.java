@@ -22,14 +22,6 @@ import org.jreliability.booleanfunction.Term;
  */
 public class FALSETerm implements Term {
 
-	/**
-	 * Constructs a {@link FALSETerm}.
-	 * 
-	 */
-	public FALSETerm() {
-		super();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -18,7 +18,8 @@ import java.util.List;
 import org.jreliability.function.Function;
 
 /**
- * The {@link IntegralEvaluator} determines the integral of a {@link Function} using Romberg's method.
+ * The {@link IntegralEvaluator} determines the integral of a {@link Function}
+ * using Romberg's method.
  * 
  * @author lukasiewycz
  * 
@@ -31,7 +32,8 @@ public class IntegralEvaluator {
 	protected final double epsilon;
 
 	/**
-	 * Constructs the {@link IntegralEvaluator} with the epsilon value {@code 1.0E-8}.
+	 * Constructs the {@link IntegralEvaluator} with the epsilon value
+	 * {@code 1.0E-8}.
 	 */
 	public IntegralEvaluator() {
 		this(1.0E-8);
@@ -60,10 +62,11 @@ public class IntegralEvaluator {
 	 * @return the value of the integral from {@code a} to {@code b}
 	 */
 	public double evaluate(Function f, double a, double b) {
-		double error, r;
+		double error;
+		double r;
 
 		class Table {
-			List<List<Double>> tab = new ArrayList<>();
+			protected List<List<Double>> tab = new ArrayList<>();
 
 			public double get(int n, int m) {
 				return tab.get(n).get(m);

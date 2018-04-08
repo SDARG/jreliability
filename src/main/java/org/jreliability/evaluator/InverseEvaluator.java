@@ -17,24 +17,16 @@ import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@link InverseEvaluator} calculates the {@code x} value in {@code y =
- * R(x)} for a given {@code y} of the {@link ReliabilityFunction} {@code R(t)}. This is typically used to derive
- * measures like, e.g., the Mission Time (MT).
+ * R(x)} for a given {@code y} of the {@link ReliabilityFunction} {@code R(t)}.
+ * This is typically used to derive measures like, e.g., the Mission Time (MT).
  * 
  * @author glass
  */
 public class InverseEvaluator implements Evaluator {
 
 	/**
-	 * Constructs an {@link InverseEvaluator}.
-	 * 
-	 */
-	public InverseEvaluator() {
-		super();
-	}
-
-	/**
-	 * Returns the {@code x} value for a given {@code y} value in {@code y = R(x)} of a given
-	 * {@link ReliabilityFunction}.
+	 * Returns the {@code x} value for a given {@code y} value in
+	 * {@code y = R(x)} of a given {@link ReliabilityFunction}.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction

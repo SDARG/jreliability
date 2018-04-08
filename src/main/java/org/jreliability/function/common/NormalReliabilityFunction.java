@@ -15,13 +15,14 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link NormalReliabilityFunction} represents the normal {@link ReliabilityFunction}
+ * The {@link NormalReliabilityFunction} represents the normal
+ * {@link ReliabilityFunction}
  * <p>
  * {@code R(x) = 1 - F(x) = 0.5 - 0.5 * (x - mu) / (rho * Math.sqrt(2))}<br>
  * with {@code mu => 0, rho > 0}.
  * <p>
- * The {@code rho} and {@code mu} parameters represent the standard deviation and mean of the variable's natural
- * logarithm.
+ * The {@code rho} and {@code mu} parameters represent the standard deviation
+ * and mean of the variable's natural logarithm.
  * 
  * @author khosravi
  * 
@@ -34,14 +35,16 @@ public class NormalReliabilityFunction implements ReliabilityFunction {
 	protected final double mu;
 
 	/**
-	 * The used standard deviation of the natural logarithms of the times-to-failure.
+	 * The used standard deviation of the natural logarithms of the
+	 * times-to-failure.
 	 */
 	protected final double rho;
 
-	LognormalReliabilityFunction lognormalReliabilityFunction;
+	protected LognormalReliabilityFunction lognormalReliabilityFunction;
 
 	/**
-	 * Constructs a {@link NormalReliabilityFunction} with a given {@code mu} and {@code rho}.
+	 * Constructs a {@link NormalReliabilityFunction} with a given {@code mu}
+	 * and {@code rho}.
 	 * 
 	 * @param mu
 	 *            the mean of the variable's natural logarithm
@@ -51,7 +54,7 @@ public class NormalReliabilityFunction implements ReliabilityFunction {
 	public NormalReliabilityFunction(double mu, double rho) {
 		this.mu = mu;
 		this.rho = rho;
-		if (!(rho > 0.0) || !(mu >= 0.0)) {
+		if (rho <= 0.0 || mu < 0.0) {
 			throw new IllegalArgumentException(
 					"NormalReliabilityFunction: Mu must be greater equal 0, rho must be greater 0.");
 		}
@@ -61,8 +64,8 @@ public class NormalReliabilityFunction implements ReliabilityFunction {
 
 	/**
 	 * 
-	 * The estimated log-normal reliability function (the estimation uncertainty is 3E-7 for uniformly distributed
-	 * random variables).
+	 * The estimated log-normal reliability function (the estimation uncertainty
+	 * is 3E-7 for uniformly distributed random variables).
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 * 
@@ -73,8 +76,9 @@ public class NormalReliabilityFunction implements ReliabilityFunction {
 	@Override
 	public double getY(double x) {
 		if (x == mu) {
-			x += 0.000000000000001;
+			return this.lognormalReliabilityFunction.getY(Math.exp(x + 0.000000000000001));
+		} else {
+			return this.lognormalReliabilityFunction.getY(Math.exp(x));
 		}
-		return this.lognormalReliabilityFunction.getY(Math.exp(x));
 	}
 }

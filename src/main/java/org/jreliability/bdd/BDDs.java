@@ -352,14 +352,14 @@ public abstract class BDDs {
 
 		Pair<Integer, Integer> key = new Pair<>(index, sum);
 		if (!memo.containsKey(key)) {
-			index--;
-			int coefficient = literals.get(index).getCoefficient();
-			materialLeft -= coefficient;
+			int newIndex = index - 1;
+			int coefficient = literals.get(newIndex).getCoefficient();
+			int newMaterialLeft = materialLeft - coefficient;
 			int hiSum = sum + coefficient;
 			int loSum = sum;
-			BDD<T> hiBDD = buildConstraintBDD(literals, rhs, index, hiSum, materialLeft, memo, provider);
-			BDD<T> loBDD = buildConstraintBDD(literals, rhs, index, loSum, materialLeft, memo, provider);
-			BDD<T> ifBDD = literals.get(index).getVariable();
+			BDD<T> hiBDD = buildConstraintBDD(literals, rhs, newIndex, hiSum, newMaterialLeft, memo, provider);
+			BDD<T> loBDD = buildConstraintBDD(literals, rhs, newIndex, loSum, newMaterialLeft, memo, provider);
+			BDD<T> ifBDD = literals.get(newIndex).getVariable();
 			BDD<T> resultBDD = ifBDD.ite(hiBDD, loBDD);
 			memo.put(key, resultBDD);
 		}
