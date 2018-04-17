@@ -1,5 +1,5 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/963ea393ac6f49568e4e232185de731a)](https://app.codacy.com/app/felixreimann/jreliability?utm_source=github.com&utm_medium=referral&utm_content=felixreimann/jreliability&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/felixreimann/jreliability.svg?branch=master)](https://travis-ci.org/felixreimann/jreliability)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/963ea393ac6f49568e4e232185de731a)](https://app.codacy.com/app/felixreimann/jreliability?utm_source=github.com&utm_medium=referral&utm_content=felixreimann/jreliability&utm_campaign=badger)
 [![Coverage Status](https://coveralls.io/repos/github/felixreimann/jreliability/badge.svg?branch=master)](https://coveralls.io/github/felixreimann/jreliability?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability)
 [![Javadocs](https://javadoc.io/badge/org.jreliability/jreliability.svg)](https://javadoc.io/doc/org.jreliability/jreliability)
