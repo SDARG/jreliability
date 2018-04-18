@@ -62,7 +62,7 @@ public class NMWDReliabilityFunction implements ReliabilityFunction {
 		this.lambda = lambda;
 		this.a = a;
 		this.b = b;
-		if (!(lambda > 0) || !(a > 0) || !(b >= 0)) {
+		if (!(lambda > 0.0) || !(a > 0.0) || !(b >= 0.0)) {
 			throw new IllegalArgumentException(
 					"NMWDReliabilityFunction: Lambda and A must be greater, B be greater equal 0.");
 		}

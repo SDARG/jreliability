@@ -61,7 +61,7 @@ public class HjorthReliabilityFunction implements ReliabilityFunction {
 		this.beta = beta;
 		this.delta = delta;
 		this.theta = theta;
-		if (beta <= 0 || delta <= 0 || theta <= 0) {
+		if (beta <= 0.0 || delta <= 0.0 || theta <= 0.0) {
 			throw new IllegalArgumentException(
 					"HjorthReliabilityFunction: Beta, Delta, and Theta should be greater 0.");
 		}

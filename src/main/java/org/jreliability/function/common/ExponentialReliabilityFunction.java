@@ -43,7 +43,7 @@ public class ExponentialReliabilityFunction implements ReliabilityFunction {
 	 */
 	public ExponentialReliabilityFunction(double alpha) {
 		this.alpha = alpha;
-		if (alpha <= 0) {
+		if (alpha <= 0.0) {
 			throw new IllegalArgumentException("ExponentialReliabilityFunction: Alpha should be greater 0.");
 		}
 	}
