@@ -22,20 +22,13 @@ import org.junit.Test;
 
 /**
  * 
- * The {@link JDDProviderTest} is the {@link AbstractBDDProviderTest} for the {@link JDD}.
+ * The {@link JDDProviderTest} is the {@link AbstractBDDProviderTest} for the
+ * {@link JDD}.
  * 
  * @author lukasiewycz
  * 
  */
 public class JDDProviderTest extends AbstractBDDProviderTest {
-
-	/**
-	 * Constructs a {@link JDDProviderTest}.
-	 * 
-	 */
-	public JDDProviderTest() {
-		super();
-	}
 
 	/*
 	 * (non-Javadoc)

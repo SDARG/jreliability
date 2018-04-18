@@ -35,8 +35,8 @@ import org.jreliability.gui.aspect.FailureRateAspect;
 import org.jreliability.gui.aspect.ReliabilityFunctionAspect;
 
 /**
- * The {@link ReliabilityViewer} is a basic GUI that shows the {@link MeasuresPanel} and the
- * {@link ReliabilityFunctionPlotPanel}.
+ * The {@link ReliabilityViewer} is a basic GUI that shows the
+ * {@link MeasuresPanel} and the {@link ReliabilityFunctionPlotPanel}.
  * 
  * @author glass
  * 
@@ -54,15 +54,8 @@ public abstract class ReliabilityViewer extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructs a {@link ReliabilityViewer}.
-	 * 
-	 */
-	public ReliabilityViewer() {
-		super();
-	}
-
-	/**
-	 * Constructs and views {@link JFrame} with a given title and a list of {@link ReliabilityFunction}s.
+	 * Constructs and views {@link JFrame} with a given title and a list of
+	 * {@link ReliabilityFunction}s.
 	 * 
 	 * @param title
 	 *            the title
@@ -143,7 +136,8 @@ public abstract class ReliabilityViewer extends JFrame {
 	}
 
 	/**
-	 * Returns the GUI as a {@link JPanel} with a given title and a map of {@link ReliabilityFunction}s.
+	 * Returns the GUI as a {@link JPanel} with a given title and a map of
+	 * {@link ReliabilityFunction}s.
 	 * 
 	 * @param title
 	 *            the title of the panel

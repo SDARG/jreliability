@@ -21,8 +21,8 @@ import org.jreliability.common.Samples;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link SampleCollector} is used to generate the {@link Samples} of a set of {@link ReliabilityFunction} under a
- * given {@link Aspect}.
+ * The {@link SampleCollector} is used to generate the {@link Samples} of a set
+ * of {@link ReliabilityFunction} under a given {@link Aspect}.
  * 
  * @author glass
  * 
@@ -30,16 +30,8 @@ import org.jreliability.function.ReliabilityFunction;
 public class SampleCollector {
 
 	/**
-	 * Constructs a {@link SampleCollector}.
-	 * 
-	 */
-	public SampleCollector() {
-		super();
-	}
-
-	/**
-	 * Returns the {@link Samples} (with a {@code number} of points each) of a set of {@link ReliabilityFunction}s under
-	 * a given {@link Aspect}.
+	 * Returns the {@link Samples} (with a {@code number} of points each) of a
+	 * set of {@link ReliabilityFunction}s under a given {@link Aspect}.
 	 * 
 	 * @param reliabilityFunctions
 	 *            the reliabilityFunctions
@@ -76,8 +68,9 @@ public class SampleCollector {
 	}
 
 	/**
-	 * Returns {@code number} {@link Samples} of a {@link ReliabilityFunction} under a given {@link Aspect}, ranging
-	 * from the {@code lower} to the {@code upper} bound.
+	 * Returns {@code number} {@link Samples} of a {@link ReliabilityFunction}
+	 * under a given {@link Aspect}, ranging from the {@code lower} to the
+	 * {@code upper} bound.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction
@@ -89,7 +82,8 @@ public class SampleCollector {
 	 *            the upper bound
 	 * @param number
 	 *            the number of points per samples
-	 * @return the samples of a reliabilityFunction under an aspect ranging from lower to upper
+	 * @return the samples of a reliabilityFunction under an aspect ranging from
+	 *         lower to upper
 	 */
 	protected Samples getSamples(ReliabilityFunction reliabilityFunction, Aspect aspect, double lower, double upper,
 			int number) {

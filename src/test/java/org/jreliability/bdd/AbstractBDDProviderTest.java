@@ -12,10 +12,12 @@
  */
 package org.jreliability.bdd;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link AbstractBDDProviderTest} is the abstract class for all tests of the {@link BDDProvider}.
+ * The {@link AbstractBDDProviderTest} is the abstract class for all tests of
+ * the {@link BDDProvider}.
  * 
  * @author lukasiewycz
  * 
@@ -29,14 +31,17 @@ public abstract class AbstractBDDProviderTest extends AbstractBDDTest {
 	public void testGet() {
 		BDDProvider<String> provider = factory.getProvider();
 
-		provider.get("a");
-		provider.get("b");
+		BDD<String> a = provider.get("a");
+		BDD<String> b = provider.get("b");
+		Assert.assertNotEquals(a, b);
+		BDD<String> aPrime = provider.get("a");
+		Assert.assertEquals(a, aPrime);
 	}
 
 	/**
 	 * Tests the {@link getProvider} method with no arguments.
 	 */
-	@Test
+	@Test(expected = Test.None.class /* no exception expected */)
 	public void testGetProviderEmpty() {
 		BDDProvider<String> provider = factory.getProvider();
 
@@ -44,18 +49,6 @@ public abstract class AbstractBDDProviderTest extends AbstractBDDTest {
 			@SuppressWarnings("unused")
 			BDD<String> a = provider.get("" + i);
 		}
-	}
-
-	/**
-	 * Tests the {@link get} method of the provider and if the number of variables is automatically increased.
-	 */
-	@Test
-	public void testGetAutoIncreased() {
-		BDDProvider<String> provider = factory.getProvider();
-
-		provider.get("a");
-		provider.get("b");
-		provider.get("c");
 	}
 
 }

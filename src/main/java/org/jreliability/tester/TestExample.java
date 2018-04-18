@@ -18,8 +18,10 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 
 /**
- * The {@link TestExample} is a play example. It describes a water heating system that consists of a heater and two
- * pumps. To allow a correct functionality, the system needs a working heater and at least one working pump.
+ * The {@link TestExample} is a play example. It describes a water heating
+ * system that consists of a heater and two pumps. To allow a correct
+ * functionality, the system needs a working heater and at least one working
+ * pump.
  * 
  * @author glass
  * 
@@ -38,13 +40,6 @@ public class TestExample {
 	 * The second pump.
 	 */
 	protected final String pump2 = "Pump 2";
-
-	/**
-	 * Constructs a {@link TestExample}.
-	 */
-	public TestExample() {
-		super();
-	}
 
 	/**
 	 * Returns the {@link Term} representation of the {@link TestExample}.

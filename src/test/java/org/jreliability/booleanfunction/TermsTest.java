@@ -37,13 +37,10 @@ public class TermsTest {
 		Throwable targetException = null;
 		try {
 			termsConstructor.newInstance((Object[]) null);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			if (e instanceof InvocationTargetException) {
-				targetException = ((InvocationTargetException) e).getTargetException();
-			} else {
-				targetException = e;
-			}
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
+			targetException = e;
+		} catch (InvocationTargetException e) {
+			targetException = ((InvocationTargetException) e).getTargetException();
 		}
 
 		Assert.assertNotNull(targetException);
@@ -89,7 +86,7 @@ public class TermsTest {
 		Terms.getTermFromString(s);
 	}
 
-	@Test
+	@Test(expected = Test.None.class /* no exception expected */)
 	public void testParseWithNewline() {
 		String s = "(AND\n\"sensor1\" \"sensor2\")";
 		Terms.getTermFromString(s);

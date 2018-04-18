@@ -101,7 +101,7 @@ public class BDDConstraintTest {
 	public void testCheckAndAdd() {
 		JBDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
 		BDDProvider<String> provider = factory.getProvider();
-		;
+
 		Literal<String> la = new Literal<>(1, provider.get("a"));
 		Literal<String> lb = new Literal<>(1, provider.get("b"));
 		Literal<String> lc = new Literal<>(1, provider.get("d"));

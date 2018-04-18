@@ -32,13 +32,14 @@ import org.junit.Test;
  */
 public class BDDReliabilityFunctionTest {
 
+	/**
+	 * The used {@link BDDProvider}.
+	 */
+	protected BDDProvider<String> provider;
+
 	class TestTransformer implements Transformer<String, ReliabilityFunction> {
 
-		ReliabilityFunction function = new ExponentialReliabilityFunction(0.005);
-
-		public TestTransformer() {
-			super();
-		}
+		protected ReliabilityFunction function = new ExponentialReliabilityFunction(0.005);
 
 		/*
 		 * (non-Javadoc)
@@ -50,11 +51,6 @@ public class BDDReliabilityFunctionTest {
 		}
 
 	}
-
-	/**
-	 * The used {@link BDDProvider}.
-	 */
-	protected BDDProvider<String> provider;
 
 	/**
 	 * Initialize the specific factory.

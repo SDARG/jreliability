@@ -30,8 +30,8 @@ import org.junit.Test;
  *
  */
 public class SampledReliabilityFunctionTest {
-	SampledReliabilityFunction f;
-	List<Double> samples = Arrays.asList(1.5, 0.5, 1.0);
+	protected SampledReliabilityFunction f;
+	protected List<Double> samples = Arrays.asList(1.5, 0.5, 1.0);
 
 	@Before
 	public void init() {
@@ -47,16 +47,16 @@ public class SampledReliabilityFunctionTest {
 	public void testGetYAtZero() {
 		Assert.assertEquals(1.0, f.getY(0.0), 0.0001);
 	}
-	
+
 	@Test
 	public void testGetYAtYLargerThanSample() {
 		Assert.assertEquals(0.0, f.getY(1.0E5), 0.0001);
 	}
-	
+
 	@Test
 	public void testGetSamples() {
 		Collections.sort(samples);
 		Assert.assertEquals(samples, f.getSamples());
 	}
-	
+
 }

@@ -21,10 +21,11 @@ import java.util.Map.Entry;
 import org.apache.commons.collections15.Transformer;
 
 /**
- * The {@link BDDTopEvent} allows the fast calculation of the top event for a given {@link BDD}.
+ * The {@link BDDTopEvent} allows the fast calculation of the top event for a
+ * given {@link BDD}.
  * <p>
- * Here, the {@link BDD} is copied to an internal structure such that the {@link BDD#free()} method does not interfere
- * with this class.
+ * Here, the {@link BDD} is copied to an internal structure such that the
+ * {@link BDD#free()} method does not interfere with this class.
  * 
  * @author lukasiewycz
  * 
@@ -32,6 +33,31 @@ import org.apache.commons.collections15.Transformer;
  *            the type of variables
  */
 public class BDDTopEvent<T> {
+
+	/**
+	 * Map of the original variables to the internal structure of the variables.
+	 */
+	protected Map<T, Var> variables = new HashMap<>();
+
+	/**
+	 * A list of all variables nodes (ordered from bottom to the root).
+	 */
+	protected List<VarNode> nodes = new ArrayList<>();
+
+	/**
+	 * The instance of the zero node.
+	 */
+	protected Node zero = new NodeZero();
+
+	/**
+	 * The instance of the one node.
+	 */
+	protected Node one = new NodeOne();
+
+	/**
+	 * The root of the bdd.
+	 */
+	protected Node root;
 
 	/**
 	 * 
@@ -241,31 +267,6 @@ public class BDDTopEvent<T> {
 			return 0;
 		}
 	}
-
-	/**
-	 * Map of the original variables to the internal structure of the variables.
-	 */
-	Map<T, Var> variables = new HashMap<>();
-
-	/**
-	 * A list of all variables nodes (ordered from bottom to the root).
-	 */
-	List<VarNode> nodes = new ArrayList<>();
-
-	/**
-	 * The instance of the zero node.
-	 */
-	Node zero = new NodeZero();
-
-	/**
-	 * The instance of the one node.
-	 */
-	Node one = new NodeOne();
-
-	/**
-	 * The root of the bdd.
-	 */
-	Node root;
 
 	/**
 	 * Constructs the {@link BDDTopEvent} calculator for a given {@link BDD}.

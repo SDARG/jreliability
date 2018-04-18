@@ -26,7 +26,7 @@ import org.junit.Test;
  *
  */
 public class LognormalReliabilityFunctionTest {
-	LognormalReliabilityFunction f;
+	protected LognormalReliabilityFunction f;
 
 	@Before
 	public void init() {
@@ -37,19 +37,19 @@ public class LognormalReliabilityFunctionTest {
 	public void testGetY() {
 		Assert.assertEquals(0.5, f.getY(1.0), 0.0001);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeMu() {
 		f = new LognormalReliabilityFunction(-0.1, -1.0);
 		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeRho() {
 		f = new LognormalReliabilityFunction(0.0, -1.0);
 		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testZeroRho() {
 		f = new LognormalReliabilityFunction(0.0, 0.0);

@@ -15,14 +15,16 @@ package org.jreliability.function.common;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link HjorthReliabilityFunction} represents the Hjorth {@link ReliabilityFunction}
+ * The {@link HjorthReliabilityFunction} represents the Hjorth
+ * {@link ReliabilityFunction}
  * <p>
  * {@code R(x) = 1 - F(x) = (e^-((delta * x^2)/2)) / ((1 + beta * x)^(theta / beta))}<br>
  * with {@code beta, delta, theta > 0}.
  * <p>
- * While the parameter {@code beta} scales the reliabilityFunction, the parameters {@code delta} and {@code theta}
- * determine the shape of the reliabilityFunction. This function is especially interesting since bathtub-shaped failure
- * rates can be modeled.
+ * While the parameter {@code beta} scales the reliabilityFunction, the
+ * parameters {@code delta} and {@code theta} determine the shape of the
+ * reliabilityFunction. This function is especially interesting since
+ * bathtub-shaped failure rates can be modeled.
  * 
  * @author glass
  * 
@@ -45,7 +47,8 @@ public class HjorthReliabilityFunction implements ReliabilityFunction {
 	protected final double theta;
 
 	/**
-	 * Constructs a {@link HjorthReliabilityFunction} with a given {@code beta}, {@code delta}, and {@code theta}.
+	 * Constructs a {@link HjorthReliabilityFunction} with a given {@code beta},
+	 * {@code delta}, and {@code theta}.
 	 * 
 	 * @param beta
 	 *            the scale value
@@ -58,7 +61,7 @@ public class HjorthReliabilityFunction implements ReliabilityFunction {
 		this.beta = beta;
 		this.delta = delta;
 		this.theta = theta;
-		if (!(beta > 0) || !(delta > 0) || !(theta > 0)) {
+		if (beta <= 0.0 || delta <= 0.0 || theta <= 0.0) {
 			throw new IllegalArgumentException(
 					"HjorthReliabilityFunction: Beta, Delta, and Theta should be greater 0.");
 		}

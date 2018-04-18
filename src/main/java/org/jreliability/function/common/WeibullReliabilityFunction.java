@@ -49,7 +49,7 @@ public class WeibullReliabilityFunction implements ReliabilityFunction {
 	public WeibullReliabilityFunction(double alpha, double beta) {
 		this.alpha = alpha;
 		this.beta = beta;
-		if (!(alpha > 0) || !(beta > 0)) {
+		if (alpha <= 0.0 || beta <= 0.0) {
 			throw new IllegalArgumentException("WeibullReliabilityFunction: Alpha and Beta should be greater 0.");
 		}
 	}

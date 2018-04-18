@@ -15,11 +15,13 @@ package org.jreliability.bdd;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
- * The {@link BDDConstraint} is used to model {@link greater-equal} constraints with a left-hand-side ({@link lhs})
- * consisting of {@link Literals} and the right-hand-side ({@link rhs}) being an {@link Integer}.
+ * The {@link BDDConstraint} is used to model {@link greater-equal} constraints
+ * with a left-hand-side ({@link lhs}) consisting of {@link Literals} and the
+ * right-hand-side ({@link rhs}) being an {@link Integer}.
  * 
  * @author glass, lukasiewycz
  * 
@@ -33,8 +35,8 @@ class BDDConstraint<T> {
 	 */
 	protected int rhs;
 	/**
-	 * The left-hand-side of the constraint as a {@link List} of {@link
-	 * Literals}.
+	 * The left-hand-side of the constraint as a {@link List} of
+	 * {@link Literals}.
 	 */
 	protected List<Literal<T>> lhs = new ArrayList<>();
 	/**
@@ -43,7 +45,8 @@ class BDDConstraint<T> {
 	protected Set<BDD<T>> variables = new HashSet<>();
 
 	/**
-	 * Constructs a {@link BDDConstraint} with a given right-hand-side {@link rhs} and left-hand-side {@link lhs}.
+	 * Constructs a {@link BDDConstraint} with a given right-hand-side
+	 * {@link rhs} and left-hand-side {@link lhs}.
 	 * 
 	 * @param rhs
 	 *            the right-hand-side
@@ -56,8 +59,9 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Initializes the {@link BDDConstraint} with the normalizing operations proposed by {@link Een & Soerrensson 2006}
-	 * plus zero coefficient elimination.
+	 * Initializes the {@link BDDConstraint} with the normalizing operations
+	 * proposed by {@link Een & Soerrensson 2006} plus zero coefficient
+	 * elimination.
 	 * 
 	 * @param literals
 	 *            the literals
@@ -73,8 +77,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Ensures a positive {@link coefficient} of the {@link Literal} by a negotiation of the variable and an update of
-	 * the {@link rhs}.
+	 * Ensures a positive {@link coefficient} of the {@link Literal} by a
+	 * negotiation of the variable and an update of the {@link rhs}.
 	 * 
 	 * @param literal
 	 *            the literal
@@ -92,8 +96,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Checks the {@link Literal} if it includes a variable that is already present in the {@link BDDConstraint} and
-	 * adds it correctly.
+	 * Checks the {@link Literal} if it includes a variable that is already
+	 * present in the {@link BDDConstraint} and adds it correctly.
 	 * 
 	 * @param literal
 	 */
@@ -119,7 +123,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Trims all {@link coefficients} that are greater than the {@link rhs} to {@link rhs}.
+	 * Trims all {@link coefficients} that are greater than the {@link rhs} to
+	 * {@link rhs}.
 	 */
 	protected void trim() {
 		for (Literal<T> literal : lhs) {
@@ -147,8 +152,9 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Determines the greatest-common-divisor ({@link gcd}) of all {@link
-	 * coefficients} of the {@link lhs} and the {@link rhs} and updates the values.
+	 * Determines the greatest-common-divisor ({@link gcd}) of all
+	 * {@link coefficients} of the {@link lhs} and the {@link rhs} and updates
+	 * the values.
 	 */
 	protected void gcd() {
 		if (!lhs.isEmpty()) {
@@ -170,7 +176,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Returns the {@link gcd} of two {@link Integers} by a simple recursive procedure.
+	 * Returns the {@link gcd} of two {@link Integers} by a simple recursive
+	 * procedure.
 	 * 
 	 * @param a
 	 *            integer a
@@ -195,8 +202,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * Returns the left-hand-side ({@link lhs}) of the constraint as a {@link
-	 * List} of {@link Literals}.
+	 * Returns the left-hand-side ({@link lhs}) of the constraint as a
+	 * {@link List} of {@link Literals}.
 	 * 
 	 * @return the lhs of the constraint
 	 */
@@ -205,7 +212,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * The {@link Literal} represents a variable using a {@link BDD} and its {@link coefficient}.
+	 * The {@link Literal} represents a variable using a {@link BDD} and its
+	 * {@link coefficient}.
 	 * 
 	 * @author glass
 	 * 
@@ -217,15 +225,16 @@ class BDDConstraint<T> {
 		/**
 		 * The coefficient.
 		 */
-		Integer coefficient = 0;
+		protected Integer coefficient = 0;
 
 		/**
 		 * The variable.
 		 */
-		BDD<T> variable = null;
+		protected BDD<T> variable = null;
 
 		/**
-		 * Constructs a {@link Literal} with a given coefficient and variable as a {@link BDD}.
+		 * Constructs a {@link Literal} with a given coefficient and variable as
+		 * a {@link BDD}.
 		 * 
 		 * @param coefficient
 		 *            the coefficient
@@ -287,7 +296,8 @@ class BDDConstraint<T> {
 	}
 
 	/**
-	 * The {@link Pair} represents a tuple of two {@link Objects} {@link A} and {@link B}.
+	 * The {@link Pair} represents a tuple of two {@link Objects} {@link A} and
+	 * {@link B}.
 	 * 
 	 * @author glass
 	 * 

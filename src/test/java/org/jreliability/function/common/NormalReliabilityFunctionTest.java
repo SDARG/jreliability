@@ -26,7 +26,7 @@ import org.junit.Test;
  *
  */
 public class NormalReliabilityFunctionTest {
-	NormalReliabilityFunction f;
+	protected NormalReliabilityFunction f;
 
 	@Before
 	public void init() {
@@ -43,13 +43,13 @@ public class NormalReliabilityFunctionTest {
 		f = new NormalReliabilityFunction(-0.1, -1.0);
 		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeRho() {
 		f = new NormalReliabilityFunction(0.0, -1.0);
 		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testZeroRho() {
 		f = new NormalReliabilityFunction(0.0, 0.0);

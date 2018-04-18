@@ -23,21 +23,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link JBDDOperatorTest} is a unit test operator class for the {@link JBDD} class.
+ * The {@link JBDDOperatorTest} is a unit test operator class for the
+ * {@link JBDD} class.
  * 
  * 
  * @author lukasiewycz
  * 
  */
 public class JBDDOperatorTest extends AbstractBDDOperatorTest {
-
-	/**
-	 * Constructs a {@link JBDDOperatorTest}.
-	 * 
-	 */
-	public JBDDOperatorTest() {
-		super();
-	}
 
 	/*
 	 * (non-Javadoc)

@@ -33,14 +33,6 @@ import net.sf.javabdd.JFactory;
  */
 public class JBDDProviderTest extends AbstractBDDProviderTest {
 
-	/**
-	 * Constructs a {@link JBDDProviderTest}.
-	 * 
-	 */
-	public JBDDProviderTest() {
-		super();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

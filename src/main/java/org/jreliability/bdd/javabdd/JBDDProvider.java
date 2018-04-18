@@ -97,6 +97,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 		default:
 			factory = JFactory.init(initialNumberofNodes, initialNumberofNodes);
 			factory.autoReorder(BDDFactory.REORDER_SIFT);
+			break;
 		}
 
 		factory.setVarNum(vars);

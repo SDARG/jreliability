@@ -31,12 +31,15 @@ public class LiteralTermTest {
 		LiteralTerm<String> s4 = new LiteralTerm<>(null);
 		LiteralTerm<String> s5 = new LiteralTerm<>(null);
 
+		LiteralTerm<String> s6 = null;
+		String s7 = "something";
+		
 		Assert.assertTrue(s1.equals(s1));
 		Assert.assertTrue(s1.equals(s3));
 		Assert.assertTrue(s4.equals(s5));
 		Assert.assertFalse(s1.equals(s2));
-		Assert.assertFalse(s1.equals(null));
-		Assert.assertFalse(s1.equals("something"));
+		Assert.assertFalse(s1.equals(s6));
+		Assert.assertFalse(s1.equals(s7));
 		Assert.assertFalse(s4.equals(s1));
 	}
 

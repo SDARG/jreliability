@@ -27,7 +27,7 @@ public class FailureTest {
 
 	@Test
 	public void testGetObject() {
-		String event = new String("DISASTER");
+		String event = "DISASTER";
 		double time = 20;
 
 		Failure<String> failure = new Failure<String>(event, time);
@@ -36,7 +36,7 @@ public class FailureTest {
 
 	@Test
 	public void testGetTime() {
-		String event = new String("DISASTER");
+		String event = "DISASTER";
 		double time = 20;
 
 		Failure<String> failure = new Failure<String>(event, time);
@@ -45,19 +45,19 @@ public class FailureTest {
 
 	@Test
 	public void testCompareTo() {
-		String event = new String("DISASTER");
+		String event = "DISASTER";
 		double time = 20;
 		Failure<String> failure = new Failure<String>(event, time);
 
-		String eventTwo = new String("FAILURE");
+		String eventTwo = "FAILURE";
 		double timeTwo = 10;
 		Failure<String> failureTwo = new Failure<String>(eventTwo, timeTwo);
 
-		String eventThree = new String("THE SAME DISASTER");
+		String eventThree = "THE SAME DISASTER";
 		double timeThree = 20;
 		Failure<String> failureThree = new Failure<String>(eventThree, timeThree);
 
-		String eventFour = new String("WHEN THE WORLD ENDS");
+		String eventFour = "WHEN THE WORLD ENDS";
 		double timeFour = 30;
 		Failure<String> failureFour = new Failure<String>(eventFour, timeFour);
 
