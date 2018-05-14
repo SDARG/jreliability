@@ -34,7 +34,7 @@ public interface Function {
 	/**
 	 * Returns a list of {@code y} values for a given list of {@code x} value.
 	 * 
-	 * @param x
+	 * @param xs
 	 *            the list of values
 	 * @return the list of y values for each xØÏ
 	 */
