@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@link
+ * The {@link SequentialFunction} is an abstract implementation for all
+ * {@link Function}s that will calculate {@code y} values sequentially in case a
+ * list of {@code x} values is given.
  * 
  * @author glass
  *
