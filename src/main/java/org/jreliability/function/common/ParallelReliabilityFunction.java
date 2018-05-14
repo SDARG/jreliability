@@ -18,10 +18,12 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.ReliabilityFunctionSet;
 
 /**
- * The {@link ParallelReliabilityFunction} corresponds to a parallel-structure of elements in a system as known from
- * Serial-Parallel systems. Basically, the {@link ParallelReliabilityFunction} holds a set of
- * {@link ReliabilityFunction}s and multiplies their {@code (1-y)}-values and calculates the counter probability to
- * derive the {@code y}-value of the whole parallel-structure.
+ * The {@link ParallelReliabilityFunction} corresponds to a parallel-structure
+ * of elements in a system as known from Serial-Parallel systems. Basically, the
+ * {@link ParallelReliabilityFunction} holds a set of
+ * {@link ReliabilityFunction}s and multiplies their {@code (1-y)}-values and
+ * calculates the counter probability to derive the {@code y}-value of the whole
+ * parallel-structure.
  * 
  * @author glass
  * 
@@ -37,7 +39,8 @@ public class ParallelReliabilityFunction extends ReliabilityFunctionSet {
 	}
 
 	/**
-	 * Constructs a {@link ParallelReliabilityFunction} with a given set of {@link ReliabilityFunction}s.
+	 * Constructs a {@link ParallelReliabilityFunction} with a given set of
+	 * {@link ReliabilityFunction}s.
 	 * 
 	 * @param functions
 	 *            the reliability functions

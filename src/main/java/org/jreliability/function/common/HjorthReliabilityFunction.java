@@ -13,6 +13,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link HjorthReliabilityFunction} represents the Hjorth
@@ -29,7 +30,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass
  * 
  */
-public class HjorthReliabilityFunction implements ReliabilityFunction {
+public class HjorthReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The {@code beta} parameter scales the {@link HjorthReliabilityFunction}.

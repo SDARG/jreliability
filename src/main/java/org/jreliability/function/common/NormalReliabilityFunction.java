@@ -13,6 +13,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link NormalReliabilityFunction} represents the normal
@@ -27,7 +28,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author khosravi
  * 
  */
-public class NormalReliabilityFunction implements ReliabilityFunction {
+public class NormalReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The used mean of the natural logarithms of the times-to-failure.
@@ -43,8 +44,8 @@ public class NormalReliabilityFunction implements ReliabilityFunction {
 	protected LognormalReliabilityFunction lognormalReliabilityFunction;
 
 	/**
-	 * Constructs a {@link NormalReliabilityFunction} with a given {@code mu}
-	 * and {@code rho}.
+	 * Constructs a {@link NormalReliabilityFunction} with a given {@code mu} and
+	 * {@code rho}.
 	 * 
 	 * @param mu
 	 *            the mean of the variable's natural logarithm
@@ -64,8 +65,8 @@ public class NormalReliabilityFunction implements ReliabilityFunction {
 
 	/**
 	 * 
-	 * The estimated log-normal reliability function (the estimation uncertainty
-	 * is 3E-7 for uniformly distributed random variables).
+	 * The estimated log-normal reliability function (the estimation uncertainty is
+	 * 3E-7 for uniformly distributed random variables).
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 * 

@@ -19,17 +19,18 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link DistributionTest} to test the {@link DIstribution}.
+ * The {@link UnreliabilityFunctionTest} to test the
+ * {@link UnreliabilityFunction}.
  * 
  * @author glass
  *
  */
-public class DistributionTest {
+public class UnreliabilityFunctionTest {
 
 	@Test
 	public void testGetY() {
 		ExponentialReliabilityFunction function = new ExponentialReliabilityFunction(0.005);
-		Distribution distribution = new Distribution(function);
+		UnreliabilityFunction distribution = new UnreliabilityFunction(function);
 		/* Distribution is defined as 1 - Function */
 		Assert.assertEquals((1 - distribution.getY(20)), function.getY(20), 1.0E-5);
 	}

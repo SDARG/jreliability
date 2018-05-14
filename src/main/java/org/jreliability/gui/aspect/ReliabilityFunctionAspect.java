@@ -24,7 +24,7 @@ import org.jreliability.function.ReliabilityFunction;
 public class ReliabilityFunctionAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@link DistributionAspect}.
+	 * Constructs a {@link UnreliabilityFunctionAspect}.
 	 * 
 	 */
 	public ReliabilityFunctionAspect() {

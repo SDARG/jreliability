@@ -18,9 +18,11 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.ReliabilityFunctionSet;
 
 /**
- * The {@link SerialReliabilityFunction} corresponds to a serial-structure of elements in a system as known from
- * Serial-Parallel systems. Basically, the {@link SerialReliabilityFunction} holds a set of {@link ReliabilityFunction}s
- * and multiplies their {@code y}-values to derive the {@code y}-value of the whole serial-structure.
+ * The {@link SerialReliabilityFunction} corresponds to a serial-structure of
+ * elements in a system as known from Serial-Parallel systems. Basically, the
+ * {@link SerialReliabilityFunction} holds a set of {@link ReliabilityFunction}s
+ * and multiplies their {@code y}-values to derive the {@code y}-value of the
+ * whole serial-structure.
  * 
  * @author glass
  * 
@@ -36,7 +38,8 @@ public class SerialReliabilityFunction extends ReliabilityFunctionSet {
 	}
 
 	/**
-	 * Constructs a {@link SerialReliabilityFunction} with a given set of {@link ReliabilityFunction}s.
+	 * Constructs a {@link SerialReliabilityFunction} with a given set of
+	 * {@link ReliabilityFunction}s.
 	 * 
 	 * @param functions
 	 *            the reliability functions

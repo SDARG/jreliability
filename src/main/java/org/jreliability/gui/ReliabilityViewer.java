@@ -30,7 +30,7 @@ import javax.swing.UIManager;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.aspect.Aspect;
 import org.jreliability.gui.aspect.DensityAspect;
-import org.jreliability.gui.aspect.DistributionAspect;
+import org.jreliability.gui.aspect.UnreliabilityFunctionAspect;
 import org.jreliability.gui.aspect.FailureRateAspect;
 import org.jreliability.gui.aspect.ReliabilityFunctionAspect;
 
@@ -73,7 +73,7 @@ public abstract class ReliabilityViewer extends JFrame {
 		// Setup the aspects for the plot panel
 		List<Aspect> aspects = new ArrayList<>();
 		aspects.add(new ReliabilityFunctionAspect());
-		aspects.add(new DistributionAspect());
+		aspects.add(new UnreliabilityFunctionAspect());
 		aspects.add(new DensityAspect());
 		aspects.add(new FailureRateAspect());
 		ReliabilityFunctionPlotPanel reliabilityFunctionPlotPanel = new ReliabilityFunctionPlotPanel(aspects);
@@ -156,7 +156,7 @@ public abstract class ReliabilityViewer extends JFrame {
 		// Setup the aspects for the plot panel
 		List<Aspect> aspects = new ArrayList<>();
 		aspects.add(new ReliabilityFunctionAspect());
-		aspects.add(new DistributionAspect());
+		aspects.add(new UnreliabilityFunctionAspect());
 		aspects.add(new DensityAspect());
 		aspects.add(new FailureRateAspect());
 		ReliabilityFunctionPlotPanel reliabilityFunctionPlotPanel = new ReliabilityFunctionPlotPanel(aspects);

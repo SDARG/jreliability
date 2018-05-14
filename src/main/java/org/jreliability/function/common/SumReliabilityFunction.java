@@ -18,7 +18,8 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.ReliabilityFunctionSet;
 
 /**
- * The {@link SumReliabilityFunction} determines the sum of the specified set of {@link ReliabilityFunction}s.
+ * The {@link SumReliabilityFunction} determines the sum of the specified set of
+ * {@link ReliabilityFunction}s.
  * 
  * @author glass
  *
@@ -34,7 +35,8 @@ public class SumReliabilityFunction extends ReliabilityFunctionSet {
 	}
 
 	/**
-	 * Constructs a {@link SumReliabilityFunction} with a given set of {@link ReliabilityFunction}s.
+	 * Constructs a {@link SumReliabilityFunction} with a given set of
+	 * {@link ReliabilityFunction}s.
 	 * 
 	 * @param functions
 	 *            the reliability functions

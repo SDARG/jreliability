@@ -12,18 +12,31 @@
  */
 package org.jreliability.function;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jreliability.function.common.ExponentialFailureFunction;
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
- * The {@link ReliabilityFunction} represents a reliability or survival function {@code R(x)} that is commonly defined
- * as<br>
- * {@code R(x) = 1 - F(x)},<br>
- * with {@code F(x)} being a {@link UnreliabilityFunction} {@code F(x)}.
- * <p>
- * The reliability function gives at time {@code x} the probability that the object of interest survives beyond
- * {@code x}.
+ * The {@link SequentialFunctionTest} test the sequential implementation of getY
+ * for multiple x in the abstract {@link SequentialFunction}.
  * 
  * @author glass
- * 
+ *
  */
-public interface ReliabilityFunction extends Function {
+public class SequentialFunctionTest {
+
+	@Test
+	public void testGetY() {
+		ExponentialFailureFunction f = new ExponentialFailureFunction(0.005);
+		List<Double> xs = new ArrayList<Double>();
+		xs.add(10.0);
+		xs.add(20.0);
+		List<Double> ys = f.getY(xs);
+		Assert.assertEquals(0.0487706, ys.get(0), 0.0001);
+		Assert.assertEquals(0.0951626, ys.get(1), 0.0001);
+	}
 
 }

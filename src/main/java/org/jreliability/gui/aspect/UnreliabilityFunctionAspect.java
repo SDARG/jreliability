@@ -15,24 +15,24 @@
 package org.jreliability.gui.aspect;
 
 import org.jreliability.evaluator.MomentEvaluator;
-import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.UnreliabilityFunction;
 
 /**
- * The {@link DistributionAspect} represents the {@link Distribution} of a
- * {@link ReliabilityFunction}.
+ * The {@link UnreliabilityFunctionAspect} represents the
+ * {@link UnreliabilityFunction} of a {@link ReliabilityFunction}.
  * 
  * @author glass
  * 
  */
-public class DistributionAspect extends AbstractAspect {
+public class UnreliabilityFunctionAspect extends AbstractAspect {
 
 	/**
-	 * Constructs a {@link DistributionAspect}.
+	 * Constructs a {@link UnreliabilityFunctionAspect}.
 	 * 
 	 */
-	public DistributionAspect() {
-		super("Distribution", "time t", "distribution function F(t)");
+	public UnreliabilityFunctionAspect() {
+		super("Unreliability Function", "time t", "unreliability function F(t)");
 	}
 
 	/*
@@ -53,7 +53,7 @@ public class DistributionAspect extends AbstractAspect {
 	 * org.jreliability.function.Function)
 	 */
 	public Double getY(double x, ReliabilityFunction reliabilityFunction) {
-		Distribution distribution = new Distribution(reliabilityFunction);
+		UnreliabilityFunction distribution = new UnreliabilityFunction(reliabilityFunction);
 		Double y = distribution.getY(x);
 		if (y.isNaN()) {
 			return null;

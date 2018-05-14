@@ -36,7 +36,7 @@ import javax.swing.SwingConstants;
 import org.jreliability.evaluator.Evaluator;
 import org.jreliability.evaluator.InverseEvaluator;
 import org.jreliability.evaluator.MomentEvaluator;
-import org.jreliability.function.Distribution;
+import org.jreliability.function.UnreliabilityFunction;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
@@ -127,7 +127,7 @@ public class MeasuresPanel extends JPanel {
 		protected MomentEvaluator secondMoment = new MomentEvaluator(2);
 		/**
 		 * The {@link Evaluator} to calculate the inverse of the
-		 * {@link Distribution} of the {@link ReliabilityFunction}, used to
+		 * {@link UnreliabilityFunction} of the {@link ReliabilityFunction}, used to
 		 * derive the Mission-Time.
 		 */
 		protected InverseEvaluator inverse = new InverseEvaluator();

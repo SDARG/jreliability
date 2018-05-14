@@ -1,8 +1,9 @@
 package org.jreliability.sl;
 
 import org.apache.commons.collections15.Transformer;
-import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
+import org.jreliability.function.UnreliabilityFunction;
 
 /**
  * The {@link SLReliabilityFunction} represents the {@link ReliabilityFunction}
@@ -13,16 +14,16 @@ import org.jreliability.function.ReliabilityFunction;
  * @param <T>
  *            the type of variable
  */
-public class SLReliabilityFunction<T> implements ReliabilityFunction {
+public class SLReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction {
 
 	/**
-	 * The {@link SL} representing the {@link Distribution}.
+	 * The {@link SL} representing the {@link UnreliabilityFunction}.
 	 */
 	protected final SL<T> stochasticLogic;
 
 	/**
-	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of
-	 * each element of the {@link SL}.
+	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each
+	 * element of the {@link SL}.
 	 */
 	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
@@ -33,8 +34,8 @@ public class SLReliabilityFunction<T> implements ReliabilityFunction {
 	 * @param stochasticLogic
 	 *            the stochastic logic representing the reliabilityFunction
 	 * @param functionTransformer
-	 *            the functionTransformer to transform stochastic logic elements
-	 *            to reliabilityFunction
+	 *            the functionTransformer to transform stochastic logic elements to
+	 *            reliabilityFunction
 	 */
 	public SLReliabilityFunction(SL<T> stochasticLogic, Transformer<T, ReliabilityFunction> functionTransformer) {
 		this.stochasticLogic = stochasticLogic;

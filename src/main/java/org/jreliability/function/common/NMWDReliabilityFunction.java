@@ -13,28 +13,32 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
- * The {@link NMWDReliabilityFunction} represents the NMWD {@link ReliabilityFunction} based on the
- * {@link WeibullReliabilityFunction} with a third parameter:
+ * The {@link NMWDReliabilityFunction} represents the NMWD
+ * {@link ReliabilityFunction} based on the {@link WeibullReliabilityFunction}
+ * with a third parameter:
  * <p>
  * {@code R(x) = 1 - F(x) = e^-(a * x^b * e^(lambda * x))}<br>
  * with {@code lambda, a > 0 and b >= 0}.
  * <p>
- * While the parameter {@code lambda} scales the reliabilityFunction, the {@code a} and {@code b} parameters determine
- * the shape of the {@link ReliabilityFunction}. This function allows to model bathtub-shaped failure rates that can
- * directly be derived from given Weibull plots, cf. [1].
+ * While the parameter {@code lambda} scales the reliabilityFunction, the
+ * {@code a} and {@code b} parameters determine the shape of the
+ * {@link ReliabilityFunction}. This function allows to model bathtub-shaped
+ * failure rates that can directly be derived from given Weibull plots, cf. [1].
  * <p>
- * [1] Lai, C.D. and Xie, Min and Murthy, D. N. P.: A Modified Weibull Distribution. In IEEE Transactions on
- * Reliability, Vol. 52, No. 1, 2003.
+ * [1] Lai, C.D. and Xie, Min and Murthy, D. N. P.: A Modified Weibull
+ * Distribution. In IEEE Transactions on Reliability, Vol. 52, No. 1, 2003.
  * 
  * @author glass
  * 
  */
-public class NMWDReliabilityFunction implements ReliabilityFunction {
+public class NMWDReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
-	 * The {@code lambda} parameter somehow resembles the failure-rate {@code lambda}.
+	 * The {@code lambda} parameter somehow resembles the failure-rate
+	 * {@code lambda}.
 	 */
 	protected final double lambda;
 
@@ -49,7 +53,8 @@ public class NMWDReliabilityFunction implements ReliabilityFunction {
 	protected final double b;
 
 	/**
-	 * Constructs a {@link NMWDReliabilityFunction} with a given {@code lambda}, {@code a}, and {@code b}.
+	 * Constructs a {@link NMWDReliabilityFunction} with a given {@code lambda},
+	 * {@code a}, and {@code b}.
 	 * 
 	 * @param lambda
 	 *            the scale value

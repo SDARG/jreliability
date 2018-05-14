@@ -20,7 +20,7 @@ package org.jreliability.function;
  * @author glass
  * 
  */
-public class InverseFunction implements Function {
+public class InverseFunction extends SequentialFunction {
 
 	/**
 	 * The {@link ReliabilityFunction} for which the inverse is to determine.

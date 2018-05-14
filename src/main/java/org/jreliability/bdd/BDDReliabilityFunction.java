@@ -13,27 +13,29 @@
 package org.jreliability.bdd;
 
 import org.apache.commons.collections15.Transformer;
-import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
+import org.jreliability.function.UnreliabilityFunction;
 
 /**
- * The {@link BDDReliabilityFunction} represents the {@link ReliabilityFunction} that is inherently included in a
- * {@link BDD}.
+ * The {@link BDDReliabilityFunction} represents the {@link ReliabilityFunction}
+ * that is inherently included in a {@link BDD}.
  * 
  * @author glass
  * 
  * @param <T>
  *            the type of variable
  */
-public class BDDReliabilityFunction<T> implements ReliabilityFunction {
+public class BDDReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction {
 
 	/**
-	 * The BDD representing the {@link Distribution}.
+	 * The BDD representing the {@link UnreliabilityFunction}.
 	 */
 	protected final BDD<T> bdd;
 
 	/**
-	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each element of the {@link BDD}.
+	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each
+	 * element of the {@link BDD}.
 	 */
 	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
@@ -43,13 +45,15 @@ public class BDDReliabilityFunction<T> implements ReliabilityFunction {
 	protected final BDDTopEvent<T> topEvent;
 
 	/**
-	 * Constructs a {@link BDDReliabilityFunction} with a given {@link BDD} and {@link Transformer}.
+	 * Constructs a {@link BDDReliabilityFunction} with a given {@link BDD} and
+	 * {@link Transformer}.
 	 * 
 	 * @param bdd
 	 *            the bdd representing the reliabilityFunction
 	 * 
 	 * @param functionTransformer
-	 *            the functionTransformer to transform bdd elements to reliabilityFunction
+	 *            the functionTransformer to transform bdd elements to
+	 *            reliabilityFunction
 	 */
 	public BDDReliabilityFunction(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		super();
