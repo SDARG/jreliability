@@ -1,19 +1,23 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.function;
 
 /**
- * The {@link DensityFunction} determines the density {@code f(x)} of a {@link ReliabilityFunction} {@code R(x)}.
+ * The {@link DensityFunction} determines the density {@code f(x)} of a
+ * {@link ReliabilityFunction} {@code R(x)}.
  * 
  * @author glass
  * 
@@ -21,12 +25,14 @@ package org.jreliability.function;
 public class DensityFunction {
 
 	/**
-	 * The {@link ReliabilityFunction} for which the {@link DensityFunction} is to determine.
+	 * The {@link ReliabilityFunction} for which the {@link DensityFunction} is
+	 * to determine.
 	 */
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * Constructs a {@link DensityFunction} with a given {@link ReliabilityFunction}.
+	 * Constructs a {@link DensityFunction} with a given
+	 * {@link ReliabilityFunction}.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliabilityFunction

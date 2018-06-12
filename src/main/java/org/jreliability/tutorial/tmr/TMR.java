@@ -1,3 +1,17 @@
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
 package org.jreliability.tutorial.tmr;
 
 import java.util.HashMap;
@@ -17,11 +31,13 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.function.common.SimpleFunctionTransformer;
 
 /**
- * The {@link TMR} models a 2-out-of-3 majority voter commonly known as Triple Modular Redundancy. This behavior can be
- * expressed as a linear constrained as follows:<br>
+ * The {@link TMR} models a 2-out-of-3 majority voter commonly known as Triple
+ * Modular Redundancy. This behavior can be expressed as a linear constrained as
+ * follows:<br>
  * {@code 1*component1 + 1*component2 + 1* component3 >= 2}
  * <p>
- * The needed comparator to perform the voting is commonly not modeled explicitly due to its extremely high reliability.
+ * The needed comparator to perform the voting is commonly not modeled
+ * explicitly due to its extremely high reliability.
  * 
  * @author glass
  * 
@@ -84,7 +100,8 @@ public class TMR {
 	}
 
 	/**
-	 * Returns {@link ReliabilityFunction} describing the {@link TMR} using the {@link BDDTTRF}.
+	 * Returns {@link ReliabilityFunction} describing the {@link TMR} using the
+	 * {@link BDDTTRF}.
 	 * 
 	 * @return the reliabilityFunction of the TMR
 	 */
@@ -97,7 +114,8 @@ public class TMR {
 	}
 
 	/**
-	 * Returns a {@link Transformer} for each element of the system to its {@link ReliabilityFunction}.
+	 * Returns a {@link Transformer} for each element of the system to its
+	 * {@link ReliabilityFunction}.
 	 * 
 	 * @return the transformer
 	 */

@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.evaluator;
 
 import org.apache.commons.collections15.Transformer;
@@ -49,17 +52,18 @@ public class InverseEvaluatorTest {
 		LiteralTerm<String> C1Literal = new LiteralTerm<>(C1);
 		ANDTerm term = new ANDTerm();
 		term.add(C1Literal);
-		
-		SL<String> SL = new SL<>(term, 1000); // use low number of bits for low accurracy 
+
+		SL<String> SL = new SL<>(term, 1000); // use low number of bits for low
+												// accurracy
 		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
-					new Transformer<String, ReliabilityFunction>() {
-						@Override
-						public ReliabilityFunction transform(String input) {
-							return new ExponentialReliabilityFunction(0.1);
-						}
-					});
+				new Transformer<String, ReliabilityFunction>() {
+					@Override
+					public ReliabilityFunction transform(String input) {
+						return new ExponentialReliabilityFunction(0.1);
+					}
+				});
 		InverseEvaluator evaluator = new InverseEvaluator();
-		Assert.assertEquals(evaluator.evaluate(reliabilityFunction, 0.905), 1.0, 0.1);	
+		Assert.assertEquals(evaluator.evaluate(reliabilityFunction, 0.905), 1.0, 0.1);
 	}
 
 }
