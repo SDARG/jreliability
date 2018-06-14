@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.bdd;
 
 import java.util.ArrayList;
@@ -29,8 +32,9 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.SampledReliabilityFunction;
 
 /**
- * The {@link BDDTTRFSimulative} performs a Monte-Carlo simulation to determine the {@link ReliabilityFunction} based on
- * a {@link BDD} representation of the system structure.
+ * The {@link BDDTTRFSimulative} performs a Monte-Carlo simulation to determine
+ * the {@link ReliabilityFunction} based on a {@link BDD} representation of the
+ * system structure.
  * 
  * @author glass
  * 
@@ -55,7 +59,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	protected final BDDProvider<T> provider;
 
 	/**
-	 * Constructs a {@link BDDTTRFSimulative} with a given {@link BDDProvider} and a standard epsilon of {@code 0.001}.
+	 * Constructs a {@link BDDTTRFSimulative} with a given {@link BDDProvider}
+	 * and a standard epsilon of {@code 0.001}.
 	 * 
 	 * @param provider
 	 *            the used bddProvider
@@ -65,7 +70,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Constructs a {@link BDDTTRFSimulative} with a given {@link BDDProvider} and an epsilon.
+	 * Constructs a {@link BDDTTRFSimulative} with a given {@link BDDProvider}
+	 * and an epsilon.
 	 * 
 	 * @param provider
 	 *            the used bddProvider
@@ -88,7 +94,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@link Term} to a {@link ReliabilityFunction} based on {@code j}-samples.
+	 * Converts a given {@link Term} to a {@link ReliabilityFunction} based on
+	 * {@code j}-samples.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -105,8 +112,9 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.booleanfunction.Term,
-	 * org.apache.commons.collections15.Transformer, org.apache.commons.collections15.Predicate)
+	 * @see org.jreliability.booleanfunction.TTRF#convert(org.jreliability.
+	 * booleanfunction.Term, org.apache.commons.collections15.Transformer,
+	 * org.apache.commons.collections15.Predicate)
 	 */
 	@Override
 	public ReliabilityFunction convert(Term term, Transformer<T, ReliabilityFunction> functionTransformer,
@@ -116,7 +124,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Converts a given {@link Term} to a {@link ReliabilityFunction} based on {@code j}-samples.
+	 * Converts a given {@link Term} to a {@link ReliabilityFunction} based on
+	 * {@code j}-samples.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -135,7 +144,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Collects all times-to-failure to derive {@code 5000} samples needed to calculate the {@link ReliabilityFunction}.
+	 * Collects all times-to-failure to derive {@code 5000} samples needed to
+	 * calculate the {@link ReliabilityFunction}.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -151,7 +161,8 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Collects all times-to-failure to derive {@code n} samples needed to calculate the {@link ReliabilityFunction}.
+	 * Collects all times-to-failure to derive {@code n} samples needed to
+	 * calculate the {@link ReliabilityFunction}.
 	 * 
 	 * @param term
 	 *            the term to convert
@@ -201,8 +212,9 @@ public class BDDTTRFSimulative<T> implements TTRF<T> {
 	}
 
 	/**
-	 * Generates the {@link Failure} occurrences for a single simulation run based on the given {@link BDD} and the
-	 * {@link ReliabilityFunction}s of its elements.
+	 * Generates the {@link Failure} occurrences for a single simulation run
+	 * based on the given {@link BDD} and the {@link ReliabilityFunction}s of
+	 * its elements.
 	 * 
 	 * @param bdd
 	 *            the given bdd

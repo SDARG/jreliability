@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.bdd.javabdd;
 
 import java.util.Arrays;
@@ -45,11 +48,13 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected BDDFactory factory;
 
 	/**
-	 * A translation of the variable to an {@link Integer} for the real {@link BDD}.
+	 * A translation of the variable to an {@link Integer} for the real
+	 * {@link BDD}.
 	 */
 	protected Map<T, Integer> variableToInt = new HashMap<>();
 	/**
-	 * A translation of the {@link Integer} in the real {@link BDD} to the variable.
+	 * A translation of the {@link Integer} in the real {@link BDD} to the
+	 * variable.
 	 */
 	protected Map<Integer, T> intToVariable = new HashMap<>();
 
@@ -59,13 +64,14 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected int vars;
 
 	/**
-	 * The factor to extend the number of variables in case more variables are required.
+	 * The factor to extend the number of variables in case more variables are
+	 * required.
 	 */
 	protected int variableGrowthFactor;
 
 	/**
-	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD library to use and a given number of
-	 * variables.
+	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD
+	 * library to use and a given number of variables.
 	 * 
 	 * @param type
 	 *            the type of the real bdd implementation
@@ -77,15 +83,17 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	}
 
 	/**
-	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD library to use, a given number of variables,
-	 * the growth rate of the number of variables, and the initial number of nodes.
+	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD
+	 * library to use, a given number of variables, the growth rate of the
+	 * number of variables, and the initial number of nodes.
 	 * 
 	 * @param type
 	 *            the type of the BDD library
 	 * @param vars
 	 *            the number of variables
 	 * @param variableGrowthFactor
-	 *            the factor by which to extend the number of variables if required
+	 *            the factor by which to extend the number of variables if
+	 *            required
 	 * @param initialNumberofNodes
 	 *            the initial number of nodes reserved in the BDD factory
 	 */

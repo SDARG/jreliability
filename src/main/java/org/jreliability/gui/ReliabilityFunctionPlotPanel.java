@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.gui;
 
 import java.awt.BorderLayout;
@@ -38,8 +41,8 @@ import org.jreliability.gui.aspect.SampleCollector;
 import ptolemy.plot.Plot;
 
 /**
- * The {@link ReliabilityFunctionPlotPanel} is a basic GUI to visualize the reliability {@link Aspect}s for given
- * {@link ReliabilityFunction}s.
+ * The {@link ReliabilityFunctionPlotPanel} is a basic GUI to visualize the
+ * reliability {@link Aspect}s for given {@link ReliabilityFunction}s.
  * 
  * @author glass
  * 
@@ -57,8 +60,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	protected Plot plot;
 
 	/**
-	 * The used sampleCollector to determine the {@link Samples} of a {@link ReliabilityFunction} under a given
-	 * {@link Aspect}.
+	 * The used sampleCollector to determine the {@link Samples} of a
+	 * {@link ReliabilityFunction} under a given {@link Aspect}.
 	 */
 	protected SampleCollector sampleCollector;
 
@@ -93,7 +96,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	protected final Map<Aspect, Integer> indices = new HashMap<>();
 
 	/**
-	 * The {@link AspectPicker} is used to choose between the different {@link Aspect}s.
+	 * The {@link AspectPicker} is used to choose between the different
+	 * {@link Aspect}s.
 	 * 
 	 * @author lukasiewycz, glass
 	 * 
@@ -120,7 +124,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		protected ReliabilityFunctionPlotPanel panel;
 
 		/**
-		 * Constructs an {@link AspectPicker} with a given {@link JPanel} and the {@link Aspect}s.
+		 * Constructs an {@link AspectPicker} with a given {@link JPanel} and
+		 * the {@link Aspect}s.
 		 * 
 		 * @param panel
 		 *            the panel
@@ -168,7 +173,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent )
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.
+		 * ActionEvent )
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -206,7 +212,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	}
 
 	/**
-	 * Constructs a {@link ReliabilityFunctionPlotPanel} with the given {@link Aspect}s.
+	 * Constructs a {@link ReliabilityFunctionPlotPanel} with the given
+	 * {@link Aspect}s.
 	 * 
 	 * @param aspects
 	 *            the aspects
@@ -216,7 +223,8 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 	}
 
 	/**
-	 * Returns the {@link JPanel} for a given set of {@link ReliabilityFunction}s.
+	 * Returns the {@link JPanel} for a given set of
+	 * {@link ReliabilityFunction}s.
 	 * 
 	 * @param reliabilityFunctions
 	 *            the reliabilityFunctions

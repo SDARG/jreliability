@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.gui.aspect;
 
 import org.jreliability.function.ReliabilityFunction;
@@ -43,7 +46,8 @@ public abstract class AbstractAspect implements Aspect {
 	protected double lower = 0;
 
 	/**
-	 * Constructs an {@link AbstractAspect} with a given name and labels for the x-axis and y-axis.
+	 * Constructs an {@link AbstractAspect} with a given name and labels for the
+	 * x-axis and y-axis.
 	 * 
 	 * @param name
 	 *            the name of the aspect
@@ -92,7 +96,8 @@ public abstract class AbstractAspect implements Aspect {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.gui.Aspect#getLower(org.jreliability.function. Function)
+	 * @see org.jreliability.gui.Aspect#getLower(org.jreliability.function.
+	 * Function)
 	 */
 	@Override
 	public double getLower(ReliabilityFunction reliabilityFunction) {

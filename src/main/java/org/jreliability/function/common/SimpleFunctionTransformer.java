@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.function.common;
 
 import java.util.HashMap;
@@ -19,10 +22,12 @@ import org.apache.commons.collections15.Transformer;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link SimpleFunctionTransformer} is a basic implementation of a function {@link Transformer}.
+ * The {@link SimpleFunctionTransformer} is a basic implementation of a function
+ * {@link Transformer}.
  * <p>
- * Note: This functionTransformer has to be initialized with all elements {@code T} and their corresponding
- * {@link ReliabilityFunction}s before using it.
+ * Note: This functionTransformer has to be initialized with all elements
+ * {@code T} and their corresponding {@link ReliabilityFunction}s before using
+ * it.
  * 
  * @author glass
  * 
@@ -45,8 +50,8 @@ public class SimpleFunctionTransformer<T> implements Transformer<T, ReliabilityF
 	}
 
 	/**
-	 * Constructs a {@link SimpleFunctionTransformer} with given elements {@code T} and corresponding
-	 * {@link ReliabilityFunction}s.
+	 * Constructs a {@link SimpleFunctionTransformer} with given elements
+	 * {@code T} and corresponding {@link ReliabilityFunction}s.
 	 * 
 	 * @param reliabilityFunctions
 	 *            elements and their reliability functions

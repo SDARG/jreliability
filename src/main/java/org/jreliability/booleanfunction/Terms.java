@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.booleanfunction;
 
 import java.util.ArrayList;
@@ -55,7 +58,8 @@ public class Terms {
 	}
 
 	/**
-	 * Adds the variables included in a {@link Term} to a given set of variables.
+	 * Adds the variables included in a {@link Term} to a given set of
+	 * variables.
 	 * 
 	 * @param <T>
 	 *            the type of the variables
@@ -90,8 +94,8 @@ public class Terms {
 	}
 
 	/**
-	 * Parses a {@link Term} from a given helper {@link Object} that has been derived from the original {@link String}
-	 * encoding the {@link Term}.
+	 * Parses a {@link Term} from a given helper {@link Object} that has been
+	 * derived from the original {@link String} encoding the {@link Term}.
 	 * 
 	 * @param object
 	 *            the helper object
@@ -154,8 +158,9 @@ public class Terms {
 	}
 
 	/**
-	 * Transforms a given {@link String} to a helper {@link Object} that represents {@link Term}s as {@link List}s of
-	 * helper {@link Object}s and variables as {@link String}s.
+	 * Transforms a given {@link String} to a helper {@link Object} that
+	 * represents {@link Term}s as {@link List}s of helper {@link Object}s and
+	 * variables as {@link String}s.
 	 * 
 	 * @param string
 	 *            the string encoding the {@link Term}
@@ -209,7 +214,8 @@ public class Terms {
 	}
 
 	/**
-	 * The {@link ParseString} is a helper class to parse a helper {@link Object} from a given {@link String}.
+	 * The {@link ParseString} is a helper class to parse a helper
+	 * {@link Object} from a given {@link String}.
 	 * 
 	 * @author glass
 	 * 
@@ -281,7 +287,8 @@ public class Terms {
 		}
 
 		/**
-		 * Moves the pointer to the next character that is not a blank or newline character.
+		 * Moves the pointer to the next character that is not a blank or
+		 * newline character.
 		 */
 		public void skipSpaces() {
 			while (!this.isEnd() && (this.getCurrent() == ' ' || this.getCurrent() == '\n')) {
