@@ -45,8 +45,6 @@ license {
     strictCheck true
 }
 
-check.dependsOn licenseTest
-
 jacocoTestCoverageVerification {
 	dependsOn check
 }
