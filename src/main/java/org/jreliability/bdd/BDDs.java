@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.bdd;
 
 import java.util.ArrayList;
@@ -58,7 +61,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns all nodes of the {@link BDD} that represent the variable {@code T}.
+	 * Returns all nodes of the {@link BDD} that represent the variable
+	 * {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -116,8 +120,8 @@ public abstract class BDDs {
 			BDDConstraint<T> constraint = new BDDConstraint<>(rhs, lits);
 
 			/*
-			 * Handle the case that the lhs is empty and is, thus, 0! If 0 >= rhs, return true BDD; else return false
-			 * BDD
+			 * Handle the case that the lhs is empty and is, thus, 0! If 0 >=
+			 * rhs, return true BDD; else return false BDD
 			 */
 			if (constraint.getLhs().isEmpty()) {
 				if (0 >= constraint.getRhs()) {
@@ -175,9 +179,11 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a graphical representation of the {@link BDD} in the DOT input format.
+	 * Returns a graphical representation of the {@link BDD} in the DOT input
+	 * format.
 	 * 
-	 * @see <a href="http://www.graphviz.org/content/dot-language">Graphviz &ndash; The DOT language</a>
+	 * @see <a href="http://www.graphviz.org/content/dot-language">Graphviz
+	 *      &ndash; The DOT language</a>
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -205,8 +211,9 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Calculates the top event of the {@link BDD} based on a functionTransformer that delivers for each variable
-	 * {@code T} a double value.
+	 * Calculates the top event of the {@link BDD} based on a
+	 * functionTransformer that delivers for each variable {@code T} a double
+	 * value.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -321,8 +328,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Returns a greater-equal constraint represented as a {@link BDD} via a recursive procedure proposed by Een &amp;
-	 * Soerrensson 2006.
+	 * Returns a greater-equal constraint represented as a {@link BDD} via a
+	 * recursive procedure proposed by Een &amp; Soerrensson 2006.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -368,7 +375,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@link BDD} to collects all nodes for the DOT representation.
+	 * Traverses the {@link BDD} to collects all nodes for the DOT
+	 * representation.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -414,7 +422,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@link BDD} to collects all edges for the DOT representation.
+	 * Traverses the {@link BDD} to collects all edges for the DOT
+	 * representation.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -452,7 +461,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@link BDD} to setup the correct ranks of all nodes belonging to the same variable.
+	 * Traverses the {@link BDD} to setup the correct ranks of all nodes
+	 * belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -492,7 +502,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@link BDD} to setup the correct ranks of all nodes belonging to the same variable.
+	 * Traverses the {@link BDD} to setup the correct ranks of all nodes
+	 * belonging to the same variable.
 	 * 
 	 * @param <T>
 	 *            the type of variable
@@ -554,7 +565,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@link BDD} to collect all variables in the current variable order of the {@link BDD}.
+	 * Traverses the {@link BDD} to collect all variables in the current
+	 * variable order of the {@link BDD}.
 	 * 
 	 * @param <T>
 	 *            the type of variables
@@ -581,7 +593,8 @@ public abstract class BDDs {
 	}
 
 	/**
-	 * Traverses the {@link BDD} to collect all nodes for a given variable {@code T}.
+	 * Traverses the {@link BDD} to collect all nodes for a given variable
+	 * {@code T}.
 	 * 
 	 * @param <T>
 	 *            the type of variables

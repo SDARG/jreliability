@@ -1,3 +1,17 @@
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
 package org.jreliability.tutorial.boiler;
 
 import java.util.ArrayList;
@@ -14,15 +28,19 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link Boiler} models a boiler that is responsible for keeping the water in a tank at the desired temperature and
- * pumping it to a destination if needed.
+ * The {@link Boiler} models a boiler that is responsible for keeping the water
+ * in a tank at the desired temperature and pumping it to a destination if
+ * needed.
  * <p>
- * The {@link Boiler} consists of two {@link Sensor}s that measure the water temperature, a {@link Controller} that
- * activates and deactivates a {@link Heater} to control the water temperature as well as it activates and deactivates
- * one of two available {@link Pump}s to pump the water to its destination if needed.
+ * The {@link Boiler} consists of two {@link Sensor}s that measure the water
+ * temperature, a {@link Controller} that activates and deactivates a
+ * {@link Heater} to control the water temperature as well as it activates and
+ * deactivates one of two available {@link Pump}s to pump the water to its
+ * destination if needed.
  * <p>
- * The non-minimized boolean function that describes whether this system works correctly (evaluates to {@code 1}) or
- * fails (evaluates to {@code 0}) is as follows:<br>
+ * The non-minimized boolean function that describes whether this system works
+ * correctly (evaluates to {@code 1}) or fails (evaluates to {@code 0}) is as
+ * follows:<br>
  * {@code ((Sensor1 AND Sensor2) AND Controller) AND (Controller AND Heater) AND
  * (Controller AND (Pump1 OR Pump2))}
  * 
@@ -129,7 +147,8 @@ public class Boiler {
 	}
 
 	/**
-	 * Returns the {@link ReliabilityFunction} that represents the {@link Boiler}.
+	 * Returns the {@link ReliabilityFunction} that represents the
+	 * {@link Boiler}.
 	 * 
 	 * @return the reliability function of the boiler
 	 */

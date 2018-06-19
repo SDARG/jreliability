@@ -1,15 +1,18 @@
-/**
- * JReliability is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
+/*******************************************************************************
+ * JReliability is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- * 
- * JReliability is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * JReliability is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License along with Opt4J. If not, see
- * http://www.gnu.org/licenses/.
- */
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with JReliability. If not, see http://www.gnu.org/licenses/.
+ *******************************************************************************/
+
 package org.jreliability.booleanfunction.common;
 
 import java.util.ArrayList;
@@ -28,7 +31,8 @@ import org.jreliability.booleanfunction.Term;
 public class LinearTerm extends AbstractHierarchicalTerm {
 
 	/**
-	 * The {@link Comparator} determines the comparator in the {@link LinearTerm}, i.e. =, &gt;, &gt;=, &lt;, &lt;=.
+	 * The {@link Comparator} determines the comparator in the
+	 * {@link LinearTerm}, i.e. =, &gt;, &gt;=, &lt;, &lt;=.
 	 * 
 	 * @author glass
 	 * 
@@ -93,7 +97,8 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	protected int rhs;
 
 	/**
-	 * Constructs a {@link LinearTerm} with a given {@link Comparator}, and the right-hand-side.
+	 * Constructs a {@link LinearTerm} with a given {@link Comparator}, and the
+	 * right-hand-side.
 	 * 
 	 * @param comparator
 	 *            the used comparator
@@ -105,8 +110,8 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Constructs a {@link LinearTerm} with a given list of coefficients, the embedded {@link Term}s, the
-	 * {@link Comparator}, and the right-hand-side.
+	 * Constructs a {@link LinearTerm} with a given list of coefficients, the
+	 * embedded {@link Term}s, the {@link Comparator}, and the right-hand-side.
 	 * 
 	 * @param coefficients
 	 *            the coefficients of the terms
@@ -145,7 +150,8 @@ public class LinearTerm extends AbstractHierarchicalTerm {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.booleanfunction.AbstractHierarchicalTerm#add(org.jreliability.booleanfunction.Term)
+	 * @see org.jreliability.booleanfunction.AbstractHierarchicalTerm#add(org.
+	 * jreliability.booleanfunction.Term)
 	 */
 	@Override
 	public void add(Term term) {
