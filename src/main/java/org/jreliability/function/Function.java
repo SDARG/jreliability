@@ -33,7 +33,7 @@ public interface Function {
 	 * @return the y for y = f(x)
 	 */
 	public double getY(double x);
-	
+
 	/**
 	 * Returns a list of {@code y} values for a given list of {@code x} value.
 	 * 

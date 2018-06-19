@@ -47,8 +47,8 @@ public class NormalReliabilityFunction extends SequentialFunction implements Rel
 	protected LognormalReliabilityFunction lognormalReliabilityFunction;
 
 	/**
-	 * Constructs a {@link NormalReliabilityFunction} with a given {@code mu} and
-	 * {@code rho}.
+	 * Constructs a {@link NormalReliabilityFunction} with a given {@code mu}
+	 * and {@code rho}.
 	 * 
 	 * @param mu
 	 *            the mean of the variable's natural logarithm
@@ -68,8 +68,8 @@ public class NormalReliabilityFunction extends SequentialFunction implements Rel
 
 	/**
 	 * 
-	 * The estimated log-normal reliability function (the estimation uncertainty is
-	 * 3E-7 for uniformly distributed random variables).
+	 * The estimated log-normal reliability function (the estimation uncertainty
+	 * is 3E-7 for uniformly distributed random variables).
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 * 

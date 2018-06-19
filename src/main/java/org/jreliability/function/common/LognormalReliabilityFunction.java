@@ -46,8 +46,8 @@ public class LognormalReliabilityFunction extends SequentialFunction implements 
 	protected final double rho;
 
 	/**
-	 * Constructs a {@link LognormalReliabilityFunction} with a given {@code mu} and
-	 * {@code rho}.
+	 * Constructs a {@link LognormalReliabilityFunction} with a given {@code mu}
+	 * and {@code rho}.
 	 * 
 	 * @param mu
 	 *            the mean of the variable's natural logarithm
@@ -65,8 +65,8 @@ public class LognormalReliabilityFunction extends SequentialFunction implements 
 
 	/**
 	 * 
-	 * The estimated log-normal reliability function (the estimation uncertainty is
-	 * 3E-7 for uniformly distributed random variables).
+	 * The estimated log-normal reliability function (the estimation uncertainty
+	 * is 3E-7 for uniformly distributed random variables).
 	 * 
 	 * @see org.jreliability.function.Function#getY(double)
 	 * 

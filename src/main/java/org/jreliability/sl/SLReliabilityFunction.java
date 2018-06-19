@@ -36,8 +36,8 @@ public class SLReliabilityFunction<T> extends SequentialFunction implements Reli
 	protected final SL<T> stochasticLogic;
 
 	/**
-	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each
-	 * element of the {@link SL}.
+	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of
+	 * each element of the {@link SL}.
 	 */
 	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
@@ -48,8 +48,8 @@ public class SLReliabilityFunction<T> extends SequentialFunction implements Reli
 	 * @param stochasticLogic
 	 *            the stochastic logic representing the reliabilityFunction
 	 * @param functionTransformer
-	 *            the functionTransformer to transform stochastic logic elements to
-	 *            reliabilityFunction
+	 *            the functionTransformer to transform stochastic logic elements
+	 *            to reliabilityFunction
 	 */
 	public SLReliabilityFunction(SL<T> stochasticLogic, Transformer<T, ReliabilityFunction> functionTransformer) {
 		this.stochasticLogic = stochasticLogic;

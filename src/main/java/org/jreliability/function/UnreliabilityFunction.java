@@ -27,8 +27,8 @@ package org.jreliability.function;
 public class UnreliabilityFunction extends SequentialFunction {
 
 	/**
-	 * The {@link ReliabilityFunction} for which the {@link UnreliabilityFunction}
-	 * is to determine.
+	 * The {@link ReliabilityFunction} for which the
+	 * {@link UnreliabilityFunction} is to determine.
 	 */
 	protected final ReliabilityFunction reliabilityFunction;
 
