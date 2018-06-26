@@ -14,36 +14,31 @@
  *******************************************************************************/
 package org.jreliability.function;
 
-import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The {@link FailureRateTest} to test the {@link FailureRate}.
+ * The {@link SequentialFunction} is an abstract implementation for all
+ * {@link Function}s that will calculate {@code y} values sequentially in case a
+ * list of {@code x} values is given.
  * 
  * @author glass
  *
  */
-public class FailureRateTest {
+public abstract class SequentialFunction implements Function {
 
-	@Test
-	public void testGetY() {
-		/*
-		 * FailureRate for ExponentialDistribution equals the lambda parameter
-		 * and is constant"
-		 */
-		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.005));
-		Assert.assertEquals(0.005, failureRate.getY(10), 1.0E-5);
-	}
-
-	@Test
-	public void testGetYAtZero() {
-		/*
-		 * FailureRate for ExponentialDistribution equals the lambda parameter
-		 * and is constant"
-		 */
-		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.1));
-		Assert.assertEquals(Double.NaN, failureRate.getY(1.0E12), 1.0E-5);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.function.Function#getY(java.util.List)
+	 */
+	@Override
+	public List<Double> getY(List<Double> xs) {
+		List<Double> ys = new ArrayList<Double>();
+		for (Double x : xs) {
+			ys.add(getY(x));
+		}
+		return ys;
 	}
 
 }

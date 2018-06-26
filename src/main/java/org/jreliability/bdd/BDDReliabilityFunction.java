@@ -16,8 +16,9 @@
 package org.jreliability.bdd;
 
 import org.apache.commons.collections15.Transformer;
-import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
+import org.jreliability.function.UnreliabilityFunction;
 
 /**
  * The {@link BDDReliabilityFunction} represents the {@link ReliabilityFunction}
@@ -28,10 +29,10 @@ import org.jreliability.function.ReliabilityFunction;
  * @param <T>
  *            the type of variable
  */
-public class BDDReliabilityFunction<T> implements ReliabilityFunction {
+public class BDDReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction {
 
 	/**
-	 * The BDD representing the {@link Distribution}.
+	 * The BDD representing the {@link UnreliabilityFunction}.
 	 */
 	protected final BDD<T> bdd;
 

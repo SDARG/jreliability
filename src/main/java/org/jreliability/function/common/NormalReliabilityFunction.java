@@ -16,6 +16,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link NormalReliabilityFunction} represents the normal
@@ -30,7 +31,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author khosravi
  * 
  */
-public class NormalReliabilityFunction implements ReliabilityFunction {
+public class NormalReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The used mean of the natural logarithms of the times-to-failure.

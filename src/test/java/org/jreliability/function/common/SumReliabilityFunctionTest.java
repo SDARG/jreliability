@@ -28,7 +28,9 @@
  */
 package org.jreliability.function.common;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.jreliability.function.ReliabilityFunction;
@@ -57,7 +59,12 @@ public class SumReliabilityFunctionTest {
 		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
 		function.add(f1);
 		function.add(f2);
-		Assert.assertEquals(1.827954, function.getY(20), 0.00001);
+		List<Double> xs = new ArrayList<Double>();
+		xs.add(10.0);
+		xs.add(20.0);
+		List<Double> ys = function.getY(xs);
+		Assert.assertEquals(1.912019, ys.get(0), 0.0001);
+		Assert.assertEquals(1.827954, ys.get(1), 0.00001);
 	}
 
 	@Test

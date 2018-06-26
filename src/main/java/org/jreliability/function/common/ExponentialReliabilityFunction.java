@@ -16,6 +16,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link ExponentialReliabilityFunction} represents the exponential
@@ -29,7 +30,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass
  * 
  */
-public class ExponentialReliabilityFunction implements ReliabilityFunction {
+public class ExponentialReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The parameter {@code alpha} corresponds to the failure-rate

@@ -12,34 +12,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
-
 package org.jreliability.function;
 
 /**
- * The {@link Distribution} determines the {@link Distribution} {@code F(x)} of
- * a given {@link ReliabilityFunction} {@code R(x)} as
+ * The {@link UnreliabilityFunction} determines the
+ * {@link UnreliabilityFunction} {@code F(x)} of a given
+ * {@link ReliabilityFunction} {@code R(x)} as
  * <p>
  * {@code F(x) = 1 - R(x)}.
  * 
  * @author glass
  * 
  */
-public class Distribution implements Function {
+public class UnreliabilityFunction extends SequentialFunction {
 
 	/**
-	 * The {@link ReliabilityFunction} for which the {@link Distribution} is to
-	 * determine.
+	 * The {@link ReliabilityFunction} for which the
+	 * {@link UnreliabilityFunction} is to determine.
 	 */
 	protected final ReliabilityFunction reliabilityFunction;
 
 	/**
-	 * Constructs a {@link Distribution} with a given
+	 * Constructs a {@link UnreliabilityFunction} with a given
 	 * {@link ReliabilityFunction}.
 	 * 
 	 * @param reliabilityFunction
 	 *            the reliability reliabilityFunction
 	 */
-	public Distribution(ReliabilityFunction reliabilityFunction) {
+	public UnreliabilityFunction(ReliabilityFunction reliabilityFunction) {
 		this.reliabilityFunction = reliabilityFunction;
 	}
 

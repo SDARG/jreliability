@@ -16,6 +16,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link LognormalReliabilityFunction} represents the lognormal
@@ -31,7 +32,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass, khosravi
  * 
  */
-public class LognormalReliabilityFunction implements ReliabilityFunction {
+public class LognormalReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The used mean of the natural logarithms of the times-to-failure.

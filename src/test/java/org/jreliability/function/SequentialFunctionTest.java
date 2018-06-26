@@ -14,36 +14,31 @@
  *******************************************************************************/
 package org.jreliability.function;
 
-import org.jreliability.function.common.ExponentialReliabilityFunction;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jreliability.function.common.ExponentialFailureFunction;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link FailureRateTest} to test the {@link FailureRate}.
+ * The {@link SequentialFunctionTest} test the sequential implementation of getY
+ * for multiple x in the abstract {@link SequentialFunction}.
  * 
  * @author glass
  *
  */
-public class FailureRateTest {
+public class SequentialFunctionTest {
 
 	@Test
 	public void testGetY() {
-		/*
-		 * FailureRate for ExponentialDistribution equals the lambda parameter
-		 * and is constant"
-		 */
-		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.005));
-		Assert.assertEquals(0.005, failureRate.getY(10), 1.0E-5);
-	}
-
-	@Test
-	public void testGetYAtZero() {
-		/*
-		 * FailureRate for ExponentialDistribution equals the lambda parameter
-		 * and is constant"
-		 */
-		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.1));
-		Assert.assertEquals(Double.NaN, failureRate.getY(1.0E12), 1.0E-5);
+		ExponentialFailureFunction f = new ExponentialFailureFunction(0.005);
+		List<Double> xs = new ArrayList<Double>();
+		xs.add(10.0);
+		xs.add(20.0);
+		List<Double> ys = f.getY(xs);
+		Assert.assertEquals(0.0487706, ys.get(0), 0.0001);
+		Assert.assertEquals(0.0951626, ys.get(1), 0.0001);
 	}
 
 }

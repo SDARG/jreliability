@@ -15,6 +15,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link ConstantReliabilityFunction} returns a constant success
@@ -24,7 +25,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass
  *
  */
-public class ConstantReliabilityFunction implements ReliabilityFunction {
+public class ConstantReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	protected final double successProbability;
 

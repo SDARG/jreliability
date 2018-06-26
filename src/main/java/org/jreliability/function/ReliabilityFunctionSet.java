@@ -15,7 +15,9 @@
 
 package org.jreliability.function;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.jreliability.function.common.ParallelReliabilityFunction;
@@ -69,6 +71,20 @@ public abstract class ReliabilityFunctionSet implements ReliabilityFunction {
 	 */
 	public void add(ReliabilityFunction function) {
 		functions.add(function);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.function.Function#getY(java.util.List)
+	 */
+	@Override
+	public List<Double> getY(List<Double> xs) {
+		List<Double> ys = new ArrayList<Double>();
+		for (Double x : xs) {
+			ys.add(getY(x));
+		}
+		return ys;
 	}
 
 }

@@ -15,8 +15,9 @@
 package org.jreliability.sl;
 
 import org.apache.commons.collections15.Transformer;
-import org.jreliability.function.Distribution;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
+import org.jreliability.function.UnreliabilityFunction;
 
 /**
  * The {@link SLReliabilityFunction} represents the {@link ReliabilityFunction}
@@ -27,10 +28,10 @@ import org.jreliability.function.ReliabilityFunction;
  * @param <T>
  *            the type of variable
  */
-public class SLReliabilityFunction<T> implements ReliabilityFunction {
+public class SLReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction {
 
 	/**
-	 * The {@link SL} representing the {@link Distribution}.
+	 * The {@link SL} representing the {@link UnreliabilityFunction}.
 	 */
 	protected final SL<T> stochasticLogic;
 

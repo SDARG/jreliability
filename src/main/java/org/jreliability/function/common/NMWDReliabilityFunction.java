@@ -16,6 +16,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link NMWDReliabilityFunction} represents the NMWD
@@ -36,7 +37,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass
  * 
  */
-public class NMWDReliabilityFunction implements ReliabilityFunction {
+public class NMWDReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The {@code lambda} parameter somehow resembles the failure-rate

@@ -16,6 +16,7 @@
 package org.jreliability.function.common;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link WeibullReliabilityFunction} represents the 2-parameter Weibull
@@ -32,7 +33,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass
  * 
  */
-public class WeibullReliabilityFunction implements ReliabilityFunction {
+public class WeibullReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * The {@code alpha} parameter somehow resembles the failure-rate

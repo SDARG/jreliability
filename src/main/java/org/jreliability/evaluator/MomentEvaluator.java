@@ -17,6 +17,7 @@ package org.jreliability.evaluator;
 
 import org.jreliability.function.Function;
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link MomentEvaluator} determines the {@code n}-th moment of a density
@@ -48,7 +49,7 @@ public class MomentEvaluator implements Evaluator {
 	 * @author lukasiewycz
 	 * 
 	 */
-	static class MomentFunction implements Function {
+	static class MomentFunction extends SequentialFunction {
 
 		private ReliabilityFunction reliabilityFunction;
 		private int n;

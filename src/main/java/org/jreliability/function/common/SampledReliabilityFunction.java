@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jreliability.function.ReliabilityFunction;
+import org.jreliability.function.SequentialFunction;
 
 /**
  * The {@link SampledReliabilityFunction} approximates a
@@ -29,7 +30,7 @@ import org.jreliability.function.ReliabilityFunction;
  * @author glass, lukasiewycz
  * 
  */
-public class SampledReliabilityFunction implements ReliabilityFunction {
+public class SampledReliabilityFunction extends SequentialFunction implements ReliabilityFunction {
 
 	/**
 	 * Sorted list of all samples.

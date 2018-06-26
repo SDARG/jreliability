@@ -15,6 +15,8 @@
 
 package org.jreliability.function;
 
+import java.util.List;
+
 /**
  * The {@link Function} represents a mathematical function {@code y = f(x)}.
  * 
@@ -31,5 +33,14 @@ public interface Function {
 	 * @return the y for y = f(x)
 	 */
 	public double getY(double x);
+
+	/**
+	 * Returns a list of {@code y} values for a given list of {@code x} value.
+	 * 
+	 * @param xs
+	 *            the list of values
+	 * @return the list of y values for each xØÏ
+	 */
+	public List<Double> getY(List<Double> xs);
 
 }
