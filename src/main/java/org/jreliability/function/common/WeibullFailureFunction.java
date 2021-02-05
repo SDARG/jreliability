@@ -13,47 +13,39 @@
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
 
-package org.jreliability.function;
+package org.jreliability.function.common;
+
+import org.jreliability.function.ReliabilityFunction;
 
 /**
- * The {@link DensityFunction} determines the density {@code f(x)} of a
- * {@link Function} {@code F(x)}.
+ * The {@link WeibullFailureFunction} represents the 2-parameter Weibull
+ * reliability function
+ * <p>
+ * {@code F(x) = 1 - e^-((x / nu)^beta))} = 1 - e^-((alpha * x)^beta))}<br>
+ * with {@code alpha, beta > 0}.
+ * <p>
+ * While the parameter {@code alpha = 1 / nu} scales the
+ * {@link ReliabilityFunction} and, thus, somehow corresponds to the
+ * failure-rate {@code lambda}, the {@code beta} parameter determines the shape
+ * of the {@link ReliabilityFunction}.
  * 
  * @author glass
  * 
  */
-public class DensityFunction {
+public class WeibullFailureFunction extends WeibullReliabilityFunction {
 
-	/**
-	 * The {@link Function} for which the {@link DensityFunction} is
-	 * to determine.
-	 */
-	protected final Function function;
-
-	/**
-	 * Constructs a {@link DensityFunction} with a given
-	 * {@link Function}.
-	 * 
-	 * @param function
-	 *            the function
-	 */
-	public DensityFunction(Function function) {
-		this.function = function;
+	public WeibullFailureFunction(double alpha, double beta) {
+		super(alpha, beta);
 	}
 
-	/**
-	 * Returns the {@code y} value for {@code y = f(x)}.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param x
-	 *            the x value
-	 * @return the y for y = f(x)
+	 * @see org.jreliability.function.Function#getY(double)
 	 */
+	@Override
 	public double getY(double x) {
-		double deltaT = 0.00000001;
-		double y = function.getY(x);
-		double yPrime = function.getY(x + deltaT);
-		double density = Math.abs(y - yPrime) / deltaT;
-		return density;
+		double y = 1.0 - Math.exp(-(Math.pow((alpha * x), beta)));
+		return y;
 	}
-
 }

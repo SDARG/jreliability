@@ -13,34 +13,31 @@
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
 
-package org.jreliability.function;
+package org.jreliability.importancemeasures;
 
-import java.util.List;
+import java.util.Map;
+
 
 /**
- * The {@link Function} represents a mathematical function {@code y = f(x)}.
+ * The {@link TimeDependentImportanceMeasure} is used to assign a importance
+ * measure value to each variable T of the system at a specific time t.
  * 
- * @author glass
+ * @author oehmen
  * 
+ * @param <T>
+ *            The type of the variables of the system
  */
-public interface Function {
-
+public interface TimeDependentImportanceMeasure<T> extends ImportanceMeasure {
+	
+	
 	/**
-	 * Returns the {@code y} value for {@code y = f(x)}.
+	 * Assign a importance value to each variable T of the system at a specific time t.
 	 * 
-	 * @param x
-	 *            the x value
-	 * @return the y for y = f(x)
+	 * @param time
+	 *            Time t at which the importance value of the variables is calculated.
+	 *            
+	 * @return results
+	 * 			  Map of variables and their respective importance values at time t.
 	 */
-	public double getY(double x);
-
-	/**
-	 * Returns a list of {@code y} values for a given list of {@code x} value.
-	 * 
-	 * @param xs
-	 *            the list of values
-	 * @return the list of y values for each x
-	 */
-	public List<Double> getY(List<Double> xs);
-
+	public Map<T, Double> calculate(double time);
 }
