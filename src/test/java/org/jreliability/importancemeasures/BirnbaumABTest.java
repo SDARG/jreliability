@@ -39,7 +39,6 @@ public class BirnbaumABTest {
 		 * actually accessed for this test, thus the test is representative for all possible systems. */
 		BirnbaumAB<String> im = setupCoherentTestSystem();		
 		im.calculate(0);
-		
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

@@ -39,7 +39,6 @@ public class RAWTest {
 		 * actually accessed for this test, thus the test is representative for all possible systems. */
 		RAW<String> im = setupCoherentTestSystem();		
 		im.calculate(0);
-		
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

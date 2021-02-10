@@ -50,6 +50,37 @@ public class BarlowProschan <T> implements ImportanceMeasure {
 	protected final BDDTTRF<T> bddTTRF;
 	protected final MomentEvaluator moment;
 	
+	
+	protected class BarlowProschanFunction implements ReliabilityFunction {
+		private ReliabilityFunction restrictedHigh;
+		private ReliabilityFunction restrictedLow;
+		private DensityFunction failureDensity;
+		
+		protected BarlowProschanFunction(ReliabilityFunction restrictedHigh, ReliabilityFunction restrictedLow, DensityFunction failureDensity) {
+			this.restrictedHigh = restrictedHigh;
+			this.restrictedLow = restrictedLow;
+			this.failureDensity = failureDensity;
+		}
+		
+		/* Equation 2 of [Nat09] */
+		public double getY(double x) {
+			double result = (restrictedHigh.getY(x) - restrictedLow.getY(x)) * failureDensity.getY(x); 	
+			if (result < 0) {
+				throw new ArithmeticException("Cannot evaluate first moment of negative function.");
+			}
+			return result;
+		}				
+		
+		public List<Double> getY(List<Double> xs) {
+			List<Double> results = new ArrayList<Double>();
+			for (Double x : xs) {
+				results.add(getY(x));
+			}
+			return results;
+		}		
+	}
+	
+	
 	/**
 	 * Returns a {@link BarlowProschan} calculator for a specific system with its {@link BDD}
 	 * and {@link ReliabilityFunction} {@link Transformer}. 
@@ -98,23 +129,7 @@ public class BarlowProschan <T> implements ImportanceMeasure {
 			
 			DensityFunction failureDensity = new DensityFunction(new UnreliabilityFunction(transformer.transform(var)));
 			
-			/* Equation 2 of [Nat09] */
-			ReliabilityFunction bp_function = new ReliabilityFunction() {
-				public double getY(double x) {
-					double result = (restrictedReliability_1.getY(x) - restrictedReliability_0.getY(x)) * failureDensity.getY(x); 	
-					if (result < 0) {
-						throw new ArithmeticException("Cannot evaluate first moment of negative function.");
-					}
-					return result;
-				}				
-				public List<Double> getY(List<Double> xs) {
-					List<Double> results = new ArrayList<Double>();
-					for (Double x : xs) {
-						results.add(getY(x));
-					}
-					return results;
-				}
-			};
+			ReliabilityFunction bp_function = new BarlowProschanFunction(restrictedReliability_1, restrictedReliability_0, failureDensity);
 			
 			double bp_im = moment.evaluate(bp_function);
 			

@@ -39,7 +39,6 @@ public class CriticalityCalculatorTest {
 		 * actually accessed for this test, thus the test is representative for all possible systems. */
 		CriticalityCalculator<String> im = setupCoherentTestSystem();		
 		im.getCriticalityValues(0);
-		
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
