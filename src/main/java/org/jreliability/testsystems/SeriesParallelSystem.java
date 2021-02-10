@@ -72,11 +72,11 @@ public class SeriesParallelSystem {
 	}
 
 	public ReliabilityFunction get() {
-		Term term = getTerm();
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProvider);
-		return bddTTRF.convert(term, transformer);
+		
+		return bddTTRF.convert(getTerm(), getTransformer());
 	}
 
 	public Transformer<String, ReliabilityFunction> getTransformer() {
