@@ -17,7 +17,7 @@ package org.jreliability.function;
 
 /**
  * The {@link DensityFunction} determines the density {@code f(x)} of a
- * {@link ReliabilityFunction} {@code R(x)}.
+ * {@link Function} {@code F(x)}.
  * 
  * @author glass
  * 
@@ -25,20 +25,20 @@ package org.jreliability.function;
 public class DensityFunction {
 
 	/**
-	 * The {@link ReliabilityFunction} for which the {@link DensityFunction} is
+	 * The {@link Function} for which the {@link DensityFunction} is
 	 * to determine.
 	 */
-	protected final ReliabilityFunction reliabilityFunction;
+	protected final Function function;
 
 	/**
 	 * Constructs a {@link DensityFunction} with a given
-	 * {@link ReliabilityFunction}.
+	 * {@link Function}.
 	 * 
-	 * @param reliabilityFunction
-	 *            the reliabilityFunction
+	 * @param function
+	 *            the function
 	 */
-	public DensityFunction(ReliabilityFunction reliabilityFunction) {
-		this.reliabilityFunction = reliabilityFunction;
+	public DensityFunction(Function function) {
+		this.function = function;
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class DensityFunction {
 	 */
 	public double getY(double x) {
 		double deltaT = 0.00000001;
-		double y = reliabilityFunction.getY(x);
-		double yPrime = reliabilityFunction.getY(x + deltaT);
-		double density = (y - yPrime) / deltaT;
+		double y = function.getY(x);
+		double yPrime = function.getY(x + deltaT);
+		double density = Math.abs(y - yPrime) / deltaT;
 		return density;
 	}
 

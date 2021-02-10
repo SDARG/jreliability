@@ -13,34 +13,16 @@
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
 
-package org.jreliability.function;
+package org.jreliability.importancemeasures;
 
-import java.util.List;
 
 /**
- * The {@link Function} represents a mathematical function {@code y = f(x)}.
+ * The {@link ImportanceMeasure} is used to assign a importance value to 
+ * each variable of the system.
  * 
- * @author glass
+ * @author oehmen
  * 
  */
-public interface Function {
-
-	/**
-	 * Returns the {@code y} value for {@code y = f(x)}.
-	 * 
-	 * @param x
-	 *            the x value
-	 * @return the y for y = f(x)
-	 */
-	public double getY(double x);
-
-	/**
-	 * Returns a list of {@code y} values for a given list of {@code x} value.
-	 * 
-	 * @param xs
-	 *            the list of values
-	 * @return the list of y values for each x
-	 */
-	public List<Double> getY(List<Double> xs);
-
+public interface ImportanceMeasure {
+	
 }

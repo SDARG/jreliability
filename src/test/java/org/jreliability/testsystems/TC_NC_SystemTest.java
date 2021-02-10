@@ -13,34 +13,27 @@
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
 
-package org.jreliability.function;
+package org.jreliability.testsystems;
 
-import java.util.List;
+import static org.junit.Assert.*;
 
-/**
- * The {@link Function} represents a mathematical function {@code y = f(x)}.
- * 
- * @author glass
- * 
- */
-public interface Function {
+import org.jreliability.function.ReliabilityFunction;
+import org.junit.Test;
 
-	/**
-	 * Returns the {@code y} value for {@code y = f(x)}.
-	 * 
-	 * @param x
-	 *            the x value
-	 * @return the y for y = f(x)
-	 */
-	public double getY(double x);
+public class TC_NC_SystemTest {
+	final double TEST_DELTA = 0.000001;
 
-	/**
-	 * Returns a list of {@code y} values for a given list of {@code x} value.
-	 * 
-	 * @param xs
-	 *            the list of values
-	 * @return the list of y values for each x
-	 */
-	public List<Double> getY(List<Double> xs);
-
+	@Test
+	public void testTC_NC_System() {
+		TC_NC_System testSystem = new TC_NC_System();
+		
+		ReliabilityFunction systemReliability = testSystem.get();
+		
+		assertEquals(0.99800498, systemReliability.getY(0.1), TEST_DELTA);
+		assertEquals(0.98239756, systemReliability.getY(0.9), TEST_DELTA);
+		assertEquals(0.86728735, systemReliability.getY(8), TEST_DELTA);
+		assertEquals(0.69742613, systemReliability.getY(25), TEST_DELTA);
+		assertEquals(0.35630174, systemReliability.getY(100), TEST_DELTA);
+		assertEquals(0.04978123, systemReliability.getY(300), TEST_DELTA);
+	}
 }

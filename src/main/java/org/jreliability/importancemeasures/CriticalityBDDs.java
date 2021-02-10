@@ -13,34 +13,34 @@
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
 
-package org.jreliability.function;
+package org.jreliability.importancemeasures;
 
-import java.util.List;
+import org.jreliability.bdd.BDD;
+
 
 /**
- * The {@link Function} represents a mathematical function {@code y = f(x)}.
+ * The {@link CriticalityBDDs} class is a wrapper class to encapsulate the failure
+ * and repair criticality {@link BDD}s of a component.
  * 
- * @author glass
+ * @author oehmen
  * 
+ * @param <T>
+ *            The type of the variables of the {@link BDD}
  */
-public interface Function {
-
-	/**
-	 * Returns the {@code y} value for {@code y = f(x)}.
-	 * 
-	 * @param x
-	 *            the x value
-	 * @return the y for y = f(x)
-	 */
-	public double getY(double x);
-
-	/**
-	 * Returns a list of {@code y} values for a given list of {@code x} value.
-	 * 
-	 * @param xs
-	 *            the list of values
-	 * @return the list of y values for each x
-	 */
-	public List<Double> getY(List<Double> xs);
-
+public class CriticalityBDDs <T> {
+	protected final BDD<T> failureCriticalityBdd;
+	protected final BDD<T> repairCriticalityBdd;
+	
+	public CriticalityBDDs(BDD<T> failureCriticalityBdd, BDD<T> repairCriticalityBdd) {
+		this.failureCriticalityBdd = failureCriticalityBdd;
+		this.repairCriticalityBdd = repairCriticalityBdd;
+	}
+	
+	public BDD<T> getFailureCriticalityBDD() {
+		return failureCriticalityBdd;
+	}
+	
+	public BDD<T> getRepairCriticalityBdd() {
+		return repairCriticalityBdd;
+	}
 }
