@@ -1,13 +1,35 @@
 plugins {
-	id 'com.github.kt3k.coveralls' version '2.6.3'
 	id "com.github.hierynomus.license" version "0.14.0"
 }
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'base'
 apply plugin: 'application'
-apply plugin: 'maven'
+apply plugin: 'eclipse'
 apply plugin: 'jacoco'
-apply plugin: 'signing'
+
+
+/*
+ * Gets the version name from the latest Git tag
+ */
+def getVersionName = {
+	->
+	def stdout = new ByteArrayOutputStream()
+	exec {
+		commandLine 'git', 'describe', '--tags'
+		standardOutput = stdout
+		ignoreExitValue true
+	}
+	version=stdout.toString().trim()
+	if (version.indexOf('-') >= 0 || version.isEmpty())
+		version += '-SNAPSHOT'
+	return version
+}
+version=getVersionName()
+
+
+ext {
+	dateISO = new Date().format("yyyy-MM-dd")
+}
 
 mainClassName = 'org.jreliability.tester.ReliabilityTester'
 group = 'org.jreliability'
@@ -23,6 +45,21 @@ dependencies {
 	compile files('lib/ptolemyplot-5.7.jar')
     
 	testCompile 'junit:junit:4.12'
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': mainClassName
+	}
+}
+
+/* for now ignore all javadoc errors in case of Java 8 */
+if (JavaVersion.current().isJava8Compatible()) {
+	allprojects {
+		tasks.withType(Javadoc) {
+			options.addStringOption('Xdoclint:none', '-quiet')
+		}
+	}
 }
 
 license {
@@ -53,14 +90,23 @@ jacocoTestReport {
 	dependsOn jacocoTestCoverageVerification
 
     reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
+        xml.enabled = true
         html.enabled = true
+        csv.enabled = false
     }
+	
+	onlyIf = {
+		true
+	}
 
     afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['org/jreliability/gui/**', 'org/jreliability/tutorial/**', 'org/jreliability/tester/**']) // TODO: combine some of these in a common folder
-        })
+    	getClassDirectories().setFrom(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+				'org/jreliability/gui/**',
+				'org/jreliability/tutorial/**',
+				'org/jreliability/tester/**'
+				])
+		})
     }
 }
 
@@ -75,93 +121,3 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-artifacts {
-    archives javadocJar, sourcesJar
-}
-
-signing {
-	required = { gradle.taskGraph.hasTask("uploadArchives") }
-	sign configurations.archives
-}
-
-def sonatypeUsernameUsed = project.hasProperty("sonatypeUsername") ? project.getProperty("sonatypeUsername"): "void"
-def sonatypePasswordUsed = project.hasProperty("sonatypePassword") ? project.getProperty("sonatypePassword"): "void"
-
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: sonatypeUsernameUsed, password: sonatypePasswordUsed)
-      }
-
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: sonatypeUsernameUsed, password: sonatypePasswordUsed)
-      }
-
-      pom.project {
-        name 'JReliability'
-        packaging 'jar'
-        // optionally artifactId can be defined here 
-        description 'A Java-based reliability evaluation library.'
-        url 'https://felixreimann.github.io/jreliability/'
-
-        scm {
-          connection 'scm:git:https://github.com/felixreimann/jreliability.git'
-          url 'https://github.com/felixreimann/jreliability'
-        }
-
-        licenses {
-          license {
-            name 'GNU Lesser General Public License v3.0'
-            url 'http://www.gnu.org/licenses/lgpl-3.0.txt'
-          }
-        }
-
-        developers {
-          developer {
-            id 'michaelhglass'
-            name 'Michael Glaß'
-            email 'michael.glass@uni-ulm.de'
-          }
-          developer {
-            id 'felixreimann'
-            name 'Felix Reimann'
-            email 'felix@fex-it.de'
-          }
-          developer {
-            id 'lukasiewycz'
-            name 'Martin Lukasiewycz'
-            email 'lukasiewycz@gmail.com'
-          }
-          developer {
-            id 'faramarzkhosravi'
-            name 'Faramarz Khosravi'
-            email 'faramarz.khosravi@fau.de'
-          }
-        }
-      }
-    }
-  }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.8'
-}
-
-/*
- * Gets the version name from the latest Git tag
- */
-def getVersionName = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-        standardOutput = stdout
-    }
-    version=stdout.toString().trim()
-    if (version.indexOf('-') >= 0)
-    	version += '-SNAPSHOT'
-    return version
-}
-version=getVersionName()
