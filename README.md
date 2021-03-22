@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/felixreimann/jreliability.svg?branch=master)](https://travis-ci.org/felixreimann/jreliability)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/963ea393ac6f49568e4e232185de731a)](https://app.codacy.com/app/felixreimann/jreliability?utm_source=github.com&utm_medium=referral&utm_content=felixreimann/jreliability&utm_campaign=badger)
-[![Coverage Status](https://coveralls.io/repos/github/felixreimann/jreliability/badge.svg?branch=master)](https://coveralls.io/github/felixreimann/jreliability?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jreliability/jreliability)
-[![Javadocs](https://javadoc.io/badge/org.jreliability/jreliability.svg)](https://javadoc.io/doc/org.jreliability/jreliability)
+[![Build & Test](https://github.com/SDARG/jreliability/actions/workflows/gradle.yml/badge.svg)](https://github.com/SDARG/jreliability/actions/workflows/gradle.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/44aea8c1b9c74950b267975add9002e8)](https://www.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SDARG/jreliability&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/44aea8c1b9c74950b267975add9002e8)](https://www.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=github.com&utm_medium=referral&utm_content=SDARG/jreliability&utm_campaign=Badge_Coverage)
+[![](https://jitpack.io/v/sdarg/jreliability.svg)](https://jitpack.io/#sdarg/jreliability)
+
 
 # JReliability - The Java-based Reliability Library
 
@@ -42,11 +42,11 @@ to execute the demo application.
 
 ## Contributing
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+1.  Fork it!
+2.  Create your feature branch: `git checkout -b my-new-feature`
+3.  Commit your changes: `git commit -am 'Add some feature'`
+4.  Push to the branch: `git push origin my-new-feature`
+5.  Submit a pull request :D
 
 ## History
 
@@ -55,10 +55,11 @@ JReliability was formerly hosted at https://sourceforge.net/projects/jreliabilit
 ## Credits
 
 Brought to you by
-* Michael Glaß
-* Felix Reimann
-* Martin Lukasiewycz
-* Faramarz Khosravi
+*  Michael Glaß
+*  Felix Reimann
+*  Martin Lukasiewycz
+*  Faramarz Khosravi
+*  Henning Oehmen
 
 ## License
 
