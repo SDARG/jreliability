@@ -5,3 +5,4 @@ build/
 /bin/
 .settings/
 gradle.properties
+.java-version

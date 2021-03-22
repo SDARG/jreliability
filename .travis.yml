@@ -1,6 +1,0 @@
-language: java
-
-dist: trusty
-
-after_success:
-- ./gradlew jacocoTestReport coveralls
