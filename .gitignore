@@ -6,3 +6,4 @@ build/
 .settings/
 gradle.properties
 .java-version
+**/.DS_Store

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+      <title>JReliabiliy &mdash; The Java-based Reliability Library</title>
+      <style type="text/css">
+        @import url("style.css");
+      </style>
+      <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<meta property="og:title" content="JReliability" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://www.jreliability.org/" />
+	<meta property="og:image" content="http://www.jreliability.org/design/img/top_logo.png" />
+	<meta property="og:site_name" content="JReliabiliy - The Java-based Reliability Library" />
+    </head>
+     
+    <body>
+      <div id="top">
+        <h1>JReliabiliy</h1>
+        <h2>The Java-based Reliability Library</h2>
+        <hr/>
+      </div>      
+    
+      <div id="container">
+              
+        <div id="navigation">
+          <h4 class="hide">Menu:</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a id="current" href="features.html">Features</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="documentation.html">Documentation</a></li>            
+          </ul>
+  			<a href="https://github.com/sdarg/jreliability"><img src="./design/img/GitHub_Logo.png" alt="Visit jreliability on GitHub" width="100" height="28"></a>
+			<a href="https://github.com/SDARG/jreliability/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/sdarg/jreliability"></a>
+			<a href="https://github.com/SDARG/jreliability/releases/latest"><img alt="Latest GitHub release" src="https://img.shields.io/github/v/release/SDARG/jreliability?style=flat"></a>
+			<a href="https://jitpack.io/#sdarg/jreliability"><img src="https://jitpack.io/v/sdarg/jreliability.svg" alt=""></a>
+        </div>
+        
+        <div id="content">
+          <h2>Features</h2>
+			<p></p>
+			<h4>Easy and Safe Modeling</h4>
+				<p><em>JReliability</em> features an easy modeling of the system as Boolean Functions represented as mathematical terms.
+				Transparent for the user and, thus, hiding complexity, <em>JReliability</em> uses Binary Decision Diagrams (BDDs) as an intermediate format to directly transform the user-built terms into a reliability function of the overall system.
+				Since 2017, <a href="http://javabdd.sourceforge.net/">JBDD</a> is the supported BDD back-end.
+				As an alternative to BDDs, <em>JReliability</em> now also offers the use of a stochastic logic-based success/fault-tree analysis that delivers decent approximative results in case BDDs outgrow the available memory.
+				</p>
+			<h4>Powerful Analyzis</h4>
+				<p>With <em>JReliability</em>, a set of powerful and fast analyzers is delivered that are able to automatically determine common reliability-related measures like Mean-Time-To-Failure (MTTF), Mission-Time (MT), failure rates and many more from a given system model.
+				Besides overall reliability-related measures, <em>JReliability</em> also has a rich set of importance measures available that judge the importance of individual components for coherent and non-coherent systems.
+				Lots of analytical evaluation methods are included with the number of included evaluators steadily growing.
+				For the modeling of the system component's properties, a large set of predefined common reliability functions are available. Of course, user defined reliability functions can be seamlessly included.</p>
+				<p>
+				<img src="images/jreliabilityGUI.jpg"/>
+				</p>
+			<h4>Demonstrative Visualization</h4>
+				<p>The framework contains a GUI for the visualization of the measures as well as a function to plot the terms and, if needed, also to plot the BDDs respresenting system structure using <em>dot</em>.</p>
+                                <p>
+				<img src="images/jreliabilityBDD.jpg"/>
+				</p>
+			<h4>Open Source and Development</h4>
+				<p>The library is <a href="https://github.com/sdarg/jreliability">open source</a> 
+				and released under the LGPL license allowing the integration into scientific, 
+				educational, and commercial projects.
+				Moreover, the development of specific solutions based on <em>JReliability</em> is simplified by the usage of Java features like Generics.
+				The library code is pure Java and free of any text-based configuration files or boilerplate code.
+				</p></p>
+      </div>
+      
+      <div id="footer">
+        <hr/>
+      </div>
+  </body>
+  </html>
