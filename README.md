@@ -3,7 +3,6 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/44aea8c1b9c74950b267975add9002e8)](https://www.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=github.com&utm_medium=referral&utm_content=SDARG/jreliability&utm_campaign=Badge_Coverage)
 [![](https://jitpack.io/v/sdarg/jreliability.svg)](https://jitpack.io/#sdarg/jreliability)
 
-
 # JReliability - The Java-based Reliability Library
 
 JReliability allows to derive several reliability-related measures like Mean-Time-To-Failure (MTTF) or Mission-Time (MT) of complex systems that are modeled using Boolean functions, efficiently encoded in Binary Decision Diagrams (BDDs).

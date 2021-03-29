@@ -63,7 +63,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	private final String OUTPUT_PATH = "plotdata/";
 	
 	@SuppressWarnings("unused")
-	private void BAGT() {
+	private void bagt() {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProvider);
@@ -125,7 +125,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	}
 
 	@SuppressWarnings("unused")
-	private void BarlowProschan() {
+	private void barlowProschan() {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProvider);
@@ -147,7 +147,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	}
 
 	@SuppressWarnings("unused")
-	private void TMR() throws IOException {
+	private void tmr() throws IOException {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
@@ -189,7 +189,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	}
 	
 	@SuppressWarnings("unused")
-	private void BridgeSystem() throws IOException {
+	private void bridgeSystem() throws IOException {
 		/**
 		 * Implements a coherent bridge system with Weibull failure times.
 		 *  
@@ -231,7 +231,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	}
 
 	@SuppressWarnings("unused")
-	private void TCNCSystem() throws IOException {
+	private void tcncsSystem() throws IOException {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
@@ -267,7 +267,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	}
 
 	@SuppressWarnings("unused")
-	private void TINCSystem() throws IOException {
+	private void tincSystem() throws IOException {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
@@ -302,7 +302,7 @@ public class PlotDataForImportanceMeasuresCreator {
 	}
 	
 	@SuppressWarnings("unused")
-	private void IntroductionPresentationData() throws IOException {
+	private void introductionPresentationData() throws IOException {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
@@ -396,17 +396,17 @@ public class PlotDataForImportanceMeasuresCreator {
 		PlotDataForImportanceMeasuresCreator plotData = new PlotDataForImportanceMeasuresCreator();
 		
 		/* These are time-independent and their results are written to the console */
-		plotData.BAGT();
-//		plotData.BarlowProschan();
+		plotData.bagt();
+//		plotData.barlowProschan();
 		
 		try {
 			/* Only one of these should be active, as the resulting .csv files do not differentiate
 			 * between test systems, thus later executions overwrite previous results. */
-			plotData.TMR();
-//			plotData.BridgeSystem();
-//			plotData.TCNCSystem();
-//			plotData.TINCSystem();
-//			plotData.IntroductionPresentationData();
+			plotData.tmr();
+//			plotData.bridgeSystem();
+//			plotData.tcncsSystem();
+//			plotData.tincSystem();
+//			plotData.introductionPresentationData();
 		}
 		catch(IOException e) { 
 			System.out.println("Writing to file failed.");
