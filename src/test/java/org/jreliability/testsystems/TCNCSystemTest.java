@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 import org.jreliability.function.ReliabilityFunction;
 import org.junit.Test;
 
-public class TC_NC_SystemTest {
+public class TCNCSystemTest {
 	protected final double TEST_DELTA = 0.000001;
 
 	@Test
-	public void testTC_NC_System() {
-		TC_NC_System testSystem = new TC_NC_System();
+	public void testTCNCSystem() {
+		TCNCSystem testSystem = new TCNCSystem();
 		
 		ReliabilityFunction systemReliability = testSystem.get();
 		

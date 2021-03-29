@@ -24,8 +24,8 @@ import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.jreliability.testsystems.TC_NC_System;
-import org.jreliability.testsystems.TI_NC_System;
+import org.jreliability.testsystems.TCNCSystem;
+import org.jreliability.testsystems.TINCSystem;
 import org.jreliability.testsystems.TMR;
 import org.junit.Test;
 
@@ -104,7 +104,7 @@ public class RRWTest {
 	
 	
 	private RRW<String> setupNonCoherentTestSystem() {
-		TC_NC_System system = new TC_NC_System();
+		TCNCSystem system = new TCNCSystem();
 		
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
@@ -145,7 +145,7 @@ public class RRWTest {
 	
 	
 	private RRW<String> setupTimeInconsistentNonCoherentTestSystem() {
-		TI_NC_System system = new TI_NC_System();
+		TINCSystem system = new TINCSystem();
 		
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());

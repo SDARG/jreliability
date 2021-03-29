@@ -42,8 +42,8 @@ import org.jreliability.importancemeasures.TimeDependentImportanceMeasure;
 import org.jreliability.importancemeasures.Vaurio;
 import org.jreliability.testsystems.BridgeSystem;
 import org.jreliability.testsystems.SeriesParallelSystem;
-import org.jreliability.testsystems.TC_NC_System;
-import org.jreliability.testsystems.TI_NC_System;
+import org.jreliability.testsystems.TCNCSystem;
+import org.jreliability.testsystems.TINCSystem;
 import org.jreliability.testsystems.TMR;
 
 /**
@@ -101,7 +101,7 @@ public class PlotDataForImportanceMeasuresCreator {
 		
 		
 		System.out.println("\nTC_NC:");
-		TC_NC_System tcnc = new TC_NC_System();
+		TCNCSystem tcnc = new TCNCSystem();
 		bdd = bddTTRF.convertToBDD(tcnc.getTerm());		
 		im = new BAGT<String>(bdd, tcnc.getTransformer());
 
@@ -113,7 +113,7 @@ public class PlotDataForImportanceMeasuresCreator {
 		
 
 		System.out.println("\nTI_NC:");
-		TI_NC_System tinc = new TI_NC_System();
+		TINCSystem tinc = new TINCSystem();
 		bdd = bddTTRF.convertToBDD(tinc.getTerm());		
 		im = new BAGT<String>(bdd, tinc.getTransformer());
 
@@ -235,7 +235,7 @@ public class PlotDataForImportanceMeasuresCreator {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
-		TC_NC_System system = new TC_NC_System();
+		TCNCSystem system = new TCNCSystem();
 		BDD<String> bdd = bddTTRF.convertToBDD(system.getTerm());		
 		
 		Birnbaum<String> b_im = new Birnbaum<>(bdd, system.getTransformer());		
@@ -271,7 +271,7 @@ public class PlotDataForImportanceMeasuresCreator {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
-		TI_NC_System system = new TI_NC_System();
+		TINCSystem system = new TINCSystem();
 		BDD<String> bdd = bddTTRF.convertToBDD(system.getTerm());		
 
 		Birnbaum<String> b_im = new Birnbaum<>(bdd, system.getTransformer());		
