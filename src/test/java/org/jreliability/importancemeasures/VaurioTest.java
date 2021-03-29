@@ -15,7 +15,7 @@
 
 package org.jreliability.importancemeasures;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
@@ -30,7 +30,7 @@ import org.jreliability.testsystems.TMR;
 import org.junit.Test;
 
 public class VaurioTest {
-	final double TEST_DELTA = 0.000001;
+	protected final double TEST_DELTA = 0.000001;
 	
 	
 	@Test(expected = IllegalArgumentException.class)

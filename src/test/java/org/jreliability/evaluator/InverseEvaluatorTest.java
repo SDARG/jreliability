@@ -19,7 +19,6 @@ import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.function.ReliabilityFunction;
-import org.jreliability.function.common.ConstantFailureFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.sl.SL;
 import org.jreliability.sl.SLReliabilityFunction;

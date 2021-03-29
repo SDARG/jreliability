@@ -370,6 +370,7 @@ class BDDConstraint<T> {
 			if (getClass() != obj.getClass()) {
 				return false;
 			}
+			@SuppressWarnings("rawtypes")
 			Pair other = (Pair) obj;
 			if (a == null) {
 				if (other.a != null) {

@@ -55,11 +55,11 @@ JReliability was formerly hosted at https://sourceforge.net/projects/jreliabilit
 ## Credits
 
 Brought to you by
-*  Michael Glaß
-*  Felix Reimann
-*  Martin Lukasiewycz
-*  Faramarz Khosravi
-*  Henning Oehmen
+*   Michael Glaß
+*   Felix Reimann
+*   Martin Lukasiewycz
+*   Faramarz Khosravi
+*   Henning Oehmen
 
 ## License
 

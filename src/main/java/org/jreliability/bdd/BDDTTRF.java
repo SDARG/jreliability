@@ -23,7 +23,7 @@ import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.jreliability.booleanfunction.TTRF;
 import org.jreliability.booleanfunction.Term;
-import org.jreliability.booleanfunction.Terms;
+import org.jreliability.booleanfunction.TermUtils;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
 import org.jreliability.booleanfunction.common.LinearTerm;
@@ -127,7 +127,7 @@ public class BDDTTRF<T> implements TTRF<T> {
 	public BDD<T> convertToBDD(Term term, Predicate<T> existsPredicate) {
 		BDD<T> bdd = transform(term);
 		if (existsPredicate != null) {
-			Set<T> variables = Terms.getVariables(term);
+			Set<T> variables = TermUtils.getVariables(term);
 			for (T variable : variables) {
 				if (existsPredicate.evaluate(variable)) {
 					BDD<T> tmp = bdd.exist(variable);

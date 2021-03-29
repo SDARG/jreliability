@@ -31,7 +31,7 @@ import org.junit.Test;
 /**
  * The The {@link SLTestTest} tests the {@link SL}.
  * 
- * @author glass, jlee
+ * @author glass, ilee
  *
  */
 public class SLTest {

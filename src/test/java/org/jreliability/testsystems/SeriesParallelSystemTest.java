@@ -15,14 +15,14 @@
 
 package org.jreliability.testsystems;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.junit.Test;
 
 public class SeriesParallelSystemTest {
-	final double TEST_DELTA = 0.000001;
+	protected final double TEST_DELTA = 0.000001;
 
 	@Test
 	public void testSeriesParallelSystem() {

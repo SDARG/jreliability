@@ -180,7 +180,7 @@ public class ReliabilityFunctionPlotPanel extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			boolean changed = false;
 			Aspect aspect = aspects.get(comboBox.getSelectedIndex());
-			if (currentAspect != aspect) {
+			if (!currentAspect.equals(aspect)) {
 				currentAspect = aspect;
 				changed = true;
 			}
