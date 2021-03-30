@@ -15,7 +15,7 @@
 
 package org.jreliability.importancemeasures;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
@@ -24,13 +24,13 @@ import org.jreliability.bdd.BDDProviderFactory;
 import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.jreliability.testsystems.TC_NC_System;
-import org.jreliability.testsystems.TI_NC_System;
+import org.jreliability.testsystems.TCNCSystem;
+import org.jreliability.testsystems.TINCSystem;
 import org.jreliability.testsystems.TMR;
 import org.junit.Test;
 
 public class BirnbaumABTest {
-	final double TEST_DELTA = 0.000001;
+	protected final double TEST_DELTA = 0.000001;
 	
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -95,7 +95,7 @@ public class BirnbaumABTest {
 	
 	
 	private BirnbaumAB<String> setupNonCoherentTestSystem() {
-		TC_NC_System system = new TC_NC_System();
+		TCNCSystem system = new TCNCSystem();
 		
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
@@ -137,7 +137,7 @@ public class BirnbaumABTest {
 	
 	
 	private BirnbaumAB<String> setupTimeInconsistentNonCoherentTestSystem() {
-		TI_NC_System system = new TI_NC_System();
+		TINCSystem system = new TINCSystem();
 		
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());					

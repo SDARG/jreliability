@@ -40,7 +40,7 @@ public interface BDDProvider<T> {
 	 * @param variables
 	 *            the variables to register
 	 */
-	public void add(T... variables);
+	public void add(@SuppressWarnings("unchecked") T... variables);
 
 	/**
 	 * Returns the {@code false} or {@code 0} BDD.

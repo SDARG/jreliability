@@ -25,7 +25,7 @@ import org.jreliability.function.ReliabilityFunction;
 
 /**
  * The {@link BirnbaumAB} class calculates the Andrews Beeson extension of the Birnbaum 
- * importance for coherent and non-coherent systems [AB03].
+ * importance for coherent and non-coherent systems by [AB03].
  * 
  * [AB03] ( https://doi.org/10.1109/TR.2003.816397 )
  * 

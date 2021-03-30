@@ -20,11 +20,11 @@ import java.util.List;
 
 import org.jreliability.booleanfunction.AbstractHierarchicalTerm;
 import org.jreliability.booleanfunction.Term;
-import org.jreliability.booleanfunction.Terms;
+import org.jreliability.booleanfunction.TermUtils;
 
 /**
  * The {@link ANDTerm} is a {@link Term} that interrelates its embedded
- * {@link Terms} with the AND operator}. <br>
+ * {@link TermUtils} with the AND operator}. <br>
  * {@code (AND term1 ... termN)}
  * 
  * 
@@ -42,7 +42,7 @@ public class ANDTerm extends AbstractHierarchicalTerm {
 	}
 
 	/**
-	 * Constructs an {@link ANDTerm} with a given list of embedded {@link Terms}
+	 * Constructs an {@link ANDTerm} with a given list of embedded {@link TermUtils}
 	 * .
 	 * 
 	 * @param terms

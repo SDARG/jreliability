@@ -13,4 +13,8 @@
  * along with JReliability. If not, see http://www.gnu.org/licenses/.
  *******************************************************************************/
 
+/**
+ * Provides the classes to calculate importance measures of components.
+ * 
+ */
 package org.jreliability.importancemeasures;

@@ -37,14 +37,6 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 public class ConstraintTester {
 
 	/**
-	 * Constructs a {@link ConstraintTester}.
-	 * 
-	 */
-	public ConstraintTester() {
-		super();
-	}
-
-	/**
 	 * Main.
 	 * 
 	 * @param args

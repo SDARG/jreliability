@@ -29,7 +29,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The The {@link SLTestTest} tests the {@link SL}.
+ * The {@link SLTestTest} tests the {@link SL}.
  * 
  * @author glass, jlee
  *

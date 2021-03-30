@@ -37,13 +37,6 @@ import org.jreliability.gui.ReliabilityViewer;
 public class ReliabilityTester {
 
 	/**
-	 * Constructs a {@link ReliabilityTester}.
-	 */
-	public ReliabilityTester() {
-		super();
-	}
-
-	/**
 	 * Main.
 	 * 
 	 * @param args

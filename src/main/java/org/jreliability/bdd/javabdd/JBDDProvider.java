@@ -133,7 +133,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 * @see org.jreliability.bdd.BDDProvider#add(T[])
 	 */
 	@Override
-	public void add(T... variables) {
+	public void add(@SuppressWarnings("unchecked") T... variables) {
 		add(Arrays.asList(variables));
 	}
 

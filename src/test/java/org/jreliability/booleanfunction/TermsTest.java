@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The {@link TermsTest} test the {@link Terms}.
+ * The {@link TermsTest} test the {@link TermUtils}.
  * 
  * @author reimann, glass
  *
@@ -34,7 +34,7 @@ public class TermsTest {
 
 	@Test
 	public void testIllagelConstructor() {
-		final Class<?> termsClass = Terms.class;
+		final Class<?> termsClass = TermUtils.class;
 		final Constructor<?> termsConstructor = termsClass.getDeclaredConstructors()[0];
 		termsConstructor.setAccessible(true);
 		Throwable targetException = null;
@@ -53,65 +53,65 @@ public class TermsTest {
 	@Test
 	public void testParseAndLiteral() {
 		String s = "(AND \"sensor1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseOrLiteral() {
 		String s = "(OR \"sensor1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseNotLiteral() {
 		String s = "(AND \"sensor1\" (NOT \"sensor2\"))";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testParseIllegalNotLiteral() {
 		String s = "(NOT \"sensor1\" \"sensor2\")";
-		Terms.getTermFromString(s);
+		TermUtils.getTermFromString(s);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testParseIllegalTerm() {
 		String s = "(= 1 \"sensor1\")";
-		Terms.getTermFromString(s);
+		TermUtils.getTermFromString(s);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testParseMissingBracket() {
 		String s = "(AND \"sensor1\" \"sensor2\"";
-		Terms.getTermFromString(s);
+		TermUtils.getTermFromString(s);
 	}
 
 	@Test(expected = Test.None.class /* no exception expected */)
 	public void testParseWithNewline() {
 		String s = "(AND\n\"sensor1\" \"sensor2\")";
-		Terms.getTermFromString(s);
+		TermUtils.getTermFromString(s);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testParseIllegalEndAfterOperator() {
 		String s = "(AND";
-		Terms.getTermFromString(s);
+		TermUtils.getTermFromString(s);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testParseMissingQuote() {
 		String s = "(AND \"sensor1\" \"sensor2)";
-		Terms.getTermFromString(s);
+		TermUtils.getTermFromString(s);
 	}
 
 	@Test
 	public void testGetVariables() {
 		String s = "(AND \"sensor1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
-		Set<String> vars = Terms.getVariables(t);
+		Term t = TermUtils.getTermFromString(s);
+		Set<String> vars = TermUtils.getVariables(t);
 
 		Assert.assertEquals(2, vars.size());
 		Assert.assertTrue(vars.contains("sensor1"));
@@ -121,54 +121,54 @@ public class TermsTest {
 	@Test
 	public void testGetVariablesTRUETerm() {
 		Term t = new TRUETerm();
-		Assert.assertTrue(Terms.getVariables(t).isEmpty());
+		Assert.assertTrue(TermUtils.getVariables(t).isEmpty());
 	}
 
 	@Test
 	public void testGetVariablesLIteralTerm() {
 		Term t = new LiteralTerm<String>("sensor");
-		Assert.assertTrue(Terms.getVariables(t).contains("sensor"));
+		Assert.assertTrue(TermUtils.getVariables(t).contains("sensor"));
 	}
 
 	@Test
 	public void testParseTermEqual() {
 		String s = "(= \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseTermGT() {
 		String s = "(>= \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseTermLT() {
 		String s = "(<= \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseTermG() {
 		String s = "(> \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test
 	public void testParseTermL() {
 		String s = "(< \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testParseTermUnknown() {
 		String s = "(? \"1\" \"1\" \"sensor1\" \"1\" \"sensor2\")";
-		Term t = Terms.getTermFromString(s);
+		Term t = TermUtils.getTermFromString(s);
 		Assert.assertEquals(s, t.toString());
 	}
 }

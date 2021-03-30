@@ -160,6 +160,7 @@ public class SL<T> {
 			if (term instanceof LiteralTerm) {
 				BitSet bitstream = termCache.get(term);
 				if (bitstream == null) {
+					@SuppressWarnings("unchecked")
 					LiteralTerm<T> component = (LiteralTerm<T>) term;
 					bitstream = generateRandomBitstream(transformer.transform(component.get()));
 					termCache.put(term, bitstream);

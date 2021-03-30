@@ -30,7 +30,7 @@ package org.jreliability.booleanfunction;
 
 /**
  * The {@link Term} represents a mathematical {@link Term} in a {@link Boolean
- * Function}. A {@link Term} can consist of other {@link Terms}. In
+ * Function}. A {@link Term} can consist of other {@link TermUtils}. In
  * JReliability, each {@link Term} interrelates its embedded {@link Term}
  * elements via the same mathematical operator.
  * 

@@ -24,7 +24,6 @@ import org.jreliability.bdd.BDDTTRF;
 import org.jreliability.bdd.BDDs;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.booleanfunction.Term;
-import org.jreliability.evaluator.MomentEvaluator;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.gui.ReliabilityViewer;
 import org.jreliability.sl.SL;

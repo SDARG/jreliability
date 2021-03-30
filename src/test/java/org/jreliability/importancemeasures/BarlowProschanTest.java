@@ -15,7 +15,7 @@
 
 package org.jreliability.importancemeasures; 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,12 +28,12 @@ import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.function.DensityFunction;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.jreliability.testsystems.TC_NC_System;
+import org.jreliability.testsystems.TCNCSystem;
 import org.jreliability.testsystems.TMR;
 import org.junit.Test;
 
 public class BarlowProschanTest {
-	final double TEST_DELTA = 0.000001;
+	protected final double TEST_DELTA = 0.000001;
 	
 	private BarlowProschan<String> setupCoherentTestSystem() {		
 		TMR system = new TMR(new ExponentialReliabilityFunction(0.01), 
@@ -85,7 +85,7 @@ public class BarlowProschanTest {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		
-		TC_NC_System system = new TC_NC_System();
+		TCNCSystem system = new TCNCSystem();
 			
 		BDD<String> bdd = bddTTRF.convertToBDD(system.getTerm());
 		BarlowProschan<String> im = new BarlowProschan<>(bdd, system.getTransformer());

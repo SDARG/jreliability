@@ -28,17 +28,17 @@ import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 
 /**
- * The {@link Terms} provides static methods for the {@link Term} class.
+ * The {@link TermUtils} provides static methods for the {@link Term} class.
  * 
  * @author glass
  * 
  */
-public class Terms {
+public class TermUtils {
 
 	/**
 	 * @throws InstantiationException
 	 */
-	private Terms() throws InstantiationException {
+	private TermUtils() throws InstantiationException {
 		throw new InstantiationException("Instances of this type are forbidden.");
 	}
 
@@ -89,7 +89,7 @@ public class Terms {
 	 * @return a term from a given string
 	 */
 	public static Term getTermFromString(String string) {
-		Object object = toObject(new Terms.ParseString(string));
+		Object object = toObject(new TermUtils.ParseString(string));
 		return parse(object);
 	}
 
