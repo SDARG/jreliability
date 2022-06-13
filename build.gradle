@@ -95,7 +95,8 @@ jacocoTestReport {
 		html.destination(file("${buildDir}/reports/jacoco"))
 		xml.enabled = true
 		xml.destination(file("${buildDir}/reports/jacoco/report.xml"))
-		csv.enabled = false
+		csv.enabled = true
+		csv.destination(file("${buildDir}/reports/jacoco/report.csv"))
 	}
 	
 	onlyIf = {
