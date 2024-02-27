@@ -19,7 +19,9 @@ import org.jreliability.bdd.AbstractBDDOperatorTest;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import net.sf.javabdd.BDDException;
 
@@ -38,17 +40,21 @@ public class JDDOperatorTest extends AbstractBDDOperatorTest {
 	 * @see org.jreliability.test.AbstractBDDTest#init()
 	 */
 	@Override
+	@BeforeEach
 	public void init() {
 		this.factory = new JBDDProviderFactory(Type.JDD);
+		initProvider();
 	}
 
 	/**
 	 * Tests the {@link allSat} method.
 	 * 
 	 */
-	@Test(expected = BDDException.class)
+	@Test
 	public void testAllSat() {
-		BDD<String> bdd = provider.get("a");
-		bdd.allsat();
+		Assertions.assertThrows(BDDException.class, () -> {
+			BDD<String> bdd = provider.get("a");
+			bdd.allsat();
+		});
 	}
 }

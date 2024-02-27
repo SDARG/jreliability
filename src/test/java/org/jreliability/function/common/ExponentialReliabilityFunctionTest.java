@@ -15,8 +15,8 @@
 
 package org.jreliability.function.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link ExponentialReliabilityFunctionTest} test the
@@ -30,17 +30,19 @@ public class ExponentialReliabilityFunctionTest {
 	@Test
 	public void testGetAlpha() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.7);
-		Assert.assertEquals(f.getAlpha(), 0.7, 0.000000001);
+		Assertions.assertEquals(f.getAlpha(), 0.7, 0.000000001);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalAlpha() {
-		new ExponentialReliabilityFunction(-0.7);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new ExponentialReliabilityFunction(-0.7);
+		});
 	}
 
 	@Test
 	public void testGetY() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.005);
-		Assert.assertEquals(0.9048, f.getY(20), 0.0001);
+		Assertions.assertEquals(0.9048, f.getY(20), 0.0001);
 	}
 }

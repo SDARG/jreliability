@@ -15,8 +15,8 @@
 package org.jreliability.function;
 
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link FailureRateTest} to test the {@link FailureRate}.
@@ -29,21 +29,21 @@ public class FailureRateTest {
 	@Test
 	public void testGetY() {
 		/*
-		 * FailureRate for ExponentialDistribution equals the lambda parameter
-		 * and is constant"
+		 * FailureRate for ExponentialDistribution equals the lambda parameter and is
+		 * constant"
 		 */
 		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.005));
-		Assert.assertEquals(0.005, failureRate.getY(10), 1.0E-5);
+		Assertions.assertEquals(0.005, failureRate.getY(10), 1.0E-5);
 	}
 
 	@Test
 	public void testGetYAtZero() {
 		/*
-		 * FailureRate for ExponentialDistribution equals the lambda parameter
-		 * and is constant"
+		 * FailureRate for ExponentialDistribution equals the lambda parameter and is
+		 * constant"
 		 */
 		FailureRate failureRate = new FailureRate(new ExponentialReliabilityFunction(0.1));
-		Assert.assertEquals(Double.NaN, failureRate.getY(1.0E12), 1.0E-5);
+		Assertions.assertEquals(Double.NaN, failureRate.getY(1.0E12), 1.0E-5);
 	}
 
 }

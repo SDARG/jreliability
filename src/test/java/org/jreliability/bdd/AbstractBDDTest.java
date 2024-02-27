@@ -15,8 +15,6 @@
 
 package org.jreliability.bdd;
 
-import org.junit.Before;
-
 /**
  * The {@link AbstractBDDTest} is the base class for all tests on {@link BDD}s.
  * 
@@ -33,7 +31,6 @@ public abstract class AbstractBDDTest {
 	/**
 	 * Initialize the specific factory.
 	 */
-	@Before
 	public abstract void init();
 
 }

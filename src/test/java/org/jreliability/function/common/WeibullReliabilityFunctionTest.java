@@ -15,8 +15,8 @@
 
 package org.jreliability.function.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link WeibullReliabilityFunctionTest} test the
@@ -27,29 +27,37 @@ import org.junit.Test;
  */
 public class WeibullReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalAlpha() {
-		new WeibullReliabilityFunction(-0.7, 2);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new WeibullReliabilityFunction(-0.7, 2);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalBeta() {
-		new WeibullReliabilityFunction(0.7, -2);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new WeibullReliabilityFunction(0.7, -2);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalNullAlpha() {
-		new WeibullReliabilityFunction(0.0, 2);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new WeibullReliabilityFunction(0.0, 2);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalNullBeta() {
-		new WeibullReliabilityFunction(0.7, 0.0);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new WeibullReliabilityFunction(0.7, 0.0);
+		});
 	}
 
 	@Test
 	public void testGetY() {
 		WeibullReliabilityFunction f = new WeibullReliabilityFunction(0.01, 2);
-		Assert.assertEquals(0.99750312, f.getY(5), 0.0001);
+		Assertions.assertEquals(0.99750312, f.getY(5), 0.0001);
 	}
 }

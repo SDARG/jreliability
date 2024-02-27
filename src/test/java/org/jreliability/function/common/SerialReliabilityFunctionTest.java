@@ -32,8 +32,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jreliability.function.ReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SerialReliabilityFunctionTest} to test the
@@ -44,10 +44,12 @@ import org.junit.Test;
  */
 public class SerialReliabilityFunctionTest {
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void testNoFunctionsSpeficied() {
-		SerialReliabilityFunction function = new SerialReliabilityFunction();
-		function.getY(5);
+		Assertions.assertThrows(IllegalStateException.class, () -> {
+			SerialReliabilityFunction function = new SerialReliabilityFunction();
+			function.getY(5);
+		});
 	}
 
 	@Test
@@ -57,7 +59,7 @@ public class SerialReliabilityFunctionTest {
 		ExponentialReliabilityFunction f2 = new ExponentialReliabilityFunction(0.004);
 		function.add(f1);
 		function.add(f2);
-		Assert.assertEquals(0.8352702, function.getY(20), 0.00001);
+		Assertions.assertEquals(0.8352702, function.getY(20), 0.00001);
 	}
 
 	@Test
@@ -66,7 +68,7 @@ public class SerialReliabilityFunctionTest {
 		functions.add(new ExponentialReliabilityFunction(0.005));
 		functions.add(new ExponentialReliabilityFunction(0.004));
 		SerialReliabilityFunction function = new SerialReliabilityFunction(functions);
-		Assert.assertEquals(function.getFunctions().size(), 2);
+		Assertions.assertEquals(function.getFunctions().size(), 2);
 	}
 
 }

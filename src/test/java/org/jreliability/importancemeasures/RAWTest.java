@@ -15,8 +15,6 @@
 
 package org.jreliability.importancemeasures;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Map;
 
 import org.jreliability.bdd.BDD;
@@ -27,38 +25,46 @@ import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.testsystems.TCNCSystem;
 import org.jreliability.testsystems.TINCSystem;
 import org.jreliability.testsystems.TMR;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class RAWTest {
 	protected final double TEST_DELTA = 0.000001;
-	
-	
-	@Test(expected = IllegalArgumentException.class)
+
+	@Test
 	public void testAtTime0() {
-		/* Some valid system is needed for importance measure object initialization, but is not 
-		 * actually accessed for this test, thus the test is representative for all possible systems. */
-		RAW<String> im = setupCoherentTestSystem();		
-		im.calculate(0);
+		/*
+		 * Some valid system is needed for importance measure object initialization, but
+		 * is not actually accessed for this test, thus the test is representative for
+		 * all possible systems.
+		 */
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			RAW<String> im = setupCoherentTestSystem();
+			im.calculate(0);
+		});
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
+
+	@Test
 	public void testAtNegativeTime() {
-		/* Some valid system is needed for importance measure object initialization, but is not 
-		 * actually accessed for this test, thus the test is representative for all possible systems. */
-		RAW<String> im = setupCoherentTestSystem();		
-		im.calculate(-1);
+		/*
+		 * Some valid system is needed for importance measure object initialization, but
+		 * is not actually accessed for this test, thus the test is representative for
+		 * all possible systems.
+		 */
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			RAW<String> im = setupCoherentTestSystem();
+			im.calculate(-1);
+		});
 	}
-	
-	
+
 	private RAW<String> setupCoherentTestSystem() {
-		TMR system = new TMR(new ExponentialReliabilityFunction(0.01), 
-				  		  	 new ExponentialReliabilityFunction(0.02), 
-				  		  	 new ExponentialReliabilityFunction(0.03));
-		
+		TMR system = new TMR(new ExponentialReliabilityFunction(0.01), new ExponentialReliabilityFunction(0.02),
+				new ExponentialReliabilityFunction(0.03));
+
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		BDD<String> bdd = bddTTRF.convertToBDD(system.getTerm());
-		
+
 		return new RAW<>(bdd, system.getTransformer());
 	}
 
@@ -66,124 +72,122 @@ public class RAWTest {
 	public void testCoherentSystemAtTime0d05() {
 		RAW<String> im = setupCoherentTestSystem();
 		Map<String, Double> results = im.calculate(0.05);
-		
-		assertEquals(909.4422672479282, results.get("component1"), TEST_DELTA);
-		assertEquals(727.7356567645448, results.get("component2"), TEST_DELTA);
-		assertEquals(545.9381702587863, results.get("component3"), TEST_DELTA);
+
+		Assertions.assertEquals(909.4422672479282, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(727.7356567645448, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(545.9381702587863, results.get("component3"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testCoherentSystemAtTime0d6() {
 		RAW<String> im = setupCoherentTestSystem();
 		Map<String, Double> results = im.calculate(0.6);
-		
-		assertEquals(76.11024025109899, results.get("component1"), TEST_DELTA);
-		assertEquals(61.0703066039854155, results.get("component2"), TEST_DELTA);
-		assertEquals(45.93986209393344, results.get("component3"), TEST_DELTA);
+
+		Assertions.assertEquals(76.11024025109899, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(61.0703066039854155, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(45.93986209393344, results.get("component3"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testCoherentSystemAtTime2d2() {
 		RAW<String> im = setupCoherentTestSystem();
 		Map<String, Double> results = im.calculate(2.2);
-		
-		assertEquals(21.017649697609404, results.get("component1"), TEST_DELTA);
-		assertEquals(16.997011342467804, results.get("component2"), TEST_DELTA);
-		assertEquals(12.88693877432086, results.get("component3"), TEST_DELTA);
+
+		Assertions.assertEquals(21.017649697609404, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(16.997011342467804, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(12.88693877432086, results.get("component3"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testCoherentSystemAtTime9d5() {
 		RAW<String> im = setupCoherentTestSystem();
 		Map<String, Double> results = im.calculate(9.5);
-		
-		assertEquals(5.1591503816722994, results.get("component1"), TEST_DELTA);
-		assertEquals(4.31352042338028, results.get("component2"), TEST_DELTA);
-		assertEquals(3.383615951584543, results.get("component3"), TEST_DELTA);
+
+		Assertions.assertEquals(5.1591503816722994, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(4.31352042338028, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(3.383615951584543, results.get("component3"), TEST_DELTA);
 	}
-	
-	
+
 	private RAW<String> setupNonCoherentTestSystem() {
 		TCNCSystem system = new TCNCSystem();
-		
+
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		BDD<String> bdd = bddTTRF.convertToBDD(system.getTerm());
-		
+
 		return new RAW<>(bdd, system.getTransformer());
 	}
-	
+
 	@Test
 	public void testNonCoherentSystemAtTime1() {
 		RAW<String> im = setupNonCoherentTestSystem();
 		Map<String, Double> results = im.calculate(1);
-		assertEquals(2.499750040410122, results.get("component1"), TEST_DELTA);
-		assertEquals(49.7555409792071, results.get("component2"), TEST_DELTA);
-		assertEquals(0.5099986668799622, results.get("component3"), TEST_DELTA);
+		Assertions.assertEquals(2.499750040410122, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(49.7555409792071, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(0.5099986668799622, results.get("component3"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testNonCoherentSystemAtTime50() {
 		RAW<String> im = setupNonCoherentTestSystem();
 		Map<String, Double> results = im.calculate(50);
-		assertEquals(2.0547899626783015, results.get("component1"), TEST_DELTA);
-		assertEquals(1.1837505989181896, results.get("component2"), TEST_DELTA);
-		assertEquals(0.8807970779778825, results.get("component3"), TEST_DELTA);
+		Assertions.assertEquals(2.0547899626783015, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(1.1837505989181896, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(0.8807970779778825, results.get("component3"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testNonCoherentSystemAtTime100() {
 		RAW<String> im = setupNonCoherentTestSystem();
 		Map<String, Double> results = im.calculate(100);
-		assertEquals(1.543055386421638, results.get("component1"), TEST_DELTA);
-		assertEquals(1.0104675552427984, results.get("component2"), TEST_DELTA);
-		assertEquals(0.9820137900379083, results.get("component3"), TEST_DELTA);
+		Assertions.assertEquals(1.543055386421638, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(1.0104675552427984, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(0.9820137900379083, results.get("component3"), TEST_DELTA);
 	}
-	
-	
+
 	private RAW<String> setupTimeInconsistentNonCoherentTestSystem() {
 		TINCSystem system = new TINCSystem();
-		
+
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());
 		BDD<String> bdd = bddTTRF.convertToBDD(system.getTerm());
-		
+
 		return new RAW<>(bdd, system.getTransformer());
 	}
-	
+
 	@Test
 	public void testTimeInconsistentNonCoherentSystemAtTime0d2() {
 		RAW<String> im = setupTimeInconsistentNonCoherentTestSystem();
 		Map<String, Double> results = im.calculate(0.2);
-		
-		assertEquals(1.0220945188958193, results.get("component1"), TEST_DELTA);
-		assertEquals(125.47302084390537, results.get("component2"), TEST_DELTA);
-		assertEquals(0.0371200722545637, results.get("component3"), TEST_DELTA);
-		assertEquals(125.47302084390537, results.get("component4"), TEST_DELTA);
-		assertEquals(1.007291315207327, results.get("component5"), TEST_DELTA);
+
+		Assertions.assertEquals(1.0220945188958193, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(125.47302084390537, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(0.0371200722545637, results.get("component3"), TEST_DELTA);
+		Assertions.assertEquals(125.47302084390537, results.get("component4"), TEST_DELTA);
+		Assertions.assertEquals(1.007291315207327, results.get("component5"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testTimeInconsistentNonCoherentSystemAtTime15() {
 		RAW<String> im = setupTimeInconsistentNonCoherentTestSystem();
 		Map<String, Double> results = im.calculate(15);
-		
-		assertEquals(1.3338093471054555, results.get("component1"), TEST_DELTA);
-		assertEquals(1.762827651477927, results.get("component2"), TEST_DELTA);
-		assertEquals(1.0289569897082076, results.get("component3"), TEST_DELTA);
-		assertEquals(1.762827651477927, results.get("component4"), TEST_DELTA);
-		assertEquals(1.043929859912114, results.get("component5"), TEST_DELTA);
+
+		Assertions.assertEquals(1.3338093471054555, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(1.762827651477927, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(1.0289569897082076, results.get("component3"), TEST_DELTA);
+		Assertions.assertEquals(1.762827651477927, results.get("component4"), TEST_DELTA);
+		Assertions.assertEquals(1.043929859912114, results.get("component5"), TEST_DELTA);
 	}
-	
+
 	@Test
 	public void testTimeInconsistentNonCoherentSystemAtTime30() {
 		RAW<String> im = setupTimeInconsistentNonCoherentTestSystem();
 		Map<String, Double> results = im.calculate(30);
-		
-		assertEquals(1.1769452506962408, results.get("component1"), TEST_DELTA);
-		assertEquals(1.1654794423678578, results.get("component2"), TEST_DELTA);
-		assertEquals(1.0381477042916811, results.get("component3"), TEST_DELTA);
-		assertEquals(1.1654794423678578, results.get("component4"), TEST_DELTA);
-		assertEquals(1.006920784082757, results.get("component5"), TEST_DELTA);
+
+		Assertions.assertEquals(1.1769452506962408, results.get("component1"), TEST_DELTA);
+		Assertions.assertEquals(1.1654794423678578, results.get("component2"), TEST_DELTA);
+		Assertions.assertEquals(1.0381477042916811, results.get("component3"), TEST_DELTA);
+		Assertions.assertEquals(1.1654794423678578, results.get("component4"), TEST_DELTA);
+		Assertions.assertEquals(1.006920784082757, results.get("component5"), TEST_DELTA);
 	}
 }

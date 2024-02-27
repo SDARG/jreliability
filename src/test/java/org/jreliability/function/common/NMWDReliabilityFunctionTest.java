@@ -15,8 +15,8 @@
 
 package org.jreliability.function.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link NMWDReliabilityFunctionTest} test the
@@ -27,24 +27,30 @@ import org.junit.Test;
  */
 public class NMWDReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalLambda() {
-		new NMWDReliabilityFunction(0.0, 2, 0.8);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new NMWDReliabilityFunction(0.0, 2, 0.8);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalA() {
-		new NMWDReliabilityFunction(0.001, 0.0, 0.8);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new NMWDReliabilityFunction(0.001, 0.0, 0.8);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalB() {
-		new NMWDReliabilityFunction(0.001, 2, -0.5);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new NMWDReliabilityFunction(0.001, 2, -0.5);
+		});
 	}
 
 	@Test
 	public void testGetY() {
 		NMWDReliabilityFunction f = new NMWDReliabilityFunction(0.01512, 0.0876, 0.389);
-		Assert.assertEquals(0.8380313, f.getY(5), 1.0E-5);
+		Assertions.assertEquals(0.8380313, f.getY(5), 1.0E-5);
 	}
 }

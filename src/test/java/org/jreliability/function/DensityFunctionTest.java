@@ -29,8 +29,8 @@
 package org.jreliability.function;
 
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link DensityFunctionTest} to test the {@link DensityFunction}.
@@ -43,7 +43,7 @@ public class DensityFunctionTest {
 	@Test
 	public void testGetY() {
 		DensityFunction function = new DensityFunction(new ExponentialReliabilityFunction(0.005));
-		Assert.assertEquals(0.00452419, function.getY(20), 1.0E-5);
+		Assertions.assertEquals(0.00452419, function.getY(20), 1.0E-5);
 	}
 
 }

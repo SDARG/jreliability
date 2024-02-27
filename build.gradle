@@ -1,13 +1,40 @@
-plugins {
-	id "com.github.hierynomus.license" version "0.14.0"
+plugins{
+	id 'java'
+	id 'jacoco'
+	id 'eclipse'
+	id 'application'
+	id 'base'
 }
-apply plugin: 'java'
-apply plugin: 'base'
-apply plugin: 'application'
-apply plugin: 'eclipse'
-apply plugin: 'jacoco'
 
 import org.apache.tools.ant.filters.ReplaceTokens
+
+mainClassName = 'org.jreliability.tester.ReliabilityTester'
+group = 'org.jreliability'
+
+/*
+ * define global parameters here, e.g. versions numbers of tools which need to be consistent for all subprojects
+ * they are all accesible via project.parametername e.g. project.opt4jJavaVersion to get the used java version for Opt4J
+ */
+ext{
+	jreliabilityJavaVersion = "21"
+	junitVersion = "5.10.2"
+	jacocoVersion = "0.8.11"
+}
+
+jacoco{
+	toolVersion = project.jacocoVersion
+}
+
+
+java {
+	withJavadocJar()
+	withSourcesJar()
+	sourceCompatibility = project.jreliabilityJavaVersion
+	targetCompatibility = project.jreliabilityJavaVersion
+    toolchain {
+    	languageVersion.set(JavaLanguageVersion.of(project.jreliabilityJavaVersion))
+    }
+}
 
 /*
  * Gets the version name from the latest Git tag
@@ -32,20 +59,19 @@ ext {
 	dateISO = new Date().format("yyyy-MM-dd")
 }
 
-mainClassName = 'org.jreliability.tester.ReliabilityTester'
-group = 'org.jreliability'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-	compile group: 'net.sourceforge.collections', name: 'collections-generic', version: '4.01'
-	compile group: 'de.fosd.typechef', name: 'javabdd_repackaged', version: '1.0b2'
-	compile group: 'org.bitbucket.vahidi', name: 'jdd', version: '108'
-	compile files('lib/ptolemyplot-5.7.jar')
+	implementation group: 'net.sourceforge.collections', name: 'collections-generic', version: '4.01'
+	implementation group: 'de.fosd.typechef', name: 'javabdd_repackaged', version: '1.0b2'
+	implementation group: 'org.bitbucket.vahidi', name: 'jdd', version: '108'
+	implementation files('lib/ptolemyplot-5.7.jar')
     
-	testCompile 'junit:junit:4.12'
+	testImplementation(platform('org.junit:junit-bom:5.10.2'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+	testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 }
 
 jar {
@@ -63,24 +89,17 @@ if (JavaVersion.current().isJava8Compatible()) {
 	}
 }
 
-license {
-	include "**/*.java"
-    header rootProject.file('utils/licenseHeader')
-    headerDefinitions {
-        custom_definition {
-          firstLine = "/*******************************************************************************"
-          endLine   = " *******************************************************************************/"
-          beforeEachLine = " * "
-          firstLineDetectionPattern = "/*"
-          lastLineDetectionPattern  = " *"
-          allowBlankLines = false
-          isMultiline = true
-        }
-    }
-    mapping {
-    	java='custom_definition'
-    }
-    strictCheck true
+test {
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+	}
 }
 
 jacocoTestCoverageVerification {
@@ -91,11 +110,11 @@ jacocoTestReport {
 	dependsOn jacocoTestCoverageVerification
 
 	reports {
-		html.enabled true
+		html.required = true
 		html.destination(file("${buildDir}/reports/jacoco"))
-		xml.enabled = true
+		xml.required = true
 		xml.destination(file("${buildDir}/reports/jacoco/report.xml"))
-		csv.enabled = true
+		csv.required = true
 		csv.destination(file("${buildDir}/reports/jacoco/report.csv"))
 	}
 	
@@ -114,17 +133,6 @@ jacocoTestReport {
     }
 }
 
-
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-}
-
 artifacts {
 	archives sourcesJar
     archives javadocJar
@@ -134,7 +142,7 @@ task alldocs(type: Javadoc, dependsOn: javadoc) {
 	title = "JReliability version $version Project API Documentation"
 	destinationDir = new File(project.buildDir, 'docs/javadoc')
 	options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PUBLIC
-	options.links 'https://docs.oracle.com/en/java/javase/12/docs/api/'
+	options.links "https://docs.oracle.com/en/java/javase/${jreliabilityJavaVersion}/docs/api/"
 	options.linkSource = true
 }
 

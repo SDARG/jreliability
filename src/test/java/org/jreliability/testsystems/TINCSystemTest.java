@@ -15,10 +15,9 @@
 
 package org.jreliability.testsystems;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jreliability.function.ReliabilityFunction;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TINCSystemTest {
 	protected final double TEST_DELTA = 0.000001;
@@ -26,14 +25,14 @@ public class TINCSystemTest {
 	@Test
 	public void testTINCSystem() {
 		TINCSystem testSystem = new TINCSystem();
-		
+
 		ReliabilityFunction systemReliability = testSystem.get();
-		
-		assertEquals(0.99601972, systemReliability.getY(0.1), TEST_DELTA);
-		assertEquals(0.96543420, systemReliability.getY(0.9), TEST_DELTA);
-		assertEquals(0.73542404, systemReliability.getY(8), TEST_DELTA);
-		assertEquals(0.33379704, systemReliability.getY(25), TEST_DELTA);
-		assertEquals(0.00731465, systemReliability.getY(100), TEST_DELTA);
-		assertEquals(0.00000374, systemReliability.getY(250), TEST_DELTA);
+
+		Assertions.assertEquals(0.99601972, systemReliability.getY(0.1), TEST_DELTA);
+		Assertions.assertEquals(0.96543420, systemReliability.getY(0.9), TEST_DELTA);
+		Assertions.assertEquals(0.73542404, systemReliability.getY(8), TEST_DELTA);
+		Assertions.assertEquals(0.33379704, systemReliability.getY(25), TEST_DELTA);
+		Assertions.assertEquals(0.00731465, systemReliability.getY(100), TEST_DELTA);
+		Assertions.assertEquals(0.00000374, systemReliability.getY(250), TEST_DELTA);
 	}
 }

@@ -16,8 +16,8 @@
 package org.jreliability.evaluator;
 
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link IntegralEvaluatorTest} to test the {@link IntegralEvaluator}.
@@ -32,19 +32,19 @@ public class IntegralEvaluatorTest {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
 		IntegralEvaluator evaluator = new IntegralEvaluator();
 		double integral = evaluator.evaluate(f, 0, 2);
-		Assert.assertEquals(integral, 1.98013, 1.0E-5);
+		Assertions.assertEquals(integral, 1.98013, 1.0E-5);
 	}
 
 	@Test
 	public void testNegativeEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
 		/*
-		 * Note: The epsilon is in between two integration steps, not the
-		 * absolute error!
+		 * Note: The epsilon is in between two integration steps, not the absolute
+		 * error!
 		 */
 		IntegralEvaluator evaluator = new IntegralEvaluator(1.0E-7);
 		double integral = evaluator.evaluate(f, -2, 4);
-		Assert.assertEquals(integral, 5.94119, 1.0E-5);
+		Assertions.assertEquals(integral, 5.94119, 1.0E-5);
 	}
 
 }

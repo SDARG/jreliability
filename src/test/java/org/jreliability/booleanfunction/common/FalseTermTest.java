@@ -15,8 +15,8 @@
 
 package org.jreliability.booleanfunction.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link FalseTermTest} test the {@link FALSETerm}.
@@ -29,6 +29,6 @@ public class FalseTermTest {
 	public void testHashCodeNull() {
 		FALSETerm s1 = new FALSETerm();
 
-		Assert.assertEquals(s1.toString(), "0");
+		Assertions.assertEquals(s1.toString(), "0");
 	}
 }

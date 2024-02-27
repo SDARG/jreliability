@@ -23,9 +23,9 @@ import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link BDDTTRFTest} tests the {@link BDDReliabilityFunction}.
@@ -58,7 +58,7 @@ public class BDDReliabilityFunctionTest {
 	/**
 	 * Initialize the specific factory.
 	 */
-	@Before
+	@BeforeEach
 	public void init() {
 		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
 		provider = factory.getProvider();
@@ -79,7 +79,7 @@ public class BDDReliabilityFunctionTest {
 		BDDReliabilityFunction<String> function = new BDDReliabilityFunction<String>(bdd, new TestTransformer());
 
 		/* http://www.wolframalpha.com/input/?i=(e%5E(-0.005*10))%5E2 */
-		Assert.assertEquals(0.9048374, function.getY(10), 1.0E-5);
+		Assertions.assertEquals(0.9048374, function.getY(10), 1.0E-5);
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class BDDReliabilityFunctionTest {
 
 		BDDReliabilityFunction<String> function = new BDDReliabilityFunction<String>(bdd, new TestTransformer());
 
-		Assert.assertEquals(bdd, function.getBdd());
+		Assertions.assertEquals(bdd, function.getBdd());
 
 	}
 
@@ -103,7 +103,7 @@ public class BDDReliabilityFunctionTest {
 		Transformer<String, ReliabilityFunction> transformer = new TestTransformer();
 		BDDReliabilityFunction<String> function = new BDDReliabilityFunction<String>(provider.one(), transformer);
 
-		Assert.assertEquals(transformer, function.getTransformer());
+		Assertions.assertEquals(transformer, function.getTransformer());
 	}
 
 }

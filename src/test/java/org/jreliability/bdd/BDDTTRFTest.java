@@ -32,9 +32,9 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ConstantFailureFunction;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link BDDTTRFTest} tests the {@link BDDTTRF}.
@@ -52,7 +52,7 @@ public class BDDTTRFTest {
 	/**
 	 * Initialize the specific factory.
 	 */
-	@Before
+	@BeforeEach
 	public void init() {
 		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
 		provider = factory.getProvider();
@@ -74,7 +74,7 @@ public class BDDTTRFTest {
 		BDD<String> b2 = provider.get(var2);
 		ref.orWith(b2);
 
-		Assert.assertEquals(result, ref);
+		Assertions.assertEquals(result, ref);
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class BDDTTRFTest {
 		BDD<String> b2 = provider.get(var2);
 		ref.andWith(b2);
 
-		Assert.assertEquals(result, ref);
+		Assertions.assertEquals(result, ref);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -113,7 +113,7 @@ public class BDDTTRFTest {
 
 		BDD<String> ref = provider.get(var1);
 
-		Assert.assertEquals(result, ref);
+		Assertions.assertEquals(result, ref);
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(t);
 
-		Assert.assertEquals(result, provider.one());
+		Assertions.assertEquals(result, provider.one());
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.convertToBDD(t);
 
-		Assert.assertEquals(result, provider.zero());
+		Assertions.assertEquals(result, provider.zero());
 	}
 
 	@Test
@@ -147,7 +147,7 @@ public class BDDTTRFTest {
 
 		BDD<String> ref = provider.get(var1).not();
 
-		Assert.assertEquals(result, ref);
+		Assertions.assertEquals(result, ref);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class BDDTTRFTest {
 				return new ConstantFailureFunction(0.5);
 			}
 		});
-		Assert.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
+		Assertions.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
 	}
 
 	/**
@@ -179,7 +179,7 @@ public class BDDTTRFTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
+		Assertions.assertEquals(f.getY(1.0), new ConstantFailureFunction(1.0).getY(1.0), 0.000001);
 	}
 
 	@Test
@@ -191,7 +191,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.transformLinear(t1);
 
-		Assert.assertEquals(provider.get("a"), result);
+		Assertions.assertEquals(provider.get("a"), result);
 	}
 
 	@Test
@@ -203,7 +203,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.transformLinear(t1);
 
-		Assert.assertEquals(provider.get("a"), result);
+		Assertions.assertEquals(provider.get("a"), result);
 	}
 
 	@Test
@@ -213,7 +213,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.transformLinear(t1);
 
-		Assert.assertEquals(provider.one(), result);
+		Assertions.assertEquals(provider.one(), result);
 	}
 
 	@Test
@@ -223,7 +223,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.transformLinear(t1);
 
-		Assert.assertEquals(provider.zero(), result);
+		Assertions.assertEquals(provider.zero(), result);
 	}
 
 	@Test
@@ -233,7 +233,7 @@ public class BDDTTRFTest {
 		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 		BDD<String> result = ttrf.transform(t1);
 
-		Assert.assertEquals(provider.zero(), result);
+		Assertions.assertEquals(provider.zero(), result);
 	}
 
 	@Test
@@ -244,17 +244,20 @@ public class BDDTTRFTest {
 			BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
 			BDD<String> result = ttrf.transformLinear(t);
 
-			Assert.assertNotNull(comparator + " in LinearTerm not supported for BDD conversion.", result);
+			Assertions.assertNotNull(result, comparator + " in LinearTerm not supported for BDD conversion.");
 
 		}
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testTransformWithUnknownTerm() {
-		Term t = new Term() {
-		};
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Term t = new Term() {
+			};
 
-		BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
-		ttrf.transform(t);
+			BDDTTRF<String> ttrf = new BDDTTRF<>(provider);
+			ttrf.transform(t);
+		});
+
 	}
 }

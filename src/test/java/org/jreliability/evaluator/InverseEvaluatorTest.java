@@ -22,8 +22,8 @@ import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.sl.SL;
 import org.jreliability.sl.SLReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link InverseEvaluatorTest} to test the {@link InverseEvaluator}.
@@ -37,13 +37,13 @@ public class InverseEvaluatorTest {
 	public void testEvaluate() {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.005);
 		InverseEvaluator evaluator = new InverseEvaluator();
-		Assert.assertEquals(evaluator.evaluate(f, 0.876), 26.4778, 1.0E-4);
+		Assertions.assertEquals(evaluator.evaluate(f, 0.876), 26.4778, 1.0E-4);
 	}
 
 	/**
 	 * If the analysis is not sufficiently accurate, bisection may run into an
-	 * endless loop if accurracy is set too high. The evaluator should take care
-	 * of this with the next reasonable value.
+	 * endless loop if accurracy is set too high. The evaluator should take care of
+	 * this with the next reasonable value.
 	 */
 	@Test
 	public void testEvaluateNoImprovement() {
@@ -62,7 +62,7 @@ public class InverseEvaluatorTest {
 					}
 				});
 		InverseEvaluator evaluator = new InverseEvaluator();
-		Assert.assertEquals(evaluator.evaluate(reliabilityFunction, 0.905), 1.0, 0.1);
+		Assertions.assertEquals(evaluator.evaluate(reliabilityFunction, 0.905), 1.0, 0.1);
 	}
 
 }

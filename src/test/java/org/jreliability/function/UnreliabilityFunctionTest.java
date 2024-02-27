@@ -15,8 +15,8 @@
 package org.jreliability.function;
 
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link UnreliabilityFunctionTest} to test the
@@ -32,7 +32,7 @@ public class UnreliabilityFunctionTest {
 		ExponentialReliabilityFunction function = new ExponentialReliabilityFunction(0.005);
 		UnreliabilityFunction distribution = new UnreliabilityFunction(function);
 		/* Distribution is defined as 1 - Function */
-		Assert.assertEquals((1 - distribution.getY(20)), function.getY(20), 1.0E-5);
+		Assertions.assertEquals((1 - distribution.getY(20)), function.getY(20), 1.0E-5);
 	}
 
 }

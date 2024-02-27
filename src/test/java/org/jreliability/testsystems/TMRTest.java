@@ -15,11 +15,10 @@
 
 package org.jreliability.testsystems;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TMRTest {
 	protected final double TEST_DELTA = 0.000001;
@@ -29,16 +28,16 @@ public class TMRTest {
 		ReliabilityFunction rel1 = new ExponentialReliabilityFunction(0.1);
 		ReliabilityFunction rel2 = new ExponentialReliabilityFunction(0.2);
 		ReliabilityFunction rel3 = new ExponentialReliabilityFunction(0.3);
-				
+
 		TMR testSystem = new TMR(rel1, rel2, rel3);
-		
+
 		ReliabilityFunction systemReliability = testSystem.get();
-		
-		assertEquals(0.99893533, systemReliability.getY(0.1), TEST_DELTA);
-		assertEquals(0.99101917, systemReliability.getY(0.3), TEST_DELTA);
-		assertEquals(0.93318746, systemReliability.getY(0.9), TEST_DELTA);
-		assertEquals(0.64789645, systemReliability.getY(2.7), TEST_DELTA);
-		assertEquals(0.13333630, systemReliability.getY(8), TEST_DELTA);
-		assertEquals(0.00060159, systemReliability.getY(25), TEST_DELTA);
+
+		Assertions.assertEquals(0.99893533, systemReliability.getY(0.1), TEST_DELTA);
+		Assertions.assertEquals(0.99101917, systemReliability.getY(0.3), TEST_DELTA);
+		Assertions.assertEquals(0.93318746, systemReliability.getY(0.9), TEST_DELTA);
+		Assertions.assertEquals(0.64789645, systemReliability.getY(2.7), TEST_DELTA);
+		Assertions.assertEquals(0.13333630, systemReliability.getY(8), TEST_DELTA);
+		Assertions.assertEquals(0.00060159, systemReliability.getY(25), TEST_DELTA);
 	}
 }
