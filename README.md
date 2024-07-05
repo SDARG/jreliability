@@ -1,6 +1,6 @@
 [![Build & Test](https://github.com/SDARG/jreliability/actions/workflows/gradle.yml/badge.svg)](https://github.com/SDARG/jreliability/actions/workflows/gradle.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/44aea8c1b9c74950b267975add9002e8)](https://www.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SDARG/jreliability&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/44aea8c1b9c74950b267975add9002e8)](https://www.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=github.com&utm_medium=referral&utm_content=SDARG/jreliability&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/44aea8c1b9c74950b267975add9002e8)](https://app.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/44aea8c1b9c74950b267975add9002e8)](https://app.codacy.com/gh/SDARG/jreliability/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![](https://jitpack.io/v/sdarg/jreliability.svg)](https://jitpack.io/#sdarg/jreliability)
 
 # JReliability - The Java-based Reliability Library
