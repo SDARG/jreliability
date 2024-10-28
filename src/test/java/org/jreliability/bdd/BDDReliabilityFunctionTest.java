@@ -17,7 +17,6 @@ package org.jreliability.bdd;
 
 import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
@@ -60,7 +59,7 @@ public class BDDReliabilityFunctionTest {
 	 */
 	@BeforeEach
 	public void init() {
-		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		BDDProviderFactory factory = new JBDDProviderFactory();
 		provider = factory.getProvider();
 	}
 

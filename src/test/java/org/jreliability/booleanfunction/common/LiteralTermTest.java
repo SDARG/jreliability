@@ -35,7 +35,7 @@ public class LiteralTermTest {
 		LiteralTerm<String> s5 = new LiteralTerm<>(null);
 
 		LiteralTerm<String> s6 = null;
-		String s7 = "something";
+		LiteralTerm<String> s7 = new LiteralTerm<>("something");
 
 		Assertions.assertTrue(s1.equals(s1));
 		Assertions.assertTrue(s1.equals(s3));

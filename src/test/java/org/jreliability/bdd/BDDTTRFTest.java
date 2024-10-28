@@ -20,7 +20,6 @@ import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.AllPredicate;
 import org.apache.commons.collections15.functors.EqualPredicate;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
@@ -54,7 +53,7 @@ public class BDDTTRFTest {
 	 */
 	@BeforeEach
 	public void init() {
-		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		BDDProviderFactory factory = new JBDDProviderFactory();
 		provider = factory.getProvider();
 	}
 

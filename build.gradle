@@ -66,8 +66,7 @@ repositories {
 
 dependencies {
 	implementation group: 'net.sourceforge.collections', name: 'collections-generic', version: '4.01'
-	implementation group: 'de.fosd.typechef', name: 'javabdd_repackaged', version: '1.0b2'
-	implementation group: 'org.bitbucket.vahidi', name: 'jdd', version: '108'
+	implementation group: 'com.github.com-github-javabdd', name: 'com.github.javabdd', version: '9.0.0'
 	implementation files('lib/ptolemyplot-5.7.jar')
     
     testImplementation platform(group: 'org.junit', name: 'junit-bom', version: project.junitVersion)

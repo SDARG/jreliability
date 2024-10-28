@@ -15,13 +15,14 @@
 
 package org.jreliability.bdd.jbdd;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Iterator;
 
 import org.jreliability.bdd.AbstractBDDOperatorTest;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.javabdd.JBDD;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 	@Override
 	@BeforeEach
 	public void init() {
-		this.factory = new JBDDProviderFactory(Type.JAVABDD);
+		this.factory = new JBDDProviderFactory();
 		initProvider();
 	}
 
@@ -107,7 +108,6 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 
 		Assertions.assertTrue(it.hasNext());
 		it.next();
-		it.remove();
-		Assertions.assertFalse(it.hasNext());
+		assertThrows(UnsupportedOperationException.class, () -> it.remove());
 	}
 }

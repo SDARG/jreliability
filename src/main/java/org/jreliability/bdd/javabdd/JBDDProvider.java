@@ -22,19 +22,16 @@ import java.util.Map;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 
-import net.sf.javabdd.BDDException;
-import net.sf.javabdd.BDDFactory;
-import net.sf.javabdd.JDDFactory;
-import net.sf.javabdd.JFactory;
+import com.github.javabdd.BDDException;
+import com.github.javabdd.BDDFactory;
+import com.github.javabdd.JFactory;
 
 /**
  * The {@link JBDDProvider} used to get {@link JBDD} BDDs.
  * 
  * @author glass, reimann
- * @param <T>
- *            the type of the variables
+ * @param <T> the type of the variables
  */
 public class JBDDProvider<T> implements BDDProvider<T> {
 	/**
@@ -48,13 +45,11 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected BDDFactory factory;
 
 	/**
-	 * A translation of the variable to an {@link Integer} for the real
-	 * {@link BDD}.
+	 * A translation of the variable to an {@link Integer} for the real {@link BDD}.
 	 */
 	protected Map<T, Integer> variableToInt = new HashMap<>();
 	/**
-	 * A translation of the {@link Integer} in the real {@link BDD} to the
-	 * variable.
+	 * A translation of the {@link Integer} in the real {@link BDD} to the variable.
 	 */
 	protected Map<Integer, T> intToVariable = new HashMap<>();
 
@@ -70,43 +65,27 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	protected int variableGrowthFactor;
 
 	/**
-	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD
-	 * library to use and a given number of variables.
+	 * Constructs a {@link JBDDProvider} with a given number of variables.
 	 * 
-	 * @param type
-	 *            the type of the real bdd implementation
-	 * @param vars
-	 *            the number of variables
+	 * @param vars the number of variables
 	 */
-	public JBDDProvider(Type type, int vars) {
-		this(type, vars, 2, 20000);
+	public JBDDProvider(int vars) {
+		this(vars, 2, 20000);
 	}
 
 	/**
-	 * Constructs a {@link JBDDProvider} with the {@link Type} of the BDD
-	 * library to use, a given number of variables, the growth rate of the
-	 * number of variables, and the initial number of nodes.
+	 * Constructs a {@link JBDDProvider} with a given number of variables, the
+	 * growth rate of the number of variables, and the initial number of nodes.
 	 * 
-	 * @param type
-	 *            the type of the BDD library
-	 * @param vars
-	 *            the number of variables
-	 * @param variableGrowthFactor
-	 *            the factor by which to extend the number of variables if
-	 *            required
-	 * @param initialNumberofNodes
-	 *            the initial number of nodes reserved in the BDD factory
+	 * @param vars                 the number of variables
+	 * @param variableGrowthFactor the factor by which to extend the number of
+	 *                             variables if required
+	 * @param initialNumberofNodes the initial number of nodes reserved in the BDD
+	 *                             factory
 	 */
-	public JBDDProvider(Type type, int vars, int variableGrowthFactor, int initialNumberofNodes) {
-		switch (type) {
-		case JDD:
-			factory = JDDFactory.init(initialNumberofNodes, initialNumberofNodes);
-			break;
-		default:
-			factory = JFactory.init(initialNumberofNodes, initialNumberofNodes);
-			factory.autoReorder(BDDFactory.REORDER_SIFT);
-			break;
-		}
+	public JBDDProvider(int vars, int variableGrowthFactor, int initialNumberofNodes) {
+		factory = JFactory.init(initialNumberofNodes, initialNumberofNodes);
+		factory.autoReorder(BDDFactory.REORDER_SIFT);
 
 		factory.setVarNum(vars);
 		this.vars = vars;
@@ -144,7 +123,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 	 */
 	@Override
 	public BDD<T> zero() {
-		net.sf.javabdd.BDD bdd = factory.zero();
+		com.github.javabdd.BDD bdd = factory.zero();
 		return new JBDD<>(this, bdd);
 	}
 
@@ -194,7 +173,7 @@ public class JBDDProvider<T> implements BDDProvider<T> {
 
 		int var = variableToInt.get(variable);
 
-		net.sf.javabdd.BDD bdd;
+		com.github.javabdd.BDD bdd;
 		try {
 			bdd = factory.ithVar(var);
 		} catch (BDDException e) {

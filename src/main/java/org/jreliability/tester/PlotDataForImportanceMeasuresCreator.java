@@ -62,7 +62,6 @@ public class PlotDataForImportanceMeasuresCreator {
 	
 	private final String OUTPUT_PATH = "plotdata/";
 	
-	@SuppressWarnings("unused")
 	private void bagt() {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDProvider<String> bddProvider = bddProviderFactory.getProvider();
@@ -146,7 +145,6 @@ public class PlotDataForImportanceMeasuresCreator {
 		System.out.println(results.toString() + '\n');
 	}
 
-	@SuppressWarnings("unused")
 	private void tmr() throws IOException {
 		BDDProviderFactory bddProviderFactory = new JBDDProviderFactory();
 		BDDTTRF<String> bddTTRF = new BDDTTRF<>(bddProviderFactory.getProvider());

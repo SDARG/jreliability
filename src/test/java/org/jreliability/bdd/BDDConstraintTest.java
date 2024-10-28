@@ -21,7 +21,6 @@ import java.util.List;
 import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -92,7 +91,7 @@ public class BDDConstraintTest {
 
 	@Test
 	public void testLiteralToString() {
-		JBDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		JBDDProviderFactory factory = new JBDDProviderFactory();
 		BDDProvider<String> provider = factory.getProvider();
 		BDD<String> a = provider.get("a");
 
@@ -102,7 +101,7 @@ public class BDDConstraintTest {
 
 	@Test
 	public void testCheckAndAdd() {
-		JBDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		JBDDProviderFactory factory = new JBDDProviderFactory();
 		BDDProvider<String> provider = factory.getProvider();
 
 		Literal<String> la = new Literal<>(1, provider.get("a"));

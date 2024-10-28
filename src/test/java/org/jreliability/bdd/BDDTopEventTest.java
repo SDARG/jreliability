@@ -16,7 +16,6 @@ package org.jreliability.bdd;
 
 import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ public class BDDTopEventTest {
 	 */
 	@BeforeEach
 	public void initProvider() {
-		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		BDDProviderFactory factory = new JBDDProviderFactory();
 		provider = factory.getProvider();
 	}
 

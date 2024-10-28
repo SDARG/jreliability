@@ -26,7 +26,6 @@ import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**

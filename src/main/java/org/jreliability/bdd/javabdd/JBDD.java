@@ -17,28 +17,26 @@ package org.jreliability.bdd.javabdd;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDs;
 
-import net.sf.javabdd.BDDPairing;
+import com.github.javabdd.BDDPairing;
 
 /**
  * The {@link JBDD} is a {@link BDD} based on the JavaBDD standard java
  * implementation.
  * 
  * @author glass, reimann
- * @param <T>
- *            the type of the variables
+ * @param <T> the type of the variables
  */
 public class JBDD<T> implements BDD<T> {
 
 	protected JBDDProvider<T> provider;
 
-	protected net.sf.javabdd.BDD bdd;
+	protected com.github.javabdd.BDD bdd;
 
 	/**
 	 * The {@link AllSatIterator} is used as the {@link Iterator}.
@@ -48,18 +46,16 @@ public class JBDD<T> implements BDD<T> {
 	 */
 	private class AllSatIterator implements Iterator<BDD<T>> {
 
-		protected Iterator<T> iterator;
+		// protected Iterator<T> iterator;
+		protected com.github.javabdd.BDD.AllSatIterator iterator;
 
 		/**
-		 * Constructs a {@link Iterator} with a given JavaBDD JDD iterator.
+		 * Constructs an {@link Iterator} with a given JavaBDD AllSatIterator.
 		 * 
-		 * @param provider
-		 *            the used JDDProvider
-		 * @param list
-		 *            .iterator() the javabdd JDD iterator
+		 * @param allSatIterator .iterator() the javabdd JDD iterator
 		 */
-		AllSatIterator(List<T> list) {
-			this.iterator = list.iterator();
+		AllSatIterator(com.github.javabdd.BDD.AllSatIterator iterator) {
+			this.iterator = iterator;
 		}
 
 		/*
@@ -109,16 +105,13 @@ public class JBDD<T> implements BDD<T> {
 
 	/**
 	 * Constructs a {@link JDD} with a {@link JDDProvider} and the BDD
-	 * implementation used in the {@link JBBFactory} of the {@link JavaBDD}
-	 * library.
+	 * implementation used in the {@link JBBFactory} of the {@link JavaBDD} library.
 	 * 
-	 * @param provider
-	 *            the used JDDProvider
-	 * @param bdd
-	 *            the BDD implementation used in the JBBFactory of the javabdd
-	 *            library
+	 * @param provider the used JDDProvider
+	 * @param bdd      the BDD implementation used in the JBBFactory of the javabdd
+	 *                 library
 	 */
-	JBDD(JBDDProvider<T> provider, net.sf.javabdd.BDD bdd) {
+	JBDD(JBDDProvider<T> provider, com.github.javabdd.BDD bdd) {
 		this.provider = provider;
 		this.bdd = bdd;
 	}
@@ -128,7 +121,6 @@ public class JBDD<T> implements BDD<T> {
 	 * 
 	 * @see org.jreliability.bdd.BDD#allsat()
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<BDD<T>> allsat() {
 		return new AllSatIterator(bdd.allsat());
@@ -173,7 +165,7 @@ public class JBDD<T> implements BDD<T> {
 	@Override
 	public BDD<T> exist(T variable) {
 		JBDD<T> tmp = (JBDD<T>) provider.get(variable);
-		JBDD<T> tmp2 = new JBDD<>(provider, bdd.exist((tmp).bdd));
+		JBDD<T> tmp2 = new JBDD<>(provider, bdd.exist((tmp).bdd.toVarSet()));
 		tmp.free();
 		return tmp2;
 	}
@@ -186,7 +178,7 @@ public class JBDD<T> implements BDD<T> {
 	@Override
 	public BDD<T> forAll(T variable) {
 		JBDD<T> tmp = (JBDD<T>) provider.get(variable);
-		JBDD<T> tmp2 = new JBDD<>(provider, bdd.forAll((tmp).bdd));
+		JBDD<T> tmp2 = new JBDD<>(provider, bdd.forAll((tmp).bdd.toVarSet()));
 		tmp.free();
 		return tmp2;
 	}
@@ -320,8 +312,7 @@ public class JBDD<T> implements BDD<T> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.jreliability.bdd.BDD#replaceWith(java.lang.Object,
-	 * java.lang.Object)
+	 * @see org.jreliability.bdd.BDD#replaceWith(java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public void replaceWith(T variable1, T variable2) {
@@ -506,7 +497,7 @@ public class JBDD<T> implements BDD<T> {
 	public BDD<T> copy() {
 		JBDD<T> myCopy = null;
 		JBDD<T> one = (JBDD<T>) provider.one();
-		net.sf.javabdd.BDD copyBDD = bdd.and(one.bdd);
+		com.github.javabdd.BDD copyBDD = bdd.and(one.bdd);
 		myCopy = new JBDD<>(provider, copyBDD);
 		return myCopy;
 	}

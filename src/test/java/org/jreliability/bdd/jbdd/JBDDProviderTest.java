@@ -21,12 +21,11 @@ import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.javabdd.JBDD;
 import org.jreliability.bdd.javabdd.JBDDProvider;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import net.sf.javabdd.JFactory;
+import com.github.javabdd.JFactory;
 
 /**
  * 
@@ -56,7 +55,7 @@ public class JBDDProviderTest extends AbstractBDDProviderTest {
 	@Test
 	public void testVariableGrowthRate() {
 		Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-			BDDProvider<String> provider = new JBDDProvider<>(Type.JAVABDD, 10, Integer.MAX_VALUE / 10, 20000);
+			BDDProvider<String> provider = new JBDDProvider<>(10, Integer.MAX_VALUE / 10, 20000);
 			for (int i = 0; i < 200; i++) {
 				@SuppressWarnings("unused")
 				BDD<String> a = provider.get("" + i);
@@ -67,7 +66,7 @@ public class JBDDProviderTest extends AbstractBDDProviderTest {
 	@Test
 	public void testVariableNotFound() {
 		Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-			BDDProvider<String> provider = new JBDDProvider<>(Type.JAVABDD, 10, Integer.MAX_VALUE, 20000);
+			BDDProvider<String> provider = new JBDDProvider<>(10, Integer.MAX_VALUE, 20000);
 			for (int i = 0; i < 20; i++) {
 				@SuppressWarnings("unused")
 				BDD<String> a = provider.get("" + i);
