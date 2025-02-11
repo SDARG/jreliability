@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jreliability.function.ReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SimpleFunctionTransformerTest} to test the
@@ -37,7 +37,7 @@ public class SimpleFunctionTransformerTest {
 		String string = "EVENT";
 		ReliabilityFunction f = new ExponentialReliabilityFunction(0.005);
 		transformer.set(string, f);
-		Assert.assertSame(f, transformer.transform(string));
+		Assertions.assertSame(f, transformer.transform(string));
 	}
 
 	@Test
@@ -51,8 +51,8 @@ public class SimpleFunctionTransformerTest {
 		map.put(stringTwo, fTwo);
 
 		SimpleFunctionTransformer<String> transformer = new SimpleFunctionTransformer<>(map);
-		Assert.assertSame(f, transformer.transform(string));
-		Assert.assertSame(fTwo, transformer.transform(stringTwo));
+		Assertions.assertSame(f, transformer.transform(string));
+		Assertions.assertSame(fTwo, transformer.transform(stringTwo));
 	}
 
 }

@@ -15,10 +15,6 @@
 
 package org.jreliability.bdd.javabdd;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.BDDProvider;
 import org.jreliability.bdd.BDDProviderFactory;
 
@@ -32,52 +28,15 @@ import org.jreliability.bdd.BDDProviderFactory;
 public class JBDDProviderFactory implements BDDProviderFactory {
 
 	/**
-	 * The {@link Type} of real {@link BDD} implementation.
-	 * 
-	 * @author lukasiewycz
-	 * 
-	 */
-	public enum Type {
-		/**
-		 * Use JavaBDD.
-		 */
-		JAVABDD,
-		/**
-		 * Use JDD.
-		 */
-		JDD;
-	}
-
-	/**
-	 * The used {@link Type} of real {@link BDD} implementation.
-	 */
-	protected final Type type;
-	/**
 	 * The number of initially allocated variables.
 	 */
 	protected static final int INITIAL_VARIABLES = 10;
-	/**
-	 * A map that provides each requested {@link Type} of real {@link BDD}
-	 * implementation with its specific {@link JBDDProvider}.
-	 */
-	protected static Map<Type, JBDDProvider<?>> staticProviders = new HashMap<>();
 
 	/**
 	 * Constructs a {@link JBDDProviderFactory}.
 	 */
 	public JBDDProviderFactory() {
-		this(Type.JAVABDD);
-	}
-
-	/**
-	 * Constructs a {@link JBDDProviderFactory}.
-	 * 
-	 * @param type
-	 *            the type of bdd library
-	 */
-	public JBDDProviderFactory(Type type) {
 		super();
-		this.type = type;
 	}
 
 	/*
@@ -87,7 +46,7 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	 */
 	@Override
 	public <T> BDDProvider<T> getProvider() {
-		final JBDDProvider<T> provider = new JBDDProvider<>(type, INITIAL_VARIABLES);
+		final JBDDProvider<T> provider = new JBDDProvider<>(INITIAL_VARIABLES);
 
 		return provider;
 	}

@@ -34,8 +34,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.jreliability.function.ReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SumReliabilityFunctionTest} to test the
@@ -46,10 +46,12 @@ import org.junit.Test;
  */
 public class SumReliabilityFunctionTest {
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void testNoFunctionsSpeficied() {
-		SumReliabilityFunction function = new SumReliabilityFunction();
-		function.getY(5);
+		Assertions.assertThrows(IllegalStateException.class, () -> {
+			SumReliabilityFunction function = new SumReliabilityFunction();
+			function.getY(5);
+		});
 	}
 
 	@Test
@@ -63,8 +65,8 @@ public class SumReliabilityFunctionTest {
 		xs.add(10.0);
 		xs.add(20.0);
 		List<Double> ys = function.getY(xs);
-		Assert.assertEquals(1.912019, ys.get(0), 0.0001);
-		Assert.assertEquals(1.827954, ys.get(1), 0.00001);
+		Assertions.assertEquals(1.912019, ys.get(0), 0.0001);
+		Assertions.assertEquals(1.827954, ys.get(1), 0.00001);
 	}
 
 	@Test
@@ -73,7 +75,7 @@ public class SumReliabilityFunctionTest {
 		functions.add(new ExponentialReliabilityFunction(0.005));
 		functions.add(new ExponentialReliabilityFunction(0.004));
 		SumReliabilityFunction function = new SumReliabilityFunction(functions);
-		Assert.assertEquals(function.getFunctions().size(), 2);
+		Assertions.assertEquals(function.getFunctions().size(), 2);
 	}
 
 }

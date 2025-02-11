@@ -25,8 +25,8 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ConstantFailureFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SLTestTest} tests the {@link SL}.
@@ -58,7 +58,7 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.75, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 0.75, 0.01);
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 0.25, 0.01);
 	}
 
 	@Test
@@ -125,7 +125,7 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 1.0, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 1.0, 0.01);
 	}
 
 	@Test
@@ -140,7 +140,7 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.0, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 0.0, 0.01);
 	}
 
 	@Test
@@ -161,24 +161,27 @@ public class SLTest {
 						return new ConstantFailureFunction(0.5);
 					}
 				});
-		Assert.assertEquals(reliabilityFunction.getY(1.0), 0.5, 0.01);
+		Assertions.assertEquals(reliabilityFunction.getY(1.0), 0.5, 0.01);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testUnsupportedTerms() {
-		LinearTerm term = new LinearTerm(Comparator.EQUAL, 1);
-		term.add(C1Literal);
-		term.add(C2Literal);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			LinearTerm term = new LinearTerm(Comparator.EQUAL, 1);
+			term.add(C1Literal);
+			term.add(C2Literal);
 
-		SL<String> SL = new SL<>(term, 100000);
-		SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
-				new Transformer<String, ReliabilityFunction>() {
-					@Override
-					public ReliabilityFunction transform(String input) {
-						return new ConstantFailureFunction(0.5);
-					}
-				});
-		reliabilityFunction.getY(1.0);
+			SL<String> SL = new SL<>(term, 100000);
+			SLReliabilityFunction<String> reliabilityFunction = new SLReliabilityFunction<>(SL,
+					new Transformer<String, ReliabilityFunction>() {
+						@Override
+						public ReliabilityFunction transform(String input) {
+							return new ConstantFailureFunction(0.5);
+						}
+					});
+
+			reliabilityFunction.getY(1.0);
+		});
 	}
 
 }

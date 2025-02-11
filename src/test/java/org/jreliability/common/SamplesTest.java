@@ -28,8 +28,8 @@
  */
 package org.jreliability.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SamplesTest} to test the {@link Samples}.
@@ -43,7 +43,7 @@ public class SamplesTest {
 	public void testConstructor() {
 		Samples samples = new Samples();
 		samples.put(47.0, 11.0);
-		Assert.assertTrue(samples.size() == 1);
+		Assertions.assertTrue(samples.size() == 1);
 	}
 
 }

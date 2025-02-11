@@ -28,9 +28,9 @@
  */
 package org.jreliability.function.common;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link NormalReliabilityFunctionTest} to test the
@@ -42,36 +42,42 @@ import org.junit.Test;
 public class NormalReliabilityFunctionTest {
 	protected NormalReliabilityFunction f;
 
-	@Before
+	@BeforeEach
 	public void init() {
 		f = new NormalReliabilityFunction(0.0, 1.0);
 	}
 
 	@Test
 	public void testGetY() {
-		Assert.assertEquals(0.6700, 1 - f.getY(0.44), 0.0001);
+		Assertions.assertEquals(0.6700, 1 - f.getY(0.44), 0.0001);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testNegativeMu() {
-		f = new NormalReliabilityFunction(-0.1, -1.0);
-		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			f = new NormalReliabilityFunction(-0.1, -1.0);
+			Assertions.assertEquals(0.5, f.getY(0.0), 0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testNegativeRho() {
-		f = new NormalReliabilityFunction(0.0, -1.0);
-		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			f = new NormalReliabilityFunction(0.0, -1.0);
+			Assertions.assertEquals(0.5, f.getY(0.0), 0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testZeroRho() {
-		f = new NormalReliabilityFunction(0.0, 0.0);
-		Assert.assertEquals(0.5, f.getY(0.0), 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			f = new NormalReliabilityFunction(0.0, 0.0);
+			Assertions.assertEquals(0.5, f.getY(0.0), 0.1);
+		});
 	}
 
 	@Test
 	public void testGetYAtMu() {
-		Assert.assertEquals(0.5000, f.getY(0.0), 0.0001);
+		Assertions.assertEquals(0.5000, f.getY(0.0), 0.0001);
 	}
 }

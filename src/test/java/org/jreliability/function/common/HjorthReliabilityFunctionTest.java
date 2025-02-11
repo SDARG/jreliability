@@ -15,8 +15,8 @@
 
 package org.jreliability.function.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link HjorthReliabilityFunctionTest} test the
@@ -27,40 +27,52 @@ import org.junit.Test;
  */
 public class HjorthReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalBeta() {
-		new HjorthReliabilityFunction(-0.7, 2, 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new HjorthReliabilityFunction(-0.7, 2, 0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalDelta() {
-		new HjorthReliabilityFunction(0.7, -2, 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new HjorthReliabilityFunction(0.7, -2, 0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalTheta() {
-		new HjorthReliabilityFunction(0.7, 2, -0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new HjorthReliabilityFunction(0.7, 2, -0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalNullBeta() {
-		new HjorthReliabilityFunction(0.0, 2, 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new HjorthReliabilityFunction(0.0, 2, 0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalNullDelta() {
-		new HjorthReliabilityFunction(0.7, 0.0, 0.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new HjorthReliabilityFunction(0.7, 0.0, 0.1);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalNullTheta() {
-		new HjorthReliabilityFunction(0.7, 2, 0);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new HjorthReliabilityFunction(0.7, 2, 0);
+		});
 	}
 
 	@Test
 	public void testGetY() {
 		HjorthReliabilityFunction f = new HjorthReliabilityFunction(1, 2, 0.3);
-		Assert.assertEquals(0.0131730, f.getY(2), 0.000001);
+		Assertions.assertEquals(0.0131730, f.getY(2), 0.000001);
 	}
 
 }

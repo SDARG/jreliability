@@ -15,8 +15,8 @@
 
 package org.jreliability.booleanfunction.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link LiteralTermTest} test the {@link LinearTerm}.
@@ -35,15 +35,15 @@ public class LiteralTermTest {
 		LiteralTerm<String> s5 = new LiteralTerm<>(null);
 
 		LiteralTerm<String> s6 = null;
-		String s7 = "something";
+		LiteralTerm<String> s7 = new LiteralTerm<>("something");
 
-		Assert.assertTrue(s1.equals(s1));
-		Assert.assertTrue(s1.equals(s3));
-		Assert.assertTrue(s4.equals(s5));
-		Assert.assertFalse(s1.equals(s2));
-		Assert.assertFalse(s1.equals(s6));
-		Assert.assertFalse(s1.equals(s7));
-		Assert.assertFalse(s4.equals(s1));
+		Assertions.assertTrue(s1.equals(s1));
+		Assertions.assertTrue(s1.equals(s3));
+		Assertions.assertTrue(s4.equals(s5));
+		Assertions.assertFalse(s1.equals(s2));
+		Assertions.assertFalse(s1.equals(s6));
+		Assertions.assertFalse(s1.equals(s7));
+		Assertions.assertFalse(s4.equals(s1));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class LiteralTermTest {
 		LiteralTerm<String> s1 = new LiteralTerm<>(var);
 		LiteralTerm<String> s2 = new LiteralTerm<>(s1.get());
 
-		Assert.assertEquals(s1.hashCode(), s2.hashCode());
+		Assertions.assertEquals(s1.hashCode(), s2.hashCode());
 	}
 
 	@Test
@@ -60,6 +60,6 @@ public class LiteralTermTest {
 		LiteralTerm<String> s1 = new LiteralTerm<>(null);
 		LiteralTerm<String> s2 = new LiteralTerm<>(s1.get());
 
-		Assert.assertEquals(s1.hashCode(), s2.hashCode());
+		Assertions.assertEquals(s1.hashCode(), s2.hashCode());
 	}
 }

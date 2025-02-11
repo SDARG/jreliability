@@ -28,8 +28,8 @@
  */
 package org.jreliability.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link FailureTest} to test the {@link Failure}.
@@ -45,7 +45,7 @@ public class FailureTest {
 		double time = 20;
 
 		Failure<String> failure = new Failure<String>(event, time);
-		Assert.assertEquals(failure.getObject(), event);
+		Assertions.assertEquals(failure.getObject(), event);
 	}
 
 	@Test
@@ -54,7 +54,7 @@ public class FailureTest {
 		double time = 20;
 
 		Failure<String> failure = new Failure<String>(event, time);
-		Assert.assertEquals(failure.getTime(), time, 1.0E-8);
+		Assertions.assertEquals(failure.getTime(), time, 1.0E-8);
 	}
 
 	@Test
@@ -75,9 +75,9 @@ public class FailureTest {
 		double timeFour = 30;
 		Failure<String> failureFour = new Failure<String>(eventFour, timeFour);
 
-		Assert.assertTrue("Compare larger", failure.compareTo(failureTwo) == 1);
-		Assert.assertTrue("Compare equal", failure.compareTo(failureThree) == 0);
-		Assert.assertTrue("Compare smaller", failure.compareTo(failureFour) == -1);
+		Assertions.assertTrue(failure.compareTo(failureTwo) == 1, "Compare larger");
+		Assertions.assertTrue(failure.compareTo(failureThree) == 0, "Compare equal");
+		Assertions.assertTrue(failure.compareTo(failureFour) == -1, "Compare smaller");
 	}
 
 }

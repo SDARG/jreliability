@@ -20,7 +20,6 @@ import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.AllPredicate;
 import org.apache.commons.collections15.functors.EqualPredicate;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.LiteralTerm;
@@ -28,9 +27,9 @@ import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.common.ExponentialReliabilityFunction;
 import org.jreliability.function.common.SampledReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link BDDTTRFTest} tests the {@link BDDTTRFSimulative}.
@@ -64,9 +63,9 @@ public class BDDTTRFSimulativeTest {
 	/**
 	 * Initialize the specific factory.
 	 */
-	@Before
+	@BeforeEach
 	public void init() {
-		BDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		BDDProviderFactory factory = new JBDDProviderFactory();
 		provider = factory.getProvider();
 	}
 
@@ -82,7 +81,7 @@ public class BDDTTRFSimulativeTest {
 		BDDTTRFSimulative<String> ttrf = new BDDTTRFSimulative<>(provider);
 		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(and, new TestTransformer());
 
-		Assert.assertEquals(5000, function.getSamples().size(), 1.0E-5);
+		Assertions.assertEquals(5000, function.getSamples().size(), 1.0E-5);
 	}
 
 	@Test
@@ -99,7 +98,7 @@ public class BDDTTRFSimulativeTest {
 		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(or, new TestTransformer(),
 				samples);
 
-		Assert.assertEquals(samples, function.getSamples().size(), 1.0E-5);
+		Assertions.assertEquals(samples, function.getSamples().size(), 1.0E-5);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -117,7 +116,7 @@ public class BDDTTRFSimulativeTest {
 		SampledReliabilityFunction function = (SampledReliabilityFunction) ttrf.convert(and, new TestTransformer(), p,
 				samples);
 		for (int i = 0; i < samples; i++) {
-			Assert.assertEquals(0.0, function.getSamples().get(i), 1.0E-5);
+			Assertions.assertEquals(0.0, function.getSamples().get(i), 1.0E-5);
 		}
 	}
 

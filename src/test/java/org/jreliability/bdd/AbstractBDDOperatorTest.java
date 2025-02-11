@@ -25,9 +25,8 @@ import java.util.Set;
 import org.apache.commons.collections15.Transformer;
 import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link AbstractBDDOperatorTest} is the base class for tests of the
@@ -46,7 +45,6 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	/**
 	 * Initialize the provider.
 	 */
-	@Before
 	public void initProvider() {
 		provider = factory.getProvider();
 	}
@@ -65,8 +63,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 			and.andWith(provider.get(var));
 		}
 
-		Assert.assertFalse(and.isOne());
-		Assert.assertFalse(and.isZero());
+		Assertions.assertFalse(and.isOne());
+		Assertions.assertFalse(and.isZero());
 	}
 
 	/**
@@ -81,13 +79,13 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		BDD<String> and = a.and(b);
 
-		Assert.assertFalse(and.isOne());
-		Assert.assertFalse(and.isZero());
+		Assertions.assertFalse(and.isOne());
+		Assertions.assertFalse(and.isZero());
 
 		and.restrictWith(a);
 		and.restrictWith(b);
 
-		Assert.assertTrue(and.isOne());
+		Assertions.assertTrue(and.isOne());
 	}
 
 	/**
@@ -101,13 +99,13 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.andWith(b);
 
-		Assert.assertFalse(a.isOne());
-		Assert.assertFalse(a.isZero());
+		Assertions.assertFalse(a.isOne());
+		Assertions.assertFalse(a.isZero());
 
 		a.restrictWith(provider.get("a"));
 		a.restrictWith(provider.get("b"));
 
-		Assert.assertTrue(a.isOne());
+		Assertions.assertTrue(a.isOne());
 	}
 
 	/**
@@ -120,13 +118,13 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.andWith("b");
 
-		Assert.assertFalse(a.isOne());
-		Assert.assertFalse(a.isZero());
+		Assertions.assertFalse(a.isOne());
+		Assertions.assertFalse(a.isZero());
 
 		a.restrictWith(provider.get("a"));
 		a.restrictWith(provider.get("b"));
 
-		Assert.assertTrue(a.isOne());
+		Assertions.assertTrue(a.isOne());
 	}
 
 	/**
@@ -139,13 +137,13 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.andWith(Collections.singleton("b"));
 
-		Assert.assertFalse(a.isOne());
-		Assert.assertFalse(a.isZero());
+		Assertions.assertFalse(a.isOne());
+		Assertions.assertFalse(a.isZero());
 
 		a.restrictWith(provider.get("a"));
 		a.restrictWith(provider.get("b"));
 
-		Assert.assertTrue(a.isOne());
+		Assertions.assertTrue(a.isOne());
 	}
 
 	/**
@@ -158,12 +156,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.andWith("b");
 
-		Assert.assertEquals(2, a.nodeCount());
+		Assertions.assertEquals(2, a.nodeCount());
 	}
 
 	/**
-	 * Tests the {@link and} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@link and} method on two variables and returning the result to the
+	 * same object.
 	 * 
 	 */
 	@Test
@@ -173,13 +171,13 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a = a.and(b);
 
-		Assert.assertFalse(a.isOne());
-		Assert.assertFalse(a.isZero());
+		Assertions.assertFalse(a.isOne());
+		Assertions.assertFalse(a.isZero());
 
 		a.restrictWith(provider.get("a"));
 		a.restrictWith(provider.get("b"));
 
-		Assert.assertTrue(a.isOne());
+		Assertions.assertTrue(a.isOne());
 	}
 
 	/**
@@ -193,12 +191,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		BDD<String> or = a.or(b);
 
-		Assert.assertFalse(or.isOne());
-		Assert.assertFalse(or.isZero());
+		Assertions.assertFalse(or.isOne());
+		Assertions.assertFalse(or.isZero());
 
 		or.restrictWith(a);
 
-		Assert.assertTrue(or.isOne());
+		Assertions.assertTrue(or.isOne());
 	}
 
 	/**
@@ -212,12 +210,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.orWith(b);
 
-		Assert.assertFalse(a.isOne());
-		Assert.assertFalse(a.isZero());
+		Assertions.assertFalse(a.isOne());
+		Assertions.assertFalse(a.isZero());
 
 		a.restrictWith(provider.get("b"));
 
-		Assert.assertTrue(a.isOne());
+		Assertions.assertTrue(a.isOne());
 	}
 
 	/**
@@ -232,7 +230,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a1.orWith(b);
 		a2.orWith(Collections.singleton("b"));
 
-		Assert.assertEquals(a1, a2);
+		Assertions.assertEquals(a1, a2);
 	}
 
 	/**
@@ -247,12 +245,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a1.orWith(b);
 		a2.orWith("b");
 
-		Assert.assertEquals(a1, a2);
+		Assertions.assertEquals(a1, a2);
 	}
 
 	/**
-	 * Tests the {@link or} method on two variables and returning the result to
-	 * the same object.
+	 * Tests the {@link or} method on two variables and returning the result to the
+	 * same object.
 	 * 
 	 */
 	@Test
@@ -262,12 +260,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a = a.or(b);
 
-		Assert.assertFalse(a.isOne());
-		Assert.assertFalse(a.isZero());
+		Assertions.assertFalse(a.isOne());
+		Assertions.assertFalse(a.isZero());
 
 		a.restrictWith(provider.get("a"));
 
-		Assert.assertTrue(a.isOne());
+		Assertions.assertTrue(a.isOne());
 	}
 
 	/**
@@ -284,7 +282,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> bdd = provider.get("a");
 		bdd = bdd.or(provider.get("b"));
 		bdd = bdd.or(provider.get("c"));
-		Assert.assertEquals(BDDs.getVariables(bdd), variables);
+		Assertions.assertEquals(BDDs.getVariables(bdd), variables);
 	}
 
 	/**
@@ -296,7 +294,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		String var = "a";
 		BDD<String> bdd = provider.get(var);
-		Assert.assertEquals(BDDs.getNodes(var, bdd), Collections.singleton(bdd));
+		Assertions.assertEquals(BDDs.getNodes(var, bdd), Collections.singleton(bdd));
 	}
 
 	/**
@@ -315,7 +313,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(0.7, BDDs.calculateTop(bdd, t), 0.00001);
+		Assertions.assertEquals(0.7, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -334,7 +332,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(0.3, BDDs.calculateTop(bdd, t), 0.00001);
+		Assertions.assertEquals(0.3, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -351,7 +349,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(1.0, BDDs.calculateTop(bdd, t), 0.00001);
+		Assertions.assertEquals(1.0, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -371,7 +369,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(0.49, BDDs.calculateTop(bdd, t), 0.00001);
+		Assertions.assertEquals(0.49, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -391,7 +389,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(0.21, BDDs.calculateTop(bdd, t), 0.00001);
+		Assertions.assertEquals(0.21, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -408,7 +406,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				return 0.7;
 			}
 		};
-		Assert.assertEquals(0.0, BDDs.calculateTop(bdd, t), 0.00001);
+		Assertions.assertEquals(0.0, BDDs.calculateTop(bdd, t), 0.00001);
 	}
 
 	/**
@@ -431,7 +429,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> ref3 = a.and(c);
 		ref1.orWith(ref2);
 		ref1.orWith(ref3);
-		Assert.assertEquals(test, ref1);
+		Assertions.assertEquals(test, ref1);
 	}
 
 	/**
@@ -449,7 +447,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.GREATER, 2, provider);
 
 		BDD<String> ref1 = a.and(b).and(c);
-		Assert.assertEquals(test, ref1);
+		Assertions.assertEquals(test, ref1);
 	}
 
 	/**
@@ -467,7 +465,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> test = BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b, c), Comparator.LESS, 1, provider);
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
-		Assert.assertEquals(test, ref1);
+		Assertions.assertEquals(test, ref1);
 	}
 
 	/**
@@ -486,7 +484,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 				provider);
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
-		Assert.assertEquals(test, ref1);
+		Assertions.assertEquals(test, ref1);
 	}
 
 	/**
@@ -508,7 +506,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> ref3 = a.not().and(b.not()).and(c);
 		ref1.orWith(ref2);
 		ref1.orWith(ref3);
-		Assert.assertEquals(test, ref1);
+		Assertions.assertEquals(test, ref1);
 	}
 
 	/**
@@ -516,13 +514,15 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	 * {@link BDDs#getBDD(java.util.List, java.util.List, org.jreliability.booleanfunction.common.LinearTerm.Comparator, int)}
 	 * method with not the same number of variables and coefficients.
 	 */
-	@Test(expected = AssertionError.class)
+	@Test
 	public void testGetBDDWrongNumberOfArgs() {
-		BDDProvider<String> provider = factory.getProvider();
+		Assertions.assertThrows(AssertionError.class, () -> {
+			BDDProvider<String> provider = factory.getProvider();
 
-		BDD<String> a = provider.get("a");
-		BDD<String> b = provider.get("b");
-		BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b), Comparator.EQUAL, 1, provider);
+			BDD<String> a = provider.get("a");
+			BDD<String> b = provider.get("b");
+			BDDs.getBDD(Arrays.asList(1, 1, 1), Arrays.asList(a, b), Comparator.EQUAL, 1, provider);
+		});
 	}
 
 	/**
@@ -538,7 +538,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		BDD<String> ref1 = a.not().and(b.not()).and(c.not());
 		String dot = BDDs.toDot(ref1);
-		Assert.assertTrue(!dot.isEmpty());
+		Assertions.assertTrue(!dot.isEmpty());
 	}
 
 	/**
@@ -553,7 +553,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.andWith(b);
 
 		BDD<String> result = a.exist(var);
-		Assert.assertEquals(result, provider.get("a"));
+		Assertions.assertEquals(result, provider.get("a"));
 	}
 
 	/**
@@ -568,7 +568,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.andWith(b);
 
 		BDD<String> result = a.forAll(var);
-		Assert.assertEquals(result, provider.zero());
+		Assertions.assertEquals(result, provider.zero());
 	}
 
 	/**
@@ -583,7 +583,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		a.andWith(b);
 
 		BDD<String> result = a.restrict(provider.get(var));
-		Assert.assertEquals(provider.get("a"), result);
+		Assertions.assertEquals(provider.get("a"), result);
 	}
 
 	/**
@@ -601,7 +601,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		BDD<String> result = provider.get(var1).imp(provider.get(var2));
 
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -620,7 +620,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> result = provider.get(var1);
 		result.impWith(var2);
 
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -639,7 +639,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> result = provider.get(var1);
 		result.impWith(provider.get(var2));
 
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -655,7 +655,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> ref = a.and(b.not());
 		ref.orWith(b.and(a.not()));
 
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -672,7 +672,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.xorWith(b);
 
-		Assert.assertEquals(ref, a);
+		Assertions.assertEquals(ref, a);
 	}
 
 	/**
@@ -690,7 +690,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 
 		a.xorWith(var);
 
-		Assert.assertEquals(ref, a);
+		Assertions.assertEquals(ref, a);
 	}
 
 	/**
@@ -701,7 +701,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 	public void testGetProvider() {
 		BDD<String> a = provider.get("a");
 
-		Assert.assertEquals(provider, a.getProvider());
+		Assertions.assertEquals(provider, a.getProvider());
 	}
 
 	/**
@@ -721,7 +721,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> bdd = a.and(b);
 		BDD<String> result = bdd.replace(var1, var2);
 
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -741,7 +741,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> result = a.and(b);
 		result.replaceWith(var1, var2);
 
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -754,7 +754,7 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		result.sat();
 
 		BDD<String> ref = provider.get("a");
-		Assert.assertEquals(ref, result);
+		Assertions.assertEquals(ref, result);
 	}
 
 	/**
@@ -766,8 +766,8 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> result = provider.get("a");
 		Set<String> vars = result.getVariables();
 
-		Assert.assertEquals(1, vars.size());
-		Assert.assertEquals("a", vars.iterator().next());
+		Assertions.assertEquals(1, vars.size());
+		Assertions.assertEquals("a", vars.iterator().next());
 	}
 
 	/**
@@ -779,12 +779,12 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDD<String> bdd = provider.get("a");
 		String result = bdd.toString();
 
-		Assert.assertEquals("<0:1>", result);
+		Assertions.assertEquals("<0:1>", result);
 	}
 
 	/**
-	 * Test the {@link trim} method. {code 2a &lte; 1} is trimmed to {code 1a
-	 * &lte; 1}.
+	 * Test the {@link trim} method. {code 2a &lte; 1} is trimmed to {code 1a &lte;
+	 * 1}.
 	 */
 	@Test
 	public void testTrim() {
@@ -792,11 +792,11 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDDConstraint<String> c = new BDDConstraint<>(1, Arrays.asList(new Literal<>(2, bdd)));
 		List<Literal<String>> lhs = c.getLhs();
 
-		Assert.assertEquals(1, lhs.size());
+		Assertions.assertEquals(1, lhs.size());
 		Iterator<Literal<String>> iter = lhs.iterator();
-		Assert.assertTrue(iter.hasNext());
-		Assert.assertEquals(1, iter.next().getCoefficient());
-		Assert.assertFalse(iter.hasNext());
+		Assertions.assertTrue(iter.hasNext());
+		Assertions.assertEquals(1, iter.next().getCoefficient());
+		Assertions.assertFalse(iter.hasNext());
 	}
 
 	/**
@@ -809,10 +809,10 @@ public abstract class AbstractBDDOperatorTest extends AbstractBDDTest {
 		BDDConstraint<String> c = new BDDConstraint<>(2, Arrays.asList(new Literal<>(1, bdd), new Literal<>(1, bdd)));
 		List<Literal<String>> lhs = c.getLhs();
 
-		Assert.assertEquals(1, lhs.size());
+		Assertions.assertEquals(1, lhs.size());
 		Iterator<Literal<String>> iter = lhs.iterator();
-		Assert.assertTrue(iter.hasNext());
-		Assert.assertEquals(1, iter.next().getCoefficient());
-		Assert.assertFalse(iter.hasNext());
+		Assertions.assertTrue(iter.hasNext());
+		Assertions.assertEquals(1, iter.next().getCoefficient());
+		Assertions.assertFalse(iter.hasNext());
 	}
 }

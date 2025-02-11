@@ -16,8 +16,8 @@
 package org.jreliability.evaluator;
 
 import org.jreliability.function.common.ExponentialReliabilityFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link MomentEvaluatorTest} to test the {@link MomentEvaluator}.
@@ -27,11 +27,13 @@ import org.junit.Test;
  */
 public class MomentEvaluatorTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalAlpha() {
-		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
-		MomentEvaluator evaluator = new MomentEvaluator(0, 1.0E-8);
-		evaluator.evaluate(f);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
+			MomentEvaluator evaluator = new MomentEvaluator(0, 1.0E-8);
+			evaluator.evaluate(f);
+		});
 	}
 
 	@Test
@@ -39,7 +41,7 @@ public class MomentEvaluatorTest {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
 		MomentEvaluator evaluator = new MomentEvaluator(1);
 		double integral = evaluator.evaluate(f);
-		Assert.assertEquals(integral, 100.0, 0.1);
+		Assertions.assertEquals(integral, 100.0, 0.1);
 	}
 
 	@Test
@@ -47,7 +49,7 @@ public class MomentEvaluatorTest {
 		ExponentialReliabilityFunction f = new ExponentialReliabilityFunction(0.01);
 		MomentEvaluator evaluator = new MomentEvaluator(3, 1.0E-8);
 		double integral = evaluator.evaluate(f);
-		Assert.assertEquals(integral, 6.0E6, 1.0E-3);
+		Assertions.assertEquals(integral, 6.0E6, 1.0E-3);
 	}
 
 }

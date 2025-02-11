@@ -32,9 +32,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SampledReliabilityFunctionTest} to test the
@@ -47,30 +47,30 @@ public class SampledReliabilityFunctionTest {
 	protected SampledReliabilityFunction f;
 	protected List<Double> samples = Arrays.asList(1.5, 0.5, 1.0);
 
-	@Before
+	@BeforeEach
 	public void init() {
 		f = new SampledReliabilityFunction(samples);
 	}
 
 	@Test
 	public void testGetY() {
-		Assert.assertEquals(0.33333333333, f.getY(1.0), 0.0001);
+		Assertions.assertEquals(0.33333333333, f.getY(1.0), 0.0001);
 	}
 
 	@Test
 	public void testGetYAtZero() {
-		Assert.assertEquals(1.0, f.getY(0.0), 0.0001);
+		Assertions.assertEquals(1.0, f.getY(0.0), 0.0001);
 	}
 
 	@Test
 	public void testGetYAtYLargerThanSample() {
-		Assert.assertEquals(0.0, f.getY(1.0E5), 0.0001);
+		Assertions.assertEquals(0.0, f.getY(1.0E5), 0.0001);
 	}
 
 	@Test
 	public void testGetSamples() {
 		Collections.sort(samples);
-		Assert.assertEquals(samples, f.getSamples());
+		Assertions.assertEquals(samples, f.getSamples());
 	}
 
 }

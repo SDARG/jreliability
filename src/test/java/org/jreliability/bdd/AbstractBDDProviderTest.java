@@ -15,8 +15,8 @@
 
 package org.jreliability.bdd;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link AbstractBDDProviderTest} is the abstract class for all tests of
@@ -36,22 +36,24 @@ public abstract class AbstractBDDProviderTest extends AbstractBDDTest {
 
 		BDD<String> a = provider.get("a");
 		BDD<String> b = provider.get("b");
-		Assert.assertNotEquals(a, b);
+		Assertions.assertNotEquals(a, b);
 		BDD<String> aPrime = provider.get("a");
-		Assert.assertEquals(a, aPrime);
+		Assertions.assertEquals(a, aPrime);
 	}
 
 	/**
 	 * Tests the {@link getProvider} method with no arguments.
 	 */
-	@Test(expected = Test.None.class /* no exception expected */)
+	@Test
 	public void testGetProviderEmpty() {
-		BDDProvider<String> provider = factory.getProvider();
+		Assertions.assertDoesNotThrow(() -> {
+			BDDProvider<String> provider = factory.getProvider();
 
-		for (int i = 0; i < 200; i++) {
-			@SuppressWarnings("unused")
-			BDD<String> a = provider.get("" + i);
-		}
+			for (int i = 0; i < 200; i++) {
+				@SuppressWarnings("unused")
+				BDD<String> a = provider.get("" + i);
+			}
+		});
 	}
 
 }

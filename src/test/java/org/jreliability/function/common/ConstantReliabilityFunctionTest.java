@@ -15,8 +15,8 @@
 
 package org.jreliability.function.common;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link ConstantReliabilityFunctionTest} test the
@@ -27,19 +27,23 @@ import org.junit.Test;
  */
 public class ConstantReliabilityFunctionTest {
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalNegativeSuccessProbability() {
-		new ConstantReliabilityFunction(-0.7);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new ConstantReliabilityFunction(-0.7);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalPositiveSuccessProbability() {
-		new ConstantReliabilityFunction(1.1);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			new ConstantReliabilityFunction(1.1);
+		});
 	}
 
 	@Test
 	public void testGetY() {
 		ConstantReliabilityFunction f = new ConstantReliabilityFunction(0.975);
-		Assert.assertEquals(0.975, f.getY(20), 0.0001);
+		Assertions.assertEquals(0.975, f.getY(20), 0.0001);
 	}
 }

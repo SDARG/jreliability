@@ -15,15 +15,17 @@
 
 package org.jreliability.bdd.jbdd;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Iterator;
 
 import org.jreliability.bdd.AbstractBDDOperatorTest;
 import org.jreliability.bdd.BDD;
 import org.jreliability.bdd.javabdd.JBDD;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link JBDDOperatorTest} is a unit test operator class for the
@@ -41,8 +43,10 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 	 * @see org.jreliability.test.AbstractBDDTest#init()
 	 */
 	@Override
+	@BeforeEach
 	public void init() {
-		this.factory = new JBDDProviderFactory(Type.JAVABDD);
+		this.factory = new JBDDProviderFactory();
+		initProvider();
 	}
 
 	/**
@@ -55,24 +59,26 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 		Iterator<BDD<String>> it = bdd.allsat();
 		BDD<String> ref = provider.get("a");
 
-		Assert.assertTrue(it.hasNext());
-		Assert.assertEquals(ref, it.next());
-		Assert.assertFalse(it.hasNext());
+		Assertions.assertTrue(it.hasNext());
+		Assertions.assertEquals(ref, it.next());
+		Assertions.assertFalse(it.hasNext());
 	}
 
 	/**
 	 * Tests the {@link allSat} method.
 	 * 
 	 */
-	@Test(expected = AssertionError.class)
+	@Test
 	public void testAllSatIteratorNoNext() {
-		BDD<String> bdd = provider.get("a");
-		Iterator<BDD<String>> it = bdd.allsat();
+		Assertions.assertThrows(AssertionError.class, () -> {
+			BDD<String> bdd = provider.get("a");
+			Iterator<BDD<String>> it = bdd.allsat();
 
-		Assert.assertTrue(it.hasNext());
-		it.next();
-		Assert.assertFalse(it.hasNext());
-		it.next();
+			Assertions.assertTrue(it.hasNext());
+			it.next();
+			Assertions.assertFalse(it.hasNext());
+			it.next();
+		});
 	}
 
 	/**
@@ -86,9 +92,9 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 
 		BDD<String> ref = provider.get("a").not();
 
-		Assert.assertTrue(it.hasNext());
-		Assert.assertEquals(ref, it.next());
-		Assert.assertFalse(it.hasNext());
+		Assertions.assertTrue(it.hasNext());
+		Assertions.assertEquals(ref, it.next());
+		Assertions.assertFalse(it.hasNext());
 	}
 
 	/**
@@ -100,9 +106,8 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 		BDD<String> bdd = provider.get("a").not();
 		Iterator<BDD<String>> it = bdd.allsat();
 
-		Assert.assertTrue(it.hasNext());
+		Assertions.assertTrue(it.hasNext());
 		it.next();
-		it.remove();
-		Assert.assertFalse(it.hasNext());
+		assertThrows(UnsupportedOperationException.class, () -> it.remove());
 	}
 }

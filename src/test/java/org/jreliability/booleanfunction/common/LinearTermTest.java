@@ -16,8 +16,8 @@ package org.jreliability.booleanfunction.common;
 
 import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.LinearTerm.Comparator;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link LinearTermTest} test the {@link LinearTerm}.
@@ -33,22 +33,22 @@ public class LinearTermTest {
 
 		t1.add(literal);
 
-		Assert.assertEquals(t1.getCoefficients().size(), 1);
-		Assert.assertTrue(t1.getCoefficients().contains(1));
-		Assert.assertEquals(t1.getTerms().size(), 1);
-		Assert.assertTrue(t1.getTerms().contains(literal));
+		Assertions.assertEquals(t1.getCoefficients().size(), 1);
+		Assertions.assertTrue(t1.getCoefficients().contains(1));
+		Assertions.assertEquals(t1.getTerms().size(), 1);
+		Assertions.assertTrue(t1.getTerms().contains(literal));
 	}
 
 	@Test
 	public void testGetRhs() {
 		LinearTerm t1 = new LinearTerm(Comparator.EQUAL, 1);
-		Assert.assertEquals(t1.getRHS(), 1);
+		Assertions.assertEquals(t1.getRHS(), 1);
 	}
 
 	@Test
 	public void testGetComparator() {
 		LinearTerm t1 = new LinearTerm(Comparator.EQUAL, 1);
-		Assert.assertEquals(t1.getComparator(), Comparator.EQUAL);
+		Assertions.assertEquals(t1.getComparator(), Comparator.EQUAL);
 	}
 
 	@Test
@@ -58,6 +58,6 @@ public class LinearTermTest {
 
 		t1.add(literal);
 
-		Assert.assertEquals(t1.toString(), "(= \"1\" \"1\" \"a\")");
+		Assertions.assertEquals(t1.toString(), "(= \"1\" \"1\" \"a\")");
 	}
 }

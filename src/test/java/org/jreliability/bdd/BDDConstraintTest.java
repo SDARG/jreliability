@@ -21,9 +21,8 @@ import java.util.List;
 import org.jreliability.bdd.BDDConstraint.Literal;
 import org.jreliability.bdd.BDDConstraint.Pair;
 import org.jreliability.bdd.javabdd.JBDDProviderFactory;
-import org.jreliability.bdd.javabdd.JBDDProviderFactory.Type;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link BDDConstraintTest} tests the {@link BDDConstraint}.
@@ -39,8 +38,8 @@ public class BDDConstraintTest {
 		String b = "b";
 		Pair<String, String> p = new Pair<>(a, b);
 
-		Assert.assertEquals(a, p.getA());
-		Assert.assertEquals(b, p.getB());
+		Assertions.assertEquals(a, p.getA());
+		Assertions.assertEquals(b, p.getB());
 	}
 
 	@Test
@@ -53,9 +52,9 @@ public class BDDConstraintTest {
 		Pair<String, String> p3 = new Pair<>(c, b);
 		Pair<String, String> p4 = new Pair<>(a, c);
 
-		Assert.assertEquals(p1, p2);
-		Assert.assertNotEquals(p1, p3);
-		Assert.assertNotEquals(p1, p4);
+		Assertions.assertEquals(p1, p2);
+		Assertions.assertNotEquals(p1, p3);
+		Assertions.assertNotEquals(p1, p4);
 	}
 
 	@Test
@@ -67,11 +66,11 @@ public class BDDConstraintTest {
 		Pair<String, String> p3 = new Pair<>(null, b);
 		Pair<String, String> p4 = new Pair<>(a, null);
 
-		Assert.assertEquals(p1, p2);
-		Assert.assertNotEquals(p1, p3);
-		Assert.assertNotEquals(p1, p4);
-		Assert.assertNotEquals(p1, null);
-		Assert.assertNotEquals(p1, "anything");
+		Assertions.assertEquals(p1, p2);
+		Assertions.assertNotEquals(p1, p3);
+		Assertions.assertNotEquals(p1, p4);
+		Assertions.assertNotEquals(p1, null);
+		Assertions.assertNotEquals(p1, "anything");
 	}
 
 	@Test
@@ -79,7 +78,7 @@ public class BDDConstraintTest {
 		Pair<String, String> p1 = new Pair<>(null, null);
 		Pair<String, String> p2 = new Pair<>(null, null);
 
-		Assert.assertEquals(p1.hashCode(), p2.hashCode());
+		Assertions.assertEquals(p1.hashCode(), p2.hashCode());
 	}
 
 	@Test
@@ -87,22 +86,22 @@ public class BDDConstraintTest {
 		String a = null;
 		String b = null;
 		Pair<String, String> p1 = new Pair<>(a, b);
-		Assert.assertEquals(p1, p1);
+		Assertions.assertEquals(p1, p1);
 	}
 
 	@Test
 	public void testLiteralToString() {
-		JBDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		JBDDProviderFactory factory = new JBDDProviderFactory();
 		BDDProvider<String> provider = factory.getProvider();
 		BDD<String> a = provider.get("a");
 
 		Literal<String> l = new Literal<>(1, a);
-		Assert.assertEquals("1*a", l.toString());
+		Assertions.assertEquals("1*a", l.toString());
 	}
 
 	@Test
 	public void testCheckAndAdd() {
-		JBDDProviderFactory factory = new JBDDProviderFactory(Type.JAVABDD);
+		JBDDProviderFactory factory = new JBDDProviderFactory();
 		BDDProvider<String> provider = factory.getProvider();
 
 		Literal<String> la = new Literal<>(1, provider.get("a"));
@@ -123,6 +122,6 @@ public class BDDConstraintTest {
 		lhsTwo.add(lc);
 		BDDConstraint<String> constraintTwo = new BDDConstraint<>(2, lhsTwo);
 
-		Assert.assertEquals(constraintOne.getLhs().toString(), constraintTwo.getLhs().toString());
+		Assertions.assertEquals(constraintOne.getLhs().toString(), constraintTwo.getLhs().toString());
 	}
 }

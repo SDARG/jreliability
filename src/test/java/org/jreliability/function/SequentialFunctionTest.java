@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jreliability.function.common.ExponentialFailureFunction;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link SequentialFunctionTest} test the sequential implementation of getY
@@ -37,8 +37,8 @@ public class SequentialFunctionTest {
 		xs.add(10.0);
 		xs.add(20.0);
 		List<Double> ys = f.getY(xs);
-		Assert.assertEquals(0.0487706, ys.get(0), 0.0001);
-		Assert.assertEquals(0.0951626, ys.get(1), 0.0001);
+		Assertions.assertEquals(0.0487706, ys.get(0), 0.0001);
+		Assertions.assertEquals(0.0951626, ys.get(1), 0.0001);
 	}
 
 }
