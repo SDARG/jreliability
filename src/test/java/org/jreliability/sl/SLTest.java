@@ -14,7 +14,11 @@
  *******************************************************************************/
 package org.jreliability.sl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.collections15.Transformer;
+import org.jreliability.booleanfunction.Term;
 import org.jreliability.booleanfunction.common.ANDTerm;
 import org.jreliability.booleanfunction.common.FALSETerm;
 import org.jreliability.booleanfunction.common.LinearTerm;
@@ -182,6 +186,41 @@ public class SLTest {
 
 			reliabilityFunction.getY(1.0);
 		});
+	}
+
+	@Test
+	public void testIsProvidingService() {
+		// Sensor 1 & 2 in parallel, sensor 3 in series
+		String var1 = "sensor1";
+		String var2 = "sensor2";
+		String var3 = "sensor3";
+		Term s1 = new LiteralTerm<>(var1);
+		Term s2 = new LiteralTerm<>(var2);
+		Term s3 = new LiteralTerm<>(var3);
+		ORTerm or = new ORTerm();
+		or.add(s1, s2);
+		ANDTerm and = new ANDTerm();
+		and.add(or, s3);
+
+		SL<String> sl = new SL<String>(and);
+
+		Map<String, Boolean> failedComponents = new HashMap<String, Boolean>();
+
+		// First sensor failure should return proper working system
+		failedComponents.put(var1, false);
+		Assertions.assertTrue(sl.isProvidingService(failedComponents));
+
+		// Second sensor failure should return failed system
+		failedComponents.put(var2, false);
+		Assertions.assertFalse(sl.isProvidingService(failedComponents));
+
+		// Second sensor back to life, system properly working
+		failedComponents.put(var2, true);
+		Assertions.assertTrue(sl.isProvidingService(failedComponents));
+
+		// Sensor 3 failure cannot be mitigated, system fails
+		failedComponents.put(var3, false);
+		Assertions.assertFalse(sl.isProvidingService(failedComponents));
 	}
 
 }

@@ -30,10 +30,12 @@ import org.jreliability.booleanfunction.common.LiteralTerm;
 import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.booleanfunction.common.ORTerm;
 import org.jreliability.booleanfunction.common.TRUETerm;
+import org.jreliability.common.StructureFunction;
 
 /**
  * The {@link SL} uses the concept of stochastic logic [A] to evaluate a given
- * {@link Term}.
+ * {@link Term}. Note that the implementation for {@link StructureFunction}
+ * works solely for coherent systems.
  * 
  * [A] Aliee, H. and Zarandi, H.R.. Fault tree analysis using stochastic logic:
  * A reliable and high speed computing. In Proceedings of the Annual Reliability
@@ -41,10 +43,9 @@ import org.jreliability.booleanfunction.common.TRUETerm;
  * 
  * @author glass, jlee
  *
- * @param <T>
- *            the type of the variables
+ * @param <T> the type of the variables
  */
-public class SL<T> {
+public class SL<T> implements StructureFunction<T> {
 
 	/**
 	 * The {@link Term} to be evaluated.
@@ -60,8 +61,7 @@ public class SL<T> {
 	 */
 	protected List<Term> termsForStackProcessing = new ArrayList<>();
 	/**
-	 * The number of operands for each term which are then popped from the
-	 * stack.
+	 * The number of operands for each term which are then popped from the stack.
 	 */
 	protected Map<Term, Integer> numberOfOperands = new HashMap<>();
 	/**
@@ -70,29 +70,33 @@ public class SL<T> {
 	protected Stack<BitSet> operandsStack = new Stack<>();
 	/**
 	 * In stochastic logic, equal variables have to be modeled using exactly the
-	 * same bit stream (since they are actually the same!). This is realized by
-	 * the term cache.
+	 * same bit stream (since they are actually the same!). This is realized by the
+	 * term cache.
 	 */
 	protected Map<Term, BitSet> termCache = new HashMap<>();
 
 	/**
+	 * The length of the bit stream when using the
+	 * {@link StructureFunction} interface. A length of 1 is sufficient for coherent
+	 * systems.
+	 */
+	protected int bitStreamLengthStructureFunction = 1;
+
+	/**
 	 * Constructs an {@link SL} with a given {@link Term}.
 	 * 
-	 * @param term
-	 *            the term to evaluate
+	 * @param term the term to evaluate
 	 */
 	public SL(Term term) {
 		this(term, 10000);
 	}
 
 	/**
-	 * Constructs an {@link SL} with a given {@link Term} and a given length of
-	 * the bit streams to use.
+	 * Constructs an {@link SL} with a given {@link Term} and a given length of the
+	 * bit streams to use.
 	 * 
-	 * @param term
-	 *            the term to evaluate
-	 * @param bitStreamLength
-	 *            the length of the bit streams
+	 * @param term            the term to evaluate
+	 * @param bitStreamLength the length of the bit streams
 	 */
 	public SL(Term term, int bitStreamLength) {
 		this.term = term;
@@ -104,8 +108,7 @@ public class SL<T> {
 	 * Initializes the {@link SL} by ordering the {@link Term} for the stack
 	 * processing.
 	 * 
-	 * @param term
-	 *            the term to initialize
+	 * @param term the term to initialize
 	 */
 	protected void initialize(Term term) {
 		if (term instanceof NOTTerm) {
@@ -128,11 +131,10 @@ public class SL<T> {
 	}
 
 	/**
-	 * Calculates the probability of the {@link Term} (i.e. the top event) based
-	 * on a given probabilities of the basic events.
+	 * Calculates the probability of the {@link Term} (i.e. the top event) based on
+	 * a given probabilities of the basic events.
 	 * 
-	 * @param transformer
-	 *            the probabilities of the basic events
+	 * @param transformer the probabilities of the basic events
 	 * @return the probability of the top event
 	 */
 	public double getProbabiliy(Transformer<T, Double> transformer) {
@@ -148,12 +150,10 @@ public class SL<T> {
 	/**
 	 * The evaluation performs the actual stochastic logic calculations by a
 	 * sequential processing of the different terms according to their order and
-	 * using a stack. Note that this function leaves its current result on the
-	 * stack - eventually, the result for the top event will remain on the
-	 * stack!
+	 * using a stack. Note that this function leaves its current result on the stack
+	 * - eventually, the result for the top event will remain on the stack!
 	 * 
-	 * @param transformer
-	 *            the probability of the basic events
+	 * @param transformer the probability of the basic events
 	 */
 	protected void evaluate(Transformer<T, Double> transformer) {
 		for (Term term : termsForStackProcessing) {
@@ -187,11 +187,10 @@ public class SL<T> {
 	}
 
 	/**
-	 * The evaluation of an {@link ANDTerm} with respective AND operation on the
-	 * bit streams of the operands.
+	 * The evaluation of an {@link ANDTerm} with respective AND operation on the bit
+	 * streams of the operands.
 	 * 
-	 * @param term
-	 *            the ANDTerm to evaluate
+	 * @param term the ANDTerm to evaluate
 	 */
 	protected void evaluateAND(Term term) {
 		int myNumberOfOperands = numberOfOperands.get(term);
@@ -211,11 +210,10 @@ public class SL<T> {
 	}
 
 	/**
-	 * The evaluation of an {@link ORTerm} with respective OR operation on the
-	 * bit streams of the operands.
+	 * The evaluation of an {@link ORTerm} with respective OR operation on the bit
+	 * streams of the operands.
 	 * 
-	 * @param term
-	 *            the ORTerm to evaluate
+	 * @param term the ORTerm to evaluate
 	 */
 	protected void evaluateOR(Term term) {
 		int myNumberOfOperands = numberOfOperands.get(term);
@@ -235,11 +233,10 @@ public class SL<T> {
 	}
 
 	/**
-	 * The evaluation of an {@link NOTTerm} with respective flip of the bit
-	 * streams of the operand.
+	 * The evaluation of an {@link NOTTerm} with respective flip of the bit streams
+	 * of the operand.
 	 * 
-	 * @param term
-	 *            the NOTTerm to evaluate
+	 * @param term the NOTTerm to evaluate
 	 */
 	protected void evaluateNOT(Term term) {
 		BitSet operand = operandsStack.pop();
@@ -249,13 +246,12 @@ public class SL<T> {
 	}
 
 	/**
-	 * Generates a {@link BitSet} representing the bit stream where the ratio of
-	 * 1s and 0s resembles the given probability. This implementation does not
-	 * apply this probability on a per-bit basis but considers the bit length
-	 * with respective rounding effects!
+	 * Generates a {@link BitSet} representing the bit stream where the ratio of 1s
+	 * and 0s resembles the given probability. This implementation does not apply
+	 * this probability on a per-bit basis but considers the bit length with
+	 * respective rounding effects!
 	 * 
-	 * @param probability
-	 *            the probability to model with the bit stream
+	 * @param probability the probability to model with the bit stream
 	 * @return the bit stream
 	 */
 	protected BitSet generateRandomBitstream(double probability) {
@@ -272,6 +268,85 @@ public class SL<T> {
 			bitstream.set(randomIndex.get(i), true);
 		}
 		return bitstream;
+	}
+
+	@Override
+	public boolean isProvidingService(Map<T, Boolean> variables) {
+		operandsStack.clear();
+		termCache.clear();
+		// Evaluate leaves the final bit stream of the top event on the stack
+		evaluateStructureFunction(variables);
+		BitSet bitstream = operandsStack.pop();
+		System.err.println(bitstream);
+		return bitstream.cardinality() > 0;
+	}
+
+	/**
+	 * Evaluates the {@link Term} as SL would, but a bit stream length of 1
+	 * 
+	 * @param variables
+	 */
+	protected void evaluateStructureFunction(Map<T, Boolean> variables) {
+		for (Term term : termsForStackProcessing) {
+			if (term instanceof LiteralTerm) {
+				BitSet bitstream = termCache.get(term);
+				if (bitstream == null) {
+					@SuppressWarnings("unchecked")
+					LiteralTerm<T> component = (LiteralTerm<T>) term;
+					T variable = component.get();
+					bitstream = new BitSet(bitStreamLengthStructureFunction);
+					// Default: Set all entries to 1 (captures 1 variables and all non-specified
+					// ones)
+					// Careful, this only works in coherent systems!
+					bitstream.set(0, bitstream.size(), true);
+					// Pull 0 variables to all 0 bit streams
+					if (variables.containsKey(variable)) {
+						boolean isFailed = !variables.get(variable);
+						if (isFailed) { // Set all entries to 0
+							bitstream.clear();
+						}
+					}
+					termCache.put(term, bitstream);
+				}
+				operandsStack.push(bitstream);
+			} else if (term instanceof FALSETerm) {
+				BitSet bitstream = new BitSet(bitStreamLengthStructureFunction);
+				bitstream.clear();
+				operandsStack.push(bitstream);
+			} else if (term instanceof TRUETerm) {
+				BitSet bitstream = new BitSet(bitStreamLengthStructureFunction);
+				bitstream.set(0, bitstream.size(), true);
+				operandsStack.push(bitstream);
+			} else if (term instanceof ANDTerm) {
+				evaluateAND(term);
+			} else if (term instanceof ORTerm) {
+				evaluateOR(term);
+			} else if (term instanceof NOTTerm) {
+				evaluateNOT(term);
+			} else {
+				throw new IllegalArgumentException("SL does not support terms of class " + term.getClass());
+			}
+		}
+	}
+
+	/**
+	 * Returns the length of the bitstreams when using the {@link StructureFunction}
+	 * interface.
+	 * 
+	 * @return the length of the bitstreams
+	 */
+	public int getBitStreamLengthStructureFunction() {
+		return bitStreamLengthStructureFunction;
+	}
+
+	/**
+	 * Sets the length of the bitstreams when using the {@link StructureFunction}
+	 * interface.
+	 * 
+	 * @param bitStreamLengthStructureFunction the length of the bitstreams
+	 */
+	public void setBitStreamLengthStructureFunction(int bitStreamLengthStructureFunction) {
+		this.bitStreamLengthStructureFunction = bitStreamLengthStructureFunction;
 	}
 
 }
