@@ -44,6 +44,7 @@ public class LiteralTermTest {
 		Assertions.assertFalse(s1.equals(s6));
 		Assertions.assertFalse(s1.equals(s7));
 		Assertions.assertFalse(s4.equals(s1));
+		Assertions.assertFalse(s2.equals("2"));
 	}
 
 	@Test
