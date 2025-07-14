@@ -140,11 +140,22 @@ public class SL<T> implements StructureFunction<T> {
 	public double getProbabiliy(Transformer<T, Double> transformer) {
 		operandsStack.clear();
 		termCache.clear();
-		evaluate(transformer);
+		evaluateProbability(transformer);
 		// Evaluate leaves the final bit stream of the top event on the stack
 		BitSet bitstream = operandsStack.pop();
 		double probability = (double) bitstream.cardinality() / bitstream.size();
 		return probability;
+	}
+
+	@Override
+	public boolean isProvidingService(Map<T, Boolean> variables) {
+		operandsStack.clear();
+		termCache.clear();
+		// Evaluate leaves the final bit stream of the top event on the stack
+		evaluateStructureFunction(variables);
+		BitSet bitstream = operandsStack.pop();
+		System.err.println(bitstream);
+		return bitstream.cardinality() > 0;
 	}
 
 	/**
@@ -155,7 +166,7 @@ public class SL<T> implements StructureFunction<T> {
 	 * 
 	 * @param transformer the probability of the basic events
 	 */
-	protected void evaluate(Transformer<T, Double> transformer) {
+	protected void evaluateProbability(Transformer<T, Double> transformer) {
 		for (Term term : termsForStackProcessing) {
 			if (term instanceof LiteralTerm) {
 				BitSet bitstream = termCache.get(term);
@@ -166,23 +177,70 @@ public class SL<T> implements StructureFunction<T> {
 					termCache.put(term, bitstream);
 				}
 				operandsStack.push(bitstream);
-			} else if (term instanceof FALSETerm) {
-				BitSet bitstream = new BitSet(bitStreamLength);
-				bitstream.clear();
-				operandsStack.push(bitstream);
-			} else if (term instanceof TRUETerm) {
-				BitSet bitstream = new BitSet(bitStreamLength);
-				bitstream.set(0, bitstream.size(), true);
-				operandsStack.push(bitstream);
-			} else if (term instanceof ANDTerm) {
-				evaluateAND(term);
-			} else if (term instanceof ORTerm) {
-				evaluateOR(term);
-			} else if (term instanceof NOTTerm) {
-				evaluateNOT(term);
 			} else {
-				throw new IllegalArgumentException("SL does not support terms of class " + term.getClass());
+				evaluateNonLiteralTerms(term, bitStreamLength);
 			}
+		}
+	}
+
+	/**
+	 * Evaluates the {@link Term} as SL would, but a bit stream length of 1
+	 * 
+	 * @param variables
+	 */
+	protected void evaluateStructureFunction(Map<T, Boolean> variables) {
+		for (Term term : termsForStackProcessing) {
+			if (term instanceof LiteralTerm) {
+				BitSet bitstream = termCache.get(term);
+				if (bitstream == null) {
+					@SuppressWarnings("unchecked")
+					LiteralTerm<T> component = (LiteralTerm<T>) term;
+					T variable = component.get();
+					bitstream = new BitSet(bitStreamLengthStructureFunction);
+					// Default: Set all entries to 1 (captures 1 variables and all non-specified
+					// ones)
+					// Careful, this only works in coherent systems!
+					bitstream.set(0, bitstream.size(), true);
+					// Pull 0 variables to all 0 bit streams
+					if (variables.containsKey(variable)) {
+						boolean isFailed = !variables.get(variable);
+						if (isFailed) {
+							bitstream.clear();
+						}
+					}
+					termCache.put(term, bitstream);
+				}
+				operandsStack.push(bitstream);
+			} else {
+				evaluateNonLiteralTerms(term, bitStreamLengthStructureFunction);
+			}
+		}
+	}
+
+	/**
+	 * Helper function to process all terms that are not {@link LiteralTerm}s to
+	 * enhance code re-use.
+	 * 
+	 * @param term            the term to evaluate
+	 * @param bitstreamlength the length of the bit stream
+	 */
+	protected void evaluateNonLiteralTerms(Term term, int bitstreamlength) {
+		if (term instanceof FALSETerm) {
+			BitSet bitstream = new BitSet(bitStreamLength);
+			bitstream.clear();
+			operandsStack.push(bitstream);
+		} else if (term instanceof TRUETerm) {
+			BitSet bitstream = new BitSet(bitStreamLength);
+			bitstream.set(0, bitstream.size(), true);
+			operandsStack.push(bitstream);
+		} else if (term instanceof ANDTerm) {
+			evaluateAND(term);
+		} else if (term instanceof ORTerm) {
+			evaluateOR(term);
+		} else if (term instanceof NOTTerm) {
+			evaluateNOT(term);
+		} else {
+			throw new IllegalArgumentException("SL does not support terms of class " + term.getClass());
 		}
 	}
 
@@ -268,65 +326,6 @@ public class SL<T> implements StructureFunction<T> {
 			bitstream.set(randomIndex.get(i), true);
 		}
 		return bitstream;
-	}
-
-	@Override
-	public boolean isProvidingService(Map<T, Boolean> variables) {
-		operandsStack.clear();
-		termCache.clear();
-		// Evaluate leaves the final bit stream of the top event on the stack
-		evaluateStructureFunction(variables);
-		BitSet bitstream = operandsStack.pop();
-		System.err.println(bitstream);
-		return bitstream.cardinality() > 0;
-	}
-
-	/**
-	 * Evaluates the {@link Term} as SL would, but a bit stream length of 1
-	 * 
-	 * @param variables
-	 */
-	protected void evaluateStructureFunction(Map<T, Boolean> variables) {
-		for (Term term : termsForStackProcessing) {
-			if (term instanceof LiteralTerm) {
-				BitSet bitstream = termCache.get(term);
-				if (bitstream == null) {
-					@SuppressWarnings("unchecked")
-					LiteralTerm<T> component = (LiteralTerm<T>) term;
-					T variable = component.get();
-					bitstream = new BitSet(bitStreamLengthStructureFunction);
-					// Default: Set all entries to 1 (captures 1 variables and all non-specified
-					// ones)
-					// Careful, this only works in coherent systems!
-					bitstream.set(0, bitstream.size(), true);
-					// Pull 0 variables to all 0 bit streams
-					if (variables.containsKey(variable)) {
-						boolean isFailed = !variables.get(variable);
-						if (isFailed) { // Set all entries to 0
-							bitstream.clear();
-						}
-					}
-					termCache.put(term, bitstream);
-				}
-				operandsStack.push(bitstream);
-			} else if (term instanceof FALSETerm) {
-				BitSet bitstream = new BitSet(bitStreamLengthStructureFunction);
-				bitstream.clear();
-				operandsStack.push(bitstream);
-			} else if (term instanceof TRUETerm) {
-				BitSet bitstream = new BitSet(bitStreamLengthStructureFunction);
-				bitstream.set(0, bitstream.size(), true);
-				operandsStack.push(bitstream);
-			} else if (term instanceof ANDTerm) {
-				evaluateAND(term);
-			} else if (term instanceof ORTerm) {
-				evaluateOR(term);
-			} else if (term instanceof NOTTerm) {
-				evaluateNOT(term);
-			} else {
-				throw new IllegalArgumentException("SL does not support terms of class " + term.getClass());
-			}
-		}
 	}
 
 	/**

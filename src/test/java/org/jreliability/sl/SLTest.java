@@ -223,4 +223,19 @@ public class SLTest {
 		Assertions.assertFalse(sl.isProvidingService(failedComponents));
 	}
 
+	@Test
+	public void testGetSetBitStreamLength() {
+		// Sensor 1 & 2 in parallel, sensor 3 in series
+		String var1 = "sensor1";
+		Term s1 = new LiteralTerm<>(var1);
+		SL<String> sl = new SL<String>(s1);
+		
+		// Default 1
+		Assertions.assertEquals(sl.getBitStreamLengthStructureFunction(), 1);
+		
+		sl.setBitStreamLengthStructureFunction(100);
+		// Default 1
+		Assertions.assertEquals(sl.getBitStreamLengthStructureFunction(), 100);
+	}
+	
 }
