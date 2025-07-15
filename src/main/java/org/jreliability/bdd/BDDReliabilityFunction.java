@@ -40,7 +40,7 @@ import org.jreliability.function.UnreliabilityFunction;
 public class BDDReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction, StructureFunction<T> {
 
 	/**
-	 * The BDD representing the {@link UnreliabilityFunction}.
+	 * The BDD representing the {@link ReliabilityFunction}.
 	 */
 	protected final BDD<T> bdd;
 
