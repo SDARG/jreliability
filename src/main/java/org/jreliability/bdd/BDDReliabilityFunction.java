@@ -27,7 +27,6 @@ import org.jreliability.booleanfunction.common.NOTTerm;
 import org.jreliability.common.StructureFunction;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.SequentialFunction;
-import org.jreliability.function.UnreliabilityFunction;
 
 /**
  * The {@link BDDReliabilityFunction} represents the {@link ReliabilityFunction}
