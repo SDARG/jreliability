@@ -25,8 +25,7 @@ import org.jreliability.function.UnreliabilityFunction;
  * 
  * @author glass, jlee
  * 
- * @param <T>
- *            the type of variable
+ * @param <T> the type of variable
  */
 public class SLReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction {
 
@@ -36,8 +35,8 @@ public class SLReliabilityFunction<T> extends SequentialFunction implements Reli
 	protected final SL<T> stochasticLogic;
 
 	/**
-	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of
-	 * each element of the {@link SL}.
+	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each
+	 * element of the {@link SL}.
 	 */
 	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
@@ -45,11 +44,10 @@ public class SLReliabilityFunction<T> extends SequentialFunction implements Reli
 	 * Constructs a {@link SLReliabilityFunction} with a given {@link SL} and
 	 * {@link Transformer}.
 	 * 
-	 * @param stochasticLogic
-	 *            the stochastic logic representing the reliabilityFunction
-	 * @param functionTransformer
-	 *            the functionTransformer to transform stochastic logic elements
-	 *            to reliabilityFunction
+	 * @param stochasticLogic     the stochastic logic representing the
+	 *                            reliabilityFunction
+	 * @param functionTransformer the functionTransformer to transform stochastic
+	 *                            logic elements to reliabilityFunction
 	 */
 	public SLReliabilityFunction(SL<T> stochasticLogic, Transformer<T, ReliabilityFunction> functionTransformer) {
 		this.stochasticLogic = stochasticLogic;
@@ -68,8 +66,7 @@ public class SLReliabilityFunction<T> extends SequentialFunction implements Reli
 			/**
 			 * Default {@link Transformer}.
 			 * 
-			 * @param a
-			 *            parameter a
+			 * @param a parameter a
 			 * @return the double value of a
 			 */
 			@Override

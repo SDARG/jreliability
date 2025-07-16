@@ -15,10 +15,18 @@
 
 package org.jreliability.bdd;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.collections15.Transformer;
+import org.jreliability.booleanfunction.Term;
+import org.jreliability.booleanfunction.common.ANDTerm;
+import org.jreliability.booleanfunction.common.LiteralTerm;
+import org.jreliability.booleanfunction.common.NOTTerm;
+import org.jreliability.common.StructureFunction;
 import org.jreliability.function.ReliabilityFunction;
 import org.jreliability.function.SequentialFunction;
-import org.jreliability.function.UnreliabilityFunction;
 
 /**
  * The {@link BDDReliabilityFunction} represents the {@link ReliabilityFunction}
@@ -26,19 +34,18 @@ import org.jreliability.function.UnreliabilityFunction;
  * 
  * @author glass
  * 
- * @param <T>
- *            the type of variable
+ * @param <T> the type of variable
  */
-public class BDDReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction {
+public class BDDReliabilityFunction<T> extends SequentialFunction implements ReliabilityFunction, StructureFunction<T> {
 
 	/**
-	 * The BDD representing the {@link UnreliabilityFunction}.
+	 * The BDD representing the {@link ReliabilityFunction}.
 	 */
 	protected final BDD<T> bdd;
 
 	/**
-	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of
-	 * each element of the {@link BDD}.
+	 * The used {@link Transformer} to get the {@link ReliabilityFunction} of each
+	 * element of the {@link BDD}.
 	 */
 	protected final Transformer<T, ReliabilityFunction> functionTransformer;
 
@@ -51,12 +58,10 @@ public class BDDReliabilityFunction<T> extends SequentialFunction implements Rel
 	 * Constructs a {@link BDDReliabilityFunction} with a given {@link BDD} and
 	 * {@link Transformer}.
 	 * 
-	 * @param bdd
-	 *            the bdd representing the reliabilityFunction
+	 * @param bdd                 the bdd representing the reliabilityFunction
 	 * 
-	 * @param functionTransformer
-	 *            the functionTransformer to transform bdd elements to
-	 *            reliabilityFunction
+	 * @param functionTransformer the functionTransformer to transform bdd elements
+	 *                            to reliabilityFunction
 	 */
 	public BDDReliabilityFunction(BDD<T> bdd, Transformer<T, ReliabilityFunction> functionTransformer) {
 		super();
@@ -77,8 +82,7 @@ public class BDDReliabilityFunction<T> extends SequentialFunction implements Rel
 			/**
 			 * Default {@link Transformer}.
 			 * 
-			 * @param a
-			 *            parameter a
+			 * @param a parameter a
 			 * @return the double value of a
 			 */
 			@Override
@@ -106,6 +110,35 @@ public class BDDReliabilityFunction<T> extends SequentialFunction implements Rel
 	 */
 	public Transformer<T, ReliabilityFunction> getTransformer() {
 		return functionTransformer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jreliability.common.StructureFunction#isProvidingService(Map<T, Boolean>)
+	 */
+	@Override
+	public boolean isProvidingService(Map<T, Boolean> variables) {
+		// Convert variables and their phase to a term
+		List<Term> terms = new ArrayList<Term>();
+		for (Map.Entry<T, Boolean> entry : variables.entrySet()) {
+			LiteralTerm<T> literalTerm = new LiteralTerm<T>(entry.getKey());
+			if (entry.getValue()) {
+				terms.add(literalTerm);
+			} else {
+				terms.add(new NOTTerm(literalTerm));
+			}
+		}
+		ANDTerm variablesTerm = new ANDTerm(terms);
+		// Get BDD from term
+		BDDTTRF<T> bddTTRF = new BDDTTRF<T>(bdd.getProvider());
+		BDD<T> variablesBDD = bddTTRF.convertToBDD(variablesTerm);
+		
+		// Combine variablesBDD and bdd via AND: If result is zero, no service is provided anymore
+		BDD<T> tmpBDD = bdd.copy();
+		tmpBDD.andWith(variablesBDD);
+		boolean hasFailed = tmpBDD.isZero();
+		return !hasFailed;
 	}
 
 }
