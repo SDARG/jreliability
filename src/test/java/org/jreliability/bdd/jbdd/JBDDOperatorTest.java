@@ -15,8 +15,6 @@
 
 package org.jreliability.bdd.jbdd;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.Iterator;
 
 import org.jreliability.bdd.AbstractBDDOperatorTest;
@@ -108,6 +106,6 @@ public class JBDDOperatorTest extends AbstractBDDOperatorTest {
 
 		Assertions.assertTrue(it.hasNext());
 		it.next();
-		assertThrows(UnsupportedOperationException.class, () -> it.remove());
+		Assertions.assertThrows(UnsupportedOperationException.class, () -> it.remove());
 	}
 }
