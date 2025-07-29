@@ -91,16 +91,6 @@ public class JBDD<T> implements BDD<T> {
 			return bdd;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.util.Iterator#remove()
-		 */
-		@Override
-		public void remove() {
-			iterator.remove();
-		}
-
 	}
 
 	/**
