@@ -66,7 +66,7 @@ public class JBDDProviderTest extends AbstractBDDProviderTest {
 	@Test
 	public void testVariableNotFound() {
 		Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-			BDDProvider<String> provider = new JBDDProvider<>(10, Integer.MAX_VALUE, 20000);
+			BDDProvider<String> provider = new JBDDProvider<>(10, 1, 20000);
 			for (int i = 0; i < 20; i++) {
 				@SuppressWarnings("unused")
 				BDD<String> a = provider.get("" + i);
