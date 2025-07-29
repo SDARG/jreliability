@@ -32,13 +32,6 @@ public class JBDDProviderFactory implements BDDProviderFactory {
 	 */
 	protected static final int INITIAL_VARIABLES = 10;
 
-	/**
-	 * Constructs a {@link JBDDProviderFactory}.
-	 */
-	public JBDDProviderFactory() {
-		super();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
